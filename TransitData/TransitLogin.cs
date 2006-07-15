@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DBlog.Data;
+using NHibernate;
 
 namespace DBlog.TransitData
 {
@@ -112,6 +113,18 @@ namespace DBlog.TransitData
             Username = o.Username;
             Website = o.Website;
             Role = (TransitLoginRole) Enum.Parse(typeof(TransitLoginRole), o.Role);
+        }
+
+        public Login GetLogin(ISession session)
+        {
+            Login login = (Id != 0) ? (Login) session.Load(typeof(Login), Id) : new Login();
+            login.Name = Name;
+            login.Email = Email;
+            login.Password = ManagedLogin.GetPasswordHash(Password);
+            login.Role = Role.ToString();
+            login.Username = Username;
+            login.Website = Website;
+            return login;
         }
 
         public bool IsAdministrator

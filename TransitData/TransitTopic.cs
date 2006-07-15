@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DBlog.Data;
+using NHibernate;
 
 namespace DBlog.TransitData
 {
@@ -45,6 +46,14 @@ namespace DBlog.TransitData
         {
             Type = o.Type;
             Name = o.Name;
+        }
+
+        public Topic GetTopic(ISession session)
+        {
+            Topic topic = (Id != 0) ? (Topic)session.Load(typeof(Topic), Id) : new Topic();
+            topic.Name = Name;
+            topic.Type = Type;
+            return topic;
         }
     }
 }

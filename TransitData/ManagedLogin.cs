@@ -66,7 +66,7 @@ namespace DBlog.TransitData
 
         public static string GetPasswordHash(string password)
         {
-            return Encoding.Default.GetString(
+            return Convert.ToBase64String(
                 new MD5CryptoServiceProvider().ComputeHash(
                     Encoding.Default.GetBytes(password)));
         }

@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.UnitTests", "Dat
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.TransitData", "TransitData\DBlog.TransitData.csproj", "{07B2FB5A-1FB0-4955-A218-12229318ECBE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Web.UnitTests", "Web.UnitTests\DBlog.Web.UnitTests.csproj", "{EA8183AF-FB41-4F28-9B07-5AB96A37A277}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -113,6 +115,16 @@ Global
 		{07B2FB5A-1FB0-4955-A218-12229318ECBE}.Release|Any CPU.Build.0 = Release|Any CPU
 		{07B2FB5A-1FB0-4955-A218-12229318ECBE}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{07B2FB5A-1FB0-4955-A218-12229318ECBE}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Release|.NET.ActiveCfg = Release|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

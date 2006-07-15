@@ -27,6 +27,14 @@ namespace DBlog.WebServices
 
         #region Logins
 
+        static protected void CheckAdministrator(ISession session, string ticket)
+        {
+            if (!ManagedLogin.IsAdministrator(session, ticket))
+            {
+                throw new ManagedLogin.AccessDeniedException();
+            }
+        }
+
         /// <summary>
         /// Login to an account.
         /// </summary>
@@ -58,11 +66,77 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Get a login.")]
+        public TransitLogin GetLoginById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                return new TransitLogin((Login)session.Load(typeof(Login), id));
+            }
+        }
+
+        [WebMethod(Description = "Create or update a login.")]
+        public int CreateOrUpdateLogin(string ticket, TransitLogin t_login)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Login login = t_login.GetLogin(session);
+                session.SaveOrUpdate(login);
+                session.Flush();
+                return login.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get logins.")]
+        public List<TransitLogin> GetLogins(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+
+                ICriteria cr = session.CreateCriteria(typeof(Login));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitLogin> result = new List<TransitLogin>(list.Count);
+
+                foreach (Login obj in list)
+                {
+                    result.Add(new TransitLogin(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a login.")]
+        public void DeleteLogin(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                // TODO: check that not deleting last login
+                session.Delete((Login)session.Load(typeof(Login), id));
+                session.Flush();
+            }
+        }
+
         #endregion
 
         #region Topics
 
-        [WebMethod(Description = "Get a topc.")]
+        [WebMethod(Description = "Get a topic.")]
         public TransitTopic GetTopicById(string ticket, int id)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
@@ -78,17 +152,9 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-
-                if (! ManagedLogin.IsAdministrator(session, ticket))
-                {
-                    throw new ManagedLogin.AccessDeniedException();
-                }
-
-                Topic topic = (t_topic.Id != 0) ? (Topic) session.Load(typeof(Topic), t_topic.Id) : new Topic();
-                topic.Name = t_topic.Name;
-                topic.Type = t_topic.Type;
+                CheckAdministrator(session, ticket);
+                Topic topic = t_topic.GetTopic(session);
                 session.SaveOrUpdate(topic);
-
                 session.Flush();
                 return topic.Id;
             }
@@ -126,12 +192,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                
-                if (!ManagedLogin.IsAdministrator(session, ticket))
-                {
-                    throw new ManagedLogin.AccessDeniedException();
-                }
-
+                CheckAdministrator(session, ticket);
                 session.Delete((Topic)session.Load(typeof(Topic), id));
                 session.Flush();
             }

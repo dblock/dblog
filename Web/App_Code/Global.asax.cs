@@ -89,12 +89,16 @@ public class Global : DBlog.Tools.Web.HostedApplication
                 Login admin = new Login();
                 admin.Name = admin.Username = "Administrator";
                 admin.Role = TransitLoginRole.Administrator.ToString();
+                admin.Password = ManagedLogin.GetPasswordHash(string.Empty);
                 session.Save(admin);
+                session.Flush();
                 EventLog.WriteEntry(string.Format(
                     "Created an Administrator user with id={0}.", 
-                        admin.Id), 
+                        admin.Id),
                     EventLogEntryType.Information);
             }
+
+            t.Commit();
         }
         catch
         {
