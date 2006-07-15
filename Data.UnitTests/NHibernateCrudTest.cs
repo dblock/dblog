@@ -29,17 +29,28 @@ namespace DBlog.Data.UnitTests
             m_DependentObjects.Add(o);
         }
 
-        [Test]
-        public void CreateAndDelete()
+        public int Create()
         {
-            Console.WriteLine("CreateAndDelete");
+            Console.WriteLine("Create");
             Console.WriteLine(" Creating " + Object.ToString());
             SaveDependentObjects();
-            SaveObject(Object);
+            int id = SaveObject(Object);
             Session.Flush();
+            return id;
+        }
+
+        public void Delete()
+        {
             DeleteObject(Object);
             DeleteDependentObjects();
             Session.Flush();
+        }
+
+        [Test]
+        public void CreateAndDelete()
+        {
+            Create();
+            Delete();
         }
 
         [Test]
@@ -84,12 +95,13 @@ namespace DBlog.Data.UnitTests
             Session.Delete(obj);
         }
 
-        private void SaveObject(object obj)
+        private int SaveObject(object obj)
         {
             Console.Write(string.Format("  Creating {0}", obj.ToString()));
             Session.Save(obj);
-            Console.WriteLine(string.Format(": {0}",
-                obj.GetType().GetProperty("Id").GetValue(obj, null)));
+            int id = (int) obj.GetType().GetProperty("Id").GetValue(obj, null);
+            Console.WriteLine(string.Format(": {0}", id));
+            return id;
         }
     }
 }

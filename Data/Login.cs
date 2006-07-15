@@ -30,6 +30,7 @@ namespace DBlog.Data
         private System.String m_Role;
         private System.String m_Username;
         private System.String m_Website;
+        private System.Collections.IList m_Blogs;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -357,6 +358,37 @@ namespace DBlog.Data
             set
             {
                 m_Website = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'Blog'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'Blog.OwnerLogin'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Blogs' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'Blog' table in the data source.
+        ///The property maps to the identity column 'Owner_Login_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Collections.IList Blogs
+        {
+            get
+            {
+                return m_Blogs;
+            }
+            set
+            {
+                m_Blogs = value;
             }
         }
 

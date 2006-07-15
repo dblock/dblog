@@ -45,7 +45,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Browser</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.7652272-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.6010032-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>BrowserPlatform.cs</Name>
@@ -54,7 +54,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>BrowserPlatform</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.7852560-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.6110176-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>BrowserVersion.cs</Name>
@@ -63,7 +63,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>BrowserVersion</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.7952704-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.6110176-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>BrowserVersionPlatform.cs</Name>
@@ -72,7 +72,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>BrowserVersionPlatform</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.7952704-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.6210320-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Comment.cs</Name>
@@ -81,7 +81,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Comment</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.8453424-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.6410608-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Counter.cs</Name>
@@ -90,7 +90,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Counter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.8553568-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.6911328-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Entry.cs</Name>
@@ -99,7 +99,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Entry</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.8653712-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.7111616-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>EntryComment.cs</Name>
@@ -108,7 +108,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>EntryComment</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.8653712-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.7211760-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>EntryCounter.cs</Name>
@@ -117,7 +117,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>EntryCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.8753856-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.7311904-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>EntryImage.cs</Name>
@@ -126,7 +126,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>EntryImage</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.8753856-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.7412048-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Feed.cs</Name>
@@ -135,7 +135,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Feed</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.8954144-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.7512192-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>FeedItem.cs</Name>
@@ -144,7 +144,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>FeedItem</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.8954144-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.7612336-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Gallery.cs</Name>
@@ -153,7 +153,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Gallery</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9054288-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.7812624-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>GalleryComment.cs</Name>
@@ -162,7 +162,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>GalleryComment</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9154432-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.7912768-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>GalleryCounter.cs</Name>
@@ -171,7 +171,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>GalleryCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9154432-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.8012912-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>GalleryImage.cs</Name>
@@ -180,7 +180,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>GalleryImage</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9254576-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.8113056-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>GalleryLogin.cs</Name>
@@ -189,7 +189,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>GalleryLogin</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9254576-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.8113056-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Highlight.cs</Name>
@@ -198,7 +198,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Highlight</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9254576-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.8313344-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>HourlyCounter.cs</Name>
@@ -207,7 +207,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>HourlyCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9354720-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.8413488-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Image.cs</Name>
@@ -216,7 +216,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Image</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9454864-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.8513632-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ImageComment.cs</Name>
@@ -225,7 +225,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ImageComment</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9454864-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.8713920-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ImageCounter.cs</Name>
@@ -234,7 +234,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ImageCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9555008-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.8814064-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Login.cs</Name>
@@ -243,7 +243,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Login</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9755296-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.8914208-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>LoginCounter.cs</Name>
@@ -252,7 +252,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>LoginCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9755296-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.9114496-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>NamedCounter.cs</Name>
@@ -261,7 +261,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>NamedCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9855440-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.9214640-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Platform.cs</Name>
@@ -270,7 +270,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Platform</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9955584-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.9314784-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Reference.cs</Name>
@@ -279,7 +279,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Reference</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:37.9955584-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.9414928-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Referrer.cs</Name>
@@ -288,7 +288,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Referrer</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0055728-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.9515072-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ReferrerHost.cs</Name>
@@ -297,7 +297,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ReferrerHost</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0055728-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.9615216-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ReferrerHostRollup.cs</Name>
@@ -306,7 +306,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ReferrerHostRollup</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0155872-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.9715360-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ReferrerSearchQuery.cs</Name>
@@ -315,7 +315,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ReferrerSearchQuery</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0356160-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.9815504-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Request.cs</Name>
@@ -324,7 +324,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Request</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0356160-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:18.9915648-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>RollupBrowserVersionPlatform.cs</Name>
@@ -333,7 +333,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>RollupBrowserVersionPlatform</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0456304-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:19.0015792-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Template.cs</Name>
@@ -342,7 +342,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Template</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0556448-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:19.0115936-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Thread.cs</Name>
@@ -351,7 +351,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Thread</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0556448-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:19.0216080-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Topic.cs</Name>
@@ -360,7 +360,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Topic</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0656592-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:19.0416368-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>AssemblyInfo.cs</Name>
@@ -369,7 +369,7 @@
                 <MapObjectType />
                 <MapObjectName>AssemblyInfo</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:38.0656592-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:19.0516512-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Data.hbm.xml</Name>
@@ -378,16 +378,25 @@
                 <MapObjectType />
                 <MapObjectName>MapFile</MapObjectName>
                 <FileType>Xml</FileType>
-                <LastWrittenTo>2006-07-15T08:56:39.3475024-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:19.0716800-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
-                <Name>Data.csproj</Name>
+                <Name>DBlog.Data.csproj</Name>
                 <MetaData />
-                <FilePath>C:\source\dblog\trunk\Data\Data.csproj</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\DBlog.Data.csproj</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.DomainMap</MapObjectType>
-                <MapObjectName>Data</MapObjectName>
+                <MapObjectName>DBlog.Data</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-15T08:56:39.8882800-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-15T16:45:19.6825584-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Blog.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Blog.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Blog</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T16:45:18.5909888-04:00</LastWrittenTo>
               </SourceCodeFile>
             </SourceCodeFiles>
             <PutAllClassesInOneFile>false</PutAllClassesInOneFile>
@@ -550,6 +559,63 @@
           <DisplayLineProperties>false</DisplayLineProperties>
         </UmlDiagram>
       </Diagrams>
+    </Resource>
+    <Resource>
+      <FilePath>C:\source\dblog\trunk\DataModel\DBlog.npersist</FilePath>
+      <HintPath>DataModel\DBlog.npersist</HintPath>
+      <Name>DBlog.Data</Name>
+      <ResourceType>XmlDomainMap</ResourceType>
+      <Resources />
+      <Configs>
+        <DomainConfig>
+          <Name>Default configuration</Name>
+          <MetaData />
+          <ClassesToCodeConfig>
+            <Name />
+            <MetaData />
+            <TargetFolder />
+            <ImplementIInterceptable>false</ImplementIInterceptable>
+            <ImplementIObjectHelper>false</ImplementIObjectHelper>
+            <ImplementIObservable>false</ImplementIObservable>
+            <IncludeRegions>false</IncludeRegions>
+            <IncludeComments>true</IncludeComments>
+            <IncludeDocComments>true</IncludeDocComments>
+            <IncludeModelInfoInDocComments>true</IncludeModelInfoInDocComments>
+            <NotifyOnlyWhenRequired>false</NotifyOnlyWhenRequired>
+            <NotifyLightWeight>false</NotifyLightWeight>
+            <NotifyAfterGet>false</NotifyAfterGet>
+            <NotifyAfterSet>false</NotifyAfterSet>
+            <ImplementShadows>false</ImplementShadows>
+            <AddPropertyNotifyMethods>false</AddPropertyNotifyMethods>
+            <GeneratePOCO>true</GeneratePOCO>
+            <TargetLanguage>CSharp</TargetLanguage>
+            <TargetMapper>NPersist</TargetMapper>
+            <ReallyNoRegions>false</ReallyNoRegions>
+            <UseTypedCollections>false</UseTypedCollections>
+            <WrapCollections>false</WrapCollections>
+            <EmbedXml>false</EmbedXml>
+            <SourceCodeFiles />
+            <PutAllClassesInOneFile>false</PutAllClassesInOneFile>
+            <XmlFilePerClass>false</XmlFilePerClass>
+          </ClassesToCodeConfig>
+          <ClassesToTablesConfig>
+            <Name />
+            <MetaData />
+            <TablePrefix>tbl</TablePrefix>
+            <TableSuffix />
+          </ClassesToTablesConfig>
+          <TablesToClassesConfig>
+            <Name />
+            <MetaData />
+            <TableToClassNameConverter />
+            <ColumnToPropertyNameConverter />
+            <PropertyToInverseNameConverter />
+            <GenerateInverseProperties>true</GenerateInverseProperties>
+          </TablesToClassesConfig>
+          <IsActive>true</IsActive>
+        </DomainConfig>
+      </Configs>
+      <Diagrams />
     </Resource>
   </Resources>
 </Project>

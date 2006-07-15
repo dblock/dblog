@@ -53,6 +53,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Blog.cs" />
     <Compile Include="Browser.cs" />
     <Compile Include="BrowserPlatform.cs">
       <SubType>Code</SubType>

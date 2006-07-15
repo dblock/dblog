@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" schema="dbo">
+  <class name="DBlog.Data.Blog, DBlog.Data" table="Blog">
+    <id name="Id" type="Int32" column="Blog_Id" access="field.pascalcase-m-underscore">
+      <generator class="identity" />
+    </id>
+    <property name="Created" column="Created" type="DateTime" />
+    <property name="Modified" column="Modified" type="DateTime" />
+    <many-to-one name="OwnerLogin" column="Owner_Login_Id" class="DBlog.Data.Login, DBlog.Data" />
+    <many-to-one name="Template" column="Template_Id" class="DBlog.Data.Template, DBlog.Data" />
+    <property name="Text" column="Text" type="String" />
+    <property name="Title" column="Title" type="String" />
+    <many-to-one name="Topic" column="Topic_Id" class="DBlog.Data.Topic, DBlog.Data" />
+    <property name="Type" column="Type" type="String" />
+  </class>
   <class name="DBlog.Data.Browser, DBlog.Data" table="Browser">
     <id name="Id" type="Int32" column="Browser_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
@@ -336,6 +349,10 @@
     <property name="Role" column="Role" type="String" />
     <property name="Username" column="Username" type="String" />
     <property name="Website" column="Website" type="String" />
+    <bag lazy="true" name="Blogs" inverse="true">
+      <key column="Owner_Login_Id" />
+      <one-to-many class="DBlog.Data.Blog, DBlog.Data" />
+    </bag>
   </class>
   <class name="DBlog.Data.LoginCounter, DBlog.Data" table="LoginCounter">
     <id name="Id" type="Int32" column="LoginCounter_Id" access="field.pascalcase-m-underscore">
@@ -433,6 +450,10 @@
     <property name="Name" column="Name" type="String" />
     <property name="Source" column="Source" type="String" />
     <property name="Type" column="Type" type="String" />
+    <bag lazy="true" name="Blogs" inverse="true">
+      <key column="Template_Id" />
+      <one-to-many class="DBlog.Data.Blog, DBlog.Data" />
+    </bag>
   </class>
   <class name="DBlog.Data.Thread, DBlog.Data" table="Thread">
     <id name="Id" type="Int32" column="Thread_Id" access="field.pascalcase-m-underscore">
@@ -455,5 +476,9 @@
     </bag>
     <property name="Name" column="Name" type="String" />
     <property name="Type" column="Type" type="String" />
+    <bag lazy="true" name="Blogs" inverse="true">
+      <key column="Topic_Id" />
+      <one-to-many class="DBlog.Data.Blog, DBlog.Data" />
+    </bag>
   </class>
 </hibernate-mapping>

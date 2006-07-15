@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <domain name="DBlog.Data" assembly="DBlog.Data" root="DBlog.Data" source="DBlog" field-strategy="PascalCase">
+  <class name="Blog" table="Blog">
+    <property name="Id" id="true" columns="Blog_Id" type="System.Int32" />
+    <property name="Created" columns="Created" type="System.DateTime" />
+    <property name="Modified" columns="Modified" type="System.DateTime" />
+    <property name="OwnerLogin" columns="Owner_Login_Id" ref="OneToMany" inverse="Blogs" type="Login" />
+    <property name="Template" columns="Template_Id" ref="OneToMany" inverse="Blogs" type="Template" />
+    <property name="Text" columns="Text" type="System.String" />
+    <property name="Title" columns="Title" type="System.String" />
+    <property name="Topic" columns="Topic_Id" ref="OneToMany" inverse="Blogs" type="Topic" />
+    <property name="Type" columns="Type" type="System.String" />
+  </class>
   <class name="Browser" table="Browser">
     <property name="Id" id="true" columns="Browser_Id" type="System.Int32" />
     <property name="BrowserPlatforms" table="BrowserPlatform" id-columns="Browser_Id" list="true" item-type="BrowserPlatform" slave="true" ref="ManyToOne" inverse="Browser" inherits-inverse="true" />
@@ -188,6 +199,7 @@
     <property name="Role" columns="Role" type="System.String" />
     <property name="Username" columns="Username" type="System.String" />
     <property name="Website" columns="Website" type="System.String" />
+    <property name="Blogs" table="Blog" id-columns="Owner_Login_Id" list="true" item-type="Blog" slave="true" ref="ManyToOne" inverse="OwnerLogin" inherits-inverse="true" />
   </class>
   <class name="LoginCounter" table="LoginCounter">
     <property name="Id" id="true" columns="LoginCounter_Id" type="System.Int32" />
@@ -251,6 +263,7 @@
     <property name="Name" columns="Name" type="System.String" />
     <property name="Source" columns="Source" type="System.String" />
     <property name="Type" columns="Type" type="System.String" />
+    <property name="Blogs" table="Blog" id-columns="Template_Id" list="true" item-type="Blog" slave="true" ref="ManyToOne" inverse="Template" inherits-inverse="true" />
   </class>
   <class name="Thread" table="Thread">
     <property name="Id" id="true" columns="Thread_Id" type="System.Int32" />
@@ -263,9 +276,21 @@
     <property name="Galleries" table="Gallery" id-columns="Topic_Id" list="true" item-type="Gallery" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" />
     <property name="Name" columns="Name" type="System.String" />
     <property name="Type" columns="Type" type="System.String" />
+    <property name="Blogs" table="Blog" id-columns="Topic_Id" list="true" item-type="Blog" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" />
   </class>
   <source name="DBlog" type="MSSqlServer" provider="SqlClient" schema="dbo" catalog="Blog">
     <connection-string>Server=localhost;Database=Blog;Trusted_Connection=yes</connection-string>
+    <table name="Blog">
+      <column name="Blog_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="Created" type="DateTime" prec="23" length="8" scale="3" default="(getdate())" />
+      <column name="Modified" type="DateTime" prec="23" length="8" scale="3" />
+      <column name="Owner_Login_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_Entry_Login" />
+      <column name="Template_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Template" primary-column="Template_Id" foreign-key="FK_Entry_Template" />
+      <column name="Text" type="String" prec="0" length="16" scale="0" specific-type="NTEXT" />
+      <column name="Title" type="String" prec="128" length="256" scale="0" />
+      <column name="Topic_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Topic" primary-column="Topic_Id" foreign-key="FK_Entry_Topic" />
+      <column name="Type" type="String" prec="0" allow-null="true" length="16" scale="0" />
+    </table>
     <table name="Browser">
       <column name="Browser_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="Crawler" type="Boolean" prec="1" length="1" scale="0" default="(0)" />
@@ -303,8 +328,8 @@
       <column name="Resource_Id" type="Int32" prec="10" length="4" scale="0" />
     </table>
     <table name="Entry">
-      <column name="Entry_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="Created" type="DateTime" prec="23" length="8" scale="3" default="(getdate())" />
+      <column name="Entry_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="IpAddress" type="AnsiString" prec="24" length="24" scale="0" />
       <column name="Modified" type="DateTime" prec="23" length="8" scale="3" />
       <column name="Owner_Login_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_Entry_Login" />
