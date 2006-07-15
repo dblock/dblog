@@ -1,18 +1,43 @@
-<%@ Master Language="C#" AutoEventWireup="true" CodeFile="DBlog.master.cs" Inherits="DBlog" %>
+<%@ Master Language="C#" AutoEventWireup="true" CodeFile="DBlog.master.cs" Inherits="DBlogMaster" %>
+<%@ Register TagPrefix="Controls" TagName="Notice" Src="NoticeControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="Topics" Src="TopicsViewControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
 <html xmlns="http://www.w3.org/1999/xhtml" >
 <head runat="server">
-    <title>DBLOG</title>
+ <title>DBLOG</title>
+ <link rel="stylesheet" type="text/css" href="Style.css" />
 </head>
 <body>
     <form id="form1" runat="server">
-    <div>
-        <atlas:ScriptManager ID="ScriptManager1" runat="server" />    
+     <atlas:ScriptManager ID="ScriptManager1" runat="server" />         
+     <table align="center" width="100%" style="background-color: White;" cellpadding="0" cellspacing="0">
+      <tr>
+       <td align="center" width="160">
+        <div>
+         <a href="ShowBlog.aspx">
+          <asp:Image runat="server" ID="imageMain" ImageUrl="images/blog/blog.gif" />
+         </a>
+        </div>
+        <atlas:UpdatePanel Mode="Conditional" runat="server" ID="panelTopics" RenderMode="Inline">
+         <ContentTemplate>
+          <Controls:Topics runat="server" ID="topics" />
+         </ContentTemplate>
+        </atlas:UpdatePanel>
+       </td>
+       <td valign="top" width="*">
+        <atlas:UpdatePanel Mode="Always" runat="server" ID="panelNoticeMenu" RenderMode="Inline">
+         <ContentTemplate>
+          <Controls:Notice ID="noticeMenu" EnableViewState="false" runat="server" />
+         </ContentTemplate>
+        </atlas:UpdatePanel>
+        [content]
         <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
         </asp:contentplaceholder>
-    </div>
+       </td>
+      </tr>
+     </table>     
     </form>
 </body>
 </html>

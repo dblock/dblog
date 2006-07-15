@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using NHibernate;
 
 namespace DBlog.Data.Hibernate
 {
@@ -25,6 +26,12 @@ namespace DBlog.Data.Hibernate
         {
             PageSize = pagesize;
             PageNumber = pagenumber;
+        }
+
+        public void Apply(ICriteria criteria)
+        {
+            criteria.SetMaxResults(PageSize);
+            criteria.SetFirstResult(FirstResult);
         }
     };
 }

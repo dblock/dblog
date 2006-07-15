@@ -10,6 +10,7 @@ using NHibernate.Expression;
 using DBlog.Data;
 using DBlog.Data.Hibernate;
 using DBlog.WebServices;
+using DBlog.TransitData;
 
 public class Global : DBlog.Tools.Web.HostedApplication
 {
@@ -74,6 +75,33 @@ public class Global : DBlog.Tools.Web.HostedApplication
     private void CreateAdministrator()
     {
         ISession session = DBlog.Data.Hibernate.Session.Current;
+        ITransaction t = session.BeginTransaction();
+
+        try
+        {
+            int adminCount = (int)session.CreateQuery(string.Format(
+                "SELECT COUNT(l) FROM Login l WHERE Role='{0}'", 
+                    TransitLoginRole.Administrator.ToString()))
+                .UniqueResult();
+
+            if (adminCount == 0)
+            {
+                Login admin = new Login();
+                admin.Name = admin.Username = "Administrator";
+                admin.Role = TransitLoginRole.Administrator.ToString();
+                session.Save(admin);
+                EventLog.WriteEntry(string.Format(
+                    "Created an Administrator user with id={0}.", 
+                        admin.Id), 
+                    EventLogEntryType.Information);
+            }
+        }
+        catch
+        {
+            t.Rollback();
+            throw;
+        }
+
         session.Flush();
     }
 }
