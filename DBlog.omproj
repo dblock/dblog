@@ -1,0 +1,555 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>DBlog</Name>
+  <MetaData />
+  <Resources>
+    <Resource>
+      <FilePath>DataModel\DBlog.npersist</FilePath>
+      <HintPath>..\..\..\DataModel\DBlog.npersist</HintPath>
+      <Name>DBlog.Data</Name>
+      <ResourceType>XmlDomainMap</ResourceType>
+      <Resources />
+      <Configs>
+        <DomainConfig>
+          <Name>Default configuration</Name>
+          <MetaData />
+          <ClassesToCodeConfig>
+            <Name />
+            <MetaData />
+            <TargetFolder>C:\source\dblog\trunk\Data</TargetFolder>
+            <ImplementIInterceptable>false</ImplementIInterceptable>
+            <ImplementIObjectHelper>false</ImplementIObjectHelper>
+            <ImplementIObservable>false</ImplementIObservable>
+            <IncludeRegions>false</IncludeRegions>
+            <IncludeComments>true</IncludeComments>
+            <IncludeDocComments>true</IncludeDocComments>
+            <IncludeModelInfoInDocComments>true</IncludeModelInfoInDocComments>
+            <NotifyOnlyWhenRequired>false</NotifyOnlyWhenRequired>
+            <NotifyLightWeight>false</NotifyLightWeight>
+            <NotifyAfterGet>false</NotifyAfterGet>
+            <NotifyAfterSet>false</NotifyAfterSet>
+            <ImplementShadows>false</ImplementShadows>
+            <AddPropertyNotifyMethods>false</AddPropertyNotifyMethods>
+            <GeneratePOCO>true</GeneratePOCO>
+            <TargetLanguage>CSharp</TargetLanguage>
+            <TargetMapper>NHibernate</TargetMapper>
+            <ReallyNoRegions>false</ReallyNoRegions>
+            <UseTypedCollections>false</UseTypedCollections>
+            <WrapCollections>false</WrapCollections>
+            <EmbedXml>true</EmbedXml>
+            <SourceCodeFiles>
+              <SourceCodeFile>
+                <Name>Browser.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Browser.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Browser</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.7652272-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>BrowserPlatform.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\BrowserPlatform.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>BrowserPlatform</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.7852560-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>BrowserVersion.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\BrowserVersion.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>BrowserVersion</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.7952704-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>BrowserVersionPlatform.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\BrowserVersionPlatform.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>BrowserVersionPlatform</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.7952704-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Comment.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Comment.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Comment</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.8453424-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Counter.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Counter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Counter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.8553568-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Entry.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Entry.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Entry</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.8653712-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>EntryComment.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\EntryComment.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>EntryComment</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.8653712-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>EntryCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\EntryCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>EntryCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.8753856-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>EntryImage.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\EntryImage.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>EntryImage</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.8753856-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Feed.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Feed.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Feed</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.8954144-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>FeedItem.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\FeedItem.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>FeedItem</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.8954144-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Gallery.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Gallery.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Gallery</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9054288-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>GalleryComment.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\GalleryComment.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>GalleryComment</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9154432-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>GalleryCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\GalleryCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>GalleryCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9154432-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>GalleryImage.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\GalleryImage.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>GalleryImage</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9254576-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>GalleryLogin.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\GalleryLogin.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>GalleryLogin</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9254576-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Highlight.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Highlight.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Highlight</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9254576-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>HourlyCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\HourlyCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>HourlyCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9354720-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Image.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Image.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Image</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9454864-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ImageComment.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\ImageComment.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ImageComment</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9454864-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ImageCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\ImageCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ImageCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9555008-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Login.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Login.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Login</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9755296-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>LoginCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\LoginCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>LoginCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9755296-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>NamedCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\NamedCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>NamedCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9855440-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Platform.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Platform.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Platform</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9955584-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Reference.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Reference.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Reference</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:37.9955584-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Referrer.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Referrer.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Referrer</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0055728-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ReferrerHost.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\ReferrerHost.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ReferrerHost</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0055728-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ReferrerHostRollup.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\ReferrerHostRollup.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ReferrerHostRollup</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0155872-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ReferrerSearchQuery.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\ReferrerSearchQuery.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ReferrerSearchQuery</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0356160-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Request.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Request.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Request</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0356160-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>RollupBrowserVersionPlatform.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\RollupBrowserVersionPlatform.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>RollupBrowserVersionPlatform</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0456304-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Template.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Template.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Template</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0556448-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Thread.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Thread.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Thread</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0556448-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Topic.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Topic.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Topic</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0656592-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>AssemblyInfo.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\AssemblyInfo.cs</FilePath>
+                <MapObjectType />
+                <MapObjectName>AssemblyInfo</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:38.0656592-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Data.hbm.xml</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Data.hbm.xml</FilePath>
+                <MapObjectType />
+                <MapObjectName>MapFile</MapObjectName>
+                <FileType>Xml</FileType>
+                <LastWrittenTo>2006-07-15T08:56:39.3475024-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Data.csproj</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Data.csproj</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.DomainMap</MapObjectType>
+                <MapObjectName>Data</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-15T08:56:39.8882800-04:00</LastWrittenTo>
+              </SourceCodeFile>
+            </SourceCodeFiles>
+            <PutAllClassesInOneFile>false</PutAllClassesInOneFile>
+            <XmlFilePerClass>false</XmlFilePerClass>
+          </ClassesToCodeConfig>
+          <ClassesToTablesConfig>
+            <Name />
+            <MetaData />
+            <TablePrefix>tbl</TablePrefix>
+            <TableSuffix />
+          </ClassesToTablesConfig>
+          <TablesToClassesConfig>
+            <Name />
+            <MetaData />
+            <TableToClassNameConverter />
+            <ColumnToPropertyNameConverter />
+            <PropertyToInverseNameConverter />
+            <GenerateInverseProperties>true</GenerateInverseProperties>
+          </TablesToClassesConfig>
+          <IsActive>true</IsActive>
+        </DomainConfig>
+      </Configs>
+      <Diagrams>
+        <UmlDiagram>
+          <Name>DBlog</Name>
+          <MetaData />
+          <UmlClasses />
+          <UmlLines />
+          <Location>
+            <X>0</X>
+            <Y>0</Y>
+          </Location>
+          <Size>
+            <Width>808</Width>
+            <Height>839</Height>
+          </Size>
+          <Zoom>1</Zoom>
+          <Selected>false</Selected>
+          <DisplayAssociationArrows>false</DisplayAssociationArrows>
+          <DrawShadows>true</DrawShadows>
+          <DrawShadowsPass2>true</DrawShadowsPass2>
+          <ShadowColor1>
+            <A>128</A>
+            <R>196</R>
+            <G>196</G>
+            <B>196</B>
+          </ShadowColor1>
+          <ShadowColor2>
+            <A>128</A>
+            <R>128</R>
+            <G>128</G>
+            <B>128</B>
+          </ShadowColor2>
+          <ShadowBrushStyle>GradientBrush</ShadowBrushStyle>
+          <ShadowGradientMode>ForwardDiagonal</ShadowGradientMode>
+          <ColorSynchError>
+            <A>255</A>
+            <R>139</R>
+            <G>0</G>
+            <B>0</B>
+          </ColorSynchError>
+          <ColorError>
+            <A>255</A>
+            <R>255</R>
+            <G>0</G>
+            <B>0</B>
+          </ColorError>
+          <UseGrid>true</UseGrid>
+          <GridSize>50</GridSize>
+          <GridColor1>
+            <A>255</A>
+            <R>208</R>
+            <G>208</G>
+            <B>208</B>
+          </GridColor1>
+          <GridColor2>
+            <A>255</A>
+            <R>240</R>
+            <G>240</G>
+            <B>240</B>
+          </GridColor2>
+          <ForeColor>
+            <A>255</A>
+            <R>0</R>
+            <G>0</G>
+            <B>0</B>
+          </ForeColor>
+          <BackColor1>
+            <A>255</A>
+            <R>255</R>
+            <G>255</G>
+            <B>255</B>
+          </BackColor1>
+          <BackColor2>
+            <A>255</A>
+            <R>224</R>
+            <G>224</G>
+            <B>224</B>
+          </BackColor2>
+          <BgBrushStyle>SolidBrush</BgBrushStyle>
+          <BgGradientMode>ForwardDiagonal</BgGradientMode>
+          <FontSize>8.25</FontSize>
+          <FontFamily>Microsoft Sans Serif</FontFamily>
+          <FontColor>
+            <A>255</A>
+            <R>0</R>
+            <G>0</G>
+            <B>0</B>
+          </FontColor>
+          <FontStyle>Regular</FontStyle>
+          <ClassBgBrushStyle>GradientBrush</ClassBgBrushStyle>
+          <ClassBgGradientMode>ForwardDiagonal</ClassBgGradientMode>
+          <ClassBackColor1>
+            <A>255</A>
+            <R>255</R>
+            <G>255</G>
+            <B>255</B>
+          </ClassBackColor1>
+          <ClassBackColor2>
+            <A>255</A>
+            <R>224</R>
+            <G>224</G>
+            <B>224</B>
+          </ClassBackColor2>
+          <ArrowBaseLength>20</ArrowBaseLength>
+          <RadarSize>100</RadarSize>
+          <DisplayRadar>true</DisplayRadar>
+          <RadarForeColor>
+            <A>255</A>
+            <R>0</R>
+            <G>0</G>
+            <B>0</B>
+          </RadarForeColor>
+          <RadarBackColor>
+            <A>255</A>
+            <R>211</R>
+            <G>211</G>
+            <B>211</B>
+          </RadarBackColor>
+          <RadarClassForeColor>
+            <A>255</A>
+            <R>0</R>
+            <G>0</G>
+            <B>0</B>
+          </RadarClassForeColor>
+          <RadarClassBackColor>
+            <A>255</A>
+            <R>255</R>
+            <G>255</G>
+            <B>255</B>
+          </RadarClassBackColor>
+          <RadarViewColor>
+            <A>255</A>
+            <R>165</R>
+            <G>42</G>
+            <B>42</B>
+          </RadarViewColor>
+          <RadarViewStyle>Dash</RadarViewStyle>
+          <DisplayInheritedProperties>false</DisplayInheritedProperties>
+          <DisplayLineProperties>false</DisplayLineProperties>
+        </UmlDiagram>
+      </Diagrams>
+    </Resource>
+  </Resources>
+</Project>
