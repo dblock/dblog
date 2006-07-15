@@ -31,7 +31,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SgmlReaderDll8", "SgmlReade
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.UnitTests", "Data.UnitTests\DBlog.Data.UnitTests.csproj", "{2426AC0A-A493-4CC8-A323-C7E775DEC8E4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.TransitData", "DBlog.TransitData\DBlog.TransitData.csproj", "{07B2FB5A-1FB0-4955-A218-12229318ECBE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.TransitData", "TransitData\DBlog.TransitData.csproj", "{07B2FB5A-1FB0-4955-A218-12229318ECBE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
