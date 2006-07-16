@@ -91,6 +91,17 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Get logins count.")]
+        public int GetLoginsCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                return new CountQuery(session, typeof(DBlog.Data.Login), "Login").execute();
+            }
+        }
+
         [WebMethod(Description = "Get logins.")]
         public List<TransitLogin> GetLogins(string ticket, WebServiceQueryOptions options)
         {
@@ -160,6 +171,16 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Get topics count.")]
+        public int GetTopicsCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.Topic), "Topic").execute();
+            }
+        }
+
         [WebMethod(Description = "Get topics.")]
         public List<TransitTopic> GetTopics(string ticket, WebServiceQueryOptions options)
         {
@@ -195,6 +216,58 @@ namespace DBlog.WebServices
                 CheckAdministrator(session, ticket);
                 session.Delete((Topic)session.Load(typeof(Topic), id));
                 session.Flush();
+            }
+        }
+
+        #endregion
+
+        #region Blogs (Combined Entries and Galleries)
+
+        [WebMethod(Description = "Get a blog.")]
+        public TransitBlog GetBlogById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitBlog((DBlog.Data.Blog)session.Load(typeof(DBlog.Data.Blog), id));
+            }
+        }
+
+        [WebMethod(Description = "Get blogs count.")]
+        public int GetBlogsCount(string ticket, TransitBlogQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CountQuery q = new CountQuery(session, typeof(DBlog.Data.Blog), "Blog");
+                if (options != null) options.Apply(q);
+                return q.execute();
+            }
+        }
+
+        [WebMethod(Description = "Get blogs.")]
+        public List<TransitBlog> GetBlogs(string ticket, TransitBlogQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                ICriteria cr = session.CreateCriteria(typeof(DBlog.Data.Blog));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitBlog> result = new List<TransitBlog>(list.Count);
+
+                foreach (DBlog.Data.Blog obj in list)
+                {
+                    result.Add(new TransitBlog(obj));
+                }
+
+                return result;
             }
         }
 

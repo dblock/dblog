@@ -81,6 +81,7 @@
     <Compile Include="ImageCounter.cs" />
     <Compile Include="Login.cs" />
     <Compile Include="LoginCounter.cs" />
+    <Compile Include="Misc.cs" />
     <Compile Include="NamedCounter.cs" />
     <Compile Include="NHibernateCrudTest.cs" />
     <Compile Include="NHibernateTest.cs" />
@@ -98,6 +99,10 @@
     <Compile Include="Topic.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data.Hibernate\DBlog.Data.Hibernate.csproj">
+      <Project>{437F9693-8C20-49BD-A4FD-68A88E9A92C0}</Project>
+      <Name>DBlog.Data.Hibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\DBlog.Data.csproj">
       <Project>{C6E8220C-5AD2-445A-9EF2-079D6547AEAD}</Project>
       <Name>DBlog.Data</Name>

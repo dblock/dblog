@@ -53,11 +53,16 @@
   <ItemGroup>
     <Compile Include="ManagedLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransitBlog.cs" />
     <Compile Include="TransitLogin.cs" />
     <Compile Include="TransitObject.cs" />
     <Compile Include="TransitTopic.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Data.Hibernate\DBlog.Data.Hibernate.csproj">
+      <Project>{437F9693-8C20-49BD-A4FD-68A88E9A92C0}</Project>
+      <Name>DBlog.Data.Hibernate</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\DBlog.Data.csproj">
       <Project>{C6E8220C-5AD2-445A-9EF2-079D6547AEAD}</Project>
       <Name>DBlog.Data</Name>

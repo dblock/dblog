@@ -46,6 +46,16 @@ namespace DBlog.Web.UnitTests.WebServices
             Blog.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, Blog, args);
         }
 
+        public int Count()
+        {
+            string method = string.Format("Get{0}sCount", ObjectType);
+            Console.Write(string.Format("{0}: ", method));
+            object[] args = { Ticket };
+            int count = (int) Blog.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, Blog, args);
+            Console.WriteLine(string.Format("{0}", count));
+            return count;
+        }
+
         public TransitObject Retrieve(int id)
         {
             string method = string.Format("Get{0}ById", ObjectType);
@@ -60,7 +70,9 @@ namespace DBlog.Web.UnitTests.WebServices
         public void TestCrud()
         {
             int id = Create();
-            TransitObject to = Retrieve(id);           
+            int count = Count();
+            Assert.IsTrue(count > 0);
+            TransitObject to = Retrieve(id);
             Assert.AreEqual(to.Id, id);
             TransitInstance.Id = id;
             int id2 = Create();

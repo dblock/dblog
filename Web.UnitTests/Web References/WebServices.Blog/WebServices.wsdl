@@ -87,6 +87,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetLoginsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLoginsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetLoginsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetLogins">
         <s:complexType>
           <s:sequence>
@@ -164,6 +178,20 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetTopicsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTopicsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetTopicsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetTopics">
         <s:complexType>
           <s:sequence>
@@ -195,6 +223,82 @@
       <s:element name="DeleteTopicResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetBlogById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBlogByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBlogByIdResult" type="tns:TransitBlog" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitBlog">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TopicName" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopicId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TemplateId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="OwnerLoginId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetBlogsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitBlogQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitBlogQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WebServiceQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="TopicId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetBlogsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetBlogsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBlogs">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitBlogQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBlogsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBlogsResult" type="tns:ArrayOfTransitBlog" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitBlog">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitBlog" nillable="true" type="tns:TransitBlog" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -271,6 +375,12 @@
   <wsdl:message name="CreateOrUpdateLoginSoapOut">
     <wsdl:part name="parameters" element="tns:CreateOrUpdateLoginResponse" />
   </wsdl:message>
+  <wsdl:message name="GetLoginsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLoginsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetLoginsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLoginsCountResponse" />
+  </wsdl:message>
   <wsdl:message name="GetLoginsSoapIn">
     <wsdl:part name="parameters" element="tns:GetLogins" />
   </wsdl:message>
@@ -295,6 +405,12 @@
   <wsdl:message name="CreateOrUpdateTopicSoapOut">
     <wsdl:part name="parameters" element="tns:CreateOrUpdateTopicResponse" />
   </wsdl:message>
+  <wsdl:message name="GetTopicsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTopicsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetTopicsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTopicsCountResponse" />
+  </wsdl:message>
   <wsdl:message name="GetTopicsSoapIn">
     <wsdl:part name="parameters" element="tns:GetTopics" />
   </wsdl:message>
@@ -306,6 +422,24 @@
   </wsdl:message>
   <wsdl:message name="DeleteTopicSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteTopicResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBlogByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBlogById" />
+  </wsdl:message>
+  <wsdl:message name="GetBlogByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBlogByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBlogsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBlogsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetBlogsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBlogsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBlogsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBlogs" />
+  </wsdl:message>
+  <wsdl:message name="GetBlogsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBlogsResponse" />
   </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
@@ -358,6 +492,11 @@
       <wsdl:input message="tns:CreateOrUpdateLoginSoapIn" />
       <wsdl:output message="tns:CreateOrUpdateLoginSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetLoginsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get logins count.</wsdl:documentation>
+      <wsdl:input message="tns:GetLoginsCountSoapIn" />
+      <wsdl:output message="tns:GetLoginsCountSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetLogins">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get logins.</wsdl:documentation>
       <wsdl:input message="tns:GetLoginsSoapIn" />
@@ -378,6 +517,11 @@
       <wsdl:input message="tns:CreateOrUpdateTopicSoapIn" />
       <wsdl:output message="tns:CreateOrUpdateTopicSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetTopicsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get topics count.</wsdl:documentation>
+      <wsdl:input message="tns:GetTopicsCountSoapIn" />
+      <wsdl:output message="tns:GetTopicsCountSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetTopics">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get topics.</wsdl:documentation>
       <wsdl:input message="tns:GetTopicsSoapIn" />
@@ -387,6 +531,21 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a topic.</wsdl:documentation>
       <wsdl:input message="tns:DeleteTopicSoapIn" />
       <wsdl:output message="tns:DeleteTopicSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBlogById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a blog.</wsdl:documentation>
+      <wsdl:input message="tns:GetBlogByIdSoapIn" />
+      <wsdl:output message="tns:GetBlogByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBlogsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get blogs count.</wsdl:documentation>
+      <wsdl:input message="tns:GetBlogsCountSoapIn" />
+      <wsdl:output message="tns:GetBlogsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBlogs">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get blogs.</wsdl:documentation>
+      <wsdl:input message="tns:GetBlogsSoapIn" />
+      <wsdl:output message="tns:GetBlogsSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -452,6 +611,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetLoginsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetLoginsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetLogins">
       <soap:operation soapAction="http://dblock.org/ns/GetLogins" style="document" />
       <wsdl:input>
@@ -488,6 +656,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTopicsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetTopicsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTopics">
       <soap:operation soapAction="http://dblock.org/ns/GetTopics" style="document" />
       <wsdl:input>
@@ -499,6 +676,33 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteTopic">
       <soap:operation soapAction="http://dblock.org/ns/DeleteTopic" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBlogById">
+      <soap:operation soapAction="http://dblock.org/ns/GetBlogById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBlogsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetBlogsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBlogs">
+      <soap:operation soapAction="http://dblock.org/ns/GetBlogs" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -590,6 +794,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetLoginsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetLoginsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetLogins">
       <soap12:operation soapAction="http://dblock.org/ns/GetLogins" style="document" />
       <wsdl:input>
@@ -626,6 +839,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetTopicsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetTopicsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetTopics">
       <soap12:operation soapAction="http://dblock.org/ns/GetTopics" style="document" />
       <wsdl:input>
@@ -637,6 +859,33 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteTopic">
       <soap12:operation soapAction="http://dblock.org/ns/DeleteTopic" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBlogById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetBlogById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBlogsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetBlogsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBlogs">
+      <soap12:operation soapAction="http://dblock.org/ns/GetBlogs" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

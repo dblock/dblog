@@ -28,10 +28,18 @@ namespace DBlog.Data.Hibernate
             PageNumber = pagenumber;
         }
 
-        public void Apply(ICriteria criteria)
+        public virtual void Apply(ICriteria criteria)
         {
-            criteria.SetMaxResults(PageSize);
-            criteria.SetFirstResult(FirstResult);
+            if (PageSize > 0)
+            {
+                criteria.SetMaxResults(PageSize);
+                criteria.SetFirstResult(FirstResult);
+            }
+        }
+
+        public virtual void Apply(CountQuery query)
+        {
+
         }
     };
 }
