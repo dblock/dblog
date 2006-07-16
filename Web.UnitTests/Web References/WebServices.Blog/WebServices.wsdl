@@ -57,6 +57,73 @@
           <s:enumeration value="Administrator" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="GetLoginById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLoginByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLoginByIdResult" type="tns:TransitLogin" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_login" type="tns:TransitLogin" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateLoginResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateLoginResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLogins">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="WebServiceQueryOptions">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="PageSize" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="PageNumber" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetLoginsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetLoginsResult" type="tns:ArrayOfTransitLogin" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitLogin">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitLogin" nillable="true" type="tns:TransitLogin" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteLogin">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteLoginResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetTopicById">
         <s:complexType>
           <s:sequence>
@@ -105,12 +172,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="WebServiceQueryOptions">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="PageSize" type="s:int" />
-          <s:element minOccurs="1" maxOccurs="1" name="PageNumber" type="s:int" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="GetTopicsResponse">
         <s:complexType>
           <s:sequence>
@@ -198,6 +259,30 @@
   <wsdl:message name="GetLoginSoapOut">
     <wsdl:part name="parameters" element="tns:GetLoginResponse" />
   </wsdl:message>
+  <wsdl:message name="GetLoginByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLoginById" />
+  </wsdl:message>
+  <wsdl:message name="GetLoginByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLoginByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateLogin" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateLoginResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetLoginsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetLogins" />
+  </wsdl:message>
+  <wsdl:message name="GetLoginsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetLoginsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteLoginSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteLogin" />
+  </wsdl:message>
+  <wsdl:message name="DeleteLoginSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteLoginResponse" />
+  </wsdl:message>
   <wsdl:message name="GetTopicByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetTopicById" />
   </wsdl:message>
@@ -263,8 +348,28 @@
       <wsdl:input message="tns:GetLoginSoapIn" />
       <wsdl:output message="tns:GetLoginSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetLoginById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a login.</wsdl:documentation>
+      <wsdl:input message="tns:GetLoginByIdSoapIn" />
+      <wsdl:output message="tns:GetLoginByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateLogin">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a login.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateLoginSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateLoginSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetLogins">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get logins.</wsdl:documentation>
+      <wsdl:input message="tns:GetLoginsSoapIn" />
+      <wsdl:output message="tns:GetLoginsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLogin">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a login.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteLoginSoapIn" />
+      <wsdl:output message="tns:DeleteLoginSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetTopicById">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a topc.</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a topic.</wsdl:documentation>
       <wsdl:input message="tns:GetTopicByIdSoapIn" />
       <wsdl:output message="tns:GetTopicByIdSoapOut" />
     </wsdl:operation>
@@ -322,6 +427,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetLogin">
       <soap:operation soapAction="http://dblock.org/ns/GetLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLoginById">
+      <soap:operation soapAction="http://dblock.org/ns/GetLoginById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateLogin">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateLogin" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogins">
+      <soap:operation soapAction="http://dblock.org/ns/GetLogins" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLogin">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteLogin" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -424,6 +565,42 @@
     </wsdl:operation>
     <wsdl:operation name="GetLogin">
       <soap12:operation soapAction="http://dblock.org/ns/GetLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLoginById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetLoginById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateLogin">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateLogin" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetLogins">
+      <soap12:operation soapAction="http://dblock.org/ns/GetLogins" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteLogin">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteLogin" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

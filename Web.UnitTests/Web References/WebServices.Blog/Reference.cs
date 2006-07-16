@@ -34,6 +34,14 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback GetLoginOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetLoginByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateLoginOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetLoginsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteLoginOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetTopicByIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback CreateOrUpdateTopicOperationCompleted;
@@ -95,6 +103,18 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event GetLoginCompletedEventHandler GetLoginCompleted;
+        
+        /// <remarks/>
+        public event GetLoginByIdCompletedEventHandler GetLoginByIdCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateLoginCompletedEventHandler CreateOrUpdateLoginCompleted;
+        
+        /// <remarks/>
+        public event GetLoginsCompletedEventHandler GetLoginsCompleted;
+        
+        /// <remarks/>
+        public event DeleteLoginCompletedEventHandler DeleteLoginCompleted;
         
         /// <remarks/>
         public event GetTopicByIdCompletedEventHandler GetTopicByIdCompleted;
@@ -180,6 +200,129 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.GetLoginCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetLoginCompleted(this, new GetLoginCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetLoginById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitLogin GetLoginById(string ticket, int id) {
+            object[] results = this.Invoke("GetLoginById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitLogin)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetLoginByIdAsync(string ticket, int id) {
+            this.GetLoginByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetLoginByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetLoginByIdOperationCompleted == null)) {
+                this.GetLoginByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetLoginByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetLoginById", new object[] {
+                        ticket,
+                        id}, this.GetLoginByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetLoginByIdOperationCompleted(object arg) {
+            if ((this.GetLoginByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetLoginByIdCompleted(this, new GetLoginByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateLogin", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateLogin(string ticket, TransitLogin t_login) {
+            object[] results = this.Invoke("CreateOrUpdateLogin", new object[] {
+                        ticket,
+                        t_login});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateLoginAsync(string ticket, TransitLogin t_login) {
+            this.CreateOrUpdateLoginAsync(ticket, t_login, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateLoginAsync(string ticket, TransitLogin t_login, object userState) {
+            if ((this.CreateOrUpdateLoginOperationCompleted == null)) {
+                this.CreateOrUpdateLoginOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateLoginOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateLogin", new object[] {
+                        ticket,
+                        t_login}, this.CreateOrUpdateLoginOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateLoginOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateLoginCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateLoginCompleted(this, new CreateOrUpdateLoginCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetLogins", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitLogin[] GetLogins(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetLogins", new object[] {
+                        ticket,
+                        options});
+            return ((TransitLogin[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetLoginsAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetLoginsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetLoginsAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetLoginsOperationCompleted == null)) {
+                this.GetLoginsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetLoginsOperationCompleted);
+            }
+            this.InvokeAsync("GetLogins", new object[] {
+                        ticket,
+                        options}, this.GetLoginsOperationCompleted, userState);
+        }
+        
+        private void OnGetLoginsOperationCompleted(object arg) {
+            if ((this.GetLoginsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetLoginsCompleted(this, new GetLoginsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteLogin", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteLogin(string ticket, int id) {
+            this.Invoke("DeleteLogin", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteLoginAsync(string ticket, int id) {
+            this.DeleteLoginAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteLoginAsync(string ticket, int id, object userState) {
+            if ((this.DeleteLoginOperationCompleted == null)) {
+                this.DeleteLoginOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteLoginOperationCompleted);
+            }
+            this.InvokeAsync("DeleteLogin", new object[] {
+                        ticket,
+                        id}, this.DeleteLoginOperationCompleted, userState);
+        }
+        
+        private void OnDeleteLoginOperationCompleted(object arg) {
+            if ((this.DeleteLoginCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteLoginCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -697,6 +840,88 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetLoginByIdCompletedEventHandler(object sender, GetLoginByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetLoginByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetLoginByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitLogin Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitLogin)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateLoginCompletedEventHandler(object sender, CreateOrUpdateLoginCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateLoginCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateLoginCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetLoginsCompletedEventHandler(object sender, GetLoginsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetLoginsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetLoginsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitLogin[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitLogin[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteLoginCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

@@ -50,9 +50,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="WebServices.BlogCrudTest.cs" />
     <Compile Include="WebServices.Blog.cs" />
     <Compile Include="WebServices.BlogLoginTest.cs" />
     <Compile Include="WebServices.BlogProperties.cs" />
+    <Compile Include="WebServices.BlogTopicTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <WebReferences Include="Web References\" />

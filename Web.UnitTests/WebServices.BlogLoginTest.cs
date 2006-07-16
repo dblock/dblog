@@ -2,12 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NUnit.Framework;
+using DBlog.Web.UnitTests.WebServices.Blog;
 using System.Web.Services.Protocols;
 
 namespace DBlog.Web.UnitTests.WebServices
 {
     [TestFixture]
-    public class BlogLoginTest : BlogTest
+    public class BlogLoginTest : BlogCrudTest
     {
         [Test]
         public void GetTicketTest()
@@ -28,5 +29,35 @@ namespace DBlog.Web.UnitTests.WebServices
         {
             Blog.Login(Guid.NewGuid().ToString(), Guid.NewGuid().ToString());
         }
+
+        private TransitLogin mLogin = null;
+
+        public BlogLoginTest()
+        {
+            mLogin = new TransitLogin();
+            mLogin.Email = Guid.NewGuid().ToString().Substring(0, 31);
+            mLogin.Name = Guid.NewGuid().ToString();
+            mLogin.Password = Guid.NewGuid().ToString().Substring(0, 31);
+            mLogin.Role = TransitLoginRole.Guest;
+            mLogin.Username = Guid.NewGuid().ToString();
+            mLogin.Website = Guid.NewGuid().ToString();
+        }
+
+        public override TransitObject TransitInstance
+        {
+            get
+            {
+                return mLogin;
+            }
+        }
+
+        public override string ObjectType 
+        {
+            get
+            {
+                return "Login";
+            }
+        }
+
     }
 }
