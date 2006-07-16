@@ -38,7 +38,7 @@ namespace DBlog.Data.UnitTests
 
             int count = new CountQuery(Session, typeof(Topic), "Topic")
                 .Add(Expression.Eq("Name", tt.Topic.Name))
-                .execute();
+                .Execute();
 
             Assert.AreEqual(1, count);
 

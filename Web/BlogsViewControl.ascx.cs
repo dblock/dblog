@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using DBlog.Data.Hibernate;
 using DBlog.Tools;
 using DBlog.TransitData;
+using DBlog.Tools.Web;
 
 public partial class BlogsViewControl : Control
 {
@@ -59,5 +60,16 @@ public partial class BlogsViewControl : Control
         grid.VirtualItemCount = SessionManager.BlogService.GetBlogsCount(SessionManager.Ticket, new TransitBlogQueryOptions(TopicId));
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
+    }
+
+    public string Render(int id, string type, string text)
+    {
+        string result = Renderer.RenderEx(text);
+
+        result = new ReferencesRenderer((Page) Page, id, type).Render(result);
+        result = new LiveJournalRenderer((Page)Page, id, type).Render(result);
+        result = new MsnSpacesRenderer((Page)Page, id, type).Render(result);
+
+        return result;
     }
 }

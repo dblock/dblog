@@ -60,6 +60,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback GetBlogsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback CreateOrUpdateImageOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetImageByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteImageOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetImageWithBitmapByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetImageWithBitmapByIdIfModifiedSinceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetImageWithThumbnailByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetImageWithThumbnailByIdIfModifiedSinceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferenceByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferenceByWordOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateReferenceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferencesCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferencesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteReferenceOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetTitleOperationCompleted;
@@ -152,6 +178,45 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event GetBlogsCompletedEventHandler GetBlogsCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateImageCompletedEventHandler CreateOrUpdateImageCompleted;
+        
+        /// <remarks/>
+        public event GetImageByIdCompletedEventHandler GetImageByIdCompleted;
+        
+        /// <remarks/>
+        public event DeleteImageCompletedEventHandler DeleteImageCompleted;
+        
+        /// <remarks/>
+        public event GetImageWithBitmapByIdCompletedEventHandler GetImageWithBitmapByIdCompleted;
+        
+        /// <remarks/>
+        public event GetImageWithBitmapByIdIfModifiedSinceCompletedEventHandler GetImageWithBitmapByIdIfModifiedSinceCompleted;
+        
+        /// <remarks/>
+        public event GetImageWithThumbnailByIdCompletedEventHandler GetImageWithThumbnailByIdCompleted;
+        
+        /// <remarks/>
+        public event GetImageWithThumbnailByIdIfModifiedSinceCompletedEventHandler GetImageWithThumbnailByIdIfModifiedSinceCompleted;
+        
+        /// <remarks/>
+        public event GetReferenceByIdCompletedEventHandler GetReferenceByIdCompleted;
+        
+        /// <remarks/>
+        public event GetReferenceByWordCompletedEventHandler GetReferenceByWordCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateReferenceCompletedEventHandler CreateOrUpdateReferenceCompleted;
+        
+        /// <remarks/>
+        public event GetReferencesCountCompletedEventHandler GetReferencesCountCompleted;
+        
+        /// <remarks/>
+        public event GetReferencesCompletedEventHandler GetReferencesCompleted;
+        
+        /// <remarks/>
+        public event DeleteReferenceCompletedEventHandler DeleteReferenceCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -626,6 +691,407 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateImage", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateImage(string ticket, TransitImage t_image) {
+            object[] results = this.Invoke("CreateOrUpdateImage", new object[] {
+                        ticket,
+                        t_image});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateImageAsync(string ticket, TransitImage t_image) {
+            this.CreateOrUpdateImageAsync(ticket, t_image, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateImageAsync(string ticket, TransitImage t_image, object userState) {
+            if ((this.CreateOrUpdateImageOperationCompleted == null)) {
+                this.CreateOrUpdateImageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateImageOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateImage", new object[] {
+                        ticket,
+                        t_image}, this.CreateOrUpdateImageOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateImageOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateImageCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateImageCompleted(this, new CreateOrUpdateImageCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitImage GetImageById(int id) {
+            object[] results = this.Invoke("GetImageById", new object[] {
+                        id});
+            return ((TransitImage)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImageByIdAsync(int id) {
+            this.GetImageByIdAsync(id, null);
+        }
+        
+        /// <remarks/>
+        public void GetImageByIdAsync(int id, object userState) {
+            if ((this.GetImageByIdOperationCompleted == null)) {
+                this.GetImageByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetImageById", new object[] {
+                        id}, this.GetImageByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetImageByIdOperationCompleted(object arg) {
+            if ((this.GetImageByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImageByIdCompleted(this, new GetImageByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteImage", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteImage(string ticket, int id) {
+            this.Invoke("DeleteImage", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteImageAsync(string ticket, int id) {
+            this.DeleteImageAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteImageAsync(string ticket, int id, object userState) {
+            if ((this.DeleteImageOperationCompleted == null)) {
+                this.DeleteImageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteImageOperationCompleted);
+            }
+            this.InvokeAsync("DeleteImage", new object[] {
+                        ticket,
+                        id}, this.DeleteImageOperationCompleted, userState);
+        }
+        
+        private void OnDeleteImageOperationCompleted(object arg) {
+            if ((this.DeleteImageCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteImageCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageWithBitmapById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitImage GetImageWithBitmapById(string ticket, int id) {
+            object[] results = this.Invoke("GetImageWithBitmapById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitImage)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImageWithBitmapByIdAsync(string ticket, int id) {
+            this.GetImageWithBitmapByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetImageWithBitmapByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetImageWithBitmapByIdOperationCompleted == null)) {
+                this.GetImageWithBitmapByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageWithBitmapByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetImageWithBitmapById", new object[] {
+                        ticket,
+                        id}, this.GetImageWithBitmapByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetImageWithBitmapByIdOperationCompleted(object arg) {
+            if ((this.GetImageWithBitmapByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImageWithBitmapByIdCompleted(this, new GetImageWithBitmapByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageWithBitmapByIdIfModifiedSince", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitImage GetImageWithBitmapByIdIfModifiedSince(string ticket, int id, System.DateTime ifModifiedSince) {
+            object[] results = this.Invoke("GetImageWithBitmapByIdIfModifiedSince", new object[] {
+                        ticket,
+                        id,
+                        ifModifiedSince});
+            return ((TransitImage)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImageWithBitmapByIdIfModifiedSinceAsync(string ticket, int id, System.DateTime ifModifiedSince) {
+            this.GetImageWithBitmapByIdIfModifiedSinceAsync(ticket, id, ifModifiedSince, null);
+        }
+        
+        /// <remarks/>
+        public void GetImageWithBitmapByIdIfModifiedSinceAsync(string ticket, int id, System.DateTime ifModifiedSince, object userState) {
+            if ((this.GetImageWithBitmapByIdIfModifiedSinceOperationCompleted == null)) {
+                this.GetImageWithBitmapByIdIfModifiedSinceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageWithBitmapByIdIfModifiedSinceOperationCompleted);
+            }
+            this.InvokeAsync("GetImageWithBitmapByIdIfModifiedSince", new object[] {
+                        ticket,
+                        id,
+                        ifModifiedSince}, this.GetImageWithBitmapByIdIfModifiedSinceOperationCompleted, userState);
+        }
+        
+        private void OnGetImageWithBitmapByIdIfModifiedSinceOperationCompleted(object arg) {
+            if ((this.GetImageWithBitmapByIdIfModifiedSinceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImageWithBitmapByIdIfModifiedSinceCompleted(this, new GetImageWithBitmapByIdIfModifiedSinceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageWithThumbnailById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitImage GetImageWithThumbnailById(string ticket, int id) {
+            object[] results = this.Invoke("GetImageWithThumbnailById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitImage)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImageWithThumbnailByIdAsync(string ticket, int id) {
+            this.GetImageWithThumbnailByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetImageWithThumbnailByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetImageWithThumbnailByIdOperationCompleted == null)) {
+                this.GetImageWithThumbnailByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageWithThumbnailByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetImageWithThumbnailById", new object[] {
+                        ticket,
+                        id}, this.GetImageWithThumbnailByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetImageWithThumbnailByIdOperationCompleted(object arg) {
+            if ((this.GetImageWithThumbnailByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImageWithThumbnailByIdCompleted(this, new GetImageWithThumbnailByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageWithThumbnailByIdIfModifiedSince", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitImage GetImageWithThumbnailByIdIfModifiedSince(string ticket, int id, System.DateTime ifModifiedSince) {
+            object[] results = this.Invoke("GetImageWithThumbnailByIdIfModifiedSince", new object[] {
+                        ticket,
+                        id,
+                        ifModifiedSince});
+            return ((TransitImage)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImageWithThumbnailByIdIfModifiedSinceAsync(string ticket, int id, System.DateTime ifModifiedSince) {
+            this.GetImageWithThumbnailByIdIfModifiedSinceAsync(ticket, id, ifModifiedSince, null);
+        }
+        
+        /// <remarks/>
+        public void GetImageWithThumbnailByIdIfModifiedSinceAsync(string ticket, int id, System.DateTime ifModifiedSince, object userState) {
+            if ((this.GetImageWithThumbnailByIdIfModifiedSinceOperationCompleted == null)) {
+                this.GetImageWithThumbnailByIdIfModifiedSinceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageWithThumbnailByIdIfModifiedSinceOperationCompleted);
+            }
+            this.InvokeAsync("GetImageWithThumbnailByIdIfModifiedSince", new object[] {
+                        ticket,
+                        id,
+                        ifModifiedSince}, this.GetImageWithThumbnailByIdIfModifiedSinceOperationCompleted, userState);
+        }
+        
+        private void OnGetImageWithThumbnailByIdIfModifiedSinceOperationCompleted(object arg) {
+            if ((this.GetImageWithThumbnailByIdIfModifiedSinceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImageWithThumbnailByIdIfModifiedSinceCompleted(this, new GetImageWithThumbnailByIdIfModifiedSinceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferenceById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitReference GetReferenceById(string ticket, int id) {
+            object[] results = this.Invoke("GetReferenceById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitReference)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferenceByIdAsync(string ticket, int id) {
+            this.GetReferenceByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferenceByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetReferenceByIdOperationCompleted == null)) {
+                this.GetReferenceByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferenceByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetReferenceById", new object[] {
+                        ticket,
+                        id}, this.GetReferenceByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetReferenceByIdOperationCompleted(object arg) {
+            if ((this.GetReferenceByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferenceByIdCompleted(this, new GetReferenceByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferenceByWord", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitReference GetReferenceByWord(string ticket, string word) {
+            object[] results = this.Invoke("GetReferenceByWord", new object[] {
+                        ticket,
+                        word});
+            return ((TransitReference)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferenceByWordAsync(string ticket, string word) {
+            this.GetReferenceByWordAsync(ticket, word, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferenceByWordAsync(string ticket, string word, object userState) {
+            if ((this.GetReferenceByWordOperationCompleted == null)) {
+                this.GetReferenceByWordOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferenceByWordOperationCompleted);
+            }
+            this.InvokeAsync("GetReferenceByWord", new object[] {
+                        ticket,
+                        word}, this.GetReferenceByWordOperationCompleted, userState);
+        }
+        
+        private void OnGetReferenceByWordOperationCompleted(object arg) {
+            if ((this.GetReferenceByWordCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferenceByWordCompleted(this, new GetReferenceByWordCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateReference", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateReference(string ticket, TransitReference t_reference) {
+            object[] results = this.Invoke("CreateOrUpdateReference", new object[] {
+                        ticket,
+                        t_reference});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateReferenceAsync(string ticket, TransitReference t_reference) {
+            this.CreateOrUpdateReferenceAsync(ticket, t_reference, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateReferenceAsync(string ticket, TransitReference t_reference, object userState) {
+            if ((this.CreateOrUpdateReferenceOperationCompleted == null)) {
+                this.CreateOrUpdateReferenceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateReferenceOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateReference", new object[] {
+                        ticket,
+                        t_reference}, this.CreateOrUpdateReferenceOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateReferenceOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateReferenceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateReferenceCompleted(this, new CreateOrUpdateReferenceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferencesCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetReferencesCount(string ticket) {
+            object[] results = this.Invoke("GetReferencesCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferencesCountAsync(string ticket) {
+            this.GetReferencesCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferencesCountAsync(string ticket, object userState) {
+            if ((this.GetReferencesCountOperationCompleted == null)) {
+                this.GetReferencesCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferencesCountOperationCompleted);
+            }
+            this.InvokeAsync("GetReferencesCount", new object[] {
+                        ticket}, this.GetReferencesCountOperationCompleted, userState);
+        }
+        
+        private void OnGetReferencesCountOperationCompleted(object arg) {
+            if ((this.GetReferencesCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferencesCountCompleted(this, new GetReferencesCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferences", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitReference[] GetReferences(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetReferences", new object[] {
+                        ticket,
+                        options});
+            return ((TransitReference[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferencesAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetReferencesAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferencesAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetReferencesOperationCompleted == null)) {
+                this.GetReferencesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferencesOperationCompleted);
+            }
+            this.InvokeAsync("GetReferences", new object[] {
+                        ticket,
+                        options}, this.GetReferencesOperationCompleted, userState);
+        }
+        
+        private void OnGetReferencesOperationCompleted(object arg) {
+            if ((this.GetReferencesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferencesCompleted(this, new GetReferencesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteReference", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteReference(string ticket, int id) {
+            this.Invoke("DeleteReference", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteReferenceAsync(string ticket, int id) {
+            this.DeleteReferenceAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteReferenceAsync(string ticket, int id, object userState) {
+            if ((this.DeleteReferenceOperationCompleted == null)) {
+                this.DeleteReferenceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteReferenceOperationCompleted);
+            }
+            this.InvokeAsync("DeleteReference", new object[] {
+                        ticket,
+                        id}, this.DeleteReferenceOperationCompleted, userState);
+        }
+        
+        private void OnDeleteReferenceOperationCompleted(object arg) {
+            if ((this.DeleteReferenceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteReferenceCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetVersion", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string GetVersion() {
             object[] results = this.Invoke("GetVersion", new object[0]);
@@ -877,6 +1343,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReference))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImage))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitBlog))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitTopic))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitLogin))]
@@ -961,11 +1429,151 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitReference : TransitObject {
+        
+        private string wordField;
+        
+        private string urlField;
+        
+        private string resultField;
+        
+        /// <remarks/>
+        public string Word {
+            get {
+                return this.wordField;
+            }
+            set {
+                this.wordField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Url {
+            get {
+                return this.urlField;
+            }
+            set {
+                this.urlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Result {
+            get {
+                return this.resultField;
+            }
+            set {
+                this.resultField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitImage : TransitObject {
+        
+        private string nameField;
+        
+        private string pathField;
+        
+        private string descriptionField;
+        
+        private bool preferredField;
+        
+        private byte[] dataField;
+        
+        private byte[] thumbnailField;
+        
+        private System.DateTime modifiedField;
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Path {
+            get {
+                return this.pathField;
+            }
+            set {
+                this.pathField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool Preferred {
+            get {
+                return this.preferredField;
+            }
+            set {
+                this.preferredField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+        public byte[] Data {
+            get {
+                return this.dataField;
+            }
+            set {
+                this.dataField = value;
+            }
+        }
+        
+        /// <remarks/>
+        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+        public byte[] Thumbnail {
+            get {
+                return this.thumbnailField;
+            }
+            set {
+                this.thumbnailField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Modified {
+            get {
+                return this.modifiedField;
+            }
+            set {
+                this.modifiedField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitBlog : TransitObject {
         
         private string titleField;
         
-        private string typeField;
+        private TransitBlogType typeField;
         
         private System.DateTime createdField;
         
@@ -981,6 +1589,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private int ownerLoginIdField;
         
+        private int imageIdField;
+        
         /// <remarks/>
         public string Title {
             get {
@@ -992,7 +1602,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
-        public string Type {
+        public TransitBlogType Type {
             get {
                 return this.typeField;
             }
@@ -1070,6 +1680,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
                 this.ownerLoginIdField = value;
             }
         }
+        
+        /// <remarks/>
+        public int ImageId {
+            get {
+                return this.imageIdField;
+            }
+            set {
+                this.imageIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public enum TransitBlogType {
+        
+        /// <remarks/>
+        Unknown,
+        
+        /// <remarks/>
+        Entry,
+        
+        /// <remarks/>
+        Gallery,
     }
     
     /// <remarks/>
@@ -1450,6 +2086,300 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateImageCompletedEventHandler(object sender, CreateOrUpdateImageCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateImageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateImageCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImageByIdCompletedEventHandler(object sender, GetImageByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImageByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImageByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitImage Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitImage)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteImageCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImageWithBitmapByIdCompletedEventHandler(object sender, GetImageWithBitmapByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImageWithBitmapByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImageWithBitmapByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitImage Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitImage)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImageWithBitmapByIdIfModifiedSinceCompletedEventHandler(object sender, GetImageWithBitmapByIdIfModifiedSinceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImageWithBitmapByIdIfModifiedSinceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImageWithBitmapByIdIfModifiedSinceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitImage Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitImage)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImageWithThumbnailByIdCompletedEventHandler(object sender, GetImageWithThumbnailByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImageWithThumbnailByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImageWithThumbnailByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitImage Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitImage)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImageWithThumbnailByIdIfModifiedSinceCompletedEventHandler(object sender, GetImageWithThumbnailByIdIfModifiedSinceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImageWithThumbnailByIdIfModifiedSinceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImageWithThumbnailByIdIfModifiedSinceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitImage Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitImage)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferenceByIdCompletedEventHandler(object sender, GetReferenceByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferenceByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferenceByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitReference Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitReference)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferenceByWordCompletedEventHandler(object sender, GetReferenceByWordCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferenceByWordCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferenceByWordCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitReference Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitReference)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateReferenceCompletedEventHandler(object sender, CreateOrUpdateReferenceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateReferenceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateReferenceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferencesCountCompletedEventHandler(object sender, GetReferencesCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferencesCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferencesCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferencesCompletedEventHandler(object sender, GetReferencesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferencesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferencesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitReference[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitReference[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteReferenceCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

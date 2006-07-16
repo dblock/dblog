@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using DBlog.WebServices;
 using Microsoft.Web.UI;
 
-public class Page : System.Web.UI.Page
+public class Page : DBlog.Tools.Web.Page
 {
     private HtmlMeta mMetaDescription = null;
     protected SessionManager mSessionManager = null;
@@ -26,21 +26,6 @@ public class Page : System.Web.UI.Page
         }
 
         base.OnLoad(e);
-    }
-
-    public int RequestId
-    {
-        get
-        {
-            return GetId("id");
-        }
-    }
-
-    public int GetId(string querystring)
-    {
-        string id = Request.QueryString[querystring];
-        if (string.IsNullOrEmpty(id)) return 0;
-        return int.Parse(id);
     }
 
     public virtual SessionManager SessionManager

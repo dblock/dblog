@@ -8,8 +8,10 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using System.Text.RegularExpressions;
+using DBlog.TransitData;
 
-public partial class ShowBlog : System.Web.UI.Page
+public partial class ShowBlog : Page
 {
     protected void Page_Load(object sender, EventArgs e)
     {

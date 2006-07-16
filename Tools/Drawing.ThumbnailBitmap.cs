@@ -61,6 +61,11 @@ namespace DBlog.Tools.Drawing
             mThumbnail = GetThumbnail(new Bitmap(new MemoryStream(bitmap)), min);
         }
 
+        public ThumbnailBitmap(string filename) : this(new Bitmap(filename))
+        {
+                        
+        }
+
         public ThumbnailBitmap(byte[] bitmap) : this(bitmap, ThumbnailSize)
         {
 

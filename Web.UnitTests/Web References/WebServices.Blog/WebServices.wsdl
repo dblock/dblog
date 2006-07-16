@@ -243,7 +243,7 @@
           <s:extension base="tns:TransitObject">
             <s:sequence>
               <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="Type" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:TransitBlogType" />
               <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
               <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
@@ -251,10 +251,18 @@
               <s:element minOccurs="1" maxOccurs="1" name="TopicId" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="TemplateId" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="OwnerLoginId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
       </s:complexType>
+      <s:simpleType name="TransitBlogType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Unknown" />
+          <s:enumeration value="Entry" />
+          <s:enumeration value="Gallery" />
+        </s:restriction>
+      </s:simpleType>
       <s:element name="GetBlogsCount">
         <s:complexType>
           <s:sequence>
@@ -299,6 +307,224 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="TransitBlog" nillable="true" type="tns:TransitBlog" />
         </s:sequence>
       </s:complexType>
+      <s:element name="CreateOrUpdateImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_image" type="tns:TransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitImage">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Preferred" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+              <s:element minOccurs="0" maxOccurs="1" name="Thumbnail" type="s:base64Binary" />
+              <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateOrUpdateImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateImageResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageByIdResult" type="tns:TransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteImageResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetImageWithBitmapById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageWithBitmapByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageWithBitmapByIdResult" type="tns:TransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageWithBitmapByIdIfModifiedSince">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ifModifiedSince" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageWithBitmapByIdIfModifiedSinceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageWithBitmapByIdIfModifiedSinceResult" type="tns:TransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageWithThumbnailById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageWithThumbnailByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageWithThumbnailByIdResult" type="tns:TransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageWithThumbnailByIdIfModifiedSince">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="ifModifiedSince" type="s:dateTime" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageWithThumbnailByIdIfModifiedSinceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageWithThumbnailByIdIfModifiedSinceResult" type="tns:TransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferenceById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferenceByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReferenceByIdResult" type="tns:TransitReference" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitReference">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Word" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Result" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetReferenceByWord">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="word" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferenceByWordResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReferenceByWordResult" type="tns:TransitReference" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateReference">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_reference" type="tns:TransitReference" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateReferenceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateReferenceResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferencesCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferencesCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetReferencesCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferences">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferencesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReferencesResult" type="tns:ArrayOfTransitReference" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitReference">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitReference" nillable="true" type="tns:TransitReference" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteReference">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteReferenceResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -441,6 +667,84 @@
   <wsdl:message name="GetBlogsSoapOut">
     <wsdl:part name="parameters" element="tns:GetBlogsResponse" />
   </wsdl:message>
+  <wsdl:message name="CreateOrUpdateImageSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateImage" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateImageSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageById" />
+  </wsdl:message>
+  <wsdl:message name="GetImageByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteImageSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteImage" />
+  </wsdl:message>
+  <wsdl:message name="DeleteImageSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageWithBitmapByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageWithBitmapById" />
+  </wsdl:message>
+  <wsdl:message name="GetImageWithBitmapByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageWithBitmapByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageWithBitmapByIdIfModifiedSinceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageWithBitmapByIdIfModifiedSince" />
+  </wsdl:message>
+  <wsdl:message name="GetImageWithBitmapByIdIfModifiedSinceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageWithBitmapByIdIfModifiedSinceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageWithThumbnailByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageWithThumbnailById" />
+  </wsdl:message>
+  <wsdl:message name="GetImageWithThumbnailByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageWithThumbnailByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageWithThumbnailByIdIfModifiedSinceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageWithThumbnailByIdIfModifiedSince" />
+  </wsdl:message>
+  <wsdl:message name="GetImageWithThumbnailByIdIfModifiedSinceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageWithThumbnailByIdIfModifiedSinceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferenceByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferenceById" />
+  </wsdl:message>
+  <wsdl:message name="GetReferenceByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferenceByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferenceByWordSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferenceByWord" />
+  </wsdl:message>
+  <wsdl:message name="GetReferenceByWordSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferenceByWordResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateReferenceSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateReference" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateReferenceSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateReferenceResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferencesCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferencesCount" />
+  </wsdl:message>
+  <wsdl:message name="GetReferencesCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferencesCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferencesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferences" />
+  </wsdl:message>
+  <wsdl:message name="GetReferencesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferencesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteReferenceSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteReference" />
+  </wsdl:message>
+  <wsdl:message name="DeleteReferenceSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteReferenceResponse" />
+  </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
   </wsdl:message>
@@ -546,6 +850,71 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get blogs.</wsdl:documentation>
       <wsdl:input message="tns:GetBlogsSoapIn" />
       <wsdl:output message="tns:GetBlogsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateImage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update an image.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateImageSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get an image.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageByIdSoapIn" />
+      <wsdl:output message="tns:GetImageByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete an image.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteImageSoapIn" />
+      <wsdl:output message="tns:DeleteImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithBitmapById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageWithBitmapByIdSoapIn" />
+      <wsdl:output message="tns:GetImageWithBitmapByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithBitmapByIdIfModifiedSince">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data if modified since.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageWithBitmapByIdIfModifiedSinceSoapIn" />
+      <wsdl:output message="tns:GetImageWithBitmapByIdIfModifiedSinceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithThumbnailById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image thumbnail.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageWithThumbnailByIdSoapIn" />
+      <wsdl:output message="tns:GetImageWithThumbnailByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithThumbnailByIdIfModifiedSince">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image thumbnail if modified since.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageWithThumbnailByIdIfModifiedSinceSoapIn" />
+      <wsdl:output message="tns:GetImageWithThumbnailByIdIfModifiedSinceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferenceById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a reference.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferenceByIdSoapIn" />
+      <wsdl:output message="tns:GetReferenceByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferenceByWord">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a reference.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferenceByWordSoapIn" />
+      <wsdl:output message="tns:GetReferenceByWordSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReference">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a reference.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateReferenceSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateReferenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferencesCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get references count.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferencesCountSoapIn" />
+      <wsdl:output message="tns:GetReferencesCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferences">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get references.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferencesSoapIn" />
+      <wsdl:output message="tns:GetReferencesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReference">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a reference.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteReferenceSoapIn" />
+      <wsdl:output message="tns:DeleteReferenceSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -703,6 +1072,123 @@
     </wsdl:operation>
     <wsdl:operation name="GetBlogs">
       <soap:operation soapAction="http://dblock.org/ns/GetBlogs" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateImage">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageById">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImage">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithBitmapById">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithBitmapByIdIfModifiedSince">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageWithBitmapByIdIfModifiedSince" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithThumbnailById">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageWithThumbnailById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithThumbnailByIdIfModifiedSince">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageWithThumbnailByIdIfModifiedSince" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferenceById">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferenceById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferenceByWord">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferenceByWord" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReference">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferencesCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferencesCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferences">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferences" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReference">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteReference" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -886,6 +1372,123 @@
     </wsdl:operation>
     <wsdl:operation name="GetBlogs">
       <soap12:operation soapAction="http://dblock.org/ns/GetBlogs" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateImage">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImage">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithBitmapById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithBitmapByIdIfModifiedSince">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageWithBitmapByIdIfModifiedSince" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithThumbnailById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageWithThumbnailById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageWithThumbnailByIdIfModifiedSince">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageWithThumbnailByIdIfModifiedSince" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferenceById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferenceById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferenceByWord">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferenceByWord" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReference">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateReference" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferencesCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferencesCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferences">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferences" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReference">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteReference" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -8,6 +8,13 @@ using NHibernate.Expression;
 
 namespace DBlog.TransitData
 {
+    public enum TransitBlogType
+    {
+        Unknown,
+        Entry,
+        Gallery
+    };
+
     public class TransitBlogQueryOptions : WebServiceQueryOptions
     {
         private int mTopicId = 0;
@@ -47,6 +54,7 @@ namespace DBlog.TransitData
                 criteria.Add(Expression.Eq("Topic.Id", TopicId));
             }
 
+            criteria.AddOrder(Order.Desc("Created"));
             base.Apply(criteria);
         }
 
@@ -77,9 +85,9 @@ namespace DBlog.TransitData
             }
         }
 
-        private string mType;
+        private TransitBlogType mType;
 
-        public string Type
+        public TransitBlogType Type
         {
             get
             {
@@ -189,15 +197,29 @@ namespace DBlog.TransitData
             }
         }
 
+        private int mImageId;
+
+        public int ImageId
+        {
+            get
+            {
+               return mImageId;
+            }
+            set
+            {
+               mImageId = value;
+            }
+        }
+
         public TransitBlog()
         {
 
         }
 
-        public TransitBlog(DBlog.Data.Blog o)
+        public TransitBlog(ISession session, DBlog.Data.Blog o)
             : base(o.Id)
         {
-            Type = o.Type;
+            Type = (TransitBlogType) Enum.Parse(typeof(TransitBlogType), o.Type);
             Title = o.Title;
             Text = o.Text;
             OwnerLoginId = o.OwnerLogin.Id;
@@ -205,6 +227,18 @@ namespace DBlog.TransitData
             Created = o.Created;
             TopicName = o.Topic.Name;
             TopicId = o.Topic.Id;
+
+            switch(Type)
+            {
+                case TransitBlogType.Entry:
+                    EntryImage ei = AssociatedTransitObject<EntryImage>.GetAssociatedObject(session, "Entry", Id);
+                    if (ei != null) ImageId = ei.Image.Id;
+                    break;
+                case TransitBlogType.Gallery:
+                    GalleryImage gi = AssociatedTransitObject<GalleryImage>.GetAssociatedObject(session, "Gallery", Id);
+                    if (gi != null) ImageId = gi.Image.Id;
+                    break;
+            }
         }
     }
 }

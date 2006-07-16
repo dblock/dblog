@@ -45,7 +45,7 @@ namespace DBlog.Data.Hibernate
             return mSession.CreateQuery(this.ToString());
         }
 
-        public int execute() // consistent with the naming of NHibernate
+        public int Execute()
         {
             return (int) CreateQuery().UniqueResult();
         }

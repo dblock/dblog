@@ -42,6 +42,12 @@
     <Compile Include="Web.HostedApplication.cs" />
     <Compile Include="Web.Html.HtmlImageExtractor.cs" />
     <Compile Include="Web.Html.HtmlReaderWriter.cs" />
+    <Compile Include="Web.Page.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Web.PicturePage.cs">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Web.Renderer.cs" />
     <Compile Include="Web.UriBuilder.cs" />
     <Compile Include="Web.ViewState.cs" />

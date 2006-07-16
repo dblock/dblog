@@ -98,7 +98,7 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
-                return new CountQuery(session, typeof(DBlog.Data.Login), "Login").execute();
+                return new CountQuery(session, typeof(DBlog.Data.Login), "Login").Execute();
             }
         }
 
@@ -177,7 +177,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.Topic), "Topic").execute();
+                return new CountQuery(session, typeof(DBlog.Data.Topic), "Topic").Execute();
             }
         }
 
@@ -229,7 +229,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitBlog((DBlog.Data.Blog)session.Load(typeof(DBlog.Data.Blog), id));
+                return new TransitBlog(session, (DBlog.Data.Blog)session.Load(typeof(DBlog.Data.Blog), id));
             }
         }
 
@@ -241,7 +241,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery q = new CountQuery(session, typeof(DBlog.Data.Blog), "Blog");
                 if (options != null) options.Apply(q);
-                return q.execute();
+                return q.Execute();
             }
         }
 
@@ -264,10 +264,200 @@ namespace DBlog.WebServices
 
                 foreach (DBlog.Data.Blog obj in list)
                 {
-                    result.Add(new TransitBlog(obj));
+                    result.Add(new TransitBlog(session, obj));
                 }
 
                 return result;
+            }
+        }
+
+        #endregion
+
+        #region Images
+
+        [WebMethod(Description = "Create or update an image.")]
+        public int CreateOrUpdateImage(string ticket, TransitImage t_image)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Image image = t_image.GetImage(session);
+                session.SaveOrUpdate(image);
+                session.Flush();
+                return image.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get an image.")]
+        public TransitImage GetImageById(int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id));
+            }
+        }
+
+        [WebMethod(Description = "Delete an image.")]
+        public void DeleteImage(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                session.Delete(session.Load(typeof(DBlog.Data.Image), id));
+                session.Flush();
+            }
+        }
+
+        #endregion
+
+        #region Images with Bitmaps
+
+        [WebMethod(Description = "Get image data.", BufferResponse = true)]
+        public TransitImage GetImageWithBitmapById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), false, true);
+            }
+        }
+
+        [WebMethod(Description = "Get image data if modified since.", BufferResponse = true)]
+        public TransitImage GetImageWithBitmapByIdIfModifiedSince(string ticket, int id, DateTime ifModifiedSince)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                TransitImage img = new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id));
+
+                if (img.Modified <= ifModifiedSince)
+                {
+                    return null;
+                }
+
+                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), false, true);
+            }
+        }
+
+        [WebMethod(Description = "Get image thumbnail.", BufferResponse = true)]
+        public TransitImage GetImageWithThumbnailById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), true, false); 
+            }
+        }
+
+        [WebMethod(Description = "Get image thumbnail if modified since.", BufferResponse = true)]
+        public TransitImage GetImageWithThumbnailByIdIfModifiedSince(string ticket, int id, DateTime ifModifiedSince)
+        {
+            // todo: check permissions with ticket
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                TransitImage img = new TransitImage((DBlog.Data.Image)session.Load(typeof(DBlog.Data.Image), id));
+
+                if (img.Modified <= ifModifiedSince)
+                {
+                    return null;
+                }
+
+                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), true, false);
+            }
+        }
+
+        #endregion
+
+        #region References
+
+        [WebMethod(Description = "Get a reference.")]
+        public TransitReference GetReferenceById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitReference((Reference)session.Load(typeof(Reference), id));
+            }
+        }
+
+        [WebMethod(Description = "Get a reference.")]
+        public TransitReference GetReferenceByWord(string ticket, string word)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                Reference reference = (Reference)session.CreateCriteria(typeof(Reference))
+                    .Add(Expression.Eq("Word", word)).UniqueResult();
+                if (reference == null) return null;
+                return new TransitReference(reference);
+            }
+        }
+
+
+        [WebMethod(Description = "Create or update a reference.")]
+        public int CreateOrUpdateReference(string ticket, TransitReference t_reference)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Reference reference = t_reference.GetReference(session);
+                session.SaveOrUpdate(reference);
+                session.Flush();
+                return reference.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get references count.")]
+        public int GetReferencesCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.Reference), "Reference").Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get references.")]
+        public List<TransitReference> GetReferences(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(Reference));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitReference> result = new List<TransitReference>(list.Count);
+
+                foreach (Reference obj in list)
+                {
+                    result.Add(new TransitReference(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a reference.")]
+        public void DeleteReference(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                session.Delete((Reference)session.Load(typeof(Reference), id));
+                session.Flush();
             }
         }
 
