@@ -77,7 +77,7 @@ public partial class NoticeControl : Control
 
     protected override void OnPreRender(EventArgs e)
     {
-        panelNotice.CssClass = string.Format("{0}_{1}", CssClass, Kind.ToString().ToLower());
+        tableNotice.Attributes["class"] = string.Format("{0}_{1}", CssClass, Kind.ToString().ToLower());
         labelMessage.Text = HtmlEncode ? Renderer.Render(Message) : Message;
         panelNotice.Visible = ! string.IsNullOrEmpty(Message);
         imageMessage.ImageUrl = string.Format("images/site/{0}.gif", Kind.ToString().ToLower());
@@ -104,7 +104,7 @@ public partial class NoticeControl : Control
                             Renderer.UrlEncode(message));
 
             Message = string.Format("{0}<br>This may be a bug. If you believe you should not be getting this error, " +
-                "please <a href={1}>click here</a> to report it.", message, reportbugurl);
+                "<a href={1}>click here</a> to report it.", message, reportbugurl);
 
             HtmlEncode = false;
         }

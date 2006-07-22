@@ -10,7 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Data.Hibernate;
 
-public partial class TopicsViewControl : Control
+public partial class ViewTopicsControl : Control
 {
     public class TopicChangedEventArgs : EventArgs
     {
@@ -66,13 +66,12 @@ public partial class TopicsViewControl : Control
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
         grid.DataSource = SessionManager.BlogService.GetTopics(
-            SessionManager.Ticket, new WebServiceQueryOptions(grid.PageSize, grid.CurrentPageIndex));
+            SessionManager.Ticket, null);
     }
 
     private void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetTopicsCount(SessionManager.Ticket);
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }

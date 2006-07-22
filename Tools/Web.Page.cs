@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web.UI.WebControls;
 
 namespace DBlog.Tools.Web
 {
@@ -32,6 +33,11 @@ namespace DBlog.Tools.Web
             {
                 return "id";
             }
+        }
+
+        public void SetDefaultButton(Button button)
+        {
+            PageManager.SetDefaultButton(button, this.Controls);
         }
     }
 }

@@ -45,12 +45,15 @@
     <Compile Include="Web.Page.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+    <Compile Include="Web.PageManager.cs">
+    </Compile>
     <Compile Include="Web.PicturePage.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Web.Renderer.cs" />
     <Compile Include="Web.UriBuilder.cs" />
     <Compile Include="Web.ViewState.cs" />
+    <Compile Include="WebControls.Button.cs" />
     <Compile Include="WebControls.WorkingButton.cs" />
     <Compile Include="WebControls.PagedGrid.cs" />
     <Compile Include="WebControls.PagedList.cs">

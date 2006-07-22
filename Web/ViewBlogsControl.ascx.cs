@@ -13,7 +13,7 @@ using DBlog.Tools;
 using DBlog.TransitData;
 using DBlog.Tools.Web;
 
-public partial class BlogsViewControl : Control
+public partial class ViewBlogsControl : Control
 {
     protected void Page_Load(object sender, EventArgs e)
     {

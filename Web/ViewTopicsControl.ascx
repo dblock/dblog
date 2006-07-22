@@ -1,5 +1,5 @@
-<%@ Control Language="C#" AutoEventWireup="true" CodeFile="TopicsViewControl.ascx.cs"
- Inherits="TopicsViewControl" %>
+<%@ Control Language="C#" AutoEventWireup="true" CodeFile="ViewTopicsControl.ascx.cs"
+ Inherits="ViewTopicsControl" %>
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <Controls:PagedGrid runat="server" ID="grid" CssClass="table_topics" AutoGenerateColumns="false"

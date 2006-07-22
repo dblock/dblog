@@ -185,6 +185,22 @@ public class SessionManager
         }
     }
 
+    public bool IsAdministrator
+    {
+        get
+        {
+            if (! IsLoggedIn)
+                return false;
+
+            TransitLogin t_login = LoginRecord;
+
+            if (t_login == null)
+                return false;
+
+            return t_login.IsAdministrator;
+        }
+    }
+
     public void Impersonate(string newticket)
     {
         HttpCookie impersonateCookie = Request.Cookies[sDBlogImpersonateCookieName];

@@ -16,10 +16,15 @@ public partial class ShowBlog : Page
     protected void Page_Load(object sender, EventArgs e)
     {
         DBlogMaster master = (DBlogMaster) this.Master;
-        master.TopicChanged += new TopicsViewControl.TopicChangedHandler(topics_TopicChanged);
+        master.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
+
+        if (!IsPostBack)
+        {
+            blogs.TopicId = RequestId;
+        }        
     }
 
-    public void topics_TopicChanged(object sender, TopicsViewControl.TopicChangedEventArgs e)
+    public void topics_TopicChanged(object sender, ViewTopicsControl.TopicChangedEventArgs e)
     {
         blogs.TopicId = e.TopicId;
         blogs.GetData(sender, e);
