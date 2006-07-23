@@ -22,7 +22,6 @@ namespace DBlog.Data
         private System.DateTime m_Created;
         private System.DateTime m_Modified;
         private Login m_OwnerLogin;
-        private Template m_Template;
         private System.String m_Text;
         private System.String m_Title;
         private Topic m_Topic;
@@ -126,33 +125,6 @@ namespace DBlog.Data
             set
             {
                 m_OwnerLogin = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent one-many reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts references to objects of the type 'Template'.
-        ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Template.Blogs'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Template' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'Template_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  Template Template
-        {
-            get
-            {
-                return m_Template;
-            }
-            set
-            {
-                m_Template = value;
             }
         }
 

@@ -7,7 +7,6 @@
     <property name="Created" column="Created" type="DateTime" />
     <property name="Modified" column="Modified" type="DateTime" />
     <many-to-one name="OwnerLogin" column="Owner_Login_Id" class="DBlog.Data.Login, DBlog.Data" />
-    <many-to-one name="Template" column="Template_Id" class="DBlog.Data.Template, DBlog.Data" />
     <property name="Text" column="Text" type="String" />
     <property name="Title" column="Title" type="String" />
     <many-to-one name="Topic" column="Topic_Id" class="DBlog.Data.Topic, DBlog.Data" />
@@ -90,7 +89,6 @@
       <key column="ParentComment_Id" />
       <one-to-many class="DBlog.Data.Thread, DBlog.Data" />
     </bag>
-    <many-to-one name="Template" column="Template_Id" class="DBlog.Data.Template, DBlog.Data" />
     <property name="Text" column="Text" type="String" />
     <bag lazy="true" name="Threads" inverse="true">
       <key column="Comment_Id" />
@@ -145,7 +143,6 @@
     <property name="IpAddress" column="IpAddress" type="String" />
     <property name="Modified" column="Modified" type="DateTime" />
     <many-to-one name="OwnerLogin" column="Owner_Login_Id" class="DBlog.Data.Login, DBlog.Data" />
-    <many-to-one name="Template" column="Template_Id" class="DBlog.Data.Template, DBlog.Data" />
     <property name="Text" column="Text" type="String" />
     <property name="Title" column="Title" type="String" />
     <many-to-one name="Topic" column="Topic_Id" class="DBlog.Data.Topic, DBlog.Data" />
@@ -224,7 +221,6 @@
     <property name="Modified" column="Modified" type="DateTime" />
     <many-to-one name="OwnerLogin" column="Owner_Login_Id" class="DBlog.Data.Login, DBlog.Data" />
     <property name="Path" column="Path" type="String" />
-    <many-to-one name="Template" column="Template_Id" class="DBlog.Data.Template, DBlog.Data" />
     <property name="Text" column="Text" type="String" />
     <property name="Title" column="Title" type="String" />
     <many-to-one name="Topic" column="Topic_Id" class="DBlog.Data.Topic, DBlog.Data" />
@@ -431,30 +427,6 @@
     <many-to-one name="BrowserVersionPlatform" column="BrowserVersionPlatform_Id" class="DBlog.Data.BrowserVersionPlatform, DBlog.Data" />
     <property name="RequestCount" column="RequestCount" type="Int64" />
   </class>
-  <class name="DBlog.Data.Template, DBlog.Data" table="Template">
-    <id name="Id" type="Int32" column="Template_Id" access="field.pascalcase-m-underscore">
-      <generator class="identity" />
-    </id>
-    <bag lazy="true" name="Comments" inverse="true">
-      <key column="Template_Id" />
-      <one-to-many class="DBlog.Data.Comment, DBlog.Data" />
-    </bag>
-    <bag lazy="true" name="Entries" inverse="true">
-      <key column="Template_Id" />
-      <one-to-many class="DBlog.Data.Entry, DBlog.Data" />
-    </bag>
-    <bag lazy="true" name="Galleries" inverse="true">
-      <key column="Template_Id" />
-      <one-to-many class="DBlog.Data.Gallery, DBlog.Data" />
-    </bag>
-    <property name="Name" column="Name" type="String" />
-    <property name="Source" column="Source" type="String" />
-    <property name="Type" column="Type" type="String" />
-    <bag lazy="true" name="Blogs" inverse="true">
-      <key column="Template_Id" />
-      <one-to-many class="DBlog.Data.Blog, DBlog.Data" />
-    </bag>
-  </class>
   <class name="DBlog.Data.Thread, DBlog.Data" table="Thread">
     <id name="Id" type="Int32" column="Thread_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
@@ -475,7 +447,6 @@
       <one-to-many class="DBlog.Data.Gallery, DBlog.Data" />
     </bag>
     <property name="Name" column="Name" type="String" />
-    <property name="Type" column="Type" type="String" />
     <bag lazy="true" name="Blogs" inverse="true">
       <key column="Topic_Id" />
       <one-to-many class="DBlog.Data.Blog, DBlog.Data" />

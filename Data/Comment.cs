@@ -27,7 +27,6 @@ namespace DBlog.Data
         private System.DateTime m_Modified;
         private Login m_OwnerLogin;
         private System.Collections.IList m_ParentCommentThreads;
-        private Template m_Template;
         private System.String m_Text;
         private System.Collections.IList m_Threads;
 
@@ -278,33 +277,6 @@ namespace DBlog.Data
             set
             {
                 m_ParentCommentThreads = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent one-many reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts references to objects of the type 'Template'.
-        ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Template.Comments'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Template' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'Template_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  Template Template
-        {
-            get
-            {
-                return m_Template;
-            }
-            set
-            {
-                m_Template = value;
             }
         }
 

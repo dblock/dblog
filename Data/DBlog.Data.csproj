@@ -3,7 +3,7 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C6E8220C-5AD2-445A-9EF2-079D6547AEAD}</ProjectGuid>
+    <ProjectGuid>{078b601b-349e-4820-9023-1e6d717df1d7}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -188,9 +188,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RollupBrowserVersionPlatform.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Template.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Thread.cs">

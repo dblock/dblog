@@ -27,9 +27,6 @@ namespace DBlog.Data.UnitTests
             LoginTest login = new LoginTest();
             AddDependentObject(login);
 
-            TemplateTest template = new TemplateTest();
-            AddDependentObject(template);
-
             TopicTest topic = new TopicTest();
             AddDependentObject(topic);
 
@@ -37,7 +34,6 @@ namespace DBlog.Data.UnitTests
             mEntry.OwnerLogin = login.Login;
             mEntry.Created = mEntry.Modified = DateTime.UtcNow;
             mEntry.IpAddress = "127.0.0.1";
-            mEntry.Template = template.Template;
             mEntry.Text = Guid.NewGuid().ToString();
             mEntry.Title = Guid.NewGuid().ToString();
             mEntry.Topic = topic.Topic;

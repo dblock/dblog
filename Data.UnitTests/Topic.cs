@@ -27,7 +27,6 @@ namespace DBlog.Data.UnitTests
             mTopic = new Topic();
 
             mTopic.Name = Guid.NewGuid().ToString();
-            mTopic.Type = Guid.NewGuid().ToString();
         }
 
         public override object Object

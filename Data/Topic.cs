@@ -22,7 +22,6 @@ namespace DBlog.Data
         private System.Collections.IList m_Entries;
         private System.Collections.IList m_Galleries;
         private System.String m_Name;
-        private System.String m_Type;
         private System.Collections.IList m_Blogs;
 
         //Public properties
@@ -133,31 +132,6 @@ namespace DBlog.Data
             set
             {
                 m_Name = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent primitive property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts values of the type 'System.String'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Type' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'Type' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.String Type
-        {
-            get
-            {
-                return m_Type;
-            }
-            set
-            {
-                m_Type = value;
             }
         }
 

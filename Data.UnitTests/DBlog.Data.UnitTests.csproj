@@ -94,7 +94,6 @@
     <Compile Include="ReferrerSearchQuery.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="RollupBrowserVersionPlatform.cs" />
-    <Compile Include="Template.cs" />
     <Compile Include="Thread.cs" />
     <Compile Include="Topic.cs" />
   </ItemGroup>

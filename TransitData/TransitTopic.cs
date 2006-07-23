@@ -44,7 +44,6 @@ namespace DBlog.TransitData
         public TransitTopic(DBlog.Data.Topic o)
             : base(o.Id)
         {
-            Type = o.Type;
             Name = o.Name;
         }
 
@@ -52,7 +51,6 @@ namespace DBlog.TransitData
         {
             Topic topic = (Id != 0) ? (Topic)session.Load(typeof(Topic), Id) : new Topic();
             topic.Name = Name;
-            topic.Type = Type;
             return topic;
         }
     }

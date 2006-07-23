@@ -24,9 +24,6 @@ namespace DBlog.Data.UnitTests
 
         public CommentTest()
         {
-            TemplateTest template = new TemplateTest();
-            AddDependentObject(template);
-
             LoginTest login = new LoginTest();
             AddDependentObject(login);
 
@@ -34,7 +31,6 @@ namespace DBlog.Data.UnitTests
             mComment.IpAddress = "127.0.0.1";
             mComment.Created = mComment.Modified = DateTime.UtcNow;
             mComment.Text = Guid.NewGuid().ToString(); ;
-            mComment.Template = template.Template;
             mComment.OwnerLogin = login.Login;
         }
 

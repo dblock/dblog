@@ -24,9 +24,6 @@ namespace DBlog.Data.UnitTests
 
         public GalleryTest()
         {
-            TemplateTest template = new TemplateTest();
-            AddDependentObject(template);
-
             LoginTest login = new LoginTest();
             AddDependentObject(login);
 
@@ -37,7 +34,6 @@ namespace DBlog.Data.UnitTests
             mGallery.Created = mGallery.Modified = DateTime.UtcNow;
             mGallery.OwnerLogin = login.Login;
             mGallery.Path = Guid.NewGuid().ToString();
-            mGallery.Template = template.Template;
             mGallery.Text = Guid.NewGuid().ToString();
             mGallery.Title = Guid.NewGuid().ToString();
             mGallery.Topic = topic.Topic;
