@@ -6,7 +6,7 @@ a { font-family: Arial; text-decoration: none; }
 .notice_warning { width: 592px; border: dotted 2px orange; font-weight: bold; color: orange; }
 .table_notice { text-align: left; font-family: Arial; width: 95%; }
 .table_notice_tr_td { margin: 10px; font-family: Arial; }
-.table { text-align: left; font-family: Arial; width: 95%; border: solid 1px black; }
+.table { text-align: left; font-family: Arial; width: 780px; border: solid 1px black; }
 .table_tr_td { padding: 2px; font-family: Arial; }
 .table_tr_td_alt { background: #EEEEEE; padding: 2px; font-family: Arial; }
 .table_tr_th { font-family: Arial; background: black; padding: 2px; font-family: Arial; font-size: 0.9em; font-weight: bold; color: white; }

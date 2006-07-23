@@ -65,5 +65,27 @@ namespace DBlog.Web.UnitTests.WebServices
                 Delete();
             }
         }
+
+        [Test]
+        public void TestGetNonBlogImages()
+        {
+            int id = Create(); // at least one image
+            try
+            {
+                TransitImageQueryOptions options = new TransitImageQueryOptions();
+                options.ExcludeBlogImages = true;
+                int count = Blog.GetImagesCount(Ticket, options);
+                Assert.IsTrue(count > 0);
+                Console.WriteLine(string.Format("GetImagesCount: {0}", count));
+                
+                TransitImage[] images = Blog.GetImages(Ticket, options);
+                Assert.AreEqual(count, images.Length); 
+                Console.WriteLine(string.Format("GetImages: {0} images", images.Length));
+            }
+            finally
+            {
+                Delete();
+            }
+        }
     }
 }

@@ -48,7 +48,7 @@
      <td class="table_tr_td_label">      
      </td>
      <td valign="top" class="table_tr_td_value">
-      <asp:CheckBox runat="server" CssClass="checkbox" ID="inputAdministrator" />
+      <asp:CheckBox runat="server" CssClass="checkbox" ID="inputAdministrator" Text="Administrator" />
      </td>
     </tr>
     <tr>

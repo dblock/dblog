@@ -319,12 +319,41 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get images count.")]
-        public int GetImagesCount(string ticket)
+        public int GetImagesCount(string ticket, TransitImageQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.Image), "Image").Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Image), "Image");
+                if (options != null) options.Apply(query);
+                return query.Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get images.")]
+        public List<TransitImage> GetImages(string ticket, TransitImageQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(Image));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitImage> result = new List<TransitImage>(list.Count);
+
+                foreach (Image obj in list)
+                {
+                    result.Add(new TransitImage(obj));
+                }
+
+                return result;
             }
         }
 

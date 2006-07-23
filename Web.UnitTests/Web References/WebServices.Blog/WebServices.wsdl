@@ -367,9 +367,19 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitImageQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="TransitImageQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WebServiceQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ExcludeBlogImages" type="s:boolean" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="GetImagesCountResponse">
         <s:complexType>
           <s:sequence>
@@ -377,6 +387,26 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetImages">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitImageQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImagesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImagesResult" type="tns:ArrayOfTransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitImage">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitImage" nillable="true" type="tns:TransitImage" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetImageWithBitmapById">
         <s:complexType>
           <s:sequence>
@@ -878,6 +908,12 @@
   <wsdl:message name="GetImagesCountSoapOut">
     <wsdl:part name="parameters" element="tns:GetImagesCountResponse" />
   </wsdl:message>
+  <wsdl:message name="GetImagesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImages" />
+  </wsdl:message>
+  <wsdl:message name="GetImagesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImagesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetImageWithBitmapByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetImageWithBitmapById" />
   </wsdl:message>
@@ -1123,6 +1159,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get images count.</wsdl:documentation>
       <wsdl:input message="tns:GetImagesCountSoapIn" />
       <wsdl:output message="tns:GetImagesCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImages">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get images.</wsdl:documentation>
+      <wsdl:input message="tns:GetImagesSoapIn" />
+      <wsdl:output message="tns:GetImagesSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetImageWithBitmapById">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data.</wsdl:documentation>
@@ -1416,6 +1457,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagesCount">
       <soap:operation soapAction="http://dblock.org/ns/GetImagesCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImages">
+      <soap:operation soapAction="http://dblock.org/ns/GetImages" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1815,6 +1865,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetImagesCount">
       <soap12:operation soapAction="http://dblock.org/ns/GetImagesCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImages">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImages" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

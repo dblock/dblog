@@ -5,9 +5,71 @@ using DBlog.Data;
 using NHibernate;
 using System.Drawing;
 using DBlog.Tools.Drawing;
+using NHibernate.Expression;
+using DBlog.Data.Hibernate;
 
 namespace DBlog.TransitData
 {
+    public class TransitImageQueryOptions : WebServiceQueryOptions
+    {
+        private bool mExcludeBlogImages = false;
+
+        public bool ExcludeBlogImages
+        {
+            get
+            {
+                return mExcludeBlogImages;
+            }
+            set
+            {
+                mExcludeBlogImages = value;
+            }
+        }
+
+        public TransitImageQueryOptions()
+        {
+        }
+
+        public TransitImageQueryOptions(
+            bool excludeblogimages)
+        {
+            mExcludeBlogImages = excludeblogimages;
+        }
+
+        public TransitImageQueryOptions(
+            bool excludeblogimages,
+            int pagesize, 
+            int pagenumber)
+            : base(pagesize, pagenumber)
+        {
+            mExcludeBlogImages = excludeblogimages;
+        }
+
+        public override void Apply(ICriteria criteria)
+        {
+            if (mExcludeBlogImages)
+            {
+                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM EntryImage e WHERE e.Image_Id = this.Image_Id )"));
+                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM GalleryImage g WHERE g.Image_Id = this.Image_Id )"));
+                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM Highlight h WHERE h.Image_Id = this.Image_Id )"));
+            }
+
+            base.Apply(criteria);
+        }
+
+        public override void Apply(CountQuery query)
+        {
+            if (mExcludeBlogImages)
+            {
+                query.Add(Expression.Sql("NOT EXISTS ( SELECT e.Image.Id FROM EntryImage e WHERE e.Image.Id = Image.Id )"));
+                query.Add(Expression.Sql("NOT EXISTS ( SELECT g.Image.Id FROM GalleryImage g WHERE g.Image.Id = Image.Id )"));
+                query.Add(Expression.Sql("NOT EXISTS ( SELECT h.Image.Id FROM Highlight h WHERE h.Image.Id = Image.Id )"));
+            }
+
+            base.Apply(query);
+        }
+    }
+
     public class TransitImage : TransitObject
     {
         private string mName;
@@ -155,6 +217,12 @@ namespace DBlog.TransitData
             image.Preferred = Preferred;
             image.Data = Data;
             image.Thumbnail = Thumbnail;
+            
+            if (image.Thumbnail == null && image.Data != null)
+            {
+                image.Thumbnail = new ThumbnailBitmap(image.Data).Thumbnail;
+            }
+
             return image;
         }
 

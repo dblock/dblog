@@ -53,6 +53,7 @@
        <tr><td class="table_admin_tr_td"><a href="ManageReferences.aspx">References</a> &#187; <a href="EditReference.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><a href="ManageHighlights.aspx">Highlights</a> &#187; <a href="EditHighlight.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><a href="ManageReferrerHostRollups.aspx">Referrers</a> &#187; <a href="EditReferrerHostRollup.aspx">New</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="ManageImages.aspx">Images</a> &#187; <a href="EditImage.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><asp:LinkButton ID="linkLogout" Text="Logout" runat="server" OnClick="linkLogout_Click" /></td></tr>
       </table>
      </asp:Panel>

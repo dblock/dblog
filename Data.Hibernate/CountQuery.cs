@@ -47,17 +47,17 @@ namespace DBlog.Data.Hibernate
 
         public int Execute()
         {
-            return (int) CreateQuery().UniqueResult();
+            return (int)CreateQuery().UniqueResult();
         }
 
         public override string ToString()
         {
-            ISessionFactoryImplementor impl = (ISessionFactoryImplementor) mSession.SessionFactory;
+            ISessionFactoryImplementor impl = (ISessionFactoryImplementor)mSession.SessionFactory;
 
             StringBuilder s = new StringBuilder();
             s.AppendFormat("SELECT COUNT({1}) FROM {0} {1}", Table, Table);
 
-            Dictionary<string, string> aliasclasses = new Dictionary<string,string>();
+            Dictionary<string, string> aliasclasses = new Dictionary<string, string>();
 
             StringBuilder q = new StringBuilder();
             foreach (ICriterion expr in mExpressions)
@@ -77,12 +77,17 @@ namespace DBlog.Data.Hibernate
                     index++;
                 }
                 string ss_s = ss.ToString();
-                ss_s = ss_s.Replace("_", "."); // hack
+
+                if (!(expr is SQLCriterion))
+                {
+                    ss_s = ss_s.Replace("_", "."); // hack
+                }
+
                 q.Append(ss_s);
             }
 
             s.Append(q);
-           return s.ToString();
+            return s.ToString();
         }
     }
 }

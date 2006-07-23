@@ -68,6 +68,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback GetImagesCountOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetImagesOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetImageWithBitmapByIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetImageWithBitmapByIdIfModifiedSinceOperationCompleted;
@@ -212,6 +214,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event GetImagesCountCompletedEventHandler GetImagesCountCompleted;
+        
+        /// <remarks/>
+        public event GetImagesCompletedEventHandler GetImagesCompleted;
         
         /// <remarks/>
         public event GetImageWithBitmapByIdCompletedEventHandler GetImageWithBitmapByIdCompleted;
@@ -839,30 +844,63 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImagesCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetImagesCount(string ticket) {
+        public int GetImagesCount(string ticket, TransitImageQueryOptions options) {
             object[] results = this.Invoke("GetImagesCount", new object[] {
-                        ticket});
+                        ticket,
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetImagesCountAsync(string ticket) {
-            this.GetImagesCountAsync(ticket, null);
+        public void GetImagesCountAsync(string ticket, TransitImageQueryOptions options) {
+            this.GetImagesCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetImagesCountAsync(string ticket, object userState) {
+        public void GetImagesCountAsync(string ticket, TransitImageQueryOptions options, object userState) {
             if ((this.GetImagesCountOperationCompleted == null)) {
                 this.GetImagesCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImagesCountOperationCompleted);
             }
             this.InvokeAsync("GetImagesCount", new object[] {
-                        ticket}, this.GetImagesCountOperationCompleted, userState);
+                        ticket,
+                        options}, this.GetImagesCountOperationCompleted, userState);
         }
         
         private void OnGetImagesCountOperationCompleted(object arg) {
             if ((this.GetImagesCountCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetImagesCountCompleted(this, new GetImagesCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImages", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitImage[] GetImages(string ticket, TransitImageQueryOptions options) {
+            object[] results = this.Invoke("GetImages", new object[] {
+                        ticket,
+                        options});
+            return ((TransitImage[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImagesAsync(string ticket, TransitImageQueryOptions options) {
+            this.GetImagesAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetImagesAsync(string ticket, TransitImageQueryOptions options, object userState) {
+            if ((this.GetImagesOperationCompleted == null)) {
+                this.GetImagesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImagesOperationCompleted);
+            }
+            this.InvokeAsync("GetImages", new object[] {
+                        ticket,
+                        options}, this.GetImagesOperationCompleted, userState);
+        }
+        
+        private void OnGetImagesOperationCompleted(object arg) {
+            if ((this.GetImagesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImagesCompleted(this, new GetImagesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1761,6 +1799,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImageQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitBlogQueryOptions))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
     [System.SerializableAttribute()]
@@ -1790,6 +1829,27 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.pageNumberField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitImageQueryOptions : WebServiceQueryOptions {
+        
+        private bool excludeBlogImagesField;
+        
+        /// <remarks/>
+        public bool ExcludeBlogImages {
+            get {
+                return this.excludeBlogImagesField;
+            }
+            set {
+                this.excludeBlogImagesField = value;
             }
         }
     }
@@ -2647,6 +2707,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImagesCompletedEventHandler(object sender, GetImagesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImagesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImagesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitImage[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitImage[])(this.results[0]));
             }
         }
     }
