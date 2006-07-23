@@ -11,7 +11,7 @@ namespace DBlog.Web.UnitTests.WebServices
     public abstract class BlogCrudTest : BlogTest
     {
         public abstract string ObjectType { get; }
-        public abstract TransitObject TransitInstance { get; }
+        public abstract TransitObject TransitInstance { get; set; }
 
         private string mTicket = string.Empty;
 
@@ -31,10 +31,9 @@ namespace DBlog.Web.UnitTests.WebServices
         public virtual int Create()
         {
             string method = string.Format("CreateOrUpdate{0}", ObjectType);
-            Console.Write(string.Format("{0}: ", method));
             object[] args = { Ticket, TransitInstance };
             TransitInstance.Id = (int) Blog.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, Blog, args);
-            Console.WriteLine(TransitInstance.Id);
+            Console.WriteLine(string.Format("{0}: {1}", method, TransitInstance.Id));
             return TransitInstance.Id;
         }
 
@@ -44,25 +43,24 @@ namespace DBlog.Web.UnitTests.WebServices
             Console.WriteLine(string.Format("{0}: {1}", method, TransitInstance.Id));
             object[] args = { Ticket, TransitInstance.Id };
             Blog.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, Blog, args);
+            TransitInstance.Id = 0;
         }
 
         public int Count()
         {
             string method = string.Format("Get{0}sCount", ObjectType);
-            Console.Write(string.Format("{0}: ", method));
             object[] args = { Ticket };
             int count = (int) Blog.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, Blog, args);
-            Console.WriteLine(string.Format("{0}", count));
+            Console.WriteLine(string.Format("{0}: {1}", method, count));
             return count;
         }
 
         public TransitObject Retrieve(int id)
         {
             string method = string.Format("Get{0}ById", ObjectType);
-            Console.Write(string.Format("{0}: {1} -> ", method, id));
             object[] args = { Ticket, id };
             TransitObject to = (TransitObject) Blog.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, Blog, args);
-            Console.WriteLine(string.Format("{0}: {1}", to.ToString(), to.Id));
+            Console.WriteLine(string.Format("{0}: {1} -> {2}: {3}", method, id, to.ToString(), to.Id));
             return to;
         }
 

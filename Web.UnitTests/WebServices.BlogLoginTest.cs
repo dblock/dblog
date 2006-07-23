@@ -49,6 +49,10 @@ namespace DBlog.Web.UnitTests.WebServices
             {
                 return mLogin;
             }
+            set
+            {
+                mLogin = null;
+            }
         }
 
         public override string ObjectType 

@@ -340,6 +340,7 @@
       <s:element name="GetImageById">
         <s:complexType>
           <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
             <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
           </s:sequence>
         </s:complexType>
@@ -361,6 +362,20 @@
       </s:element>
       <s:element name="DeleteImageResponse">
         <s:complexType />
+      </s:element>
+      <s:element name="GetImagesCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImagesCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetImagesCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="GetImageWithBitmapById">
         <s:complexType>
@@ -770,6 +785,12 @@
   <wsdl:message name="DeleteImageSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteImageResponse" />
   </wsdl:message>
+  <wsdl:message name="GetImagesCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImagesCount" />
+  </wsdl:message>
+  <wsdl:message name="GetImagesCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImagesCountResponse" />
+  </wsdl:message>
   <wsdl:message name="GetImageWithBitmapByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetImageWithBitmapById" />
   </wsdl:message>
@@ -980,6 +1001,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete an image.</wsdl:documentation>
       <wsdl:input message="tns:DeleteImageSoapIn" />
       <wsdl:output message="tns:DeleteImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImagesCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get images count.</wsdl:documentation>
+      <wsdl:input message="tns:GetImagesCountSoapIn" />
+      <wsdl:output message="tns:GetImagesCountSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetImageWithBitmapById">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data.</wsdl:documentation>
@@ -1239,6 +1265,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteImage">
       <soap:operation soapAction="http://dblock.org/ns/DeleteImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagesCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetImagesCount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1584,6 +1619,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteImage">
       <soap12:operation soapAction="http://dblock.org/ns/DeleteImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImagesCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImagesCount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

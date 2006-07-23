@@ -26,6 +26,10 @@ namespace DBlog.Web.UnitTests.WebServices
             {
                 return mTopic;
             }
+            set
+            {
+                mTopic = null;
+            }
         }
 
         public override string ObjectType 

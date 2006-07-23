@@ -26,6 +26,10 @@ namespace DBlog.Web.UnitTests.WebServices
             {
                 return mReferrerHostRollup;
             }
+            set
+            {
+                mReferrerHostRollup = null;
+            }
         }
 
         public override string ObjectType 

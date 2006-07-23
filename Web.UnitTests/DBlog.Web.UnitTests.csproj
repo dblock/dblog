@@ -53,6 +53,7 @@
     <Compile Include="WebServices.BlogBlogTest.cs" />
     <Compile Include="WebServices.BlogCrudTest.cs" />
     <Compile Include="WebServices.Blog.cs" />
+    <Compile Include="WebServices.BlogImageTest.cs" />
     <Compile Include="WebServices.BlogLoginTest.cs" />
     <Compile Include="WebServices.BlogProperties.cs" />
     <Compile Include="WebServices.BlogReferrerHostRollupTest.cs" />

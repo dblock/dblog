@@ -297,7 +297,7 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get an image.")]
-        public TransitImage GetImageById(int id)
+        public TransitImage GetImageById(string ticket, int id)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
@@ -315,6 +315,16 @@ namespace DBlog.WebServices
                 CheckAdministrator(session, ticket);
                 session.Delete(session.Load(typeof(DBlog.Data.Image), id));
                 session.Flush();
+            }
+        }
+
+        [WebMethod(Description = "Get images count.")]
+        public int GetImagesCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.Image), "Image").Execute();
             }
         }
 

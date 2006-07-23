@@ -66,6 +66,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback DeleteImageOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetImagesCountOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetImageWithBitmapByIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetImageWithBitmapByIdIfModifiedSinceOperationCompleted;
@@ -197,6 +199,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event DeleteImageCompletedEventHandler DeleteImageCompleted;
+        
+        /// <remarks/>
+        public event GetImagesCountCompletedEventHandler GetImagesCountCompleted;
         
         /// <remarks/>
         public event GetImageWithBitmapByIdCompletedEventHandler GetImageWithBitmapByIdCompleted;
@@ -748,23 +753,25 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransitImage GetImageById(int id) {
+        public TransitImage GetImageById(string ticket, int id) {
             object[] results = this.Invoke("GetImageById", new object[] {
+                        ticket,
                         id});
             return ((TransitImage)(results[0]));
         }
         
         /// <remarks/>
-        public void GetImageByIdAsync(int id) {
-            this.GetImageByIdAsync(id, null);
+        public void GetImageByIdAsync(string ticket, int id) {
+            this.GetImageByIdAsync(ticket, id, null);
         }
         
         /// <remarks/>
-        public void GetImageByIdAsync(int id, object userState) {
+        public void GetImageByIdAsync(string ticket, int id, object userState) {
             if ((this.GetImageByIdOperationCompleted == null)) {
                 this.GetImageByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageByIdOperationCompleted);
             }
             this.InvokeAsync("GetImageById", new object[] {
+                        ticket,
                         id}, this.GetImageByIdOperationCompleted, userState);
         }
         
@@ -802,6 +809,35 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.DeleteImageCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.DeleteImageCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImagesCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetImagesCount(string ticket) {
+            object[] results = this.Invoke("GetImagesCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImagesCountAsync(string ticket) {
+            this.GetImagesCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetImagesCountAsync(string ticket, object userState) {
+            if ((this.GetImagesCountOperationCompleted == null)) {
+                this.GetImagesCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImagesCountOperationCompleted);
+            }
+            this.InvokeAsync("GetImagesCount", new object[] {
+                        ticket}, this.GetImagesCountOperationCompleted, userState);
+        }
+        
+        private void OnGetImagesCountOperationCompleted(object arg) {
+            if ((this.GetImagesCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImagesCountCompleted(this, new GetImagesCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2353,6 +2389,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeleteImageCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImagesCountCompletedEventHandler(object sender, GetImagesCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImagesCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImagesCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
