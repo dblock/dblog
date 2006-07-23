@@ -6,6 +6,9 @@
  <div class="title">
   Topic
  </div>
+ <div class="link">
+  <a href="ManageTopics.aspx">&#187; Cancel</a>
+ </div>
  <atlas:UpdatePanel runat="server" ID="panelLogin" Mode="Always">
   <ContentTemplate>
    <table class="table">

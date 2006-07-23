@@ -120,7 +120,11 @@ namespace DBlog.TransitData
             Login login = (Id != 0) ? (Login) session.Load(typeof(Login), Id) : new Login();
             login.Name = Name;
             login.Email = Email;
-            login.Password = ManagedLogin.GetPasswordHash(Password);
+            if (login.Password != Password)
+            {
+                // update password, not current password hash
+                login.Password = ManagedLogin.GetPasswordHash(Password);
+            }
             login.Role = Role.ToString();
             login.Username = Username;
             login.Website = Website;

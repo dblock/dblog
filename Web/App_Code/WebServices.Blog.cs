@@ -85,6 +85,13 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
                 Login login = t_login.GetLogin(session);
+
+                if (t_login.Role != TransitLoginRole.Administrator && t_login.Id == ManagedLogin.GetLoginId(ticket))
+                {
+                    // check whether self and administrator
+                    throw new InvalidOperationException("Cannot Demote Self");    
+                }
+
                 session.SaveOrUpdate(login);
                 session.Flush();
                 return login.Id;

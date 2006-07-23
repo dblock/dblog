@@ -35,23 +35,18 @@
           <Controls:Notice ID="noticeMenu" EnableViewState="false" runat="server" />
          </ContentTemplate>
         </atlas:UpdatePanel>
-        <div style="margin-top: 20px"></div>
+        <div class="div_top"></div>
         <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
         </asp:contentplaceholder>
        </td>
        <td valign="top">
+        <div class="div_top"></div>
         <asp:Panel ID="panelAdmin" Visible="false" runat="server">
-         <table>
-          <tr>
-           <td>
-            <a href="ManageTopics.aspx">Topics</a>
-           </td>
-          </tr>
-          <tr>
-           <td>
-            <asp:LinkButton ID="linkLogout" Text="Logout" runat="server" OnClick="linkLogout_Click" />
-           </td>
-          </tr>
+         <table class="table_admin">
+          <tr><td class="table_admin_tr_th">Settings</td></tr>
+          <tr><td class="table_admin_tr_td"><a href="ManageLogins.aspx">Logins</a></td></tr>
+          <tr><td class="table_admin_tr_td"><a href="ManageTopics.aspx">Topics</a></td></tr>
+          <tr><td class="table_admin_tr_td"><asp:LinkButton ID="linkLogout" Text="Logout" runat="server" OnClick="linkLogout_Click" /></td></tr>
          </table>
         </asp:Panel>
        </td>

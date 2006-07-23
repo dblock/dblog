@@ -11,9 +11,9 @@ a { font-family: Arial; text-decoration: none; }
 .table_tr_td_alt { background: #EEEEEE; padding: 2px; font-family: Arial; }
 .table_tr_th { font-family: Arial; background: black; padding: 2px; font-family: Arial; font-size: 0.9em; font-weight: bold; color: white; }
 .table_tr_td_sel { padding: 2px; background: #DDDDDD; font-family: Arial; }
-.table_main { width: 1024px; }
+.table_main { width: 90%; }
 .table_main_tr_td_left { width: 180px; }
-.table_main_tr_td_right { width: 844; }
+.table_main_tr_td_right { width: 800px; }
 .table_topics { font-family: Arial; width: 150px; border: solid 1px black; }
 .table_topics_tr_td { padding: 2px; font-family: Arial; font-weight: bold; }
 .table_topics_tr_td_alt { background: #EEEEEE; padding: 2px; font-family: Arial; font-weight: bold; }
@@ -28,5 +28,9 @@ a { font-family: Arial; text-decoration: none; }
 .textbox { font-family: Arial; width: 320px; }
 .checkbox { font-family: Arial; width: 320px; }
 .button { background-color: #dcdcdc; font-family: Arial; border-top: #cccccc 1px solid; border-bottom: #666666 1px solid; border-left: #cccccc 1px solid; border-right: #666666 1px solid; width: 100px; }
-.title { font-family: Arial; font-size: 18px; margin-top: 10px; margin-bottom: 10px; font-weight: bold; }
+.title { background: url(images/site/title.gif) no-repeat; background-position: 0 50%; font-family: Arial; font-size: 18px; margin-top: 10px; margin-bottom: 10px; padding-left: 20px; font-weight: bold; }
 .link { margin: 5px; font-family: Arial; font-weight: bold; }
+.table_admin { font-family: Arial; width: 200px; border: solid 1px black; }
+.table_admin_tr_td { margin: 5px; font-family: Arial; font-weight: bold; text-align: center; }
+.table_admin_tr_th { text-align: center; font-family: Arial; background: black; padding: 2px; font-family: Arial; font-size: 0.9em; font-weight: bold; color: white; }
+.div_top { height: 25px; }
