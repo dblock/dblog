@@ -742,6 +742,113 @@
       <s:element name="DeleteHighlightResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetEntryById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEntryByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEntryByIdResult" type="tns:TransitEntry" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitEntry">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IpAddress" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="TopicId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="OwnerLoginId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateOrUpdateEntry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_entry" type="tns:TransitEntry" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateEntryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateEntryResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateEntryWithImage">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_entry" type="tns:TransitEntry" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_image" type="tns:TransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateEntryWithImageResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateEntryWithImageResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEntriesCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEntriesCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetEntriesCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEntries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetEntriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetEntriesResult" type="tns:ArrayOfTransitEntry" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitEntry">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitEntry" nillable="true" type="tns:TransitEntry" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteEntry">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteEntryResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -1034,6 +1141,42 @@
   <wsdl:message name="DeleteHighlightSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteHighlightResponse" />
   </wsdl:message>
+  <wsdl:message name="GetEntryByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEntryById" />
+  </wsdl:message>
+  <wsdl:message name="GetEntryByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEntryByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateEntrySoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateEntry" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateEntrySoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateEntryResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateEntryWithImageSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateEntryWithImage" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateEntryWithImageSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateEntryWithImageResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEntriesCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEntriesCount" />
+  </wsdl:message>
+  <wsdl:message name="GetEntriesCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEntriesCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetEntriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetEntries" />
+  </wsdl:message>
+  <wsdl:message name="GetEntriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetEntriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteEntrySoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteEntry" />
+  </wsdl:message>
+  <wsdl:message name="DeleteEntrySoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteEntryResponse" />
+  </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
   </wsdl:message>
@@ -1264,6 +1407,36 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a highlight.</wsdl:documentation>
       <wsdl:input message="tns:DeleteHighlightSoapIn" />
       <wsdl:output message="tns:DeleteHighlightSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEntryById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get an entry.</wsdl:documentation>
+      <wsdl:input message="tns:GetEntryByIdSoapIn" />
+      <wsdl:output message="tns:GetEntryByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateEntry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update an entry.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateEntrySoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateEntrySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateEntryWithImage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update an entry with image.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateEntryWithImageSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateEntryWithImageSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEntriesCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get entries count.</wsdl:documentation>
+      <wsdl:input message="tns:GetEntriesCountSoapIn" />
+      <wsdl:output message="tns:GetEntriesCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetEntries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get entries.</wsdl:documentation>
+      <wsdl:input message="tns:GetEntriesSoapIn" />
+      <wsdl:output message="tns:GetEntriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEntry">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete an entry.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteEntrySoapIn" />
+      <wsdl:output message="tns:DeleteEntrySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -1646,6 +1819,60 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteHighlight">
       <soap:operation soapAction="http://dblock.org/ns/DeleteHighlight" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntryById">
+      <soap:operation soapAction="http://dblock.org/ns/GetEntryById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateEntry">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateEntry" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateEntryWithImage">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateEntryWithImage" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntriesCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetEntriesCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntries">
+      <soap:operation soapAction="http://dblock.org/ns/GetEntries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEntry">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteEntry" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2054,6 +2281,60 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteHighlight">
       <soap12:operation soapAction="http://dblock.org/ns/DeleteHighlight" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntryById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetEntryById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateEntry">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateEntry" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateEntryWithImage">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateEntryWithImage" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntriesCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetEntriesCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetEntries">
+      <soap12:operation soapAction="http://dblock.org/ns/GetEntries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteEntry">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteEntry" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -2,11 +2,8 @@
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 
 <asp:FileUpload runat="server" ID="inputUpload" CssClass="upload" />
-<!--
-<Controls:WorkingButton runat="server" ID="upload" Text="Upload" CssClass="button"
- OnClick="upload_Click" />
- -->
-<div class="description">
+<div class="link">
  <asp:Label ID="labelData" runat="server" />
+ <asp:LinkButton ID="upload" runat="Server" OnClick="upload_Click" Text="&#187; Update / Clear" />
 </div>
 

@@ -30,6 +30,16 @@ public class AdminPage : Page
         base.OnLoad(e);
     }
 
+    public int CheckInput(string name, int value)
+    {
+        if (value <= 0)
+        {
+            throw new ArgumentException(string.Format("Missing {0}", name));
+        }
+
+        return value;
+    }
+
     public string CheckInput(string name, string value)
     {
         if (string.IsNullOrEmpty(value))

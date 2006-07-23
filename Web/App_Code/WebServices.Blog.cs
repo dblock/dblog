@@ -290,6 +290,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
                 Image image = t_image.GetImage(session);
+                image.Modified = DateTime.UtcNow;
                 session.SaveOrUpdate(image);
                 session.Flush();
                 return image.Id;
@@ -663,5 +664,137 @@ namespace DBlog.WebServices
 
         #endregion
 
+        #region Entries
+
+        [WebMethod(Description = "Get an entry.")]
+        public TransitEntry GetEntryById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitEntry(session, (Entry)session.Load(typeof(Entry), id));
+            }
+        }
+
+        [WebMethod(Description = "Create or update an entry.")]
+        public int CreateOrUpdateEntry(string ticket, TransitEntry t_entry)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                if (t_entry.OwnerLoginId == 0) t_entry.OwnerLoginId = ManagedLogin.GetLoginId(ticket);
+                Entry entry = t_entry.GetEntry(session);
+                entry.Modified = DateTime.UtcNow;
+                if (entry.Id == 0) entry.Created = entry.Modified;
+                session.SaveOrUpdate(entry);
+                session.Flush();
+                return entry.Id;
+            }
+        }
+
+        [WebMethod(Description = "Create or update an entry with image.")]
+        public int CreateOrUpdateEntryWithImage(string ticket, TransitEntry t_entry, TransitImage t_image)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+
+                if (t_entry.OwnerLoginId == 0) t_entry.OwnerLoginId = ManagedLogin.GetLoginId(ticket);
+                Entry entry = t_entry.GetEntry(session);
+                entry.Modified = DateTime.UtcNow;
+                if (entry.Id == 0) entry.Created = entry.Modified;
+                session.SaveOrUpdate(entry);
+
+                // entry image
+
+                EntryImage entry_image = (EntryImage)session.CreateCriteria(typeof(EntryImage))
+                    .Add(Expression.Eq("Entry.Id", t_entry.Id))
+                    .UniqueResult();
+
+                if (t_image == null && entry_image != null)
+                {
+                    session.Delete(entry_image);
+                    session.Delete(entry_image.Image);
+                }
+                else if (t_image != null)
+                {
+                    Image image = t_image.GetImage(session);
+                    image.Modified = DateTime.UtcNow;
+                    session.SaveOrUpdate(image);
+
+                    if (entry_image == null) entry_image = new EntryImage();
+                    entry_image.Entry = entry;
+                    entry_image.Image = image;
+                    session.SaveOrUpdate(entry_image);
+                }
+
+                session.Flush();
+                return entry.Id;
+            }
+        }
+
+
+        [WebMethod(Description = "Get entries count.")]
+        public int GetEntriesCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.Entry), "Entry").Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get entries.")]
+        public List<TransitEntry> GetEntries(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                ICriteria cr = session.CreateCriteria(typeof(Entry))
+                    .AddOrder(Order.Desc("Modified"));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitEntry> result = new List<TransitEntry>(list.Count);
+
+                foreach (Entry obj in list)
+                {
+                    result.Add(new TransitEntry(session, obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete an entry.")]
+        public void DeleteEntry(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Entry entry = (Entry)session.Load(typeof(Entry), id);
+
+                foreach (EntryImage ei in entry.EntryImages)
+                {
+                    session.Delete(ei);
+                    session.Delete(ei.Image);
+                }
+
+                session.Delete(string.Format("FROM EntryComment WHERE Entry_Id = {0}", id));
+                session.Delete(string.Format("FROM EntryCounter WHERE Entry_Id = {0}", id));
+                session.Delete(entry);
+                session.Flush();
+            }
+        }
+
+        #endregion
     }
 }

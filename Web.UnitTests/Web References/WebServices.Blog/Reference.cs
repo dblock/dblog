@@ -110,6 +110,18 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback DeleteHighlightOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetEntryByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateEntryOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateEntryWithImageOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetEntriesCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetEntriesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteEntryOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetTitleOperationCompleted;
@@ -277,6 +289,24 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event DeleteHighlightCompletedEventHandler DeleteHighlightCompleted;
+        
+        /// <remarks/>
+        public event GetEntryByIdCompletedEventHandler GetEntryByIdCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateEntryCompletedEventHandler CreateOrUpdateEntryCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateEntryWithImageCompletedEventHandler CreateOrUpdateEntryWithImageCompleted;
+        
+        /// <remarks/>
+        public event GetEntriesCountCompletedEventHandler GetEntriesCountCompleted;
+        
+        /// <remarks/>
+        public event GetEntriesCompletedEventHandler GetEntriesCompleted;
+        
+        /// <remarks/>
+        public event DeleteEntryCompletedEventHandler DeleteEntryCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -1520,6 +1550,191 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetEntryById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitEntry GetEntryById(string ticket, int id) {
+            object[] results = this.Invoke("GetEntryById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitEntry)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetEntryByIdAsync(string ticket, int id) {
+            this.GetEntryByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetEntryByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetEntryByIdOperationCompleted == null)) {
+                this.GetEntryByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetEntryByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetEntryById", new object[] {
+                        ticket,
+                        id}, this.GetEntryByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetEntryByIdOperationCompleted(object arg) {
+            if ((this.GetEntryByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetEntryByIdCompleted(this, new GetEntryByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateEntry", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateEntry(string ticket, TransitEntry t_entry) {
+            object[] results = this.Invoke("CreateOrUpdateEntry", new object[] {
+                        ticket,
+                        t_entry});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateEntryAsync(string ticket, TransitEntry t_entry) {
+            this.CreateOrUpdateEntryAsync(ticket, t_entry, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateEntryAsync(string ticket, TransitEntry t_entry, object userState) {
+            if ((this.CreateOrUpdateEntryOperationCompleted == null)) {
+                this.CreateOrUpdateEntryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateEntryOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateEntry", new object[] {
+                        ticket,
+                        t_entry}, this.CreateOrUpdateEntryOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateEntryOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateEntryCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateEntryCompleted(this, new CreateOrUpdateEntryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateEntryWithImage", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateEntryWithImage(string ticket, TransitEntry t_entry, TransitImage t_image) {
+            object[] results = this.Invoke("CreateOrUpdateEntryWithImage", new object[] {
+                        ticket,
+                        t_entry,
+                        t_image});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateEntryWithImageAsync(string ticket, TransitEntry t_entry, TransitImage t_image) {
+            this.CreateOrUpdateEntryWithImageAsync(ticket, t_entry, t_image, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateEntryWithImageAsync(string ticket, TransitEntry t_entry, TransitImage t_image, object userState) {
+            if ((this.CreateOrUpdateEntryWithImageOperationCompleted == null)) {
+                this.CreateOrUpdateEntryWithImageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateEntryWithImageOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateEntryWithImage", new object[] {
+                        ticket,
+                        t_entry,
+                        t_image}, this.CreateOrUpdateEntryWithImageOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateEntryWithImageOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateEntryWithImageCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateEntryWithImageCompleted(this, new CreateOrUpdateEntryWithImageCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetEntriesCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetEntriesCount(string ticket) {
+            object[] results = this.Invoke("GetEntriesCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetEntriesCountAsync(string ticket) {
+            this.GetEntriesCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetEntriesCountAsync(string ticket, object userState) {
+            if ((this.GetEntriesCountOperationCompleted == null)) {
+                this.GetEntriesCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetEntriesCountOperationCompleted);
+            }
+            this.InvokeAsync("GetEntriesCount", new object[] {
+                        ticket}, this.GetEntriesCountOperationCompleted, userState);
+        }
+        
+        private void OnGetEntriesCountOperationCompleted(object arg) {
+            if ((this.GetEntriesCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetEntriesCountCompleted(this, new GetEntriesCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetEntries", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitEntry[] GetEntries(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetEntries", new object[] {
+                        ticket,
+                        options});
+            return ((TransitEntry[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetEntriesAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetEntriesAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetEntriesAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetEntriesOperationCompleted == null)) {
+                this.GetEntriesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetEntriesOperationCompleted);
+            }
+            this.InvokeAsync("GetEntries", new object[] {
+                        ticket,
+                        options}, this.GetEntriesOperationCompleted, userState);
+        }
+        
+        private void OnGetEntriesOperationCompleted(object arg) {
+            if ((this.GetEntriesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetEntriesCompleted(this, new GetEntriesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteEntry", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteEntry(string ticket, int id) {
+            this.Invoke("DeleteEntry", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteEntryAsync(string ticket, int id) {
+            this.DeleteEntryAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteEntryAsync(string ticket, int id, object userState) {
+            if ((this.DeleteEntryOperationCompleted == null)) {
+                this.DeleteEntryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteEntryOperationCompleted);
+            }
+            this.InvokeAsync("DeleteEntry", new object[] {
+                        ticket,
+                        id}, this.DeleteEntryOperationCompleted, userState);
+        }
+        
+        private void OnDeleteEntryOperationCompleted(object arg) {
+            if ((this.DeleteEntryCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteEntryCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetVersion", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string GetVersion() {
             object[] results = this.Invoke("GetVersion", new object[0]);
@@ -1771,6 +1986,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitEntry))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitHighlight))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHostRollup))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReference))]
@@ -1871,6 +2087,111 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.topicIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitEntry : TransitObject {
+        
+        private int imageIdField;
+        
+        private string titleField;
+        
+        private string textField;
+        
+        private string ipAddressField;
+        
+        private int topicIdField;
+        
+        private int ownerLoginIdField;
+        
+        private System.DateTime createdField;
+        
+        private System.DateTime modifiedField;
+        
+        /// <remarks/>
+        public int ImageId {
+            get {
+                return this.imageIdField;
+            }
+            set {
+                this.imageIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Title {
+            get {
+                return this.titleField;
+            }
+            set {
+                this.titleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Text {
+            get {
+                return this.textField;
+            }
+            set {
+                this.textField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string IpAddress {
+            get {
+                return this.ipAddressField;
+            }
+            set {
+                this.ipAddressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int TopicId {
+            get {
+                return this.topicIdField;
+            }
+            set {
+                this.topicIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int OwnerLoginId {
+            get {
+                return this.ownerLoginIdField;
+            }
+            set {
+                this.ownerLoginIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Created {
+            get {
+                return this.createdField;
+            }
+            set {
+                this.createdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Modified {
+            get {
+                return this.modifiedField;
+            }
+            set {
+                this.modifiedField = value;
             }
         }
     }
@@ -3190,6 +3511,140 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeleteHighlightCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetEntryByIdCompletedEventHandler(object sender, GetEntryByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetEntryByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetEntryByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitEntry Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitEntry)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateEntryCompletedEventHandler(object sender, CreateOrUpdateEntryCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateEntryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateEntryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateEntryWithImageCompletedEventHandler(object sender, CreateOrUpdateEntryWithImageCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateEntryWithImageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateEntryWithImageCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetEntriesCountCompletedEventHandler(object sender, GetEntriesCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetEntriesCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetEntriesCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetEntriesCompletedEventHandler(object sender, GetEntriesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetEntriesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetEntriesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitEntry[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitEntry[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteEntryCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

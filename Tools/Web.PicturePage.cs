@@ -140,7 +140,7 @@ namespace DBlog.Tools.Web
             get
             {
                 object duration = Request["CacheDuration"];
-                if (duration == null) return 60;
+                if (duration == null) return 0; // 60;
                 return int.Parse(duration.ToString());
             }
         }

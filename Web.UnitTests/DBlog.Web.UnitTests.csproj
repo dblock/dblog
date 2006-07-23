@@ -34,6 +34,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.Xml" />
@@ -53,6 +54,7 @@
     <Compile Include="WebServices.BlogBlogTest.cs" />
     <Compile Include="WebServices.BlogCrudTest.cs" />
     <Compile Include="WebServices.Blog.cs" />
+    <Compile Include="WebServices.BlogEntryTest.cs" />
     <Compile Include="WebServices.BlogHighlightTest.cs" />
     <Compile Include="WebServices.BlogImageTest.cs" />
     <Compile Include="WebServices.BlogLoginTest.cs" />
@@ -90,6 +92,9 @@
     <None Include="Web References\WebServices.Blog\TransitBlog.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\WebServices.Blog\TransitEntry.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\WebServices.Blog\TransitHighlight.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -110,6 +115,12 @@
     </None>
     <None Include="Web References\WebServices.Blog\WebServices.disco" />
     <None Include="Web References\WebServices.Blog\WebServices.wsdl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Tools\DBlog.Tools.csproj">
+      <Project>{75FB606F-0483-49CA-AF2F-8E57DB9864AB}</Project>
+      <Name>DBlog.Tools</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
