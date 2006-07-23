@@ -525,6 +525,91 @@
       <s:element name="DeleteReferenceResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetReferrerHostRollupById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHostRollupByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReferrerHostRollupByIdResult" type="tns:TransitReferrerHostRollup" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitReferrerHostRollup">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Rollup" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateOrUpdateReferrerHostRollup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_referrerhostrollup" type="tns:TransitReferrerHostRollup" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateReferrerHostRollupResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateReferrerHostRollupResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHostRollupsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHostRollupsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetReferrerHostRollupsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHostRollups">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHostRollupsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReferrerHostRollupsResult" type="tns:ArrayOfTransitReferrerHostRollup" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitReferrerHostRollup">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitReferrerHostRollup" nillable="true" type="tns:TransitReferrerHostRollup" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteReferrerHostRollup">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteReferrerHostRollupResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -745,6 +830,36 @@
   <wsdl:message name="DeleteReferenceSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteReferenceResponse" />
   </wsdl:message>
+  <wsdl:message name="GetReferrerHostRollupByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostRollupById" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostRollupByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostRollupByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateReferrerHostRollupSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateReferrerHostRollup" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateReferrerHostRollupSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateReferrerHostRollupResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostRollupsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostRollupsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostRollupsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostRollupsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostRollupsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostRollups" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostRollupsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostRollupsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteReferrerHostRollupSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteReferrerHostRollup" />
+  </wsdl:message>
+  <wsdl:message name="DeleteReferrerHostRollupSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteReferrerHostRollupResponse" />
+  </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
   </wsdl:message>
@@ -915,6 +1030,31 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a reference.</wsdl:documentation>
       <wsdl:input message="tns:DeleteReferenceSoapIn" />
       <wsdl:output message="tns:DeleteReferenceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostRollupById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a referrer host rollup.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferrerHostRollupByIdSoapIn" />
+      <wsdl:output message="tns:GetReferrerHostRollupByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReferrerHostRollup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a referrer host rollup.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateReferrerHostRollupSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateReferrerHostRollupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostRollupsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get referrer host rollups count.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferrerHostRollupsCountSoapIn" />
+      <wsdl:output message="tns:GetReferrerHostRollupsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostRollups">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get referrer host rollups.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferrerHostRollupsSoapIn" />
+      <wsdl:output message="tns:GetReferrerHostRollupsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReferrerHostRollup">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a referrer host rollup.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteReferrerHostRollupSoapIn" />
+      <wsdl:output message="tns:DeleteReferrerHostRollupSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -1189,6 +1329,51 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteReference">
       <soap:operation soapAction="http://dblock.org/ns/DeleteReference" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostRollupById">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferrerHostRollupById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReferrerHostRollup">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateReferrerHostRollup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostRollupsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferrerHostRollupsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostRollups">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferrerHostRollups" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReferrerHostRollup">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteReferrerHostRollup" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1489,6 +1674,51 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteReference">
       <soap12:operation soapAction="http://dblock.org/ns/DeleteReference" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostRollupById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferrerHostRollupById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReferrerHostRollup">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateReferrerHostRollup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostRollupsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferrerHostRollupsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostRollups">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferrerHostRollups" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReferrerHostRollup">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteReferrerHostRollup" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

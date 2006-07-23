@@ -47,6 +47,7 @@
           <tr><td class="table_admin_tr_td"><a href="ManageLogins.aspx">Logins</a></td></tr>
           <tr><td class="table_admin_tr_td"><a href="ManageTopics.aspx">Topics</a></td></tr>
           <tr><td class="table_admin_tr_td"><a href="ManageReferences.aspx">References</a></td></tr>
+          <tr><td class="table_admin_tr_td"><a href="ManageReferrerHostRollups.aspx">Referrers</a></td></tr>
           <tr><td class="table_admin_tr_td"><asp:LinkButton ID="linkLogout" Text="Logout" runat="server" OnClick="linkLogout_Click" /></td></tr>
          </table>
         </asp:Panel>

@@ -59,6 +59,7 @@
     <Compile Include="TransitLogin.cs" />
     <Compile Include="TransitObject.cs" />
     <Compile Include="TransitReference.cs" />
+    <Compile Include="TransitReferrerHostRollup.cs" />
     <Compile Include="TransitTopic.cs" />
   </ItemGroup>
   <ItemGroup>

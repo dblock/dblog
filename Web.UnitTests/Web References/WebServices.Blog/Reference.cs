@@ -86,6 +86,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback DeleteReferenceOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetReferrerHostRollupByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateReferrerHostRollupOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferrerHostRollupsCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferrerHostRollupsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteReferrerHostRollupOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetTitleOperationCompleted;
@@ -217,6 +227,21 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event DeleteReferenceCompletedEventHandler DeleteReferenceCompleted;
+        
+        /// <remarks/>
+        public event GetReferrerHostRollupByIdCompletedEventHandler GetReferrerHostRollupByIdCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateReferrerHostRollupCompletedEventHandler CreateOrUpdateReferrerHostRollupCompleted;
+        
+        /// <remarks/>
+        public event GetReferrerHostRollupsCountCompletedEventHandler GetReferrerHostRollupsCountCompleted;
+        
+        /// <remarks/>
+        public event GetReferrerHostRollupsCompletedEventHandler GetReferrerHostRollupsCompleted;
+        
+        /// <remarks/>
+        public event DeleteReferrerHostRollupCompletedEventHandler DeleteReferrerHostRollupCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -1092,6 +1117,158 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerHostRollupById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitReferrerHostRollup GetReferrerHostRollupById(string ticket, int id) {
+            object[] results = this.Invoke("GetReferrerHostRollupById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitReferrerHostRollup)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostRollupByIdAsync(string ticket, int id) {
+            this.GetReferrerHostRollupByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostRollupByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetReferrerHostRollupByIdOperationCompleted == null)) {
+                this.GetReferrerHostRollupByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerHostRollupByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetReferrerHostRollupById", new object[] {
+                        ticket,
+                        id}, this.GetReferrerHostRollupByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetReferrerHostRollupByIdOperationCompleted(object arg) {
+            if ((this.GetReferrerHostRollupByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferrerHostRollupByIdCompleted(this, new GetReferrerHostRollupByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateReferrerHostRollup", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateReferrerHostRollup(string ticket, TransitReferrerHostRollup t_referrerhostrollup) {
+            object[] results = this.Invoke("CreateOrUpdateReferrerHostRollup", new object[] {
+                        ticket,
+                        t_referrerhostrollup});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateReferrerHostRollupAsync(string ticket, TransitReferrerHostRollup t_referrerhostrollup) {
+            this.CreateOrUpdateReferrerHostRollupAsync(ticket, t_referrerhostrollup, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateReferrerHostRollupAsync(string ticket, TransitReferrerHostRollup t_referrerhostrollup, object userState) {
+            if ((this.CreateOrUpdateReferrerHostRollupOperationCompleted == null)) {
+                this.CreateOrUpdateReferrerHostRollupOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateReferrerHostRollupOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateReferrerHostRollup", new object[] {
+                        ticket,
+                        t_referrerhostrollup}, this.CreateOrUpdateReferrerHostRollupOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateReferrerHostRollupOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateReferrerHostRollupCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateReferrerHostRollupCompleted(this, new CreateOrUpdateReferrerHostRollupCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerHostRollupsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetReferrerHostRollupsCount(string ticket) {
+            object[] results = this.Invoke("GetReferrerHostRollupsCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostRollupsCountAsync(string ticket) {
+            this.GetReferrerHostRollupsCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostRollupsCountAsync(string ticket, object userState) {
+            if ((this.GetReferrerHostRollupsCountOperationCompleted == null)) {
+                this.GetReferrerHostRollupsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerHostRollupsCountOperationCompleted);
+            }
+            this.InvokeAsync("GetReferrerHostRollupsCount", new object[] {
+                        ticket}, this.GetReferrerHostRollupsCountOperationCompleted, userState);
+        }
+        
+        private void OnGetReferrerHostRollupsCountOperationCompleted(object arg) {
+            if ((this.GetReferrerHostRollupsCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferrerHostRollupsCountCompleted(this, new GetReferrerHostRollupsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerHostRollups", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitReferrerHostRollup[] GetReferrerHostRollups(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetReferrerHostRollups", new object[] {
+                        ticket,
+                        options});
+            return ((TransitReferrerHostRollup[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostRollupsAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetReferrerHostRollupsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostRollupsAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetReferrerHostRollupsOperationCompleted == null)) {
+                this.GetReferrerHostRollupsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerHostRollupsOperationCompleted);
+            }
+            this.InvokeAsync("GetReferrerHostRollups", new object[] {
+                        ticket,
+                        options}, this.GetReferrerHostRollupsOperationCompleted, userState);
+        }
+        
+        private void OnGetReferrerHostRollupsOperationCompleted(object arg) {
+            if ((this.GetReferrerHostRollupsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferrerHostRollupsCompleted(this, new GetReferrerHostRollupsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteReferrerHostRollup", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteReferrerHostRollup(string ticket, int id) {
+            this.Invoke("DeleteReferrerHostRollup", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteReferrerHostRollupAsync(string ticket, int id) {
+            this.DeleteReferrerHostRollupAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteReferrerHostRollupAsync(string ticket, int id, object userState) {
+            if ((this.DeleteReferrerHostRollupOperationCompleted == null)) {
+                this.DeleteReferrerHostRollupOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteReferrerHostRollupOperationCompleted);
+            }
+            this.InvokeAsync("DeleteReferrerHostRollup", new object[] {
+                        ticket,
+                        id}, this.DeleteReferrerHostRollupOperationCompleted, userState);
+        }
+        
+        private void OnDeleteReferrerHostRollupOperationCompleted(object arg) {
+            if ((this.DeleteReferrerHostRollupCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteReferrerHostRollupCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetVersion", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string GetVersion() {
             object[] results = this.Invoke("GetVersion", new object[0]);
@@ -1343,6 +1520,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHostRollup))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReference))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImage))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitBlog))]
@@ -1419,6 +1597,39 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.topicIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitReferrerHostRollup : TransitObject {
+        
+        private string nameField;
+        
+        private string rollupField;
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Rollup {
+            get {
+                return this.rollupField;
+            }
+            set {
+                this.rollupField = value;
             }
         }
     }
@@ -2380,6 +2591,114 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeleteReferenceCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferrerHostRollupByIdCompletedEventHandler(object sender, GetReferrerHostRollupByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferrerHostRollupByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferrerHostRollupByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitReferrerHostRollup Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitReferrerHostRollup)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateReferrerHostRollupCompletedEventHandler(object sender, CreateOrUpdateReferrerHostRollupCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateReferrerHostRollupCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateReferrerHostRollupCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferrerHostRollupsCountCompletedEventHandler(object sender, GetReferrerHostRollupsCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferrerHostRollupsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferrerHostRollupsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferrerHostRollupsCompletedEventHandler(object sender, GetReferrerHostRollupsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferrerHostRollupsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferrerHostRollupsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitReferrerHostRollup[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitReferrerHostRollup[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteReferrerHostRollupCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

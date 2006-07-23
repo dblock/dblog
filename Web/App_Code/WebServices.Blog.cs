@@ -469,5 +469,83 @@ namespace DBlog.WebServices
         }
 
         #endregion
+
+        #region Referrer Host Rollups
+
+        [WebMethod(Description = "Get a referrer host rollup.")]
+        public TransitReferrerHostRollup GetReferrerHostRollupById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitReferrerHostRollup((ReferrerHostRollup)session.Load(typeof(ReferrerHostRollup), id));
+            }
+        }
+
+        [WebMethod(Description = "Create or update a referrer host rollup.")]
+        public int CreateOrUpdateReferrerHostRollup(string ticket, TransitReferrerHostRollup t_referrerhostrollup)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                ReferrerHostRollup referrerhostrollup = t_referrerhostrollup.GetReferrerHostRollup(session);
+                session.SaveOrUpdate(referrerhostrollup);
+                session.Flush();
+                return referrerhostrollup.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get referrer host rollups count.")]
+        public int GetReferrerHostRollupsCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.ReferrerHostRollup), "ReferrerHostRollup").Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get referrer host rollups.")]
+        public List<TransitReferrerHostRollup> GetReferrerHostRollups(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(ReferrerHostRollup));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitReferrerHostRollup> result = new List<TransitReferrerHostRollup>(list.Count);
+
+                foreach (ReferrerHostRollup obj in list)
+                {
+                    result.Add(new TransitReferrerHostRollup(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a referrer host rollup.")]
+        public void DeleteReferrerHostRollup(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                session.Delete((ReferrerHostRollup)session.Load(typeof(ReferrerHostRollup), id));
+                session.Flush();
+            }
+        }
+
+        #endregion
+ 
     }
 }

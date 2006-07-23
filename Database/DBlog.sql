@@ -6,29 +6,6 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Template]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[Template](
-	[Template_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](64) NOT NULL,
-	[Source] [ntext] NOT NULL,
-	[Type] [char](64) NOT NULL,
- CONSTRAINT [PK_Template] PRIMARY KEY CLUSTERED 
-(
-	[Template_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_Template] UNIQUE NONCLUSTERED 
-(
-	[Name] ASC,
-	[Type] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Topic]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Topic](
@@ -395,7 +372,6 @@ CREATE TABLE [dbo].[Entry](
 	[Text] [ntext] NOT NULL,
 	[Created] [datetime] NOT NULL CONSTRAINT [DF_Entry_Created]  DEFAULT (getdate()),
 	[Modified] [datetime] NOT NULL,
-	[Template_Id] [int] NOT NULL,
 	[IpAddress] [varchar](24) NOT NULL,
 	[Topic_Id] [int] NOT NULL,
  CONSTRAINT [PK_Entry] PRIMARY KEY CLUSTERED 
@@ -425,7 +401,6 @@ CREATE TABLE [dbo].[Comment](
 	[Modified] [datetime] NOT NULL,
 	[Created] [datetime] NOT NULL,
 	[Owner_Login_Id] [int] NOT NULL,
-	[Template_Id] [int] NOT NULL,
  CONSTRAINT [PK_Comment] PRIMARY KEY CLUSTERED 
 (
 	[Comment_Id] ASC
@@ -448,7 +423,6 @@ CREATE TABLE [dbo].[Gallery](
 	[Created] [datetime] NOT NULL,
 	[Topic_Id] [int] NOT NULL,
 	[Path] [varchar](128) NOT NULL,
-	[Template_Id] [int] NOT NULL,
  CONSTRAINT [PK_Gallery] PRIMARY KEY CLUSTERED 
 (
 	[Gallery_Id] ASC
@@ -1999,10 +1973,6 @@ IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo
 ALTER TABLE [dbo].[Entry]  WITH CHECK ADD  CONSTRAINT [FK_Entry_Login] FOREIGN KEY([Owner_Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Entry_Template]') AND parent_object_id = OBJECT_ID(N'[dbo].[Entry]'))
-ALTER TABLE [dbo].[Entry]  WITH CHECK ADD  CONSTRAINT [FK_Entry_Template] FOREIGN KEY([Template_Id])
-REFERENCES [dbo].[Template] ([Template_Id])
-GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Entry_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[Entry]'))
 ALTER TABLE [dbo].[Entry]  WITH CHECK ADD  CONSTRAINT [FK_Entry_Topic] FOREIGN KEY([Topic_Id])
 REFERENCES [dbo].[Topic] ([Topic_Id])
@@ -2011,17 +1981,9 @@ IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo
 ALTER TABLE [dbo].[Comment]  WITH CHECK ADD  CONSTRAINT [FK_Comment_Login] FOREIGN KEY([Owner_Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Comment_Template]') AND parent_object_id = OBJECT_ID(N'[dbo].[Comment]'))
-ALTER TABLE [dbo].[Comment]  WITH CHECK ADD  CONSTRAINT [FK_Comment_Template] FOREIGN KEY([Template_Id])
-REFERENCES [dbo].[Template] ([Template_Id])
-GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Gallery_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Gallery]'))
 ALTER TABLE [dbo].[Gallery]  WITH CHECK ADD  CONSTRAINT [FK_Gallery_Login] FOREIGN KEY([Owner_Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Gallery_Template]') AND parent_object_id = OBJECT_ID(N'[dbo].[Gallery]'))
-ALTER TABLE [dbo].[Gallery]  WITH CHECK ADD  CONSTRAINT [FK_Gallery_Template] FOREIGN KEY([Template_Id])
-REFERENCES [dbo].[Template] ([Template_Id])
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Gallery_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[Gallery]'))
 ALTER TABLE [dbo].[Gallery]  WITH CHECK ADD  CONSTRAINT [FK_Gallery_Topic] FOREIGN KEY([Topic_Id])
