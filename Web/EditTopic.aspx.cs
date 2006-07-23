@@ -46,13 +46,7 @@ public partial class EditTopic : AdminPage
     {
         try
         {
-            Topic.Name = inputName.Text;
-
-            if (string.IsNullOrEmpty(Topic.Name))
-            {
-                throw new ArgumentException("Missing Name");
-            }
-
+            Topic.Name = CheckInput("Name", inputName.Text);
             SessionManager.BlogService.CreateOrUpdateTopic(SessionManager.Ticket, Topic);
             Response.Redirect("ManageTopics.aspx");
         }

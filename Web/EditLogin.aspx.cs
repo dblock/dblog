@@ -50,17 +50,11 @@ public partial class EditLogin : AdminPage
     {
         try
         {
-            Login.Name = inputName.Text;
+            Login.Name = CheckInput("Name", inputName.Text);
             Login.Username = inputUsername.Text;
             Login.Email = inputEmail.Text;
             Login.Password = inputPassword.Text;
             Login.Role = inputAdministrator.Checked ? TransitLoginRole.Administrator : TransitLoginRole.Guest;
-
-            if (string.IsNullOrEmpty(Login.Name))
-            {
-                throw new ArgumentException("Missing Name");
-            }
-
             SessionManager.BlogService.CreateOrUpdateLogin(SessionManager.Ticket, Login);
             Response.Redirect("ManageLogins.aspx");
         }

@@ -29,4 +29,14 @@ public class AdminPage : Page
 
         base.OnLoad(e);
     }
+
+    public string CheckInput(string name, string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            throw new ArgumentException(string.Format("Missing {0}", name));
+        }
+
+        return value;
+    }
 }
