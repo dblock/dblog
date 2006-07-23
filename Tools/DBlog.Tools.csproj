@@ -30,6 +30,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
     <Reference Include="System.Xml" />
@@ -54,6 +55,10 @@
     <Compile Include="Web.UriBuilder.cs" />
     <Compile Include="Web.ViewState.cs" />
     <Compile Include="WebControls.Button.cs" />
+    <Compile Include="WebControls.Division.cs" />
+    <Compile Include="WebControls.FilePostedEvent.cs" />
+    <Compile Include="WebControls.FileUploadEx.cs" />
+    <Compile Include="WebControls.MultiFileUpload.cs" />
     <Compile Include="WebControls.WorkingButton.cs" />
     <Compile Include="WebControls.PagedGrid.cs" />
     <Compile Include="WebControls.PagedList.cs">

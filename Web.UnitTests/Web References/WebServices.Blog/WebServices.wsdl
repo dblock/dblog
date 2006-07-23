@@ -625,6 +625,93 @@
       <s:element name="DeleteReferrerHostRollupResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetHighlightById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHighlightByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHighlightByIdResult" type="tns:TransitHighlight" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitHighlight">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateOrUpdateHighlight">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_highlight" type="tns:TransitHighlight" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateHighlightResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateHighlightResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHighlightsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHighlightsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetHighlightsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHighlights">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHighlightsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHighlightsResult" type="tns:ArrayOfTransitHighlight" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitHighlight">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitHighlight" nillable="true" type="tns:TransitHighlight" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteHighlight">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteHighlightResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -881,6 +968,36 @@
   <wsdl:message name="DeleteReferrerHostRollupSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteReferrerHostRollupResponse" />
   </wsdl:message>
+  <wsdl:message name="GetHighlightByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHighlightById" />
+  </wsdl:message>
+  <wsdl:message name="GetHighlightByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHighlightByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateHighlightSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateHighlight" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateHighlightSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateHighlightResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHighlightsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHighlightsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetHighlightsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHighlightsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHighlightsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHighlights" />
+  </wsdl:message>
+  <wsdl:message name="GetHighlightsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHighlightsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteHighlightSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteHighlight" />
+  </wsdl:message>
+  <wsdl:message name="DeleteHighlightSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteHighlightResponse" />
+  </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
   </wsdl:message>
@@ -1081,6 +1198,31 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a referrer host rollup.</wsdl:documentation>
       <wsdl:input message="tns:DeleteReferrerHostRollupSoapIn" />
       <wsdl:output message="tns:DeleteReferrerHostRollupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHighlightById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a highlight.</wsdl:documentation>
+      <wsdl:input message="tns:GetHighlightByIdSoapIn" />
+      <wsdl:output message="tns:GetHighlightByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateHighlight">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a highlight.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateHighlightSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateHighlightSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHighlightsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get highlights count.</wsdl:documentation>
+      <wsdl:input message="tns:GetHighlightsCountSoapIn" />
+      <wsdl:output message="tns:GetHighlightsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHighlights">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get highlights.</wsdl:documentation>
+      <wsdl:input message="tns:GetHighlightsSoapIn" />
+      <wsdl:output message="tns:GetHighlightsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteHighlight">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a highlight.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteHighlightSoapIn" />
+      <wsdl:output message="tns:DeleteHighlightSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -1409,6 +1551,51 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteReferrerHostRollup">
       <soap:operation soapAction="http://dblock.org/ns/DeleteReferrerHostRollup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHighlightById">
+      <soap:operation soapAction="http://dblock.org/ns/GetHighlightById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateHighlight">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateHighlight" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHighlightsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetHighlightsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHighlights">
+      <soap:operation soapAction="http://dblock.org/ns/GetHighlights" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteHighlight">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteHighlight" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -1763,6 +1950,51 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteReferrerHostRollup">
       <soap12:operation soapAction="http://dblock.org/ns/DeleteReferrerHostRollup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHighlightById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetHighlightById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateHighlight">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateHighlight" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHighlightsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetHighlightsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHighlights">
+      <soap12:operation soapAction="http://dblock.org/ns/GetHighlights" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteHighlight">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteHighlight" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

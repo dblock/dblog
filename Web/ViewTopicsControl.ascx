@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <Controls:PagedGrid runat="server" ID="grid" CssClass="table_topics" AutoGenerateColumns="false"
  AllowPaging="false" OnSelectedIndexChanged="grid_SelectedIndexChanged">
- <ItemStyle HorizontalAlign="Center" CssClass="table_tr_td" />
+ <ItemStyle HorizontalAlign="Center" CssClass="table_topics_tr_td" />
  <AlternatingItemStyle HorizontalAlign="Center" CssClass="table_topics_tr_td_alt" />
  <HeaderStyle CssClass="table_topics_tr_th" />
  <SelectedItemStyle HorizontalAlign="Center" CssClass="table_topics_tr_td_sel" />

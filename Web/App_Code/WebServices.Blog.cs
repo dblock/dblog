@@ -556,6 +556,83 @@ namespace DBlog.WebServices
         }
 
         #endregion
- 
+
+        #region Highlights
+
+        [WebMethod(Description = "Get a highlight.")]
+        public TransitHighlight GetHighlightById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitHighlight((Highlight)session.Load(typeof(Highlight), id));
+            }
+        }
+
+        [WebMethod(Description = "Create or update a highlight.")]
+        public int CreateOrUpdateHighlight(string ticket, TransitHighlight t_highlight)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Highlight highlight = t_highlight.GetHighlight(session);
+                session.SaveOrUpdate(highlight);
+                session.Flush();
+                return highlight.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get highlights count.")]
+        public int GetHighlightsCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.Highlight), "Highlight").Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get highlights.")]
+        public List<TransitHighlight> GetHighlights(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(Highlight));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitHighlight> result = new List<TransitHighlight>(list.Count);
+
+                foreach (Highlight obj in list)
+                {
+                    result.Add(new TransitHighlight(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a highlight.")]
+        public void DeleteHighlight(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                session.Delete((Highlight)session.Load(typeof(Highlight), id));
+                session.Flush();
+            }
+        }
+
+        #endregion
+
     }
 }

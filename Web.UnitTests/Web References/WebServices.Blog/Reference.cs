@@ -98,6 +98,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback DeleteReferrerHostRollupOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetHighlightByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateHighlightOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetHighlightsCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetHighlightsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteHighlightOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetTitleOperationCompleted;
@@ -247,6 +257,21 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event DeleteReferrerHostRollupCompletedEventHandler DeleteReferrerHostRollupCompleted;
+        
+        /// <remarks/>
+        public event GetHighlightByIdCompletedEventHandler GetHighlightByIdCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateHighlightCompletedEventHandler CreateOrUpdateHighlightCompleted;
+        
+        /// <remarks/>
+        public event GetHighlightsCountCompletedEventHandler GetHighlightsCountCompleted;
+        
+        /// <remarks/>
+        public event GetHighlightsCompletedEventHandler GetHighlightsCompleted;
+        
+        /// <remarks/>
+        public event DeleteHighlightCompletedEventHandler DeleteHighlightCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -1305,6 +1330,158 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetHighlightById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitHighlight GetHighlightById(string ticket, int id) {
+            object[] results = this.Invoke("GetHighlightById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitHighlight)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetHighlightByIdAsync(string ticket, int id) {
+            this.GetHighlightByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetHighlightByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetHighlightByIdOperationCompleted == null)) {
+                this.GetHighlightByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetHighlightByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetHighlightById", new object[] {
+                        ticket,
+                        id}, this.GetHighlightByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetHighlightByIdOperationCompleted(object arg) {
+            if ((this.GetHighlightByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetHighlightByIdCompleted(this, new GetHighlightByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateHighlight", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateHighlight(string ticket, TransitHighlight t_highlight) {
+            object[] results = this.Invoke("CreateOrUpdateHighlight", new object[] {
+                        ticket,
+                        t_highlight});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateHighlightAsync(string ticket, TransitHighlight t_highlight) {
+            this.CreateOrUpdateHighlightAsync(ticket, t_highlight, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateHighlightAsync(string ticket, TransitHighlight t_highlight, object userState) {
+            if ((this.CreateOrUpdateHighlightOperationCompleted == null)) {
+                this.CreateOrUpdateHighlightOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateHighlightOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateHighlight", new object[] {
+                        ticket,
+                        t_highlight}, this.CreateOrUpdateHighlightOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateHighlightOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateHighlightCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateHighlightCompleted(this, new CreateOrUpdateHighlightCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetHighlightsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetHighlightsCount(string ticket) {
+            object[] results = this.Invoke("GetHighlightsCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetHighlightsCountAsync(string ticket) {
+            this.GetHighlightsCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetHighlightsCountAsync(string ticket, object userState) {
+            if ((this.GetHighlightsCountOperationCompleted == null)) {
+                this.GetHighlightsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetHighlightsCountOperationCompleted);
+            }
+            this.InvokeAsync("GetHighlightsCount", new object[] {
+                        ticket}, this.GetHighlightsCountOperationCompleted, userState);
+        }
+        
+        private void OnGetHighlightsCountOperationCompleted(object arg) {
+            if ((this.GetHighlightsCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetHighlightsCountCompleted(this, new GetHighlightsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetHighlights", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitHighlight[] GetHighlights(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetHighlights", new object[] {
+                        ticket,
+                        options});
+            return ((TransitHighlight[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetHighlightsAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetHighlightsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetHighlightsAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetHighlightsOperationCompleted == null)) {
+                this.GetHighlightsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetHighlightsOperationCompleted);
+            }
+            this.InvokeAsync("GetHighlights", new object[] {
+                        ticket,
+                        options}, this.GetHighlightsOperationCompleted, userState);
+        }
+        
+        private void OnGetHighlightsOperationCompleted(object arg) {
+            if ((this.GetHighlightsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetHighlightsCompleted(this, new GetHighlightsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteHighlight", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteHighlight(string ticket, int id) {
+            this.Invoke("DeleteHighlight", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteHighlightAsync(string ticket, int id) {
+            this.DeleteHighlightAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteHighlightAsync(string ticket, int id, object userState) {
+            if ((this.DeleteHighlightOperationCompleted == null)) {
+                this.DeleteHighlightOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteHighlightOperationCompleted);
+            }
+            this.InvokeAsync("DeleteHighlight", new object[] {
+                        ticket,
+                        id}, this.DeleteHighlightOperationCompleted, userState);
+        }
+        
+        private void OnDeleteHighlightOperationCompleted(object arg) {
+            if ((this.DeleteHighlightCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteHighlightCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetVersion", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string GetVersion() {
             object[] results = this.Invoke("GetVersion", new object[0]);
@@ -1556,6 +1733,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitHighlight))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHostRollup))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReference))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImage))]
@@ -1633,6 +1811,63 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.topicIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitHighlight : TransitObject {
+        
+        private string titleField;
+        
+        private string urlField;
+        
+        private string descriptionField;
+        
+        private int imageIdField;
+        
+        /// <remarks/>
+        public string Title {
+            get {
+                return this.titleField;
+            }
+            set {
+                this.titleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Url {
+            get {
+                return this.urlField;
+            }
+            set {
+                this.urlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Description {
+            get {
+                return this.descriptionField;
+            }
+            set {
+                this.descriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int ImageId {
+            get {
+                return this.imageIdField;
+            }
+            set {
+                this.imageIdField = value;
             }
         }
     }
@@ -2761,6 +2996,114 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeleteReferrerHostRollupCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetHighlightByIdCompletedEventHandler(object sender, GetHighlightByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetHighlightByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetHighlightByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitHighlight Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitHighlight)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateHighlightCompletedEventHandler(object sender, CreateOrUpdateHighlightCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateHighlightCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateHighlightCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetHighlightsCountCompletedEventHandler(object sender, GetHighlightsCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetHighlightsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetHighlightsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetHighlightsCompletedEventHandler(object sender, GetHighlightsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetHighlightsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetHighlightsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitHighlight[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitHighlight[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteHighlightCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

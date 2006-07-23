@@ -55,6 +55,7 @@
     <Compile Include="ManagedLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransitBlog.cs" />
+    <Compile Include="TransitHighlight.cs" />
     <Compile Include="TransitImage.cs" />
     <Compile Include="TransitLogin.cs" />
     <Compile Include="TransitObject.cs" />

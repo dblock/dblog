@@ -10,6 +10,7 @@ namespace DBlog.Web.UnitTests.WebServices
     {
         WebServices.Blog.Blog mBlog = null;
         private string mUrl = "http://localhost/DBlog/WebServices.Blog.asmx";
+        private List<BlogTest> mDependents = new List<BlogTest>();
 
         public BlogTest()
         {
@@ -33,16 +34,35 @@ namespace DBlog.Web.UnitTests.WebServices
         }
 
         [SetUp]
-        public void SetUp()
+        public virtual void SetUp()
         {
-            mBlog = new WebServices.Blog.Blog();
-            mBlog.Url = mUrl;
+            if (mBlog == null)
+            {
+                mBlog = new WebServices.Blog.Blog();
+                mBlog.Url = mUrl;
+            }
+
+            foreach (BlogTest test in mDependents)
+            {
+                test.mBlog = mBlog;
+                test.SetUp();
+            }
         }
 
         [TearDown]
-        public void TearDown()
+        public virtual void TearDown()
         {
+            foreach (BlogTest test in mDependents)
+            {
+                test.TearDown();
+            }
+
             mBlog = null;
+        }
+
+        public void AddDependent(BlogTest test)
+        {
+            mDependents.Add(test);
         }
     }
 }
