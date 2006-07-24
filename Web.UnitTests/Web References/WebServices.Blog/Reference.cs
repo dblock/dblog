@@ -114,7 +114,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback CreateOrUpdateEntryOperationCompleted;
         
-        private System.Threading.SendOrPostCallback CreateOrUpdateEntryWithImageOperationCompleted;
+        private System.Threading.SendOrPostCallback CreateOrUpdateEntryImageOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetEntriesCountOperationCompleted;
         
@@ -297,7 +297,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         public event CreateOrUpdateEntryCompletedEventHandler CreateOrUpdateEntryCompleted;
         
         /// <remarks/>
-        public event CreateOrUpdateEntryWithImageCompletedEventHandler CreateOrUpdateEntryWithImageCompleted;
+        public event CreateOrUpdateEntryImageCompletedEventHandler CreateOrUpdateEntryImageCompleted;
         
         /// <remarks/>
         public event GetEntriesCountCompletedEventHandler GetEntriesCountCompleted;
@@ -1612,35 +1612,35 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateEntryWithImage", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int CreateOrUpdateEntryWithImage(string ticket, TransitEntry t_entry, TransitImage t_image) {
-            object[] results = this.Invoke("CreateOrUpdateEntryWithImage", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateEntryImage", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateEntryImage(string ticket, int entry_id, TransitImage t_image) {
+            object[] results = this.Invoke("CreateOrUpdateEntryImage", new object[] {
                         ticket,
-                        t_entry,
+                        entry_id,
                         t_image});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void CreateOrUpdateEntryWithImageAsync(string ticket, TransitEntry t_entry, TransitImage t_image) {
-            this.CreateOrUpdateEntryWithImageAsync(ticket, t_entry, t_image, null);
+        public void CreateOrUpdateEntryImageAsync(string ticket, int entry_id, TransitImage t_image) {
+            this.CreateOrUpdateEntryImageAsync(ticket, entry_id, t_image, null);
         }
         
         /// <remarks/>
-        public void CreateOrUpdateEntryWithImageAsync(string ticket, TransitEntry t_entry, TransitImage t_image, object userState) {
-            if ((this.CreateOrUpdateEntryWithImageOperationCompleted == null)) {
-                this.CreateOrUpdateEntryWithImageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateEntryWithImageOperationCompleted);
+        public void CreateOrUpdateEntryImageAsync(string ticket, int entry_id, TransitImage t_image, object userState) {
+            if ((this.CreateOrUpdateEntryImageOperationCompleted == null)) {
+                this.CreateOrUpdateEntryImageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateEntryImageOperationCompleted);
             }
-            this.InvokeAsync("CreateOrUpdateEntryWithImage", new object[] {
+            this.InvokeAsync("CreateOrUpdateEntryImage", new object[] {
                         ticket,
-                        t_entry,
-                        t_image}, this.CreateOrUpdateEntryWithImageOperationCompleted, userState);
+                        entry_id,
+                        t_image}, this.CreateOrUpdateEntryImageOperationCompleted, userState);
         }
         
-        private void OnCreateOrUpdateEntryWithImageOperationCompleted(object arg) {
-            if ((this.CreateOrUpdateEntryWithImageCompleted != null)) {
+        private void OnCreateOrUpdateEntryImageOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateEntryImageCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CreateOrUpdateEntryWithImageCompleted(this, new CreateOrUpdateEntryWithImageCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.CreateOrUpdateEntryImageCompleted(this, new CreateOrUpdateEntryImageCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -3566,17 +3566,17 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void CreateOrUpdateEntryWithImageCompletedEventHandler(object sender, CreateOrUpdateEntryWithImageCompletedEventArgs e);
+    public delegate void CreateOrUpdateEntryImageCompletedEventHandler(object sender, CreateOrUpdateEntryImageCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class CreateOrUpdateEntryWithImageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class CreateOrUpdateEntryImageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal CreateOrUpdateEntryWithImageCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal CreateOrUpdateEntryImageCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }

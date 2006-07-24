@@ -82,6 +82,8 @@ namespace DBlog.Web.UnitTests.WebServices
             t_entry.Title = Guid.NewGuid().ToString();
             t_entry.IpAddress = "127.0.0.1";
             t_entry.TopicId = t_topic.Id;
+            t_entry.Id = Blog.CreateOrUpdateEntry(Ticket, t_entry);
+            Assert.Greater(t_entry.Id, 0);
 
             TransitImage t_image = new TransitImage();
             t_image.Name = Guid.NewGuid().ToString();
@@ -93,11 +95,11 @@ namespace DBlog.Web.UnitTests.WebServices
 
             t_image.Data = tb.Bitmap;
             t_image.Thumbnail = tb.Thumbnail;
-    
-            int id = Blog.CreateOrUpdateEntryWithImage(Ticket, t_entry, t_image);
-            Assert.Greater(id, 0);
 
-            Blog.DeleteEntry(Ticket, id);
+            t_image.Id = Blog.CreateOrUpdateEntryImage(Ticket, t_entry.Id, t_image);
+            Assert.Greater(t_image.Id, 0);
+
+            Blog.DeleteEntry(Ticket, t_entry.Id);
         }
     }
 }

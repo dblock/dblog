@@ -7,6 +7,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.UI.WebControls;
 using System.ComponentModel;
 
+[assembly: WebResource("DBlog.Tools.Resources.MultiFileUpload.js", "application/x-javascript")]
 namespace DBlog.Tools.WebControls // Wilco.Web.UI.WebControls
 {
     /// <summary>
@@ -212,7 +213,8 @@ namespace DBlog.Tools.WebControls // Wilco.Web.UI.WebControls
         private void RegisterClientScript()
         {
             ClientScriptManager csm = this.Page.ClientScript;
-            csm.RegisterClientScriptResource(this.GetType(), "Wilco.Web.Resources.MultiFileUpload.js");
+            
+            csm.RegisterClientScriptResource(this.GetType(), "DBlog.Tools.Resources.MultiFileUpload.js");
         }
 
         /// <summary>

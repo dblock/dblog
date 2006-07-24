@@ -788,19 +788,19 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="CreateOrUpdateEntryWithImage">
+      <s:element name="CreateOrUpdateEntryImage">
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="t_entry" type="tns:TransitEntry" />
+            <s:element minOccurs="1" maxOccurs="1" name="entry_id" type="s:int" />
             <s:element minOccurs="0" maxOccurs="1" name="t_image" type="tns:TransitImage" />
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:element name="CreateOrUpdateEntryWithImageResponse">
+      <s:element name="CreateOrUpdateEntryImageResponse">
         <s:complexType>
           <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateEntryWithImageResult" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateEntryImageResult" type="s:int" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1153,11 +1153,11 @@
   <wsdl:message name="CreateOrUpdateEntrySoapOut">
     <wsdl:part name="parameters" element="tns:CreateOrUpdateEntryResponse" />
   </wsdl:message>
-  <wsdl:message name="CreateOrUpdateEntryWithImageSoapIn">
-    <wsdl:part name="parameters" element="tns:CreateOrUpdateEntryWithImage" />
+  <wsdl:message name="CreateOrUpdateEntryImageSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateEntryImage" />
   </wsdl:message>
-  <wsdl:message name="CreateOrUpdateEntryWithImageSoapOut">
-    <wsdl:part name="parameters" element="tns:CreateOrUpdateEntryWithImageResponse" />
+  <wsdl:message name="CreateOrUpdateEntryImageSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateEntryImageResponse" />
   </wsdl:message>
   <wsdl:message name="GetEntriesCountSoapIn">
     <wsdl:part name="parameters" element="tns:GetEntriesCount" />
@@ -1418,10 +1418,10 @@
       <wsdl:input message="tns:CreateOrUpdateEntrySoapIn" />
       <wsdl:output message="tns:CreateOrUpdateEntrySoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="CreateOrUpdateEntryWithImage">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update an entry with image.</wsdl:documentation>
-      <wsdl:input message="tns:CreateOrUpdateEntryWithImageSoapIn" />
-      <wsdl:output message="tns:CreateOrUpdateEntryWithImageSoapOut" />
+    <wsdl:operation name="CreateOrUpdateEntryImage">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update an entry image.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateEntryImageSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateEntryImageSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetEntriesCount">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get entries count.</wsdl:documentation>
@@ -1844,8 +1844,8 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CreateOrUpdateEntryWithImage">
-      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateEntryWithImage" style="document" />
+    <wsdl:operation name="CreateOrUpdateEntryImage">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateEntryImage" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2306,8 +2306,8 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CreateOrUpdateEntryWithImage">
-      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateEntryWithImage" style="document" />
+    <wsdl:operation name="CreateOrUpdateEntryImage">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateEntryImage" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

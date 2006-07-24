@@ -40,7 +40,7 @@ public class ReferencesRenderer : ExternalRenderer
 
         if (reference == null)
         {
-            return string.Format("[error: {0} not found]", word);
+            return word;
         }
 
         string image = "link";
