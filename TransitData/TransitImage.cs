@@ -49,8 +49,7 @@ namespace DBlog.TransitData
         {
             if (mExcludeBlogImages)
             {
-                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM EntryImage e WHERE e.Image_Id = this.Image_Id )"));
-                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM GalleryImage g WHERE g.Image_Id = this.Image_Id )"));
+                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM PostImage e WHERE e.Image_Id = this.Image_Id )"));
                 criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM Highlight h WHERE h.Image_Id = this.Image_Id )"));
             }
 
@@ -61,8 +60,7 @@ namespace DBlog.TransitData
         {
             if (mExcludeBlogImages)
             {
-                query.Add(Expression.Sql("NOT EXISTS ( SELECT e.Image.Id FROM EntryImage e WHERE e.Image.Id = Image.Id )"));
-                query.Add(Expression.Sql("NOT EXISTS ( SELECT g.Image.Id FROM GalleryImage g WHERE g.Image.Id = Image.Id )"));
+                query.Add(Expression.Sql("NOT EXISTS ( SELECT e.Image.Id FROM PostImage e WHERE e.Image.Id = Image.Id )"));
                 query.Add(Expression.Sql("NOT EXISTS ( SELECT h.Image.Id FROM Highlight h WHERE h.Image.Id = Image.Id )"));
             }
 

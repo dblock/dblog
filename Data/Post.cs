@@ -4,31 +4,31 @@ namespace DBlog.Data
 
     ///--------------------------------------------------------------------------------
     ///<summary>
-    ///Persistent domain entity class representing 'Entry' entities.
+    ///Persistent domain entity class representing 'Post' entities.
     ///</summary>
     ///<remarks>
     ///
     ///Mapping information:
-    ///This class maps to the 'Entry' table in the data source.
+    ///This class maps to the 'Post' table in the data source.
     ///</remarks>
     ///--------------------------------------------------------------------------------
-    public class Entry
+    public class Post
     {
 #region " Generated Code Region "
         //Private field variables
 
         //Holds property values
         private System.Int32 m_Id;
+        private System.String m_Body;
         private System.DateTime m_Created;
-        private System.Collections.IList m_EntryComments;
-        private System.Collections.IList m_EntryCounters;
-        private System.Collections.IList m_EntryImages;
-        private System.String m_IpAddress;
+        private Login m_Login;
         private System.DateTime m_Modified;
-        private Login m_OwnerLogin;
-        private System.String m_Text;
+        private System.Collections.IList m_PostComments;
+        private System.Collections.IList m_PostCounters;
+        private System.Collections.IList m_PostImages;
         private System.String m_Title;
         private Topic m_Topic;
+        private System.Collections.IList m_PostLogins;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ namespace DBlog.Data
         ///The accessibility level for the field 'm_Id' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Entry_Id' in the data source.
+        ///The property maps to the column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
         public  System.Int32 Id
@@ -51,6 +51,31 @@ namespace DBlog.Data
             get
             {
                 return m_Id;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.String'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Body' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Body' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.String Body
+        {
+            get
+            {
+                return m_Body;
+            }
+            set
+            {
+                m_Body = value;
             }
         }
 
@@ -81,119 +106,28 @@ namespace DBlog.Data
 
         ///--------------------------------------------------------------------------------
         ///<summary>
-        ///Persistent many-one reference property.
+        ///Persistent one-many reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts multiple references to objects of the type 'EntryComment'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'EntryComment.Entry'.
-        ///This property inherits its mapping information from its inverse property.
+        ///This property accepts references to objects of the type 'Login'.
+        ///This property is part of a 'OneToMany' relationship.
+        ///The inverse property for this property is 'Login.Posts'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_EntryComments' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
+        ///The accessibility level for the field 'm_Login' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///This class maps to the 'EntryComment' table in the data source.
-        ///The property maps to the identity column 'Entry_Id' in the data source.
+        ///The property maps to the column 'Login_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList EntryComments
+        public  Login Login
         {
             get
             {
-                return m_EntryComments;
+                return m_Login;
             }
             set
             {
-                m_EntryComments = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'EntryCounter'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'EntryCounter.Entry'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_EntryCounters' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'EntryCounter' table in the data source.
-        ///The property maps to the identity column 'Entry_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList EntryCounters
-        {
-            get
-            {
-                return m_EntryCounters;
-            }
-            set
-            {
-                m_EntryCounters = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'EntryImage'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'EntryImage.Entry'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_EntryImages' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'EntryImage' table in the data source.
-        ///The property maps to the identity column 'Entry_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList EntryImages
-        {
-            get
-            {
-                return m_EntryImages;
-            }
-            set
-            {
-                m_EntryImages = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent primitive property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts values of the type 'System.String'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_IpAddress' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'IpAddress' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.String IpAddress
-        {
-            get
-            {
-                return m_IpAddress;
-            }
-            set
-            {
-                m_IpAddress = value;
+                m_Login = value;
             }
         }
 
@@ -224,53 +158,94 @@ namespace DBlog.Data
 
         ///--------------------------------------------------------------------------------
         ///<summary>
-        ///Persistent one-many reference property.
+        ///Persistent many-one reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts references to objects of the type 'Login'.
-        ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Login.Entries'.
+        ///This property accepts multiple references to objects of the type 'PostComment'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'PostComment.Post'.
+        ///This property inherits its mapping information from its inverse property.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_OwnerLogin' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_PostComments' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Owner_Login_Id' in the data source.
+        ///This class maps to the 'PostComment' table in the data source.
+        ///The property maps to the identity column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Login OwnerLogin
+        public  System.Collections.IList PostComments
         {
             get
             {
-                return m_OwnerLogin;
+                return m_PostComments;
             }
             set
             {
-                m_OwnerLogin = value;
+                m_PostComments = value;
             }
         }
 
         ///--------------------------------------------------------------------------------
         ///<summary>
-        ///Persistent primitive property.
+        ///Persistent many-one reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts values of the type 'System.String'.
+        ///This property accepts multiple references to objects of the type 'PostCounter'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'PostCounter.Post'.
+        ///This property inherits its mapping information from its inverse property.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Text' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_PostCounters' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Text' in the data source.
+        ///This class maps to the 'PostCounter' table in the data source.
+        ///The property maps to the identity column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Text
+        public  System.Collections.IList PostCounters
         {
             get
             {
-                return m_Text;
+                return m_PostCounters;
             }
             set
             {
-                m_Text = value;
+                m_PostCounters = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'PostImage'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'PostImage.Post'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_PostImages' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'PostImage' table in the data source.
+        ///The property maps to the identity column 'Post_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Collections.IList PostImages
+        {
+            get
+            {
+                return m_PostImages;
+            }
+            set
+            {
+                m_PostImages = value;
             }
         }
 
@@ -306,7 +281,7 @@ namespace DBlog.Data
         ///<remarks>
         ///This property accepts references to objects of the type 'Topic'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Topic.Entries'.
+        ///The inverse property for this property is 'Topic.Posts'.
         ///The accessibility level for this property is 'PublicAccess'.
         ///The accessibility level for the field 'm_Topic' that holds the value for this property is 'PrivateAccess'.
         ///
@@ -323,6 +298,37 @@ namespace DBlog.Data
             set
             {
                 m_Topic = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'PostLogin'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'PostLogin.Post'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_PostLogins' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'PostLogin' table in the data source.
+        ///The property maps to the identity column 'Post_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Collections.IList PostLogins
+        {
+            get
+            {
+                return m_PostLogins;
+            }
+            set
+            {
+                m_PostLogins = value;
             }
         }
 

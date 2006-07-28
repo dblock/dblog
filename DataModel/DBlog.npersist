@@ -1,15 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <domain name="DBlog.Data" assembly="DBlog.Data" root="DBlog.Data" source="DBlog" field-strategy="PascalCase">
-  <class name="Blog" table="Blog">
-    <property name="Id" id="true" columns="Blog_Id" type="System.Int32" />
-    <property name="Created" columns="Created" type="System.DateTime" />
-    <property name="Modified" columns="Modified" type="System.DateTime" />
-    <property name="OwnerLogin" columns="Owner_Login_Id" ref="OneToMany" inverse="Blogs" type="Login" />
-    <property name="Text" columns="Text" type="System.String" />
-    <property name="Title" columns="Title" type="System.String" />
-    <property name="Topic" columns="Topic_Id" ref="OneToMany" inverse="Blogs" type="Topic" />
-    <property name="Type" columns="Type" type="System.String" />
-  </class>
   <class name="Browser" table="Browser">
     <property name="Id" id="true" columns="Browser_Id" type="System.Int32" />
     <property name="BrowserPlatforms" table="BrowserPlatform" id-columns="Browser_Id" list="true" item-type="BrowserPlatform" slave="true" ref="ManyToOne" inverse="Browser" inherits-inverse="true" />
@@ -40,8 +30,6 @@
   <class name="Comment" table="Comment">
     <property name="Id" id="true" columns="Comment_Id" type="System.Int32" />
     <property name="Created" columns="Created" type="System.DateTime" />
-    <property name="EntryComments" table="EntryComment" id-columns="Comment_Id" list="true" item-type="EntryComment" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" />
-    <property name="GalleryComments" table="GalleryComment" id-columns="Comment_Id" list="true" item-type="GalleryComment" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" />
     <property name="ImageComments" table="ImageComment" id-columns="Comment_Id" list="true" item-type="ImageComment" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" />
     <property name="IpAddress" columns="IpAddress" type="System.String" />
     <property name="Modified" columns="Modified" type="System.DateTime" />
@@ -49,51 +37,22 @@
     <property name="ParentCommentThreads" table="Thread" id-columns="ParentComment_Id" list="true" item-type="Thread" slave="true" ref="ManyToOne" inverse="ParentComment" inherits-inverse="true" />
     <property name="Text" columns="Text" type="System.String" />
     <property name="Threads" table="Thread" id-columns="Comment_Id" list="true" item-type="Thread" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" />
+    <property name="PostComments" table="PostComment" id-columns="Comment_Id" list="true" item-type="PostComment" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" />
   </class>
   <class name="Counter" table="Counter">
     <property name="Id" id="true" columns="Counter_Id" type="System.Int32" />
     <property name="Count" columns="Count" type="System.Int64" />
     <property name="Created" columns="Created" type="System.DateTime" />
-    <property name="EntryCounters" table="EntryCounter" id-columns="Counter_Id" list="true" item-type="EntryCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
-    <property name="GalleryCounters" table="GalleryCounter" id-columns="Counter_Id" list="true" item-type="GalleryCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
     <property name="ImageCounters" table="ImageCounter" id-columns="Counter_Id" list="true" item-type="ImageCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
     <property name="LoginCounters" table="LoginCounter" id-columns="Counter_Id" list="true" item-type="LoginCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
     <property name="NamedCounters" table="NamedCounter" id-columns="Counter_Id" list="true" item-type="NamedCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
     <property name="ResourceId" columns="Resource_Id" type="System.Int32" />
-  </class>
-  <class name="Entry" table="Entry">
-    <property name="Id" id="true" columns="Entry_Id" type="System.Int32" />
-    <property name="Created" columns="Created" type="System.DateTime" />
-    <property name="EntryComments" table="EntryComment" id-columns="Entry_Id" list="true" item-type="EntryComment" slave="true" ref="ManyToOne" inverse="Entry" inherits-inverse="true" />
-    <property name="EntryCounters" table="EntryCounter" id-columns="Entry_Id" list="true" item-type="EntryCounter" slave="true" ref="ManyToOne" inverse="Entry" inherits-inverse="true" />
-    <property name="EntryImages" table="EntryImage" id-columns="Entry_Id" list="true" item-type="EntryImage" slave="true" ref="ManyToOne" inverse="Entry" inherits-inverse="true" />
-    <property name="IpAddress" columns="IpAddress" type="System.String" />
-    <property name="Modified" columns="Modified" type="System.DateTime" />
-    <property name="OwnerLogin" columns="Owner_Login_Id" ref="OneToMany" inverse="Entries" type="Login" />
-    <property name="Text" columns="Text" type="System.String" />
-    <property name="Title" columns="Title" type="System.String" />
-    <property name="Topic" columns="Topic_Id" ref="OneToMany" inverse="Entries" type="Topic" />
-  </class>
-  <class name="EntryComment" table="EntryComment">
-    <property name="Id" id="true" columns="EntryComment_Id" type="System.Int32" />
-    <property name="Comment" columns="Comment_Id" ref="OneToMany" inverse="EntryComments" type="Comment" />
-    <property name="Entry" columns="Entry_Id" ref="OneToMany" inverse="EntryComments" type="Entry" />
-  </class>
-  <class name="EntryCounter" table="EntryCounter">
-    <property name="Id" id="true" columns="EntryCounter_Id" type="System.Int32" />
-    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="EntryCounters" type="Counter" />
-    <property name="Entry" columns="Entry_Id" ref="OneToMany" inverse="EntryCounters" type="Entry" />
-  </class>
-  <class name="EntryImage" table="EntryImage">
-    <property name="Id" id="true" columns="EntryImage_Id" type="System.Int32" />
-    <property name="Entry" columns="Entry_Id" ref="OneToMany" inverse="EntryImages" type="Entry" />
-    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="EntryImages" type="Image" />
+    <property name="PostCounters" table="PostCounter" id-columns="Counter_Id" list="true" item-type="PostCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
   </class>
   <class name="Feed" table="Feed">
     <property name="Id" id="true" columns="Feed_Id" type="System.Int32" />
     <property name="Description" columns="Description" type="System.String" />
     <property name="Exception" columns="Exception" type="System.String" />
-    <property name="FeedItems" table="FeedItem" id-columns="Feed_Id" list="true" item-type="FeedItem" slave="true" ref="ManyToOne" inverse="Feed" inherits-inverse="true" />
     <property name="Interval" columns="Interval" type="System.Int32" />
     <property name="Name" columns="Name" type="System.String" />
     <property name="Password" columns="Password" type="System.String" />
@@ -103,47 +62,14 @@
     <property name="Url" columns="Url" type="System.String" />
     <property name="Username" columns="Username" type="System.String" />
     <property name="Xsl" columns="Xsl" type="System.String" />
+    <property name="FeedItems" table="FeedItem" id-columns="Feed_Id" list="true" item-type="FeedItem" slave="true" ref="ManyToOne" inverse="Feed" inherits-inverse="true" />
   </class>
   <class name="FeedItem" table="FeedItem">
     <property name="Id" id="true" columns="FeedItem_Id" type="System.Int32" />
     <property name="Description" columns="Description" type="System.String" />
-    <property name="Feed" columns="Feed_Id" ref="OneToMany" inverse="FeedItems" type="Feed" />
     <property name="Link" columns="Link" type="System.String" />
     <property name="Title" columns="Title" type="System.String" />
-  </class>
-  <class name="Gallery" table="Gallery">
-    <property name="Id" id="true" columns="Gallery_Id" type="System.Int32" />
-    <property name="Created" columns="Created" type="System.DateTime" />
-    <property name="GalleryComments" table="GalleryComment" id-columns="Gallery_Id" list="true" item-type="GalleryComment" slave="true" ref="ManyToOne" inverse="Gallery" inherits-inverse="true" />
-    <property name="GalleryCounters" table="GalleryCounter" id-columns="Gallery_Id" list="true" item-type="GalleryCounter" slave="true" ref="ManyToOne" inverse="Gallery" inherits-inverse="true" />
-    <property name="GalleryImages" table="GalleryImage" id-columns="Gallery_Id" list="true" item-type="GalleryImage" slave="true" ref="ManyToOne" inverse="Gallery" inherits-inverse="true" />
-    <property name="GalleryLogins" table="GalleryLogin" id-columns="Gallery_Id" list="true" item-type="GalleryLogin" slave="true" ref="ManyToOne" inverse="Gallery" inherits-inverse="true" />
-    <property name="Modified" columns="Modified" type="System.DateTime" />
-    <property name="OwnerLogin" columns="Owner_Login_Id" ref="OneToMany" inverse="Galleries" type="Login" />
-    <property name="Path" columns="Path" type="System.String" />
-    <property name="Text" columns="Text" type="System.String" />
-    <property name="Title" columns="Title" type="System.String" />
-    <property name="Topic" columns="Topic_Id" ref="OneToMany" inverse="Galleries" type="Topic" />
-  </class>
-  <class name="GalleryComment" table="GalleryComment">
-    <property name="Id" id="true" columns="GalleryComment_Id" type="System.Int32" />
-    <property name="Comment" columns="Comment_Id" ref="OneToMany" inverse="GalleryComments" type="Comment" />
-    <property name="Gallery" columns="Gallery_Id" ref="OneToMany" inverse="GalleryComments" type="Gallery" />
-  </class>
-  <class name="GalleryCounter" table="GalleryCounter">
-    <property name="Id" id="true" columns="GalleryCounter_Id" type="System.Int32" />
-    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="GalleryCounters" type="Counter" />
-    <property name="Gallery" columns="Gallery_Id" ref="OneToMany" inverse="GalleryCounters" type="Gallery" />
-  </class>
-  <class name="GalleryImage" table="GalleryImage">
-    <property name="Id" id="true" columns="GalleryImage_Id" type="System.Int32" />
-    <property name="Gallery" columns="Gallery_Id" ref="OneToMany" inverse="GalleryImages" type="Gallery" />
-    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="GalleryImages" type="Image" />
-  </class>
-  <class name="GalleryLogin" table="GalleryLogin">
-    <property name="Id" id="true" columns="GalleryLogin_Id" type="System.Int32" />
-    <property name="Gallery" columns="Gallery_Id" ref="OneToMany" inverse="GalleryLogins" type="Gallery" />
-    <property name="Login" columns="Login_Id" ref="OneToMany" inverse="GalleryLogins" type="Login" />
+    <property name="Feed" columns="Feed_Id" ref="OneToMany" inverse="FeedItems" type="Feed" />
   </class>
   <class name="Highlight" table="Highlight">
     <property name="Id" id="true" columns="Highlight_Id" type="System.Int32" />
@@ -161,8 +87,6 @@
     <property name="Id" id="true" columns="Image_Id" type="System.Int32" />
     <property name="Data" columns="Data" type="System.Byte()" />
     <property name="Description" columns="Description" type="System.String" />
-    <property name="EntryImages" table="EntryImage" id-columns="Image_Id" list="true" item-type="EntryImage" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
-    <property name="GalleryImages" table="GalleryImage" id-columns="Image_Id" list="true" item-type="GalleryImage" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
     <property name="Highlights" table="Highlight" id-columns="Image_Id" list="true" item-type="Highlight" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
     <property name="ImageComments" table="ImageComment" id-columns="Image_Id" list="true" item-type="ImageComment" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
     <property name="ImageCounters" table="ImageCounter" id-columns="Image_Id" list="true" item-type="ImageCounter" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
@@ -171,6 +95,7 @@
     <property name="Path" columns="Path" type="System.String" />
     <property name="Preferred" columns="Preferred" type="System.Boolean" />
     <property name="Thumbnail" columns="Thumbnail" type="System.Byte()" />
+    <property name="PostImages" table="PostImage" id-columns="Image_Id" list="true" item-type="PostImage" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
   </class>
   <class name="ImageComment" table="ImageComment">
     <property name="Id" id="true" columns="ImageComment_Id" type="System.Int32" />
@@ -186,16 +111,14 @@
     <property name="Id" id="true" columns="Login_Id" type="System.Int32" />
     <property name="Comments" table="Comment" id-columns="Owner_Login_Id" list="true" item-type="Comment" slave="true" ref="ManyToOne" inverse="OwnerLogin" inherits-inverse="true" />
     <property name="Email" columns="Email" type="System.String" />
-    <property name="Entries" table="Entry" id-columns="Owner_Login_Id" list="true" item-type="Entry" slave="true" ref="ManyToOne" inverse="OwnerLogin" inherits-inverse="true" />
-    <property name="Galleries" table="Gallery" id-columns="Owner_Login_Id" list="true" item-type="Gallery" slave="true" ref="ManyToOne" inverse="OwnerLogin" inherits-inverse="true" />
-    <property name="GalleryLogins" table="GalleryLogin" id-columns="Login_Id" list="true" item-type="GalleryLogin" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" />
     <property name="LoginCounters" table="LoginCounter" id-columns="Login_Id" list="true" item-type="LoginCounter" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" />
     <property name="Name" columns="Name" type="System.String" />
     <property name="Password" columns="Password" type="System.String" />
     <property name="Role" columns="Role" type="System.String" />
     <property name="Username" columns="Username" type="System.String" />
     <property name="Website" columns="Website" type="System.String" />
-    <property name="Blogs" table="Blog" id-columns="Owner_Login_Id" list="true" item-type="Blog" slave="true" ref="ManyToOne" inverse="OwnerLogin" inherits-inverse="true" />
+    <property name="Posts" table="Post" id-columns="Login_Id" list="true" item-type="Post" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" />
+    <property name="PostLogins" table="PostLogin" id-columns="Login_Id" list="true" item-type="PostLogin" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" />
   </class>
   <class name="LoginCounter" table="LoginCounter">
     <property name="Id" id="true" columns="LoginCounter_Id" type="System.Int32" />
@@ -211,6 +134,39 @@
     <property name="Id" id="true" columns="Platform_Id" type="System.Int32" />
     <property name="BrowserPlatforms" table="BrowserPlatform" id-columns="Platform_Id" list="true" item-type="BrowserPlatform" slave="true" ref="ManyToOne" inverse="Platform" inherits-inverse="true" />
     <property name="Name" columns="Name" type="System.String" />
+  </class>
+  <class name="Post" table="Post">
+    <property name="Id" id="true" columns="Post_Id" type="System.Int32" />
+    <property name="Body" columns="Body" type="System.String" />
+    <property name="Created" columns="Created" type="System.DateTime" />
+    <property name="Login" columns="Login_Id" ref="OneToMany" inverse="Posts" type="Login" />
+    <property name="Modified" columns="Modified" type="System.DateTime" />
+    <property name="PostComments" table="PostComment" id-columns="Post_Id" list="true" item-type="PostComment" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" />
+    <property name="PostCounters" table="PostCounter" id-columns="Post_Id" list="true" item-type="PostCounter" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" />
+    <property name="PostImages" table="PostImage" id-columns="Post_Id" list="true" item-type="PostImage" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" />
+    <property name="Title" columns="Title" type="System.String" />
+    <property name="Topic" columns="Topic_Id" ref="OneToMany" inverse="Posts" type="Topic" />
+    <property name="PostLogins" table="PostLogin" id-columns="Post_Id" list="true" item-type="PostLogin" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" />
+  </class>
+  <class name="PostComment" table="PostComment">
+    <property name="Id" id="true" columns="PostComment_Id" type="System.Int32" />
+    <property name="Comment" columns="Comment_Id" ref="OneToMany" inverse="PostComments" type="Comment" />
+    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostComments" type="Post" />
+  </class>
+  <class name="PostCounter" table="PostCounter">
+    <property name="Id" id="true" columns="PostCounter_Id" type="System.Int32" />
+    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="PostCounters" type="Counter" />
+    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostCounters" type="Post" />
+  </class>
+  <class name="PostImage" table="PostImage">
+    <property name="Id" id="true" columns="PostImage_Id" type="System.Int32" />
+    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="PostImages" type="Image" />
+    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostImages" type="Post" />
+  </class>
+  <class name="PostLogin" table="PostLogin">
+    <property name="Id" id="true" columns="PostLogin_Id" type="System.Int32" />
+    <property name="Login" columns="Login_Id" ref="OneToMany" inverse="PostLogins" type="Login" />
+    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostLogins" type="Post" />
   </class>
   <class name="Reference" table="Reference">
     <property name="Id" id="true" columns="Reference_Id" type="System.Int32" />
@@ -258,26 +214,15 @@
   </class>
   <class name="Topic" table="Topic">
     <property name="Id" id="true" columns="Topic_Id" type="System.Int32" />
-    <property name="Entries" table="Entry" id-columns="Topic_Id" list="true" item-type="Entry" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" />
-    <property name="Galleries" table="Gallery" id-columns="Topic_Id" list="true" item-type="Gallery" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" />
     <property name="Name" columns="Name" type="System.String" />
-    <property name="Blogs" table="Blog" id-columns="Topic_Id" list="true" item-type="Blog" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" />
+    <property name="Posts" table="Post" id-columns="Topic_Id" list="true" item-type="Post" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" />
+    <property name="Type" columns="Type" type="System.String" />
   </class>
   <source name="DBlog" type="MSSqlServer" provider="SqlClient" schema="dbo" catalog="Blog">
     <connection-string>Server=localhost;Database=Blog;Trusted_Connection=yes</connection-string>
-    <table name="Blog">
-      <column name="Blog_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Created" type="DateTime" prec="23" length="8" scale="3" default="(getdate())" />
-      <column name="Modified" type="DateTime" prec="23" length="8" scale="3" />
-      <column name="Owner_Login_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_Entry_Login" />
-      <column name="Text" type="String" prec="0" length="16" scale="0" specific-type="NTEXT" />
-      <column name="Title" type="String" prec="128" length="256" scale="0" />
-      <column name="Topic_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Topic" primary-column="Topic_Id" foreign-key="FK_Entry_Topic" />
-      <column name="Type" type="String" prec="0" allow-null="true" length="16" scale="0" />
-    </table>
     <table name="Browser">
       <column name="Browser_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Crawler" type="Boolean" prec="1" length="1" scale="0" default="(0)" />
+      <column name="Crawler" type="Boolean" prec="1" length="1" scale="0" default="((0))" />
       <column name="Name" type="String" prec="128" length="256" scale="0" />
     </table>
     <table name="BrowserPlatform">
@@ -310,36 +255,11 @@
       <column name="Created" type="DateTime" prec="23" length="8" scale="3" />
       <column name="Resource_Id" type="Int32" prec="10" length="4" scale="0" />
     </table>
-    <table name="Entry">
-      <column name="Created" type="DateTime" prec="23" length="8" scale="3" default="(getdate())" />
-      <column name="Entry_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="IpAddress" type="AnsiString" prec="24" length="24" scale="0" />
-      <column name="Modified" type="DateTime" prec="23" length="8" scale="3" />
-      <column name="Owner_Login_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_Entry_Login" />
-      <column name="Text" type="String" prec="0" length="16" scale="0" specific-type="NTEXT" />
-      <column name="Title" type="String" prec="128" length="256" scale="0" />
-      <column name="Topic_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Topic" primary-column="Topic_Id" foreign-key="FK_Entry_Topic" />
-    </table>
-    <table name="EntryComment">
-      <column name="Comment_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Comment" primary-column="Comment_Id" foreign-key="FK_EntryComment_Comment" />
-      <column name="Entry_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Entry" primary-column="Entry_Id" foreign-key="FK_EntryComment_Entry" />
-      <column name="EntryComment_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-    </table>
-    <table name="EntryCounter">
-      <column name="EntryCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Counter_Id" type="Int32" prec="10" allow-null="true" length="4" scale="0" foreign="true" primary-table="Counter" primary-column="Counter_Id" foreign-key="FK_EntryCounter_Counter" />
-      <column name="Entry_Id" type="Int32" prec="10" allow-null="true" length="4" scale="0" foreign="true" primary-table="Entry" primary-column="Entry_Id" foreign-key="FK_EntryCounter_Entry" />
-    </table>
-    <table name="EntryImage">
-      <column name="EntryImage_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Entry_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Entry" primary-column="Entry_Id" foreign-key="FK_EntryImage_Entry" />
-      <column name="Image_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Image" primary-column="Image_Id" foreign-key="FK_EntryImage_Image" />
-    </table>
     <table name="Feed">
       <column name="Feed_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="Description" type="String" prec="256" allow-null="true" length="512" scale="0" />
       <column name="Exception" type="String" prec="0" allow-null="true" length="16" scale="0" specific-type="NTEXT" />
-      <column name="Interval" type="Int32" prec="10" length="4" scale="0" default="(60)" />
+      <column name="Interval" type="Int32" prec="10" length="4" scale="0" default="((60))" />
       <column name="Name" type="String" prec="64" allow-null="true" length="128" scale="0" />
       <column name="Password" type="AnsiString" prec="64" allow-null="true" length="64" scale="0" />
       <column name="Saved" type="DateTime" prec="23" allow-null="true" length="8" scale="3" />
@@ -356,36 +276,6 @@
       <column name="Link" type="AnsiString" prec="256" allow-null="true" length="256" scale="0" />
       <column name="Title" type="String" prec="256" allow-null="true" length="512" scale="0" />
     </table>
-    <table name="Gallery">
-      <column name="Created" type="DateTime" prec="23" length="8" scale="3" />
-      <column name="Gallery_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Modified" type="DateTime" prec="23" length="8" scale="3" />
-      <column name="Owner_Login_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_Gallery_Login" />
-      <column name="Path" type="AnsiString" prec="128" length="128" scale="0" />
-      <column name="Text" type="String" prec="0" allow-null="true" length="16" scale="0" specific-type="NTEXT" />
-      <column name="Title" type="String" prec="128" length="256" scale="0" />
-      <column name="Topic_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Topic" primary-column="Topic_Id" foreign-key="FK_Gallery_Topic" />
-    </table>
-    <table name="GalleryComment">
-      <column name="Comment_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Comment" primary-column="Comment_Id" foreign-key="FK_GalleryComment_Comment" />
-      <column name="Gallery_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Gallery" primary-column="Gallery_Id" foreign-key="FK_GalleryComment_Gallery" />
-      <column name="GalleryComment_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-    </table>
-    <table name="GalleryCounter">
-      <column name="GalleryCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Counter_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Counter" primary-column="Counter_Id" foreign-key="FK_GalleryCounter_Counter" />
-      <column name="Gallery_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Gallery" primary-column="Gallery_Id" foreign-key="FK_GalleryCounter_Gallery" />
-    </table>
-    <table name="GalleryImage">
-      <column name="GalleryImage_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Gallery_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Gallery" primary-column="Gallery_Id" foreign-key="FK_GalleryImage_Gallery" />
-      <column name="Image_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Image" primary-column="Image_Id" foreign-key="FK_GalleryImage_Image" />
-    </table>
-    <table name="GalleryLogin">
-      <column name="GalleryLogin_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Gallery_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Gallery" primary-column="Gallery_Id" foreign-key="FK_GalleryLogin_Gallery" />
-      <column name="Login_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_GalleryLogin_Login" />
-    </table>
     <table name="Highlight">
       <column name="Highlight_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="Description" type="String" prec="256" allow-null="true" length="512" scale="0" />
@@ -396,7 +286,7 @@
     <table name="HourlyCounter">
       <column name="HourlyCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="DateTime" type="DateTime" prec="23" length="8" scale="3" default="(getdate())" />
-      <column name="RequestCount" type="Int32" prec="10" length="4" scale="0" default="(0)" />
+      <column name="RequestCount" type="Int32" prec="10" length="4" scale="0" default="((0))" />
     </table>
     <table name="Image">
       <column name="Image_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
@@ -405,7 +295,7 @@
       <column name="Modified" type="DateTime" prec="23" length="8" scale="3" />
       <column name="Name" type="String" prec="64" length="128" scale="0" />
       <column name="Path" type="String" prec="260" allow-null="true" length="520" scale="0" />
-      <column name="Preferred" type="Boolean" prec="1" allow-null="true" length="1" scale="0" default="(0)" />
+      <column name="Preferred" type="Boolean" prec="1" allow-null="true" length="1" scale="0" default="((0))" />
       <column name="Thumbnail" type="Object" prec="0" allow-null="true" length="16" scale="0" />
     </table>
     <table name="ImageComment">
@@ -441,6 +331,35 @@
       <column name="Platform_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="Name" type="String" prec="128" length="256" scale="0" />
     </table>
+    <table name="Post">
+      <column name="Post_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="Body" type="String" prec="0" allow-null="true" length="16" scale="0" specific-type="NTEXT" />
+      <column name="Created" type="DateTime" prec="23" length="8" scale="3" />
+      <column name="Login_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_Post_Login" />
+      <column name="Modified" type="DateTime" prec="23" length="8" scale="3" />
+      <column name="Title" type="String" prec="256" length="512" scale="0" />
+      <column name="Topic_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Topic" primary-column="Topic_Id" foreign-key="FK_Post_Topic" />
+    </table>
+    <table name="PostComment">
+      <column name="PostComment_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="Comment_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Comment" primary-column="Comment_Id" foreign-key="FK_PostComment_Comment" />
+      <column name="Post_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Post" primary-column="Post_Id" foreign-key="FK_PostComment_Post" />
+    </table>
+    <table name="PostCounter">
+      <column name="PostCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="Counter_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Counter" primary-column="Counter_Id" foreign-key="FK_PostCounter_PostCounter" />
+      <column name="Post_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Post" primary-column="Post_Id" foreign-key="FK_PostCounter_Post" />
+    </table>
+    <table name="PostImage">
+      <column name="PostImage_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="Image_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Image" primary-column="Image_Id" foreign-key="FK_PostImage_Image" />
+      <column name="Post_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Post" primary-column="Post_Id" foreign-key="FK_PostImage_Post" />
+    </table>
+    <table name="PostLogin">
+      <column name="Login_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_PostLogin_Login" />
+      <column name="Post_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Post" primary-column="Post_Id" foreign-key="FK_PostLogin_Post" />
+      <column name="PostLogin_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+    </table>
     <table name="Reference">
       <column name="Reference_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="Result" type="String" prec="256" allow-null="true" length="512" scale="0" />
@@ -457,7 +376,7 @@
       <column name="LastSource" type="String" prec="1024" length="2048" scale="0" />
       <column name="LastUrl" type="String" prec="1024" length="2048" scale="0" />
       <column name="Name" type="String" prec="128" length="256" scale="0" />
-      <column name="RequestCount" type="Int64" prec="19" allow-null="true" length="8" scale="0" default="(0)" />
+      <column name="RequestCount" type="Int64" prec="19" allow-null="true" length="8" scale="0" default="((0))" />
     </table>
     <table name="ReferrerHostRollup">
       <column name="ReferrerHostRollup_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
@@ -466,7 +385,7 @@
     </table>
     <table name="ReferrerSearchQuery">
       <column name="ReferrerSearchQuery_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" default="(0)" />
+      <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" default="((0))" />
       <column name="SearchQuery" type="String" prec="128" length="256" scale="0" />
     </table>
     <table name="Request">
@@ -478,7 +397,7 @@
     <table name="RollupBrowserVersionPlatform">
       <column name="RollupBrowserVersionPlatform_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="BrowserVersionPlatform_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="BrowserVersionPlatform" primary-column="BrowserVersionPlatform_Id" foreign-key="FK_RollupBrowserVersionPlatform_BrowserVersionPlatform" />
-      <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" default="(0)" />
+      <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" default="((0))" />
     </table>
     <table name="Thread">
       <column name="Comment_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Comment" primary-column="Comment_Id" foreign-key="FK_Thread_Comment" />
@@ -488,6 +407,7 @@
     <table name="Topic">
       <column name="Name" type="String" prec="64" length="128" scale="0" />
       <column name="Topic_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="Type" type="AnsiString" prec="64" allow-null="true" length="64" scale="0" />
     </table>
   </source>
 </domain>

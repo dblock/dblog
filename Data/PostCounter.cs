@@ -4,15 +4,15 @@ namespace DBlog.Data
 
     ///--------------------------------------------------------------------------------
     ///<summary>
-    ///Persistent domain entity class representing 'GalleryCounter' entities.
+    ///Persistent domain entity class representing 'PostCounter' entities.
     ///</summary>
     ///<remarks>
     ///
     ///Mapping information:
-    ///This class maps to the 'GalleryCounter' table in the data source.
+    ///This class maps to the 'PostCounter' table in the data source.
     ///</remarks>
     ///--------------------------------------------------------------------------------
-    public class GalleryCounter
+    public class PostCounter
     {
 #region " Generated Code Region "
         //Private field variables
@@ -20,7 +20,7 @@ namespace DBlog.Data
         //Holds property values
         private System.Int32 m_Id;
         private Counter m_Counter;
-        private Gallery m_Gallery;
+        private Post m_Post;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ namespace DBlog.Data
         ///The accessibility level for the field 'm_Id' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'GalleryCounter_Id' in the data source.
+        ///The property maps to the column 'PostCounter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
         public  System.Int32 Id
@@ -53,7 +53,7 @@ namespace DBlog.Data
         ///<remarks>
         ///This property accepts references to objects of the type 'Counter'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Counter.GalleryCounters'.
+        ///The inverse property for this property is 'Counter.PostCounters'.
         ///The accessibility level for this property is 'PublicAccess'.
         ///The accessibility level for the field 'm_Counter' that holds the value for this property is 'PrivateAccess'.
         ///
@@ -78,25 +78,25 @@ namespace DBlog.Data
         ///Persistent one-many reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts references to objects of the type 'Gallery'.
+        ///This property accepts references to objects of the type 'Post'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Gallery.GalleryCounters'.
+        ///The inverse property for this property is 'Post.PostCounters'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Gallery' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_Post' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Gallery_Id' in the data source.
+        ///The property maps to the column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Gallery Gallery
+        public  Post Post
         {
             get
             {
-                return m_Gallery;
+                return m_Post;
             }
             set
             {
-                m_Gallery = value;
+                m_Post = value;
             }
         }
 

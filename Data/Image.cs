@@ -21,8 +21,6 @@ namespace DBlog.Data
         private System.Int32 m_Id;
         private System.Byte[] m_Data;
         private System.String m_Description;
-        private System.Collections.IList m_EntryImages;
-        private System.Collections.IList m_GalleryImages;
         private System.Collections.IList m_Highlights;
         private System.Collections.IList m_ImageComments;
         private System.Collections.IList m_ImageCounters;
@@ -31,6 +29,7 @@ namespace DBlog.Data
         private System.String m_Path;
         private System.Boolean m_Preferred;
         private System.Byte[] m_Thumbnail;
+        private System.Collections.IList m_PostImages;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -103,68 +102,6 @@ namespace DBlog.Data
             set
             {
                 m_Description = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'EntryImage'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'EntryImage.Image'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_EntryImages' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'EntryImage' table in the data source.
-        ///The property maps to the identity column 'Image_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList EntryImages
-        {
-            get
-            {
-                return m_EntryImages;
-            }
-            set
-            {
-                m_EntryImages = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'GalleryImage'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'GalleryImage.Image'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_GalleryImages' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'GalleryImage' table in the data source.
-        ///The property maps to the identity column 'Image_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList GalleryImages
-        {
-            get
-            {
-                return m_GalleryImages;
-            }
-            set
-            {
-                m_GalleryImages = value;
             }
         }
 
@@ -383,6 +320,37 @@ namespace DBlog.Data
             set
             {
                 m_Thumbnail = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'PostImage'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'PostImage.Image'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_PostImages' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'PostImage' table in the data source.
+        ///The property maps to the identity column 'Image_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Collections.IList PostImages
+        {
+            get
+            {
+                return m_PostImages;
+            }
+            set
+            {
+                m_PostImages = value;
             }
         }
 

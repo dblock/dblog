@@ -1,14 +1,14 @@
-<%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="ManageEntries.aspx.cs"
- Inherits="admin_ManageEntries" Title="Manage Entries" %>
+<%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="ManagePosts.aspx.cs"
+ Inherits="admin_ManagePosts" Title="Manage Posts" %>
 
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <div class="title">
-  Entries
+  Posts
  </div>
  <div class="link">
-  <a href="EditEntry.aspx">&#187; Post New</a>
+  <a href="EditPost.aspx">&#187; Post New</a>
  </div>
  <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
   <ContentTemplate>
@@ -21,7 +21,7 @@
      HorizontalAlign="Center" />
     <Columns>
      <asp:BoundColumn DataField="Id" Visible="false" />
-     <asp:TemplateColumn HeaderText="Entry" ItemStyle-Font-Bold="False">
+     <asp:TemplateColumn HeaderText="Post" ItemStyle-Font-Bold="False">
       <itemtemplate>
        <table class="table_blog">
         <tr>
@@ -36,7 +36,7 @@
           </asp:Panel>
          </td>
          <td valign="top" class="table_blog_tr_td">
-          <%# this.Render((int) Eval("Id"), (string) Eval("Text")) %>
+          <%# this.Render((int) Eval("Id"), (string) Eval("Body")) %>
          </td>
         </tr>
        </table>
@@ -44,7 +44,7 @@
      </asp:TemplateColumn>
      <asp:TemplateColumn ItemStyle-Width="100px">
       <itemtemplate>
-       <a href="EditEntry.aspx?id=<%# Eval("Id") %>">Edit</a>
+       <a href="EditPost.aspx?id=<%# Eval("Id") %>">Edit</a>
       </itemtemplate>
      </asp:TemplateColumn>
      <asp:TemplateColumn ItemStyle-Width="100px">

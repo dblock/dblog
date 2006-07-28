@@ -13,22 +13,22 @@ using DBlog.TransitData;
 using System.IO;
 using System.Collections.ObjectModel;
 
-public partial class EditEntry : AdminPage
+public partial class EditPost : BlogAdminPage
 {
-    private TransitEntry mEntry = null;
+    private TransitPost mPost = null;
 
-    public TransitEntry Entry
+    public TransitPost Post
     {
         get
         {
-            if (mEntry == null)
+            if (mPost == null)
             {
-                mEntry = (RequestId > 0)
-                    ? SessionManager.BlogService.GetEntryById(SessionManager.Ticket, RequestId)
-                    : new TransitEntry();
+                mPost = (RequestId > 0)
+                    ? SessionManager.BlogService.GetPostById(SessionManager.Ticket, RequestId)
+                    : new TransitPost();
             }
 
-            return mEntry;
+            return mPost;
         }
     }
 
@@ -47,9 +47,9 @@ public partial class EditEntry : AdminPage
             if (RequestId > 0)
             {
                 GetData(sender, e);
-                inputTitle.Text = Entry.Title;
-                inputText.Text = Entry.Text;
-                inputTopic.Items.FindByValue(Entry.TopicId.ToString()).Selected = true;
+                inputTitle.Text = Post.Title;
+                inputBody.Text = Post.Body;
+                inputTopic.Items.FindByValue(Post.TopicId.ToString()).Selected = true;
             }
             else
             {
@@ -61,14 +61,14 @@ public partial class EditEntry : AdminPage
 
     public void inputImages_FilesPosted(object sender, DBlog.Tools.WebControls.FilesPostedEventArgs e)
     {
-        if (Entry.Id > 0)
+        if (Post.Id > 0)
         {
             foreach (HttpPostedFile file in e.PostedFiles)
             {
                 TransitImage image = new TransitImage();
                 image.Data = new BinaryReader(file.InputStream).ReadBytes(file.ContentLength);
                 image.Name = Path.GetFileName(file.FileName);
-                SessionManager.BlogService.CreateOrUpdateEntryImage(SessionManager.Ticket, Entry.Id, image);
+                SessionManager.BlogService.CreateOrUpdatePostImage(SessionManager.Ticket, Post.Id, image);
             }
 
             if (e.PostedFiles.Count > 0)
@@ -83,11 +83,10 @@ public partial class EditEntry : AdminPage
     {
         try
         {
-            Entry.Title = CheckInput("Title", inputTitle.Text);
-            Entry.TopicId = CheckInput("Topic", int.Parse(inputTopic.SelectedValue));
-            Entry.Text = inputText.Text;
-            Entry.IpAddress = Request.ServerVariables["REMOTE_ADDR"];
-            Entry.Id = SessionManager.BlogService.CreateOrUpdateEntry(SessionManager.Ticket, Entry);
+            Post.Title = CheckInput("Title", inputTitle.Text);
+            Post.TopicId = CheckInput("Topic", int.Parse(inputTopic.SelectedValue));
+            Post.Body = inputBody.Text;
+            Post.Id = SessionManager.BlogService.CreateOrUpdatePost(SessionManager.Ticket, Post);
         }
         catch (Exception ex)
         {
@@ -102,7 +101,7 @@ public partial class EditEntry : AdminPage
             switch (e.CommandName)
             {
                 case "Delete":
-                    SessionManager.BlogService.DeleteEntryImage(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.BlogService.DeletePostImage(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
                     ReportInfo("Item Deleted");
                     GetData(source, e);
                     break;
@@ -116,15 +115,15 @@ public partial class EditEntry : AdminPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetEntryImages(
-            SessionManager.Ticket, new TransitEntryImageQueryOptions(Entry.Id, grid.PageSize, grid.CurrentPageIndex));
+        grid.DataSource = SessionManager.BlogService.GetPostImages(
+            SessionManager.Ticket, new TransitPostImageQueryOptions(Post.Id, grid.PageSize, grid.CurrentPageIndex));
     }
 
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetEntryImagesCount(
-            SessionManager.Ticket, new TransitEntryImageQueryOptions(Entry.Id));
+        grid.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
+            SessionManager.Ticket, new TransitPostImageQueryOptions(Post.Id));
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }

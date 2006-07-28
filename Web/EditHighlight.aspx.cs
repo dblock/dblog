@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 using System.IO;
 
-public partial class EditHighlight : AdminPage
+public partial class EditHighlight : BlogAdminPage
 {
     private TransitHighlight mHighlight = null;
     private TransitImage mHighlightImage = null;

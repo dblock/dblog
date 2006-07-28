@@ -10,7 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 
-public partial class EditTopic : AdminPage
+public partial class EditTopic : BlogAdminPage
 {
     private TransitTopic mTopic = null;
 

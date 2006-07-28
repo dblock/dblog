@@ -20,9 +20,9 @@ namespace DBlog.Data
         //Holds property values
         private System.Int32 m_Id;
         private System.String m_Description;
-        private Feed m_Feed;
         private System.String m_Link;
         private System.String m_Title;
+        private Feed m_Feed;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -75,33 +75,6 @@ namespace DBlog.Data
 
         ///--------------------------------------------------------------------------------
         ///<summary>
-        ///Persistent one-many reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts references to objects of the type 'Feed'.
-        ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Feed.FeedItems'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Feed' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'Feed_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  Feed Feed
-        {
-            get
-            {
-                return m_Feed;
-            }
-            set
-            {
-                m_Feed = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
         ///Persistent primitive property.
         ///</summary>
         ///<remarks>
@@ -147,6 +120,33 @@ namespace DBlog.Data
             set
             {
                 m_Title = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent one-many reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts references to objects of the type 'Feed'.
+        ///This property is part of a 'OneToMany' relationship.
+        ///The inverse property for this property is 'Feed.FeedItems'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Feed' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Feed_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  Feed Feed
+        {
+            get
+            {
+                return m_Feed;
+            }
+            set
+            {
+                m_Feed = value;
             }
         }
 

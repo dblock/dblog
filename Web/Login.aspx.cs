@@ -10,7 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 
-public partial class Login : Page
+public partial class Login : BlogPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

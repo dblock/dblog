@@ -1,14 +1,14 @@
-<%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="EditEntry.aspx.cs"
- Inherits="EditEntry" Title="Edit Entry" %>
+<%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="EditPost.aspx.cs"
+ Inherits="EditPost" Title="Edit Post" %>
 
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <div class="title">
-  Entry
+  Post
  </div>
  <div class="link">
-  <a href="ManageEntries.aspx">&#187; Cancel</a>
+  <a href="ManagePosts.aspx">&#187; Cancel</a>
  </div>
  <table class="table" cellpadding="2">
   <tr>
@@ -24,7 +24,7 @@
     text:
    </td>
    <td valign="top" class="table_tr_td_value">
-    <asp:TextBox runat="server" CssClass="textbox" Rows="10" TextMode="MultiLine" ID="inputText" />
+    <asp:TextBox runat="server" CssClass="textbox" Rows="10" TextMode="MultiLine" ID="inputBody" />
    </td>
   </tr>
   <tr>
@@ -65,7 +65,7 @@
        <pagerstyle cssclass="table_pager" position="TopAndBottom" nextpagetext="Next" prevpagetext="Prev"
         horizontalalign="Center" />
        <ItemTemplate>
-        <img src='ShowPicture.aspx?id=<%# Eval("ImageId") %>' />
+        <img alt="" src='ShowPicture.aspx?id=<%# Eval("ImageId") %>' />
         <div>
          <asp:LinkButton ID="linkDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>'
           runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />

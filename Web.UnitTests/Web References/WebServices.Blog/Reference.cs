@@ -54,12 +54,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback DeleteTopicOperationCompleted;
         
-        private System.Threading.SendOrPostCallback GetBlogByIdOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback GetBlogsCountOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback GetBlogsOperationCompleted;
-        
         private System.Threading.SendOrPostCallback CreateOrUpdateImageOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetImageByIdOperationCompleted;
@@ -110,17 +104,25 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback DeleteHighlightOperationCompleted;
         
-        private System.Threading.SendOrPostCallback GetEntryByIdOperationCompleted;
+        private System.Threading.SendOrPostCallback GetPostByIdOperationCompleted;
         
-        private System.Threading.SendOrPostCallback CreateOrUpdateEntryOperationCompleted;
+        private System.Threading.SendOrPostCallback CreateOrUpdatePostOperationCompleted;
         
-        private System.Threading.SendOrPostCallback CreateOrUpdateEntryImageOperationCompleted;
+        private System.Threading.SendOrPostCallback GetPostsCountOperationCompleted;
         
-        private System.Threading.SendOrPostCallback GetEntriesCountOperationCompleted;
+        private System.Threading.SendOrPostCallback GetPostsOperationCompleted;
         
-        private System.Threading.SendOrPostCallback GetEntriesOperationCompleted;
+        private System.Threading.SendOrPostCallback DeletePostOperationCompleted;
         
-        private System.Threading.SendOrPostCallback DeleteEntryOperationCompleted;
+        private System.Threading.SendOrPostCallback CreateOrUpdatePostImageOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPostImageByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeletePostImageOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPostImagesCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPostImagesOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
@@ -207,15 +209,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         public event DeleteTopicCompletedEventHandler DeleteTopicCompleted;
         
         /// <remarks/>
-        public event GetBlogByIdCompletedEventHandler GetBlogByIdCompleted;
-        
-        /// <remarks/>
-        public event GetBlogsCountCompletedEventHandler GetBlogsCountCompleted;
-        
-        /// <remarks/>
-        public event GetBlogsCompletedEventHandler GetBlogsCompleted;
-        
-        /// <remarks/>
         public event CreateOrUpdateImageCompletedEventHandler CreateOrUpdateImageCompleted;
         
         /// <remarks/>
@@ -291,22 +284,34 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         public event DeleteHighlightCompletedEventHandler DeleteHighlightCompleted;
         
         /// <remarks/>
-        public event GetEntryByIdCompletedEventHandler GetEntryByIdCompleted;
+        public event GetPostByIdCompletedEventHandler GetPostByIdCompleted;
         
         /// <remarks/>
-        public event CreateOrUpdateEntryCompletedEventHandler CreateOrUpdateEntryCompleted;
+        public event CreateOrUpdatePostCompletedEventHandler CreateOrUpdatePostCompleted;
         
         /// <remarks/>
-        public event CreateOrUpdateEntryImageCompletedEventHandler CreateOrUpdateEntryImageCompleted;
+        public event GetPostsCountCompletedEventHandler GetPostsCountCompleted;
         
         /// <remarks/>
-        public event GetEntriesCountCompletedEventHandler GetEntriesCountCompleted;
+        public event GetPostsCompletedEventHandler GetPostsCompleted;
         
         /// <remarks/>
-        public event GetEntriesCompletedEventHandler GetEntriesCompleted;
+        public event DeletePostCompletedEventHandler DeletePostCompleted;
         
         /// <remarks/>
-        public event DeleteEntryCompletedEventHandler DeleteEntryCompleted;
+        public event CreateOrUpdatePostImageCompletedEventHandler CreateOrUpdatePostImageCompleted;
+        
+        /// <remarks/>
+        public event GetPostImageByIdCompletedEventHandler GetPostImageByIdCompleted;
+        
+        /// <remarks/>
+        public event DeletePostImageCompletedEventHandler DeletePostImageCompleted;
+        
+        /// <remarks/>
+        public event GetPostImagesCountCompletedEventHandler GetPostImagesCountCompleted;
+        
+        /// <remarks/>
+        public event GetPostImagesCompletedEventHandler GetPostImagesCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -684,99 +689,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.DeleteTopicCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.DeleteTopicCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetBlogById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransitBlog GetBlogById(string ticket, int id) {
-            object[] results = this.Invoke("GetBlogById", new object[] {
-                        ticket,
-                        id});
-            return ((TransitBlog)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetBlogByIdAsync(string ticket, int id) {
-            this.GetBlogByIdAsync(ticket, id, null);
-        }
-        
-        /// <remarks/>
-        public void GetBlogByIdAsync(string ticket, int id, object userState) {
-            if ((this.GetBlogByIdOperationCompleted == null)) {
-                this.GetBlogByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetBlogByIdOperationCompleted);
-            }
-            this.InvokeAsync("GetBlogById", new object[] {
-                        ticket,
-                        id}, this.GetBlogByIdOperationCompleted, userState);
-        }
-        
-        private void OnGetBlogByIdOperationCompleted(object arg) {
-            if ((this.GetBlogByIdCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetBlogByIdCompleted(this, new GetBlogByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetBlogsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetBlogsCount(string ticket, TransitBlogQueryOptions options) {
-            object[] results = this.Invoke("GetBlogsCount", new object[] {
-                        ticket,
-                        options});
-            return ((int)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetBlogsCountAsync(string ticket, TransitBlogQueryOptions options) {
-            this.GetBlogsCountAsync(ticket, options, null);
-        }
-        
-        /// <remarks/>
-        public void GetBlogsCountAsync(string ticket, TransitBlogQueryOptions options, object userState) {
-            if ((this.GetBlogsCountOperationCompleted == null)) {
-                this.GetBlogsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetBlogsCountOperationCompleted);
-            }
-            this.InvokeAsync("GetBlogsCount", new object[] {
-                        ticket,
-                        options}, this.GetBlogsCountOperationCompleted, userState);
-        }
-        
-        private void OnGetBlogsCountOperationCompleted(object arg) {
-            if ((this.GetBlogsCountCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetBlogsCountCompleted(this, new GetBlogsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetBlogs", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransitBlog[] GetBlogs(string ticket, TransitBlogQueryOptions options) {
-            object[] results = this.Invoke("GetBlogs", new object[] {
-                        ticket,
-                        options});
-            return ((TransitBlog[])(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetBlogsAsync(string ticket, TransitBlogQueryOptions options) {
-            this.GetBlogsAsync(ticket, options, null);
-        }
-        
-        /// <remarks/>
-        public void GetBlogsAsync(string ticket, TransitBlogQueryOptions options, object userState) {
-            if ((this.GetBlogsOperationCompleted == null)) {
-                this.GetBlogsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetBlogsOperationCompleted);
-            }
-            this.InvokeAsync("GetBlogs", new object[] {
-                        ticket,
-                        options}, this.GetBlogsOperationCompleted, userState);
-        }
-        
-        private void OnGetBlogsOperationCompleted(object arg) {
-            if ((this.GetBlogsCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetBlogsCompleted(this, new GetBlogsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1550,187 +1462,312 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetEntryById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransitEntry GetEntryById(string ticket, int id) {
-            object[] results = this.Invoke("GetEntryById", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPost GetPostById(string ticket, int id) {
+            object[] results = this.Invoke("GetPostById", new object[] {
                         ticket,
                         id});
-            return ((TransitEntry)(results[0]));
+            return ((TransitPost)(results[0]));
         }
         
         /// <remarks/>
-        public void GetEntryByIdAsync(string ticket, int id) {
-            this.GetEntryByIdAsync(ticket, id, null);
+        public void GetPostByIdAsync(string ticket, int id) {
+            this.GetPostByIdAsync(ticket, id, null);
         }
         
         /// <remarks/>
-        public void GetEntryByIdAsync(string ticket, int id, object userState) {
-            if ((this.GetEntryByIdOperationCompleted == null)) {
-                this.GetEntryByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetEntryByIdOperationCompleted);
+        public void GetPostByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetPostByIdOperationCompleted == null)) {
+                this.GetPostByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostByIdOperationCompleted);
             }
-            this.InvokeAsync("GetEntryById", new object[] {
+            this.InvokeAsync("GetPostById", new object[] {
                         ticket,
-                        id}, this.GetEntryByIdOperationCompleted, userState);
+                        id}, this.GetPostByIdOperationCompleted, userState);
         }
         
-        private void OnGetEntryByIdOperationCompleted(object arg) {
-            if ((this.GetEntryByIdCompleted != null)) {
+        private void OnGetPostByIdOperationCompleted(object arg) {
+            if ((this.GetPostByIdCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetEntryByIdCompleted(this, new GetEntryByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.GetPostByIdCompleted(this, new GetPostByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateEntry", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int CreateOrUpdateEntry(string ticket, TransitEntry t_entry) {
-            object[] results = this.Invoke("CreateOrUpdateEntry", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdatePost", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdatePost(string ticket, TransitPost t_post) {
+            object[] results = this.Invoke("CreateOrUpdatePost", new object[] {
                         ticket,
-                        t_entry});
+                        t_post});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void CreateOrUpdateEntryAsync(string ticket, TransitEntry t_entry) {
-            this.CreateOrUpdateEntryAsync(ticket, t_entry, null);
+        public void CreateOrUpdatePostAsync(string ticket, TransitPost t_post) {
+            this.CreateOrUpdatePostAsync(ticket, t_post, null);
         }
         
         /// <remarks/>
-        public void CreateOrUpdateEntryAsync(string ticket, TransitEntry t_entry, object userState) {
-            if ((this.CreateOrUpdateEntryOperationCompleted == null)) {
-                this.CreateOrUpdateEntryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateEntryOperationCompleted);
+        public void CreateOrUpdatePostAsync(string ticket, TransitPost t_post, object userState) {
+            if ((this.CreateOrUpdatePostOperationCompleted == null)) {
+                this.CreateOrUpdatePostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdatePostOperationCompleted);
             }
-            this.InvokeAsync("CreateOrUpdateEntry", new object[] {
+            this.InvokeAsync("CreateOrUpdatePost", new object[] {
                         ticket,
-                        t_entry}, this.CreateOrUpdateEntryOperationCompleted, userState);
+                        t_post}, this.CreateOrUpdatePostOperationCompleted, userState);
         }
         
-        private void OnCreateOrUpdateEntryOperationCompleted(object arg) {
-            if ((this.CreateOrUpdateEntryCompleted != null)) {
+        private void OnCreateOrUpdatePostOperationCompleted(object arg) {
+            if ((this.CreateOrUpdatePostCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CreateOrUpdateEntryCompleted(this, new CreateOrUpdateEntryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.CreateOrUpdatePostCompleted(this, new CreateOrUpdatePostCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateEntryImage", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int CreateOrUpdateEntryImage(string ticket, int entry_id, TransitImage t_image) {
-            object[] results = this.Invoke("CreateOrUpdateEntryImage", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetPostsCount(string ticket, TransitPostQueryOptions options) {
+            object[] results = this.Invoke("GetPostsCount", new object[] {
                         ticket,
-                        entry_id,
+                        options});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostsCountAsync(string ticket, TransitPostQueryOptions options) {
+            this.GetPostsCountAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostsCountAsync(string ticket, TransitPostQueryOptions options, object userState) {
+            if ((this.GetPostsCountOperationCompleted == null)) {
+                this.GetPostsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostsCountOperationCompleted);
+            }
+            this.InvokeAsync("GetPostsCount", new object[] {
+                        ticket,
+                        options}, this.GetPostsCountOperationCompleted, userState);
+        }
+        
+        private void OnGetPostsCountOperationCompleted(object arg) {
+            if ((this.GetPostsCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostsCountCompleted(this, new GetPostsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPosts", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPost[] GetPosts(string ticket, TransitPostQueryOptions options) {
+            object[] results = this.Invoke("GetPosts", new object[] {
+                        ticket,
+                        options});
+            return ((TransitPost[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostsAsync(string ticket, TransitPostQueryOptions options) {
+            this.GetPostsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostsAsync(string ticket, TransitPostQueryOptions options, object userState) {
+            if ((this.GetPostsOperationCompleted == null)) {
+                this.GetPostsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostsOperationCompleted);
+            }
+            this.InvokeAsync("GetPosts", new object[] {
+                        ticket,
+                        options}, this.GetPostsOperationCompleted, userState);
+        }
+        
+        private void OnGetPostsOperationCompleted(object arg) {
+            if ((this.GetPostsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostsCompleted(this, new GetPostsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeletePost", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeletePost(string ticket, int id) {
+            this.Invoke("DeletePost", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeletePostAsync(string ticket, int id) {
+            this.DeletePostAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeletePostAsync(string ticket, int id, object userState) {
+            if ((this.DeletePostOperationCompleted == null)) {
+                this.DeletePostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeletePostOperationCompleted);
+            }
+            this.InvokeAsync("DeletePost", new object[] {
+                        ticket,
+                        id}, this.DeletePostOperationCompleted, userState);
+        }
+        
+        private void OnDeletePostOperationCompleted(object arg) {
+            if ((this.DeletePostCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeletePostCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdatePostImage", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdatePostImage(string ticket, int post_id, TransitImage t_image) {
+            object[] results = this.Invoke("CreateOrUpdatePostImage", new object[] {
+                        ticket,
+                        post_id,
                         t_image});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void CreateOrUpdateEntryImageAsync(string ticket, int entry_id, TransitImage t_image) {
-            this.CreateOrUpdateEntryImageAsync(ticket, entry_id, t_image, null);
+        public void CreateOrUpdatePostImageAsync(string ticket, int post_id, TransitImage t_image) {
+            this.CreateOrUpdatePostImageAsync(ticket, post_id, t_image, null);
         }
         
         /// <remarks/>
-        public void CreateOrUpdateEntryImageAsync(string ticket, int entry_id, TransitImage t_image, object userState) {
-            if ((this.CreateOrUpdateEntryImageOperationCompleted == null)) {
-                this.CreateOrUpdateEntryImageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateEntryImageOperationCompleted);
+        public void CreateOrUpdatePostImageAsync(string ticket, int post_id, TransitImage t_image, object userState) {
+            if ((this.CreateOrUpdatePostImageOperationCompleted == null)) {
+                this.CreateOrUpdatePostImageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdatePostImageOperationCompleted);
             }
-            this.InvokeAsync("CreateOrUpdateEntryImage", new object[] {
+            this.InvokeAsync("CreateOrUpdatePostImage", new object[] {
                         ticket,
-                        entry_id,
-                        t_image}, this.CreateOrUpdateEntryImageOperationCompleted, userState);
+                        post_id,
+                        t_image}, this.CreateOrUpdatePostImageOperationCompleted, userState);
         }
         
-        private void OnCreateOrUpdateEntryImageOperationCompleted(object arg) {
-            if ((this.CreateOrUpdateEntryImageCompleted != null)) {
+        private void OnCreateOrUpdatePostImageOperationCompleted(object arg) {
+            if ((this.CreateOrUpdatePostImageCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.CreateOrUpdateEntryImageCompleted(this, new CreateOrUpdateEntryImageCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.CreateOrUpdatePostImageCompleted(this, new CreateOrUpdatePostImageCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetEntriesCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetEntriesCount(string ticket) {
-            object[] results = this.Invoke("GetEntriesCount", new object[] {
-                        ticket});
-            return ((int)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetEntriesCountAsync(string ticket) {
-            this.GetEntriesCountAsync(ticket, null);
-        }
-        
-        /// <remarks/>
-        public void GetEntriesCountAsync(string ticket, object userState) {
-            if ((this.GetEntriesCountOperationCompleted == null)) {
-                this.GetEntriesCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetEntriesCountOperationCompleted);
-            }
-            this.InvokeAsync("GetEntriesCount", new object[] {
-                        ticket}, this.GetEntriesCountOperationCompleted, userState);
-        }
-        
-        private void OnGetEntriesCountOperationCompleted(object arg) {
-            if ((this.GetEntriesCountCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetEntriesCountCompleted(this, new GetEntriesCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetEntries", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransitEntry[] GetEntries(string ticket, WebServiceQueryOptions options) {
-            object[] results = this.Invoke("GetEntries", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostImageById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPostImage GetPostImageById(string ticket, int id) {
+            object[] results = this.Invoke("GetPostImageById", new object[] {
                         ticket,
-                        options});
-            return ((TransitEntry[])(results[0]));
+                        id});
+            return ((TransitPostImage)(results[0]));
         }
         
         /// <remarks/>
-        public void GetEntriesAsync(string ticket, WebServiceQueryOptions options) {
-            this.GetEntriesAsync(ticket, options, null);
+        public void GetPostImageByIdAsync(string ticket, int id) {
+            this.GetPostImageByIdAsync(ticket, id, null);
         }
         
         /// <remarks/>
-        public void GetEntriesAsync(string ticket, WebServiceQueryOptions options, object userState) {
-            if ((this.GetEntriesOperationCompleted == null)) {
-                this.GetEntriesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetEntriesOperationCompleted);
+        public void GetPostImageByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetPostImageByIdOperationCompleted == null)) {
+                this.GetPostImageByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostImageByIdOperationCompleted);
             }
-            this.InvokeAsync("GetEntries", new object[] {
+            this.InvokeAsync("GetPostImageById", new object[] {
                         ticket,
-                        options}, this.GetEntriesOperationCompleted, userState);
+                        id}, this.GetPostImageByIdOperationCompleted, userState);
         }
         
-        private void OnGetEntriesOperationCompleted(object arg) {
-            if ((this.GetEntriesCompleted != null)) {
+        private void OnGetPostImageByIdOperationCompleted(object arg) {
+            if ((this.GetPostImageByIdCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetEntriesCompleted(this, new GetEntriesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.GetPostImageByIdCompleted(this, new GetPostImageByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteEntry", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void DeleteEntry(string ticket, int id) {
-            this.Invoke("DeleteEntry", new object[] {
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeletePostImage", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeletePostImage(string ticket, int id) {
+            this.Invoke("DeletePostImage", new object[] {
                         ticket,
                         id});
         }
         
         /// <remarks/>
-        public void DeleteEntryAsync(string ticket, int id) {
-            this.DeleteEntryAsync(ticket, id, null);
+        public void DeletePostImageAsync(string ticket, int id) {
+            this.DeletePostImageAsync(ticket, id, null);
         }
         
         /// <remarks/>
-        public void DeleteEntryAsync(string ticket, int id, object userState) {
-            if ((this.DeleteEntryOperationCompleted == null)) {
-                this.DeleteEntryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteEntryOperationCompleted);
+        public void DeletePostImageAsync(string ticket, int id, object userState) {
+            if ((this.DeletePostImageOperationCompleted == null)) {
+                this.DeletePostImageOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeletePostImageOperationCompleted);
             }
-            this.InvokeAsync("DeleteEntry", new object[] {
+            this.InvokeAsync("DeletePostImage", new object[] {
                         ticket,
-                        id}, this.DeleteEntryOperationCompleted, userState);
+                        id}, this.DeletePostImageOperationCompleted, userState);
         }
         
-        private void OnDeleteEntryOperationCompleted(object arg) {
-            if ((this.DeleteEntryCompleted != null)) {
+        private void OnDeletePostImageOperationCompleted(object arg) {
+            if ((this.DeletePostImageCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.DeleteEntryCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+                this.DeletePostImageCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostImagesCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetPostImagesCount(string ticket, TransitPostImageQueryOptions options) {
+            object[] results = this.Invoke("GetPostImagesCount", new object[] {
+                        ticket,
+                        options});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostImagesCountAsync(string ticket, TransitPostImageQueryOptions options) {
+            this.GetPostImagesCountAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostImagesCountAsync(string ticket, TransitPostImageQueryOptions options, object userState) {
+            if ((this.GetPostImagesCountOperationCompleted == null)) {
+                this.GetPostImagesCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostImagesCountOperationCompleted);
+            }
+            this.InvokeAsync("GetPostImagesCount", new object[] {
+                        ticket,
+                        options}, this.GetPostImagesCountOperationCompleted, userState);
+        }
+        
+        private void OnGetPostImagesCountOperationCompleted(object arg) {
+            if ((this.GetPostImagesCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostImagesCountCompleted(this, new GetPostImagesCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostImages", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPostImage[] GetPostImages(string ticket, TransitPostImageQueryOptions options) {
+            object[] results = this.Invoke("GetPostImages", new object[] {
+                        ticket,
+                        options});
+            return ((TransitPostImage[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostImagesAsync(string ticket, TransitPostImageQueryOptions options) {
+            this.GetPostImagesAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostImagesAsync(string ticket, TransitPostImageQueryOptions options, object userState) {
+            if ((this.GetPostImagesOperationCompleted == null)) {
+                this.GetPostImagesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostImagesOperationCompleted);
+            }
+            this.InvokeAsync("GetPostImages", new object[] {
+                        ticket,
+                        options}, this.GetPostImagesOperationCompleted, userState);
+        }
+        
+        private void OnGetPostImagesOperationCompleted(object arg) {
+            if ((this.GetPostImagesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostImagesCompleted(this, new GetPostImagesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1986,12 +2023,12 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitEntry))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostImage))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPost))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitHighlight))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHostRollup))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReference))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImage))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitBlog))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitTopic))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitLogin))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
@@ -2015,8 +2052,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostImageQueryOptions))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImageQueryOptions))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitBlogQueryOptions))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -2055,6 +2093,48 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitPostImageQueryOptions : WebServiceQueryOptions {
+        
+        private int postIdField;
+        
+        /// <remarks/>
+        public int PostId {
+            get {
+                return this.postIdField;
+            }
+            set {
+                this.postIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitPostQueryOptions : WebServiceQueryOptions {
+        
+        private int topicIdField;
+        
+        /// <remarks/>
+        public int TopicId {
+            get {
+                return this.topicIdField;
+            }
+            set {
+                this.topicIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitImageQueryOptions : WebServiceQueryOptions {
         
         private bool excludeBlogImagesField;
@@ -2076,17 +2156,29 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public partial class TransitBlogQueryOptions : WebServiceQueryOptions {
+    public partial class TransitPostImage : TransitObject {
         
-        private int topicIdField;
+        private int imageIdField;
+        
+        private int postIdField;
         
         /// <remarks/>
-        public int TopicId {
+        public int ImageId {
             get {
-                return this.topicIdField;
+                return this.imageIdField;
             }
             set {
-                this.topicIdField = value;
+                this.imageIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int PostId {
+            get {
+                return this.postIdField;
+            }
+            set {
+                this.postIdField = value;
             }
         }
     }
@@ -2097,19 +2189,17 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public partial class TransitEntry : TransitObject {
+    public partial class TransitPost : TransitObject {
         
         private int imageIdField;
         
         private string titleField;
         
-        private string textField;
-        
-        private string ipAddressField;
+        private string bodyField;
         
         private int topicIdField;
         
-        private int ownerLoginIdField;
+        private int loginIdField;
         
         private System.DateTime createdField;
         
@@ -2136,22 +2226,12 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
-        public string Text {
+        public string Body {
             get {
-                return this.textField;
+                return this.bodyField;
             }
             set {
-                this.textField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string IpAddress {
-            get {
-                return this.ipAddressField;
-            }
-            set {
-                this.ipAddressField = value;
+                this.bodyField = value;
             }
         }
         
@@ -2166,12 +2246,12 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
-        public int OwnerLoginId {
+        public int LoginId {
             get {
-                return this.ownerLoginIdField;
+                return this.loginIdField;
             }
             set {
-                this.ownerLoginIdField = value;
+                this.loginIdField = value;
             }
         }
         
@@ -2424,151 +2504,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
                 this.modifiedField = value;
             }
         }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public partial class TransitBlog : TransitObject {
-        
-        private string titleField;
-        
-        private TransitBlogType typeField;
-        
-        private System.DateTime createdField;
-        
-        private System.DateTime modifiedField;
-        
-        private string textField;
-        
-        private string topicNameField;
-        
-        private int topicIdField;
-        
-        private int templateIdField;
-        
-        private int ownerLoginIdField;
-        
-        private int imageIdField;
-        
-        /// <remarks/>
-        public string Title {
-            get {
-                return this.titleField;
-            }
-            set {
-                this.titleField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public TransitBlogType Type {
-            get {
-                return this.typeField;
-            }
-            set {
-                this.typeField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime Created {
-            get {
-                return this.createdField;
-            }
-            set {
-                this.createdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime Modified {
-            get {
-                return this.modifiedField;
-            }
-            set {
-                this.modifiedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Text {
-            get {
-                return this.textField;
-            }
-            set {
-                this.textField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string TopicName {
-            get {
-                return this.topicNameField;
-            }
-            set {
-                this.topicNameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int TopicId {
-            get {
-                return this.topicIdField;
-            }
-            set {
-                this.topicIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int TemplateId {
-            get {
-                return this.templateIdField;
-            }
-            set {
-                this.templateIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int OwnerLoginId {
-            get {
-                return this.ownerLoginIdField;
-            }
-            set {
-                this.ownerLoginIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int ImageId {
-            get {
-                return this.imageIdField;
-            }
-            set {
-                this.imageIdField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public enum TransitBlogType {
-        
-        /// <remarks/>
-        Unknown,
-        
-        /// <remarks/>
-        Entry,
-        
-        /// <remarks/>
-        Gallery,
     }
     
     /// <remarks/>
@@ -2871,84 +2806,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeleteTopicCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void GetBlogByIdCompletedEventHandler(object sender, GetBlogByIdCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetBlogByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GetBlogByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public TransitBlog Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((TransitBlog)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void GetBlogsCountCompletedEventHandler(object sender, GetBlogsCountCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetBlogsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GetBlogsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public int Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void GetBlogsCompletedEventHandler(object sender, GetBlogsCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetBlogsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GetBlogsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public TransitBlog[] Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((TransitBlog[])(this.results[0]));
-            }
-        }
-    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
@@ -3514,69 +3371,43 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void GetEntryByIdCompletedEventHandler(object sender, GetEntryByIdCompletedEventArgs e);
+    public delegate void GetPostByIdCompletedEventHandler(object sender, GetPostByIdCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetEntryByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetPostByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal GetEntryByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal GetPostByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
         /// <remarks/>
-        public TransitEntry Result {
+        public TransitPost Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((TransitEntry)(this.results[0]));
+                return ((TransitPost)(this.results[0]));
             }
         }
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void CreateOrUpdateEntryCompletedEventHandler(object sender, CreateOrUpdateEntryCompletedEventArgs e);
+    public delegate void CreateOrUpdatePostCompletedEventHandler(object sender, CreateOrUpdatePostCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class CreateOrUpdateEntryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class CreateOrUpdatePostCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal CreateOrUpdateEntryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public int Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((int)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void CreateOrUpdateEntryImageCompletedEventHandler(object sender, CreateOrUpdateEntryImageCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class CreateOrUpdateEntryImageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal CreateOrUpdateEntryImageCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal CreateOrUpdatePostCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -3592,17 +3423,17 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void GetEntriesCountCompletedEventHandler(object sender, GetEntriesCountCompletedEventArgs e);
+    public delegate void GetPostsCountCompletedEventHandler(object sender, GetPostsCountCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetEntriesCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetPostsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal GetEntriesCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal GetPostsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -3618,33 +3449,141 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void GetEntriesCompletedEventHandler(object sender, GetEntriesCompletedEventArgs e);
+    public delegate void GetPostsCompletedEventHandler(object sender, GetPostsCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetEntriesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+    public partial class GetPostsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
         
         private object[] results;
         
-        internal GetEntriesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+        internal GetPostsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
         
         /// <remarks/>
-        public TransitEntry[] Result {
+        public TransitPost[] Result {
             get {
                 this.RaiseExceptionIfNecessary();
-                return ((TransitEntry[])(this.results[0]));
+                return ((TransitPost[])(this.results[0]));
             }
         }
     }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void DeleteEntryCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    public delegate void DeletePostCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdatePostImageCompletedEventHandler(object sender, CreateOrUpdatePostImageCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdatePostImageCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdatePostImageCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPostImageByIdCompletedEventHandler(object sender, GetPostImageByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPostImageByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPostImageByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitPostImage Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitPostImage)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeletePostImageCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPostImagesCountCompletedEventHandler(object sender, GetPostImagesCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPostImagesCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPostImagesCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPostImagesCompletedEventHandler(object sender, GetPostImagesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPostImagesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPostImagesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitPostImage[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitPostImage[])(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

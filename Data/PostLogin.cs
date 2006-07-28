@@ -4,23 +4,23 @@ namespace DBlog.Data
 
     ///--------------------------------------------------------------------------------
     ///<summary>
-    ///Persistent domain entity class representing 'GalleryLogin' entities.
+    ///Persistent domain entity class representing 'PostLogin' entities.
     ///</summary>
     ///<remarks>
     ///
     ///Mapping information:
-    ///This class maps to the 'GalleryLogin' table in the data source.
+    ///This class maps to the 'PostLogin' table in the data source.
     ///</remarks>
     ///--------------------------------------------------------------------------------
-    public class GalleryLogin
+    public class PostLogin
     {
 #region " Generated Code Region "
         //Private field variables
 
         //Holds property values
         private System.Int32 m_Id;
-        private Gallery m_Gallery;
         private Login m_Login;
+        private Post m_Post;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ namespace DBlog.Data
         ///The accessibility level for the field 'm_Id' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'GalleryLogin_Id' in the data source.
+        ///The property maps to the column 'PostLogin_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
         public  System.Int32 Id
@@ -51,36 +51,9 @@ namespace DBlog.Data
         ///Persistent one-many reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts references to objects of the type 'Gallery'.
-        ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Gallery.GalleryLogins'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Gallery' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'Gallery_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  Gallery Gallery
-        {
-            get
-            {
-                return m_Gallery;
-            }
-            set
-            {
-                m_Gallery = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent one-many reference property.
-        ///</summary>
-        ///<remarks>
         ///This property accepts references to objects of the type 'Login'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Login.GalleryLogins'.
+        ///The inverse property for this property is 'Login.PostLogins'.
         ///The accessibility level for this property is 'PublicAccess'.
         ///The accessibility level for the field 'm_Login' that holds the value for this property is 'PrivateAccess'.
         ///
@@ -97,6 +70,33 @@ namespace DBlog.Data
             set
             {
                 m_Login = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent one-many reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts references to objects of the type 'Post'.
+        ///This property is part of a 'OneToMany' relationship.
+        ///The inverse property for this property is 'Post.PostLogins'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Post' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Post_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  Post Post
+        {
+            get
+            {
+                return m_Post;
+            }
+            set
+            {
+                m_Post = value;
             }
         }
 

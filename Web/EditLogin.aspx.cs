@@ -10,7 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 
-public partial class EditLogin : AdminPage
+public partial class EditLogin : BlogAdminPage
 {
     private TransitLogin mLogin = null;
 

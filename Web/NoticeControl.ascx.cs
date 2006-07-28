@@ -12,7 +12,7 @@ using System.Web.Services.Protocols;
 using DBlog.Tools.Web;
 using System.Diagnostics;
 
-public partial class NoticeControl : Control
+public partial class NoticeControl : BlogControl
 {
     private string mCssClass = "notice";
     private string mStyle = string.Empty;

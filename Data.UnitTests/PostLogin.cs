@@ -10,36 +10,36 @@ using System.Text;
 namespace DBlog.Data.UnitTests
 {
     [TestFixture]
-    public class GalleryLoginTest : NHibernateCrudTest
+    public class PostLoginTest : NHibernateCrudTest
     {
-        private GalleryLogin mGalleryLogin = null;
+        private PostLogin mPostLogin = null;
 
-        public GalleryLogin GalleryLogin
+        public PostLogin PostLogin
         {
             get
             {
-                return mGalleryLogin;
+                return mPostLogin;
             }
         }
 
-        public GalleryLoginTest()
+        public PostLoginTest()
         {
-            GalleryTest gallery = new GalleryTest();
-            AddDependentObject(gallery);
+            PostTest Post = new PostTest();
+            AddDependentObject(Post);
 
             LoginTest login = new LoginTest();
             AddDependentObject(login);
 
-            mGalleryLogin = new GalleryLogin();
-            mGalleryLogin.Gallery = gallery.Gallery;
-            mGalleryLogin.Login = login.Login;
+            mPostLogin = new PostLogin();
+            mPostLogin.Post = Post.Post;
+            mPostLogin.Login = login.Login;
         }
 
         public override object Object
         {
             get 
             {
-                return mGalleryLogin;
+                return mPostLogin;
             }
         }
     }

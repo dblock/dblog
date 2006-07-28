@@ -4,23 +4,23 @@ namespace DBlog.Data
 
     ///--------------------------------------------------------------------------------
     ///<summary>
-    ///Persistent domain entity class representing 'EntryImage' entities.
+    ///Persistent domain entity class representing 'PostComment' entities.
     ///</summary>
     ///<remarks>
     ///
     ///Mapping information:
-    ///This class maps to the 'EntryImage' table in the data source.
+    ///This class maps to the 'PostComment' table in the data source.
     ///</remarks>
     ///--------------------------------------------------------------------------------
-    public class EntryImage
+    public class PostComment
     {
 #region " Generated Code Region "
         //Private field variables
 
         //Holds property values
         private System.Int32 m_Id;
-        private Entry m_Entry;
-        private Image m_Image;
+        private Comment m_Comment;
+        private Post m_Post;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ namespace DBlog.Data
         ///The accessibility level for the field 'm_Id' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'EntryImage_Id' in the data source.
+        ///The property maps to the column 'PostComment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
         public  System.Int32 Id
@@ -51,25 +51,25 @@ namespace DBlog.Data
         ///Persistent one-many reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts references to objects of the type 'Entry'.
+        ///This property accepts references to objects of the type 'Comment'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Entry.EntryImages'.
+        ///The inverse property for this property is 'Comment.PostComments'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Entry' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_Comment' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Entry_Id' in the data source.
+        ///The property maps to the column 'Comment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Entry Entry
+        public  Comment Comment
         {
             get
             {
-                return m_Entry;
+                return m_Comment;
             }
             set
             {
-                m_Entry = value;
+                m_Comment = value;
             }
         }
 
@@ -78,25 +78,25 @@ namespace DBlog.Data
         ///Persistent one-many reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts references to objects of the type 'Image'.
+        ///This property accepts references to objects of the type 'Post'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Image.EntryImages'.
+        ///The inverse property for this property is 'Post.PostComments'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Image' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_Post' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Image_Id' in the data source.
+        ///The property maps to the column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Image Image
+        public  Post Post
         {
             get
             {
-                return m_Image;
+                return m_Post;
             }
             set
             {
-                m_Image = value;
+                m_Post = value;
             }
         }
 

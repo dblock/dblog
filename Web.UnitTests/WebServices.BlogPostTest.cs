@@ -12,17 +12,24 @@ using DBlog.Tools.Drawing;
 namespace DBlog.Web.UnitTests.WebServices
 {
     [TestFixture]
-    public class BlogEntryTest : BlogCrudTest
+    public class BlogPostTest : BlogCrudTest
     {
-        private TransitEntry mEntry = null;
+        private TransitPost mPost = null;
         private BlogTopicTest mTopicTest = null;
 
-        public BlogEntryTest()
+        public override bool IsServiceCount
         {
-            mEntry = new TransitEntry();
-            mEntry.Title = Guid.NewGuid().ToString();
-            mEntry.Text = Guid.NewGuid().ToString();
-            mEntry.IpAddress = "127.0.0.1";
+            get
+            {
+                return true;
+            }
+        }
+
+        public BlogPostTest()
+        {
+            mPost = new TransitPost();
+            mPost.Title = Guid.NewGuid().ToString();
+            mPost.Body = Guid.NewGuid().ToString();
 
             mTopicTest = new BlogTopicTest();
             AddDependent(mTopicTest);
@@ -30,9 +37,9 @@ namespace DBlog.Web.UnitTests.WebServices
 
         public override int Create()
         {
-            mEntry.OwnerLoginId = Blog.GetLogin(Ticket).Id;
+            mPost.LoginId = Blog.GetLogin(Ticket).Id;
             mTopicTest.Create();
-            mEntry.TopicId = mTopicTest.TransitInstance.Id;
+            mPost.TopicId = mTopicTest.TransitInstance.Id;
             return base.Create();
         }
 
@@ -46,7 +53,7 @@ namespace DBlog.Web.UnitTests.WebServices
         {
             get
             {
-                return "Entries";
+                return "Posts";
             }
         }
 
@@ -54,11 +61,11 @@ namespace DBlog.Web.UnitTests.WebServices
         {
             get
             {
-                return mEntry;
+                return mPost;
             }
             set
             {
-                mEntry = null;
+                mPost = null;
             }
         }
 
@@ -66,24 +73,23 @@ namespace DBlog.Web.UnitTests.WebServices
         {
             get
             {
-                return "Entry";
+                return "Post";
             }
         }
 
         [Test]
-        public void CreateEntryWithImageTest()
+        public void CreatePostWithImageTest()
         {
             TransitTopic t_topic = new TransitTopic();
             t_topic.Name = Guid.NewGuid().ToString();
             t_topic.Id = Blog.CreateOrUpdateTopic(Ticket, t_topic);
 
-            TransitEntry t_entry = new TransitEntry();
-            t_entry.Text = Guid.NewGuid().ToString();
-            t_entry.Title = Guid.NewGuid().ToString();
-            t_entry.IpAddress = "127.0.0.1";
-            t_entry.TopicId = t_topic.Id;
-            t_entry.Id = Blog.CreateOrUpdateEntry(Ticket, t_entry);
-            Assert.Greater(t_entry.Id, 0);
+            TransitPost t_post = new TransitPost();
+            t_post.Body = Guid.NewGuid().ToString();
+            t_post.Title = Guid.NewGuid().ToString();
+            t_post.TopicId = t_topic.Id;
+            t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
+            Assert.Greater(t_post.Id, 0);
 
             TransitImage t_image = new TransitImage();
             t_image.Name = Guid.NewGuid().ToString();
@@ -96,10 +102,10 @@ namespace DBlog.Web.UnitTests.WebServices
             t_image.Data = tb.Bitmap;
             t_image.Thumbnail = tb.Thumbnail;
 
-            t_image.Id = Blog.CreateOrUpdateEntryImage(Ticket, t_entry.Id, t_image);
+            t_image.Id = Blog.CreateOrUpdatePostImage(Ticket, t_post.Id, t_image);
             Assert.Greater(t_image.Id, 0);
 
-            Blog.DeleteEntry(Ticket, t_entry.Id);
+            Blog.DeletePost(Ticket, t_post.Id);
         }
     }
 }

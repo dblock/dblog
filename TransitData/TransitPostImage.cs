@@ -8,44 +8,46 @@ using DBlog.Data.Hibernate;
 
 namespace DBlog.TransitData
 {
-    public class TransitEntryImageQueryOptions : WebServiceQueryOptions
+    public class TransitPostImageQueryOptions : WebServiceQueryOptions
     {
-        private int mEntryId = 0;
+        private int mPostId = 0;
 
-        public int EntryId
+        public int PostId
         {
             get
             {
-               return mEntryId;}
+                return mPostId;
+            }
             set
             {
-               mEntryId = value;}
+                mPostId = value;
+            }
         }
 
-        public TransitEntryImageQueryOptions()
+        public TransitPostImageQueryOptions()
         {
         }
 
-        public TransitEntryImageQueryOptions(
+        public TransitPostImageQueryOptions(
             int entryid)
         {
-            mEntryId = entryid;
+            mPostId = entryid;
         }
 
-        public TransitEntryImageQueryOptions(
+        public TransitPostImageQueryOptions(
             int entryid,
             int pagesize,
             int pagenumber)
             : base(pagesize, pagenumber)
         {
-            mEntryId = entryid;
+            mPostId = entryid;
         }
 
         public override void Apply(ICriteria criteria)
         {
-            if (EntryId != 0)
+            if (PostId != 0)
             {
-                criteria.Add(Expression.Eq("Entry.Id", EntryId));
+                criteria.Add(Expression.Eq("Post.Id", PostId));
             }
 
             base.Apply(criteria);
@@ -53,9 +55,9 @@ namespace DBlog.TransitData
 
         public override void Apply(CountQuery query)
         {
-            if (EntryId != 0)
+            if (PostId != 0)
             {
-                query.Add(Expression.Eq("Entry.Id", EntryId));
+                query.Add(Expression.Eq("Post.Id", PostId));
             }
 
             base.Apply(query);
@@ -63,7 +65,7 @@ namespace DBlog.TransitData
     }
 
 
-    public class TransitEntryImage : TransitObject
+    public class TransitPostImage : TransitObject
     {
         private int mImageId;
 
@@ -78,38 +80,38 @@ namespace DBlog.TransitData
                 mImageId = value;
             }
         }
-       
-        private int mEntryId;
 
-        public int EntryId
+        private int mPostId;
+
+        public int PostId
         {
             get
             {
-                return mEntryId;
+                return mPostId;
             }
             set
             {
-                mEntryId = value;
+                mPostId = value;
             }
         }
 
-        public TransitEntryImage()
+        public TransitPostImage()
         {
 
         }
 
-        public TransitEntryImage(DBlog.Data.EntryImage o)
+        public TransitPostImage(DBlog.Data.PostImage o)
             : base(o.Id)
         {
-            EntryId = o.Entry.Id;
+            PostId = o.Post.Id;
             ImageId = o.Image.Id;
         }
 
-        public EntryImage GetEntryImage(ISession session)
+        public PostImage GetPostImage(ISession session)
         {
-            EntryImage ei = (Id != 0) ? (EntryImage)session.Load(typeof(EntryImage), Id) : new EntryImage();
+            PostImage ei = (Id != 0) ? (PostImage)session.Load(typeof(PostImage), Id) : new PostImage();
             ei.Image = (Image)session.Load(typeof(Image), ImageId);
-            ei.Entry = (Entry)session.Load(typeof(Entry), EntryId);
+            ei.Post = (Post)session.Load(typeof(Post), PostId);
             return ei;
         }
     }

@@ -10,7 +10,7 @@ using System.Web.UI.HtmlControls;
 using DBlog.WebServices;
 using Microsoft.Web.UI;
 
-public class Control : System.Web.UI.UserControl
+public class BlogControl : System.Web.UI.UserControl
 {
     private SessionManager mSessionManager = null;
 
@@ -22,7 +22,7 @@ public class Control : System.Web.UI.UserControl
             {
                 if (Page is Page)
                 {
-                    mSessionManager = ((Page)Page).SessionManager;
+                    mSessionManager = ((BlogPage)Page).SessionManager;
                 }
                 else
                 {
@@ -33,7 +33,7 @@ public class Control : System.Web.UI.UserControl
         }
     }
 
-    public Control()
+    public BlogControl()
     {
 
     }

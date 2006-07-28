@@ -16,7 +16,7 @@ using DBlog.Tools.Web;
 
 public class ReferencesRenderer : ExternalRenderer
 {
-    public ReferencesRenderer(Page page, int id, string type)
+    public ReferencesRenderer(BlogPage page, int id, string type)
         : base(page, id, type)
     {
 

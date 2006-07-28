@@ -16,7 +16,7 @@ using DBlog.Tools.Web;
 
 public class LiveJournalRenderer : ExternalRenderer
 {
-    public LiveJournalRenderer(Page page, int id, string type)
+    public LiveJournalRenderer(BlogPage page, int id, string type)
         : base(page, id, type)
     {
 

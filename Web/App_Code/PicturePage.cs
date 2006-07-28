@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using DBlog.WebServices;
 using Microsoft.Web.UI;
 
-public abstract class PicturePage : DBlog.Tools.Web.PicturePage
+public abstract class BlogPicturePage : DBlog.Tools.Web.PicturePage
 {
     protected SessionManager mSessionManager = null;
 
@@ -29,7 +29,7 @@ public abstract class PicturePage : DBlog.Tools.Web.PicturePage
         }
     }
 
-    public PicturePage()
+    public BlogPicturePage()
     {
 
     }

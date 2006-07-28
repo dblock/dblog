@@ -10,7 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 
-public partial class EditReferrerHostRollup : AdminPage
+public partial class EditReferrerHostRollup : BlogAdminPage
 {
     private TransitReferrerHostRollup mReferrerHostRollup = null;
 

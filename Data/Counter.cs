@@ -21,12 +21,11 @@ namespace DBlog.Data
         private System.Int32 m_Id;
         private System.Int64 m_Count;
         private System.DateTime m_Created;
-        private System.Collections.IList m_EntryCounters;
-        private System.Collections.IList m_GalleryCounters;
         private System.Collections.IList m_ImageCounters;
         private System.Collections.IList m_LoginCounters;
         private System.Collections.IList m_NamedCounters;
         private System.Int32 m_ResourceId;
+        private System.Collections.IList m_PostCounters;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -99,68 +98,6 @@ namespace DBlog.Data
             set
             {
                 m_Created = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'EntryCounter'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'EntryCounter.Counter'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_EntryCounters' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'EntryCounter' table in the data source.
-        ///The property maps to the identity column 'Counter_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList EntryCounters
-        {
-            get
-            {
-                return m_EntryCounters;
-            }
-            set
-            {
-                m_EntryCounters = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'GalleryCounter'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'GalleryCounter.Counter'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_GalleryCounters' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'GalleryCounter' table in the data source.
-        ///The property maps to the identity column 'Counter_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList GalleryCounters
-        {
-            get
-            {
-                return m_GalleryCounters;
-            }
-            set
-            {
-                m_GalleryCounters = value;
             }
         }
 
@@ -279,6 +216,37 @@ namespace DBlog.Data
             set
             {
                 m_ResourceId = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'PostCounter'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'PostCounter.Counter'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_PostCounters' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'PostCounter' table in the data source.
+        ///The property maps to the identity column 'Counter_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Collections.IList PostCounters
+        {
+            get
+            {
+                return m_PostCounters;
+            }
+            set
+            {
+                m_PostCounters = value;
             }
         }
 

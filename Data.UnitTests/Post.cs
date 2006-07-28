@@ -10,19 +10,19 @@ using System.Text;
 namespace DBlog.Data.UnitTests
 {
     [TestFixture]
-    public class GalleryTest : NHibernateCrudTest
+    public class PostTest : NHibernateCrudTest
     {
-        private Gallery mGallery = null;
-     
-        public Gallery Gallery
+        private Post mPost = null;
+
+        public Post Post
         {
             get
             {
-                return mGallery;
+                return mPost;
             }
         }
 
-        public GalleryTest()
+        public PostTest()
         {
             LoginTest login = new LoginTest();
             AddDependentObject(login);
@@ -30,20 +30,19 @@ namespace DBlog.Data.UnitTests
             TopicTest topic = new TopicTest();
             AddDependentObject(topic);
 
-            mGallery = new Gallery();
-            mGallery.Created = mGallery.Modified = DateTime.UtcNow;
-            mGallery.OwnerLogin = login.Login;
-            mGallery.Path = Guid.NewGuid().ToString();
-            mGallery.Text = Guid.NewGuid().ToString();
-            mGallery.Title = Guid.NewGuid().ToString();
-            mGallery.Topic = topic.Topic;
+            mPost = new Post();
+            mPost.Login = login.Login;
+            mPost.Created = mPost.Modified = DateTime.UtcNow;
+            mPost.Body = Guid.NewGuid().ToString();
+            mPost.Title = Guid.NewGuid().ToString();
+            mPost.Topic = topic.Topic;
         }
 
         public override object Object
         {
-            get 
+            get
             {
-                return mGallery;
+                return mPost;
             }
         }
     }

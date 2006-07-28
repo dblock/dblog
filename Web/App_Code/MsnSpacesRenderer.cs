@@ -16,7 +16,7 @@ using DBlog.Tools.Web;
 
 public class MsnSpacesRenderer : ExternalRenderer
 {
-    public MsnSpacesRenderer(Page page, int id, string type)
+    public MsnSpacesRenderer(BlogPage page, int id, string type)
         : base(page, id, type)
     {
 

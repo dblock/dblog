@@ -11,7 +11,7 @@ using System.IO;
 using DBlog.Tools.Web;
 using DBlog.TransitData;
 
-public partial class ShowPicture : PicturePage
+public partial class ShowPicture : BlogPicturePage
 {
     public override PicturePage.PicturePageType PageType
     {

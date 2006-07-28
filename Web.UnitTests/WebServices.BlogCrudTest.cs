@@ -13,6 +13,14 @@ namespace DBlog.Web.UnitTests.WebServices
         public abstract string ObjectType { get; }
         public abstract TransitObject TransitInstance { get; set; }
 
+        public virtual bool IsServiceCount
+        {
+            get
+            {
+                return false;
+            }
+        }
+
         public virtual string ObjectsType
         {
             get
@@ -57,8 +65,9 @@ namespace DBlog.Web.UnitTests.WebServices
         public int Count()
         {
             string method = string.Format("Get{0}Count", ObjectsType);
-            object[] args = { Ticket };
-            int count = (int) Blog.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, Blog, args);
+            object[] args_1 = { Ticket };
+            object[] args_2 = { Ticket, null };
+            int count = (int) Blog.GetType().InvokeMember(method, BindingFlags.InvokeMethod, null, Blog, IsServiceCount ? args_2 : args_1);
             Console.WriteLine(string.Format("{0}: {1}", method, count));
             return count;
         }

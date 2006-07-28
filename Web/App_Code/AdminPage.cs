@@ -9,9 +9,9 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Tools.Web;
 
-public class AdminPage : Page
+public class BlogAdminPage : BlogPage
 {
-    public AdminPage()
+    public BlogAdminPage()
     {
 
     }

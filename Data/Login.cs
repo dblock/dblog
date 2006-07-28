@@ -21,16 +21,14 @@ namespace DBlog.Data
         private System.Int32 m_Id;
         private System.Collections.IList m_Comments;
         private System.String m_Email;
-        private System.Collections.IList m_Entries;
-        private System.Collections.IList m_Galleries;
-        private System.Collections.IList m_GalleryLogins;
         private System.Collections.IList m_LoginCounters;
         private System.String m_Name;
         private System.String m_Password;
         private System.String m_Role;
         private System.String m_Username;
         private System.String m_Website;
-        private System.Collections.IList m_Blogs;
+        private System.Collections.IList m_Posts;
+        private System.Collections.IList m_PostLogins;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -109,99 +107,6 @@ namespace DBlog.Data
             set
             {
                 m_Email = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'Entry'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'Entry.OwnerLogin'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Entries' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'Entry' table in the data source.
-        ///The property maps to the identity column 'Owner_Login_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList Entries
-        {
-            get
-            {
-                return m_Entries;
-            }
-            set
-            {
-                m_Entries = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'Gallery'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'Gallery.OwnerLogin'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Galleries' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'Gallery' table in the data source.
-        ///The property maps to the identity column 'Owner_Login_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList Galleries
-        {
-            get
-            {
-                return m_Galleries;
-            }
-            set
-            {
-                m_Galleries = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'GalleryLogin'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'GalleryLogin.Login'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_GalleryLogins' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'GalleryLogin' table in the data source.
-        ///The property maps to the identity column 'Login_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList GalleryLogins
-        {
-            get
-            {
-                return m_GalleryLogins;
-            }
-            set
-            {
-                m_GalleryLogins = value;
             }
         }
 
@@ -366,29 +271,60 @@ namespace DBlog.Data
         ///Persistent many-one reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts multiple references to objects of the type 'Blog'.
+        ///This property accepts multiple references to objects of the type 'Post'.
         ///This property is part of a 'ManyToOne' relationship.
         ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'Blog.OwnerLogin'.
+        ///The inverse property for this property is 'Post.Login'.
         ///This property inherits its mapping information from its inverse property.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Blogs' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_Posts' that holds the value for this property is 'PrivateAccess'.
         ///This property is marked as slave.
         ///
         ///Mapping information:
-        ///This class maps to the 'Blog' table in the data source.
-        ///The property maps to the identity column 'Owner_Login_Id' in the data source.
+        ///This class maps to the 'Post' table in the data source.
+        ///The property maps to the identity column 'Login_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList Blogs
+        public  System.Collections.IList Posts
         {
             get
             {
-                return m_Blogs;
+                return m_Posts;
             }
             set
             {
-                m_Blogs = value;
+                m_Posts = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'PostLogin'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'PostLogin.Login'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_PostLogins' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'PostLogin' table in the data source.
+        ///The property maps to the identity column 'Login_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Collections.IList PostLogins
+        {
+            get
+            {
+                return m_PostLogins;
+            }
+            set
+            {
+                m_PostLogins = value;
             }
         }
 

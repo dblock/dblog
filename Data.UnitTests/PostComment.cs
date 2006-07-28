@@ -10,28 +10,28 @@ using System.Text;
 namespace DBlog.Data.UnitTests
 {
     [TestFixture]
-    public class EntryCommentTest : NHibernateCrudTest
+    public class PostCommentTest : NHibernateCrudTest
     {
-        private EntryComment mEntryComment = null;
+        private PostComment mPostComment = null;
 
-        public EntryCommentTest()
+        public PostCommentTest()
         {
             CommentTest comment = new CommentTest();
             AddDependentObject(comment);
 
-            EntryTest entry = new EntryTest();
-            AddDependentObject(entry);
+            PostTest Post = new PostTest();
+            AddDependentObject(Post);
 
-            mEntryComment = new EntryComment();
-            mEntryComment.Comment = comment.Comment;
-            mEntryComment.Entry = entry.Entry;
+            mPostComment = new PostComment();
+            mPostComment.Comment = comment.Comment;
+            mPostComment.Post = Post.Post;
         }
 
         public override object Object
         {
             get 
             {
-                return mEntryComment;
+                return mPostComment;
             }
         }
     }

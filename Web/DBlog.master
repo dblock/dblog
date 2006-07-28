@@ -48,7 +48,7 @@
      <asp:Panel ID="panelAdmin" Visible="false" runat="server">
       <table class="table_admin">
        <tr><td class="table_admin_tr_th">Settings</td></tr>
-       <tr><td class="table_admin_tr_td"><a href="ManageEntries.aspx">Entries</a> &#187; <a href="EditEntry.aspx">New</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="ManagePosts.aspx">Posts</a> &#187; <a href="EditPost.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><a href="ManageLogins.aspx">Logins</a> &#187; <a href="EditLogin.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><a href="ManageTopics.aspx">Topics</a> &#187; <a href="EditTopic.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><a href="ManageReferences.aspx">References</a> &#187; <a href="EditReference.aspx">New</a></td></tr>

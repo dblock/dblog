@@ -20,8 +20,6 @@ namespace DBlog.Data
         //Holds property values
         private System.Int32 m_Id;
         private System.DateTime m_Created;
-        private System.Collections.IList m_EntryComments;
-        private System.Collections.IList m_GalleryComments;
         private System.Collections.IList m_ImageComments;
         private System.String m_IpAddress;
         private System.DateTime m_Modified;
@@ -29,6 +27,7 @@ namespace DBlog.Data
         private System.Collections.IList m_ParentCommentThreads;
         private System.String m_Text;
         private System.Collections.IList m_Threads;
+        private System.Collections.IList m_PostComments;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -76,68 +75,6 @@ namespace DBlog.Data
             set
             {
                 m_Created = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'EntryComment'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'EntryComment.Comment'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_EntryComments' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'EntryComment' table in the data source.
-        ///The property maps to the identity column 'Comment_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList EntryComments
-        {
-            get
-            {
-                return m_EntryComments;
-            }
-            set
-            {
-                m_EntryComments = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'GalleryComment'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'GalleryComment.Comment'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_GalleryComments' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'GalleryComment' table in the data source.
-        ///The property maps to the identity column 'Comment_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList GalleryComments
-        {
-            get
-            {
-                return m_GalleryComments;
-            }
-            set
-            {
-                m_GalleryComments = value;
             }
         }
 
@@ -333,6 +270,37 @@ namespace DBlog.Data
             set
             {
                 m_Threads = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'PostComment'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'PostComment.Comment'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_PostComments' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'PostComment' table in the data source.
+        ///The property maps to the identity column 'Comment_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Collections.IList PostComments
+        {
+            get
+            {
+                return m_PostComments;
+            }
+            set
+            {
+                m_PostComments = value;
             }
         }
 

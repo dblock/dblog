@@ -13,7 +13,7 @@ using System.Text.RegularExpressions;
 using DBlog.WebServices;
 using Microsoft.Web.UI;
 
-public class Page : DBlog.Tools.Web.Page
+public class BlogPage : DBlog.Tools.Web.Page
 {
     private HtmlMeta mMetaDescription = null;
     protected SessionManager mSessionManager = null;
@@ -40,7 +40,7 @@ public class Page : DBlog.Tools.Web.Page
         }
     }
 
-    public Page()
+    public BlogPage()
     {
 
     }

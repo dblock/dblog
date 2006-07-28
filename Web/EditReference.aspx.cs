@@ -10,7 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 
-public partial class EditReference : AdminPage
+public partial class EditReference : BlogAdminPage
 {
     private TransitReference mReference = null;
 

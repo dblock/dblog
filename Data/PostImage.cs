@@ -4,23 +4,23 @@ namespace DBlog.Data
 
     ///--------------------------------------------------------------------------------
     ///<summary>
-    ///Persistent domain entity class representing 'EntryCounter' entities.
+    ///Persistent domain entity class representing 'PostImage' entities.
     ///</summary>
     ///<remarks>
     ///
     ///Mapping information:
-    ///This class maps to the 'EntryCounter' table in the data source.
+    ///This class maps to the 'PostImage' table in the data source.
     ///</remarks>
     ///--------------------------------------------------------------------------------
-    public class EntryCounter
+    public class PostImage
     {
 #region " Generated Code Region "
         //Private field variables
 
         //Holds property values
         private System.Int32 m_Id;
-        private Counter m_Counter;
-        private Entry m_Entry;
+        private Image m_Image;
+        private Post m_Post;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -35,7 +35,7 @@ namespace DBlog.Data
         ///The accessibility level for the field 'm_Id' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'EntryCounter_Id' in the data source.
+        ///The property maps to the column 'PostImage_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
         public  System.Int32 Id
@@ -51,25 +51,25 @@ namespace DBlog.Data
         ///Persistent one-many reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts references to objects of the type 'Counter'.
+        ///This property accepts references to objects of the type 'Image'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Counter.EntryCounters'.
+        ///The inverse property for this property is 'Image.PostImages'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Counter' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_Image' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Counter_Id' in the data source.
+        ///The property maps to the column 'Image_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Counter Counter
+        public  Image Image
         {
             get
             {
-                return m_Counter;
+                return m_Image;
             }
             set
             {
-                m_Counter = value;
+                m_Image = value;
             }
         }
 
@@ -78,25 +78,25 @@ namespace DBlog.Data
         ///Persistent one-many reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts references to objects of the type 'Entry'.
+        ///This property accepts references to objects of the type 'Post'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Entry.EntryCounters'.
+        ///The inverse property for this property is 'Post.PostImages'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Entry' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_Post' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Entry_Id' in the data source.
+        ///The property maps to the column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Entry Entry
+        public  Post Post
         {
             get
             {
-                return m_Entry;
+                return m_Post;
             }
             set
             {
-                m_Entry = value;
+                m_Post = value;
             }
         }
 

@@ -16,11 +16,11 @@ using DBlog.Tools.Web;
 
 public abstract class ExternalRenderer
 {
-    protected Page mPage = null;
+    protected BlogPage mPage = null;
     protected int mId = 0;
     protected string mType = null;
 
-    public ExternalRenderer(Page page, int id, string type)
+    public ExternalRenderer(BlogPage page, int id, string type)
     {
         mPage = page;
         mId = id;

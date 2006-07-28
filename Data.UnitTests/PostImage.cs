@@ -10,28 +10,28 @@ using System.Text;
 namespace DBlog.Data.UnitTests
 {
     [TestFixture]
-    public class EntryImageTest : NHibernateCrudTest
+    public class PostImageTest : NHibernateCrudTest
     {
-        private EntryImage mEntryImage = null;
+        private PostImage mPostImage = null;
 
-        public EntryImageTest()
+        public PostImageTest()
         {
-            EntryTest entry = new EntryTest();
-            AddDependentObject(entry);
+            PostTest Post = new PostTest();
+            AddDependentObject(Post);
 
             ImageTest image = new ImageTest();
             AddDependentObject(image);
 
-            mEntryImage = new EntryImage();
-            mEntryImage.Image = image.Image;
-            mEntryImage.Entry = entry.Entry;
+            mPostImage = new PostImage();
+            mPostImage.Image = image.Image;
+            mPostImage.Post = Post.Post;
         }
 
         public override object Object
         {
             get 
             {
-                return mEntryImage;
+                return mPostImage;
             }
         }
     }

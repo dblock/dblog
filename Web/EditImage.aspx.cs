@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 using System.IO;
 
-public partial class EditImage : AdminPage
+public partial class EditImage : BlogAdminPage
 {
     private TransitImage mImage = null;
 

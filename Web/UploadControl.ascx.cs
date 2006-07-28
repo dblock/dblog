@@ -12,7 +12,7 @@ using DBlog.TransitData;
 using DBlog.Tools.WebControls;
 using System.IO;
 
-public partial class UploadControl : Control
+public partial class UploadControl : BlogControl
 {
     public class HttpPostedFileEventArgs : EventArgs
     {

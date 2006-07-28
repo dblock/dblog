@@ -10,7 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Data.Hibernate;
 
-public partial class admin_ManageTopics : AdminPage
+public partial class admin_ManageTopics : BlogAdminPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

@@ -21,7 +21,6 @@ namespace DBlog.Data
         private System.Int32 m_Id;
         private System.String m_Description;
         private System.String m_Exception;
-        private System.Collections.IList m_FeedItems;
         private System.Int32 m_Interval;
         private System.String m_Name;
         private System.String m_Password;
@@ -31,6 +30,7 @@ namespace DBlog.Data
         private System.String m_Url;
         private System.String m_Username;
         private System.String m_Xsl;
+        private System.Collections.IList m_FeedItems;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -103,37 +103,6 @@ namespace DBlog.Data
             set
             {
                 m_Exception = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'FeedItem'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'FeedItem.Feed'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_FeedItems' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'FeedItem' table in the data source.
-        ///The property maps to the identity column 'Feed_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList FeedItems
-        {
-            get
-            {
-                return m_FeedItems;
-            }
-            set
-            {
-                m_FeedItems = value;
             }
         }
 
@@ -359,6 +328,37 @@ namespace DBlog.Data
             set
             {
                 m_Xsl = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'FeedItem'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'FeedItem.Feed'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_FeedItems' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'FeedItem' table in the data source.
+        ///The property maps to the identity column 'Feed_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Collections.IList FeedItems
+        {
+            get
+            {
+                return m_FeedItems;
+            }
+            set
+            {
+                m_FeedItems = value;
             }
         }
 

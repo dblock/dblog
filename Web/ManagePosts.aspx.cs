@@ -10,8 +10,9 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Data.Hibernate;
 using DBlog.Tools.Web;
+using DBlog.TransitData;
 
-public partial class admin_ManageEntries : AdminPage
+public partial class admin_ManagePosts : BlogAdminPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -37,7 +38,7 @@ public partial class admin_ManageEntries : AdminPage
             switch(e.CommandName)
             {
                 case "Delete":
-                    SessionManager.BlogService.DeleteEntry(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.BlogService.DeletePost(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
                     ReportInfo("Item Deleted");
                     GetData(source, e);
                     break;
@@ -51,14 +52,14 @@ public partial class admin_ManageEntries : AdminPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetEntries(
-            SessionManager.Ticket, new WebServiceQueryOptions(grid.PageSize, grid.CurrentPageIndex));
+        grid.DataSource = SessionManager.BlogService.GetPosts(
+            SessionManager.Ticket, new TransitPostQueryOptions(grid.PageSize, grid.CurrentPageIndex));
     }
 
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetEntriesCount(SessionManager.Ticket);
+        grid.VirtualItemCount = SessionManager.BlogService.GetPostsCount(SessionManager.Ticket, null);
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }
@@ -67,9 +68,9 @@ public partial class admin_ManageEntries : AdminPage
     {
         string result = Renderer.RenderEx(text);
 
-        result = new ReferencesRenderer((Page)Page, id, "Entry").Render(result);
-        result = new LiveJournalRenderer((Page)Page, id, "Entry").Render(result);
-        result = new MsnSpacesRenderer((Page)Page, id, "Entry").Render(result);
+        result = new ReferencesRenderer((BlogPage)Page, id, "Post").Render(result);
+        result = new LiveJournalRenderer((BlogPage)Page, id, "Post").Render(result);
+        result = new MsnSpacesRenderer((BlogPage)Page, id, "Post").Render(result);
 
         return result;
     }

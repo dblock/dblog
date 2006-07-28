@@ -13,7 +13,7 @@ namespace DBlog.Data.UnitTests
         [Test]
         public void TestCountQuery()
         {
-            CountQuery q = new CountQuery(Session, typeof(Blog), "Blog");
+            CountQuery q = new CountQuery(Session, typeof(Post), "Post");
             q.Add(Expression.Eq("Topic.Id", "10"));
             q.Add(Expression.Eq("Title", "Foo"));
             q.Add(Expression.Eq("Title", "Ba'r"));
@@ -21,11 +21,11 @@ namespace DBlog.Data.UnitTests
             string qs = q.ToString();
             Console.WriteLine(qs);
             Assert.AreEqual(
-                "SELECT COUNT(Blog) FROM Blog Blog" + 
-                " WHERE Blog.Topic.Id = '10'" +
-                " AND Blog.Title = 'Foo'" +
-                " AND Blog.Title = 'Ba''r'" +
-                " AND Blog.Title is not null",
+                "SELECT COUNT(Post) FROM Post Post" + 
+                " WHERE Post.Topic.Id = '10'" +
+                " AND Post.Title = 'Foo'" +
+                " AND Post.Title = 'Ba''r'" +
+                " AND Post.Title is not null",
                 qs);
         }
 

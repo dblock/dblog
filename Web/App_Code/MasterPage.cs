@@ -21,9 +21,9 @@ public class MasterPage : System.Web.UI.MasterPage
         {
             if (mSessionManager == null)
             {
-                if (Page is Page)
+                if (Page is BlogPage)
                 {
-                    mSessionManager = ((Page)Page).SessionManager;
+                    mSessionManager = ((BlogPage)Page).SessionManager;
                 }
                 else
                 {

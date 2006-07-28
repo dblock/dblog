@@ -3,7 +3,7 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{078b601b-349e-4820-9023-1e6d717df1d7}</ProjectGuid>
+    <ProjectGuid>{C6E8220C-5AD2-445A-9EF2-079D6547AEAD}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -88,9 +88,6 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Blog.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Browser.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -109,37 +106,10 @@
     <Compile Include="Counter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Entry.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="EntryComment.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="EntryCounter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="EntryImage.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Feed.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FeedItem.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Gallery.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GalleryComment.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GalleryCounter.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GalleryImage.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GalleryLogin.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Highlight.cs">
@@ -169,6 +139,21 @@
     <Compile Include="Platform.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Post.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PostComment.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PostCounter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PostImage.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="PostLogin.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="Reference.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -196,7 +181,7 @@
     <Compile Include="Topic.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="Data.hbm.xml" />
+    <EmbeddedResource Include="DBlog.Data.hbm.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
