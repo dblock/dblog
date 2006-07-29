@@ -34,6 +34,13 @@
      </asp:Panel>
     </td>
     <td valign="top" class="table_main_tr_td_right">
+     <atlas:UpdateProgress ID="menuProgress" runat="server">
+      <ProgressTemplate>
+       <div class="progress">
+        Working ...
+       </div>
+      </ProgressTemplate>
+     </atlas:UpdateProgress>
      <atlas:UpdatePanel Mode="Always" runat="server" ID="panelNoticeMenu" RenderMode="Inline">
       <ContentTemplate>
        <Controls:Notice ID="noticeMenu" EnableViewState="false" runat="server" />

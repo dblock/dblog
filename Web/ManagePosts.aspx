@@ -23,19 +23,19 @@
      <asp:BoundColumn DataField="Id" Visible="false" />
      <asp:TemplateColumn HeaderText="Post" ItemStyle-Font-Bold="False">
       <itemtemplate>
-       <table class="table_blog">
+       <table class="table_post">
         <tr>
-         <td valign="top" colspan="2" class="table_blog_tr_th">
+         <td valign="top" colspan="2" class="table_post_tr_th">
           <%# this.Render((int) Eval("Id"), (string) Eval("Title")) %>
          </td>
         </tr>
         <tr>
-         <td class="table_blog_tr_td">
+         <td class="table_post_tr_td">
           <asp:Panel id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 %>'>
            <img src='ShowPicture.aspx?Id=<%# Eval("ImageId") %>' />
           </asp:Panel>
          </td>
-         <td valign="top" class="table_blog_tr_td">
+         <td valign="top" class="table_post_tr_td">
           <%# this.Render((int) Eval("Id"), (string) Eval("Body")) %>
          </td>
         </tr>

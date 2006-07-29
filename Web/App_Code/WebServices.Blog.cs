@@ -807,5 +807,96 @@ namespace DBlog.WebServices
         }
 
         #endregion
+
+        #region Permalinks
+
+        [WebMethod(Description = "Get a permalink.")]
+        public TransitPermalink GetPermalinkById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitPermalink((Permalink)session.Load(typeof(Permalink), id));
+            }
+        }
+
+        [WebMethod(Description = "Get a permalink by source id and type.")]
+        public TransitPermalink GetPermalinkBySource(string ticket, int source_id, string source_type)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitPermalink(
+                    (Permalink) session.CreateCriteria(typeof(Permalink))
+                        .Add(Expression.Eq("SourceId", source_id))
+                        .Add(Expression.Eq("SourceType", source_type))
+                        .UniqueResult());
+            }
+        }
+
+        [WebMethod(Description = "Create or update a permalink.")]
+        public int CreateOrUpdatePermalink(string ticket, TransitPermalink t_permalink)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Permalink permalink = t_permalink.GetPermalink(session);
+                session.SaveOrUpdate(permalink);
+                session.Flush();
+                return permalink.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get permalinks count.")]
+        public int GetPermalinksCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.Permalink), "Permalink").Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get permalinks.")]
+        public List<TransitPermalink> GetPermalinks(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(Permalink));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitPermalink> result = new List<TransitPermalink>(list.Count);
+
+                foreach (Permalink obj in list)
+                {
+                    result.Add(new TransitPermalink(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a permalink.")]
+        public void DeletePermalink(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                session.Delete((Permalink)session.Load(typeof(Permalink), id));
+                session.Flush();
+            }
+        }
+
+        #endregion
     }
 }

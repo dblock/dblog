@@ -124,6 +124,18 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback GetPostImagesOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetPermalinkByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPermalinkBySourceOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdatePermalinkOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPermalinksCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPermalinksOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeletePermalinkOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetTitleOperationCompleted;
@@ -312,6 +324,24 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event GetPostImagesCompletedEventHandler GetPostImagesCompleted;
+        
+        /// <remarks/>
+        public event GetPermalinkByIdCompletedEventHandler GetPermalinkByIdCompleted;
+        
+        /// <remarks/>
+        public event GetPermalinkBySourceCompletedEventHandler GetPermalinkBySourceCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdatePermalinkCompletedEventHandler CreateOrUpdatePermalinkCompleted;
+        
+        /// <remarks/>
+        public event GetPermalinksCountCompletedEventHandler GetPermalinksCountCompleted;
+        
+        /// <remarks/>
+        public event GetPermalinksCompletedEventHandler GetPermalinksCompleted;
+        
+        /// <remarks/>
+        public event DeletePermalinkCompletedEventHandler DeletePermalinkCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -1772,6 +1802,191 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPermalinkById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPermalink GetPermalinkById(string ticket, int id) {
+            object[] results = this.Invoke("GetPermalinkById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitPermalink)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPermalinkByIdAsync(string ticket, int id) {
+            this.GetPermalinkByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetPermalinkByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetPermalinkByIdOperationCompleted == null)) {
+                this.GetPermalinkByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPermalinkByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetPermalinkById", new object[] {
+                        ticket,
+                        id}, this.GetPermalinkByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetPermalinkByIdOperationCompleted(object arg) {
+            if ((this.GetPermalinkByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPermalinkByIdCompleted(this, new GetPermalinkByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPermalinkBySource", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPermalink GetPermalinkBySource(string ticket, int source_id, string source_type) {
+            object[] results = this.Invoke("GetPermalinkBySource", new object[] {
+                        ticket,
+                        source_id,
+                        source_type});
+            return ((TransitPermalink)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPermalinkBySourceAsync(string ticket, int source_id, string source_type) {
+            this.GetPermalinkBySourceAsync(ticket, source_id, source_type, null);
+        }
+        
+        /// <remarks/>
+        public void GetPermalinkBySourceAsync(string ticket, int source_id, string source_type, object userState) {
+            if ((this.GetPermalinkBySourceOperationCompleted == null)) {
+                this.GetPermalinkBySourceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPermalinkBySourceOperationCompleted);
+            }
+            this.InvokeAsync("GetPermalinkBySource", new object[] {
+                        ticket,
+                        source_id,
+                        source_type}, this.GetPermalinkBySourceOperationCompleted, userState);
+        }
+        
+        private void OnGetPermalinkBySourceOperationCompleted(object arg) {
+            if ((this.GetPermalinkBySourceCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPermalinkBySourceCompleted(this, new GetPermalinkBySourceCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdatePermalink", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdatePermalink(string ticket, TransitPermalink t_permalink) {
+            object[] results = this.Invoke("CreateOrUpdatePermalink", new object[] {
+                        ticket,
+                        t_permalink});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdatePermalinkAsync(string ticket, TransitPermalink t_permalink) {
+            this.CreateOrUpdatePermalinkAsync(ticket, t_permalink, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdatePermalinkAsync(string ticket, TransitPermalink t_permalink, object userState) {
+            if ((this.CreateOrUpdatePermalinkOperationCompleted == null)) {
+                this.CreateOrUpdatePermalinkOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdatePermalinkOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdatePermalink", new object[] {
+                        ticket,
+                        t_permalink}, this.CreateOrUpdatePermalinkOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdatePermalinkOperationCompleted(object arg) {
+            if ((this.CreateOrUpdatePermalinkCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdatePermalinkCompleted(this, new CreateOrUpdatePermalinkCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPermalinksCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetPermalinksCount(string ticket) {
+            object[] results = this.Invoke("GetPermalinksCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPermalinksCountAsync(string ticket) {
+            this.GetPermalinksCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetPermalinksCountAsync(string ticket, object userState) {
+            if ((this.GetPermalinksCountOperationCompleted == null)) {
+                this.GetPermalinksCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPermalinksCountOperationCompleted);
+            }
+            this.InvokeAsync("GetPermalinksCount", new object[] {
+                        ticket}, this.GetPermalinksCountOperationCompleted, userState);
+        }
+        
+        private void OnGetPermalinksCountOperationCompleted(object arg) {
+            if ((this.GetPermalinksCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPermalinksCountCompleted(this, new GetPermalinksCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPermalinks", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPermalink[] GetPermalinks(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetPermalinks", new object[] {
+                        ticket,
+                        options});
+            return ((TransitPermalink[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPermalinksAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetPermalinksAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetPermalinksAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetPermalinksOperationCompleted == null)) {
+                this.GetPermalinksOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPermalinksOperationCompleted);
+            }
+            this.InvokeAsync("GetPermalinks", new object[] {
+                        ticket,
+                        options}, this.GetPermalinksOperationCompleted, userState);
+        }
+        
+        private void OnGetPermalinksOperationCompleted(object arg) {
+            if ((this.GetPermalinksCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPermalinksCompleted(this, new GetPermalinksCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeletePermalink", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeletePermalink(string ticket, int id) {
+            this.Invoke("DeletePermalink", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeletePermalinkAsync(string ticket, int id) {
+            this.DeletePermalinkAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeletePermalinkAsync(string ticket, int id, object userState) {
+            if ((this.DeletePermalinkOperationCompleted == null)) {
+                this.DeletePermalinkOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeletePermalinkOperationCompleted);
+            }
+            this.InvokeAsync("DeletePermalink", new object[] {
+                        ticket,
+                        id}, this.DeletePermalinkOperationCompleted, userState);
+        }
+        
+        private void OnDeletePermalinkOperationCompleted(object arg) {
+            if ((this.DeletePermalinkCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeletePermalinkCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetVersion", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string GetVersion() {
             object[] results = this.Invoke("GetVersion", new object[0]);
@@ -2023,6 +2238,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPermalink))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostImage))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPost))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitHighlight))]
@@ -2146,6 +2362,63 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.excludeBlogImagesField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitPermalink : TransitObject {
+        
+        private string sourceTypeField;
+        
+        private string targetTypeField;
+        
+        private int sourceIdField;
+        
+        private int targetIdField;
+        
+        /// <remarks/>
+        public string SourceType {
+            get {
+                return this.sourceTypeField;
+            }
+            set {
+                this.sourceTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string TargetType {
+            get {
+                return this.targetTypeField;
+            }
+            set {
+                this.targetTypeField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int SourceId {
+            get {
+                return this.sourceIdField;
+            }
+            set {
+                this.sourceIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int TargetId {
+            get {
+                return this.targetIdField;
+            }
+            set {
+                this.targetIdField = value;
             }
         }
     }
@@ -3584,6 +3857,140 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPermalinkByIdCompletedEventHandler(object sender, GetPermalinkByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPermalinkByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPermalinkByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitPermalink Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitPermalink)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPermalinkBySourceCompletedEventHandler(object sender, GetPermalinkBySourceCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPermalinkBySourceCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPermalinkBySourceCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitPermalink Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitPermalink)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdatePermalinkCompletedEventHandler(object sender, CreateOrUpdatePermalinkCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdatePermalinkCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdatePermalinkCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPermalinksCountCompletedEventHandler(object sender, GetPermalinksCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPermalinksCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPermalinksCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPermalinksCompletedEventHandler(object sender, GetPermalinksCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPermalinksCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPermalinksCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitPermalink[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitPermalink[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeletePermalinkCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

@@ -62,6 +62,7 @@
     <Compile Include="Comment.cs" />
     <Compile Include="Counter.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="Permalink.cs" />
     <Compile Include="PostComment.cs" />
     <Compile Include="PostCounter.cs" />
     <Compile Include="PostImage.cs" />

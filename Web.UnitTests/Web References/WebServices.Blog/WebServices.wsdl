@@ -854,6 +854,109 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="TransitPostImage" nillable="true" type="tns:TransitPostImage" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetPermalinkById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPermalinkByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPermalinkByIdResult" type="tns:TransitPermalink" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitPermalink">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SourceType" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="TargetType" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="SourceId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="TargetId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetPermalinkBySource">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="source_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="source_type" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPermalinkBySourceResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPermalinkBySourceResult" type="tns:TransitPermalink" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdatePermalink">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_permalink" type="tns:TransitPermalink" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdatePermalinkResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdatePermalinkResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPermalinksCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPermalinksCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPermalinksCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPermalinks">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPermalinksResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPermalinksResult" type="tns:ArrayOfTransitPermalink" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitPermalink">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitPermalink" nillable="true" type="tns:TransitPermalink" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeletePermalink">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePermalinkResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -1188,6 +1291,42 @@
   <wsdl:message name="GetPostImagesSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostImagesResponse" />
   </wsdl:message>
+  <wsdl:message name="GetPermalinkByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPermalinkById" />
+  </wsdl:message>
+  <wsdl:message name="GetPermalinkByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPermalinkByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPermalinkBySourceSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPermalinkBySource" />
+  </wsdl:message>
+  <wsdl:message name="GetPermalinkBySourceSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPermalinkBySourceResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdatePermalinkSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdatePermalink" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdatePermalinkSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdatePermalinkResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPermalinksCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPermalinksCount" />
+  </wsdl:message>
+  <wsdl:message name="GetPermalinksCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPermalinksCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPermalinksSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPermalinks" />
+  </wsdl:message>
+  <wsdl:message name="GetPermalinksSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPermalinksResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeletePermalinkSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletePermalink" />
+  </wsdl:message>
+  <wsdl:message name="DeletePermalinkSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletePermalinkResponse" />
+  </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
   </wsdl:message>
@@ -1453,6 +1592,36 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get PostImages.</wsdl:documentation>
       <wsdl:input message="tns:GetPostImagesSoapIn" />
       <wsdl:output message="tns:GetPostImagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinkById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a permalink.</wsdl:documentation>
+      <wsdl:input message="tns:GetPermalinkByIdSoapIn" />
+      <wsdl:output message="tns:GetPermalinkByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinkBySource">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a permalink by source id and type.</wsdl:documentation>
+      <wsdl:input message="tns:GetPermalinkBySourceSoapIn" />
+      <wsdl:output message="tns:GetPermalinkBySourceSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdatePermalink">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a permalink.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdatePermalinkSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdatePermalinkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinksCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get permalinks count.</wsdl:documentation>
+      <wsdl:input message="tns:GetPermalinksCountSoapIn" />
+      <wsdl:output message="tns:GetPermalinksCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinks">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get permalinks.</wsdl:documentation>
+      <wsdl:input message="tns:GetPermalinksSoapIn" />
+      <wsdl:output message="tns:GetPermalinksSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePermalink">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a permalink.</wsdl:documentation>
+      <wsdl:input message="tns:DeletePermalinkSoapIn" />
+      <wsdl:output message="tns:DeletePermalinkSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -1898,6 +2067,60 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostImages">
       <soap:operation soapAction="http://dblock.org/ns/GetPostImages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinkById">
+      <soap:operation soapAction="http://dblock.org/ns/GetPermalinkById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinkBySource">
+      <soap:operation soapAction="http://dblock.org/ns/GetPermalinkBySource" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdatePermalink">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdatePermalink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinksCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetPermalinksCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinks">
+      <soap:operation soapAction="http://dblock.org/ns/GetPermalinks" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePermalink">
+      <soap:operation soapAction="http://dblock.org/ns/DeletePermalink" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2369,6 +2592,60 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostImages">
       <soap12:operation soapAction="http://dblock.org/ns/GetPostImages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinkById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPermalinkById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinkBySource">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPermalinkBySource" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdatePermalink">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdatePermalink" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinksCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPermalinksCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPermalinks">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPermalinks" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePermalink">
+      <soap12:operation soapAction="http://dblock.org/ns/DeletePermalink" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

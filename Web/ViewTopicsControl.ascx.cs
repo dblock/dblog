@@ -9,6 +9,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Data.Hibernate;
+using System.Collections.Generic;
+using DBlog.TransitData;
 
 public partial class ViewTopicsControl : BlogControl
 {
@@ -65,8 +67,14 @@ public partial class ViewTopicsControl : BlogControl
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetTopics(
+        List<TransitTopic> topics = SessionManager.BlogService.GetTopics(
             SessionManager.Ticket, null);
+
+        TransitTopic t_all = new TransitTopic();
+        t_all.Name = "all posts";
+        topics.Insert(0, t_all);
+
+        grid.DataSource = topics;
     }
 
     private void GetData(object sender, EventArgs e)

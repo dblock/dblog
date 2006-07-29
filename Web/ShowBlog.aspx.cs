@@ -46,6 +46,7 @@ public partial class ShowBlog : BlogPage
 
     public void topics_TopicChanged(object sender, ViewTopicsControl.TopicChangedEventArgs e)
     {
+        TopicId = e.TopicId;
         GetData(sender, e);
         panelPosts.Update();
     }
