@@ -173,13 +173,27 @@ namespace DBlog.TransitData
 
         }
 
-        public TransitImage(DBlog.Data.Image o)
-            : this(o, false, false)
+        private int mCommentsCount = 0;
+
+        public int CommentsCount
+        {
+            get
+            {
+                return mCommentsCount;
+            }
+            set
+            {
+                mCommentsCount = value;
+            }
+        }
+
+        public TransitImage(ISession session, DBlog.Data.Image o)
+            : this(session, o, false, false)
         {
 
         }
 
-        public TransitImage(DBlog.Data.Image o, bool withthumbnail, bool withdata)
+        public TransitImage(ISession session, DBlog.Data.Image o, bool withthumbnail, bool withdata)
             : base(o.Id)
         {
             Path = o.Path;
@@ -187,6 +201,10 @@ namespace DBlog.TransitData
             Preferred = o.Preferred;
             Description = o.Description;
             Modified = o.Modified;
+
+            CommentsCount = new CountQuery(session, typeof(ImageComment), "ImageComment")
+                .Add(Expression.Eq("Image.Id", o.Id))
+                .Execute();
 
             if (withthumbnail)
             {
@@ -196,12 +214,6 @@ namespace DBlog.TransitData
             if (withdata)
             {
                 Data = o.Data;
-
-                if (o.Data == null && !string.IsNullOrEmpty(Path))
-                {
-                    ThumbnailBitmap bitmap = new ThumbnailBitmap(Path);
-                    Data = bitmap.Bitmap;
-                }
             }
         }
 

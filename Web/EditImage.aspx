@@ -8,7 +8,7 @@
   Image
  </div>
  <div class="link">
-  <a href="ManageImages.aspx">&#187; Cancel</a>
+  <a href="ManageImages.aspx">Cancel</a>
  </div>
  <table class="table">
   <tr>

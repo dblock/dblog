@@ -95,16 +95,63 @@ namespace DBlog.TransitData
             }
         }
 
+        private string mImageName;
+
+        public string ImageName
+        {
+            get
+            {
+                return mImageName;
+            }
+            set
+            {
+                mImageName = value;
+            }
+        }
+
+        private string mImageDescription;
+
+        public string ImageDescription
+        {
+            get
+            {
+                return mImageDescription;
+            }
+            set
+            {
+                mImageDescription = value;
+            }
+        }
+
+        private int mImageCommentsCount = 0;
+
+        public int ImageCommentsCount
+        {
+            get
+            {
+                return mImageCommentsCount;
+            }
+            set
+            {
+                mImageCommentsCount = value;
+            }
+        }
+
         public TransitPostImage()
         {
 
         }
 
-        public TransitPostImage(DBlog.Data.PostImage o)
+        public TransitPostImage(ISession session, DBlog.Data.PostImage o)
             : base(o.Id)
         {
             PostId = o.Post.Id;
             ImageId = o.Image.Id;
+            ImageDescription = o.Image.Description;
+            ImageName = o.Image.Name;
+            ImageCommentsCount = new CountQuery(session, typeof(ImageComment), "ImageComment")
+                .Add(Expression.Eq("Image.Id", o.Image.Id))
+                .Execute();
         }
 
         public PostImage GetPostImage(ISession session)

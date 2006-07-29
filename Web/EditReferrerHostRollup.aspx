@@ -7,7 +7,7 @@
   ReferrerHostRollup
  </div>
  <div class="link">
-  <a href="ManageReferrerHostRollups.aspx">&#187; Cancel</a>
+  <a href="ManageReferrerHostRollups.aspx">Cancel</a>
  </div>
  <atlas:UpdatePanel runat="server" ID="panelReferrerHostRollup" Mode="Always">
   <ContentTemplate>

@@ -8,7 +8,7 @@
   Logins
  </div>
  <div class="link">
-  <a href="EditLogin.aspx">&#187; Create New</a>
+  <a href="EditLogin.aspx">Create New</a>
  </div>
  <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
   <ContentTemplate>

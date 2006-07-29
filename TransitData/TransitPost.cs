@@ -74,7 +74,7 @@ namespace DBlog.TransitData
 
     public class TransitPost : TransitObject
     {
-        private int mImageId;
+        private int mImageId = 0;
 
         public int ImageId
         {
@@ -85,6 +85,20 @@ namespace DBlog.TransitData
             set
             {
                 mImageId = value;
+            }
+        }
+
+        private int mImagesCount = 0;
+
+        public int ImagesCount
+        {
+            get
+            {
+                return mImagesCount;
+            }
+            set
+            {
+                mImagesCount = value;
             }
         }
 
@@ -172,6 +186,20 @@ namespace DBlog.TransitData
             }
         }
 
+        private int mCommentsCount = 0;
+
+        public int CommentsCount
+        {
+            get
+            {
+                return mCommentsCount;
+            }
+            set
+            {
+                mCommentsCount = value;
+            }
+        }
+
         public TransitPost()
         {
 
@@ -184,10 +212,19 @@ namespace DBlog.TransitData
             Body = o.Body;
             LoginId = o.Login.Id;
             TopicId = o.Topic.Id;
-            PostImage img = AssociatedTransitObject<PostImage>.GetAssociatedObject(session, "Post", o.Id);
-            if (img != null) ImageId = img.Image.Id;
+            
+            if (o.PostImages != null && o.PostImages.Count > 0)
+            {
+                ImagesCount = o.PostImages.Count;
+                ImageId = ((PostImage)TransitObject.GetRandomElement(o.PostImages)).Image.Id;
+            }
+
             Created = o.Created;
             Modified = o.Modified;
+
+            CommentsCount = new CountQuery(session, typeof(PostComment), "PostComment")
+                .Add(Expression.Eq("Post.Id", o.Id))
+                .Execute();
         }
 
         public Post GetPost(ISession session)

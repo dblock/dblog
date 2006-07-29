@@ -9,9 +9,9 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Tools.Web;
 
-public class BlogAdminPage : BlogPage
+public class BlogUserPage : BlogPage
 {
-    public BlogAdminPage()
+    public BlogUserPage()
     {
 
     }
@@ -20,9 +20,9 @@ public class BlogAdminPage : BlogPage
     {
         if (!IsPostBack)
         {
-            if (!SessionManager.IsAdministrator)
+            if (!SessionManager.IsLoggedIn)
             {
-                Response.Redirect(string.Format("Login.aspx?r={0}", 
+                Response.Redirect(string.Format("Login.aspx?r={0}",
                     Renderer.UrlEncode(Request.Url.PathAndQuery)));
             }
         }

@@ -8,7 +8,8 @@
   Post
  </div>
  <div class="link">
-  <a href="ManagePosts.aspx">&#187; Cancel</a>
+  <a href="ShowBlog.aspx">Cancel</a>
+  <asp:Hyperlink ID="linkView" runat="server" Text="| View" />
  </div>
  <table class="table" cellpadding="2">
   <tr>
@@ -34,6 +35,17 @@
    <td valign="top" class="table_tr_td_value">
     <asp:DropDownList DataTextField="Name" DataValueField="Id" runat="server" CssClass="dropdown"
      ID="inputTopic" />
+   </td>
+  </tr>
+  <tr>
+   <td class="table_tr_td_label">
+    image server path:
+   </td>
+   <td valign="top" class="table_tr_td_value">
+    <asp:TextBox runat="server" CssClass="textbox" ID="inputServerPath" />
+    <div>
+     <asp:Label ID="labelServerPath" runat="server" CssClass="description" />
+    </div>
    </td>
   </tr>
   <tr>

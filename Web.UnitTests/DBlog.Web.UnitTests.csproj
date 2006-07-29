@@ -92,6 +92,9 @@
     <None Include="Web References\WebServices.Blog\TransitBlog.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\WebServices.Blog\TransitComment.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\WebServices.Blog\TransitEntry.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -104,6 +107,9 @@
     <None Include="Web References\WebServices.Blog\TransitImage1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\WebServices.Blog\TransitImageComment.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\WebServices.Blog\TransitLogin.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
@@ -111,6 +117,9 @@
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\WebServices.Blog\TransitPost.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebServices.Blog\TransitPostComment.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\WebServices.Blog\TransitPostImage.datasource">

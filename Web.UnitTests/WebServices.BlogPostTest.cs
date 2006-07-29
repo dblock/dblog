@@ -107,5 +107,30 @@ namespace DBlog.Web.UnitTests.WebServices
 
             Blog.DeletePost(Ticket, t_post.Id);
         }
+
+        [Test]
+        public void CreatePostWithCommentTest()
+        {
+            TransitTopic t_topic = new TransitTopic();
+            t_topic.Name = Guid.NewGuid().ToString();
+            t_topic.Id = Blog.CreateOrUpdateTopic(Ticket, t_topic);
+
+            TransitPost t_post = new TransitPost();
+            t_post.Body = Guid.NewGuid().ToString();
+            t_post.Title = Guid.NewGuid().ToString();
+            t_post.TopicId = t_topic.Id;
+            t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
+            Assert.Greater(t_post.Id, 0);
+
+            TransitComment t_comment = new TransitComment();
+            t_comment.IpAddress = "127.0.0.1";
+            t_comment.LoginId = Blog.GetLogin(Ticket).Id;
+            t_comment.Text = Guid.NewGuid().ToString();
+
+            t_comment.Id = Blog.CreateOrUpdatePostComment(Ticket, t_post.Id, t_comment);
+            Assert.Greater(t_comment.Id, 0);
+
+            Blog.DeletePost(Ticket, t_post.Id);
+        }
     }
 }

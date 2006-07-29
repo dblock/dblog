@@ -83,13 +83,20 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                CheckAdministrator(session, ticket);
                 Login login = t_login.GetLogin(session);
 
-                if (t_login.Role != TransitLoginRole.Administrator && t_login.Id == ManagedLogin.GetLoginId(ticket))
+                if (!ManagedLogin.IsAdministrator(session, ticket) && t_login.Role == TransitLoginRole.Administrator)
                 {
-                    // check whether self and administrator
-                    throw new InvalidOperationException("Cannot Demote Self");    
+                    throw new ManagedLogin.AccessDeniedException();
+                }
+
+                if (ManagedLogin.IsAdministrator(session, ticket))
+                {
+                    if (t_login.Role != TransitLoginRole.Administrator && t_login.Id == ManagedLogin.GetLoginId(ticket))
+                    {
+                        // check whether self and administrator
+                        throw new InvalidOperationException("Cannot Demote Self");
+                    }
                 }
 
                 session.SaveOrUpdate(login);
@@ -251,7 +258,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id));
+                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id));
             }
         }
 
@@ -299,7 +306,7 @@ namespace DBlog.WebServices
 
                 foreach (Image obj in list)
                 {
-                    result.Add(new TransitImage(obj));
+                    result.Add(new TransitImage(session, obj));
                 }
 
                 return result;
@@ -316,7 +323,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), false, true);
+                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), false, true);
             }
         }
 
@@ -326,14 +333,14 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                TransitImage img = new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id));
+                TransitImage img = new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id));
 
                 if (img.Modified <= ifModifiedSince)
                 {
                     return null;
                 }
 
-                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), false, true);
+                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), false, true);
             }
         }
 
@@ -343,7 +350,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), true, false); 
+                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), true, false); 
             }
         }
 
@@ -354,14 +361,14 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                TransitImage img = new TransitImage((DBlog.Data.Image)session.Load(typeof(DBlog.Data.Image), id));
+                TransitImage img = new TransitImage(session, (DBlog.Data.Image)session.Load(typeof(DBlog.Data.Image), id));
 
                 if (img.Modified <= ifModifiedSince)
                 {
                     return null;
                 }
 
-                return new TransitImage((DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), true, false);
+                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), true, false);
             }
         }
 
@@ -749,7 +756,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitPostImage((PostImage) session.Load(typeof(DBlog.Data.PostImage), id));
+                return new TransitPostImage(session, (PostImage) session.Load(typeof(DBlog.Data.PostImage), id));
             }
         }
 
@@ -779,7 +786,7 @@ namespace DBlog.WebServices
             }
         }
 
-        [WebMethod(Description = "Get PostImages.")]
+        [WebMethod(Description = "Get post images.")]
         public List<TransitPostImage> GetPostImages(string ticket, TransitPostImageQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
@@ -799,7 +806,7 @@ namespace DBlog.WebServices
 
                 foreach (PostImage obj in list)
                 {
-                    result.Add(new TransitPostImage(obj));
+                    result.Add(new TransitPostImage(session, obj));
                 }
 
                 return result;
@@ -897,6 +904,355 @@ namespace DBlog.WebServices
             }
         }
 
+        #endregion
+
+        #region Comments
+
+        [WebMethod(Description = "Get a comment.")]
+        public TransitComment GetCommentById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitComment((Comment)session.Load(typeof(Comment), id));
+            }
+        }
+
+        [WebMethod(Description = "Create or update a comment.")]
+        public int CreateOrUpdateComment(string ticket, TransitComment t_comment)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Comment comment = t_comment.GetComment(session);
+                session.SaveOrUpdate(comment);
+                session.Flush();
+                return comment.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get comments count.")]
+        public int GetCommentsCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.Comment), "Comment").Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get comments.")]
+        public List<TransitComment> GetComments(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(Comment));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitComment> result = new List<TransitComment>(list.Count);
+
+                foreach (Comment obj in list)
+                {
+                    result.Add(new TransitComment(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a comment.")]
+        public void DeleteComment(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                session.Delete((Comment)session.Load(typeof(Comment), id));
+                session.Flush();
+            }
+        }
+
+        #endregion
+
+        #region Post Comments
+
+        [WebMethod(Description = "Create or update a post comment.")]
+        public int CreateOrUpdatePostComment(string ticket, int post_id, TransitComment t_comment)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                Post post = (Post)session.Load(typeof(Post), post_id);
+
+                if (string.IsNullOrEmpty(ticket))
+                {
+                    // anonymous
+                    t_comment.LoginId = 0;
+                }
+                else if (t_comment.LoginId == 0)
+                {
+                    // logged in
+                    t_comment.LoginId = ManagedLogin.GetLoginId(ticket);
+                }
+                else if (t_comment.LoginId != ManagedLogin.GetLoginId(ticket) && ! ManagedLogin.IsAdministrator(session, ticket))
+                {    
+                    // not admin and trying to post a comment as someone else
+                    throw new ManagedLogin.AccessDeniedException();
+                }
+
+                Comment comment = t_comment.GetComment(session);
+                comment.Modified = DateTime.UtcNow;
+                if (comment.Id == 0) comment.Created = comment.Modified;
+                session.SaveOrUpdate(comment);
+
+                if (t_comment.ParentCommentId != 0 && t_comment.Id == 0)
+                {
+                    Thread thread = new Thread();
+                    thread.Comment = comment;
+                    thread.ParentComment = (Comment) session.Load(typeof(Comment), t_comment.ParentCommentId);
+                    session.Save(thread);
+                }
+
+                PostComment post_comment = (PostComment)session.CreateCriteria(typeof(PostComment))
+                    .Add(Expression.Eq("Post.Id", post_id))
+                    .Add(Expression.Eq("Comment.Id", t_comment.Id))
+                    .UniqueResult();
+
+                if (post_comment == null)
+                {
+                    post_comment = new PostComment();
+                    post_comment.Post = post;
+                    post_comment.Comment = comment;
+                    session.SaveOrUpdate(post_comment);
+                }
+
+                session.Flush();
+                return comment.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get a post comment.")]
+        public TransitPostComment GetPostCommentById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitPostComment(session, (PostComment)session.Load(typeof(DBlog.Data.PostComment), id));
+            }
+        }
+
+        [WebMethod(Description = "Delete a post comment.")]
+        public void DeletePostComment(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                PostComment ei = (PostComment)session.Load(typeof(PostComment), id);
+                session.Delete(ei);
+                session.Delete(ei.Comment);
+                session.Flush();
+            }
+        }
+
+        [WebMethod(Description = "Get post comment count.")]
+        public int GetPostCommentsCount(string ticket, TransitPostCommentQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.PostComment), "PostComment");
+                if (options != null) options.Apply(query);
+                return query.Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get post comments.")]
+        public List<TransitPostComment> GetPostComments(string ticket, TransitPostCommentQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(PostComment));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitPostComment> result = new List<TransitPostComment>(list.Count);
+
+                foreach (PostComment obj in list)
+                {
+                    if (obj.Comment.Threads == null || obj.Comment.Threads.Count == 0)
+                    {
+                        result.Insert(0, new TransitPostComment(session, obj));
+                    }
+                    else
+                    {
+                        for (int i = 0; i < result.Count; i++)
+                        {
+                            if (result[i].CommentId == ((Thread)obj.Comment.Threads[0]).ParentComment.Id)
+                            {
+                                result.Insert(i + 1, new TransitPostComment(session, obj));
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                return result;
+            }
+        }
+        #endregion
+
+        #region Image Comments
+
+        [WebMethod(Description = "Create or update a image comment.")]
+        public int CreateOrUpdateImageComment(string ticket, int image_id, TransitComment t_comment)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                Image image = (Image)session.Load(typeof(Image), image_id);
+
+                if (string.IsNullOrEmpty(ticket))
+                {
+                    // anonymous
+                    t_comment.LoginId = 0;
+                }
+                else if (t_comment.LoginId == 0)
+                {
+                    // logged in
+                    t_comment.LoginId = ManagedLogin.GetLoginId(ticket);
+                }
+                else if (t_comment.LoginId != ManagedLogin.GetLoginId(ticket) && !ManagedLogin.IsAdministrator(session, ticket))
+                {
+                    // not admin and trying to image a comment as someone else
+                    throw new ManagedLogin.AccessDeniedException();
+                }
+
+                Comment comment = t_comment.GetComment(session);
+                comment.Modified = DateTime.UtcNow;
+                if (comment.Id == 0) comment.Created = comment.Modified;
+                session.SaveOrUpdate(comment);
+
+                if (t_comment.ParentCommentId != 0 && t_comment.Id == 0)
+                {
+                    Thread thread = new Thread();
+                    thread.Comment = comment;
+                    thread.ParentComment = (Comment)session.Load(typeof(Comment), t_comment.ParentCommentId);
+                    session.Save(thread);
+                }
+
+                ImageComment image_comment = (ImageComment)session.CreateCriteria(typeof(ImageComment))
+                    .Add(Expression.Eq("Image.Id", image_id))
+                    .Add(Expression.Eq("Comment.Id", t_comment.Id))
+                    .UniqueResult();
+
+                if (image_comment == null)
+                {
+                    image_comment = new ImageComment();
+                    image_comment.Image = image;
+                    image_comment.Comment = comment;
+                    session.SaveOrUpdate(image_comment);
+                }
+
+                session.Flush();
+                return comment.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get a image comment.")]
+        public TransitImageComment GetImageCommentById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitImageComment(session, (ImageComment)session.Load(typeof(DBlog.Data.ImageComment), id));
+            }
+        }
+
+        [WebMethod(Description = "Delete a image comment.")]
+        public void DeleteImageComment(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                ImageComment ei = (ImageComment)session.Load(typeof(ImageComment), id);
+                session.Delete(ei);
+                session.Delete(ei.Comment);
+                session.Flush();
+            }
+        }
+
+        [WebMethod(Description = "Get image comment count.")]
+        public int GetImageCommentsCount(string ticket, TransitImageCommentQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.ImageComment), "ImageComment");
+                if (options != null) options.Apply(query);
+                return query.Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get image comments.")]
+        public List<TransitImageComment> GetImageComments(string ticket, TransitImageCommentQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(ImageComment));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitImageComment> result = new List<TransitImageComment>(list.Count);
+
+                foreach (ImageComment obj in list)
+                {
+                    if (obj.Comment.Threads == null || obj.Comment.Threads.Count == 0)
+                    {
+                        result.Insert(0, new TransitImageComment(session, obj));
+                    }
+                    else
+                    {
+                        for (int i = 0; i < result.Count; i++)
+                        {
+                            if (result[i].CommentId == ((Thread)obj.Comment.Threads[0]).ParentComment.Id)
+                            {
+                                result.Insert(i + 1, new TransitImageComment(session, obj));
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                return result;
+            }
+        }
         #endregion
     }
 }

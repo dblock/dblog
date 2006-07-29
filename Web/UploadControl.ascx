@@ -3,7 +3,7 @@
 
 <asp:FileUpload runat="server" ID="inputUpload" CssClass="upload" />
 <div class="link">
- <asp:Label ID="labelData" runat="server" />
- <asp:LinkButton ID="upload" runat="Server" OnClick="upload_Click" Text="&#187; Update / Clear" />
+ <asp:Label ID="labelData" runat="server" /> |
+ <asp:LinkButton ID="upload" runat="Server" OnClick="upload_Click" Text="Update / Clear" />
 </div>
 

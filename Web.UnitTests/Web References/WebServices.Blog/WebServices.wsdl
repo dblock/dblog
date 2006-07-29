@@ -242,6 +242,7 @@
               <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
               <s:element minOccurs="0" maxOccurs="1" name="Thumbnail" type="s:base64Binary" />
               <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CommentsCount" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -678,12 +679,14 @@
           <s:extension base="tns:TransitObject">
             <s:sequence>
               <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ImagesCount" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Body" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="TopicId" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="LoginId" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CommentsCount" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -795,6 +798,9 @@
             <s:sequence>
               <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="PostId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="ImageName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="ImageDescription" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="ImageCommentsCount" type="s:int" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -957,6 +963,313 @@
       <s:element name="DeletePermalinkResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetCommentById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCommentByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCommentByIdResult" type="tns:TransitComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitComment">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ParentCommentId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IpAddress" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="LoginId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LoginWebsite" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateOrUpdateComment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_comment" type="tns:TransitComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateCommentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateCommentResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCommentsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCommentsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetCommentsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetComments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetCommentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetCommentsResult" type="tns:ArrayOfTransitComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitComment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitComment" nillable="true" type="tns:TransitComment" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteComment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteCommentResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="CreateOrUpdatePostComment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="post_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_comment" type="tns:TransitComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdatePostCommentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdatePostCommentResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostCommentById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostCommentByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostCommentByIdResult" type="tns:TransitPostComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitPostComment">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitAssociatedComment">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PostId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TransitAssociatedComment">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="CommentId" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="AssociatedId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="CommentText" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CommentIpAddress" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CommentLoginName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="CommentLoginWebsite" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="CommentCreated" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CommentModified" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CommentLevel" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="DeletePostComment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeletePostCommentResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetPostCommentsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitPostCommentQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitPostCommentQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitAssociatedCommentQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PostId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TransitAssociatedCommentQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WebServiceQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="AssociatedId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetPostCommentsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPostCommentsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostComments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitPostCommentQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostCommentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostCommentsResult" type="tns:ArrayOfTransitPostComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitPostComment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitPostComment" nillable="true" type="tns:TransitPostComment" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateOrUpdateImageComment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="image_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_comment" type="tns:TransitComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateImageCommentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateImageCommentResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageCommentById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageCommentByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageCommentByIdResult" type="tns:TransitImageComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitImageComment">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitAssociatedComment">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="DeleteImageComment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteImageCommentResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetImageCommentsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitImageCommentQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitImageCommentQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitAssociatedCommentQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetImageCommentsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetImageCommentsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageComments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitImageCommentQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageCommentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageCommentsResult" type="tns:ArrayOfTransitImageComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitImageComment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitImageComment" nillable="true" type="tns:TransitImageComment" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -1327,6 +1640,96 @@
   <wsdl:message name="DeletePermalinkSoapOut">
     <wsdl:part name="parameters" element="tns:DeletePermalinkResponse" />
   </wsdl:message>
+  <wsdl:message name="GetCommentByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCommentById" />
+  </wsdl:message>
+  <wsdl:message name="GetCommentByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCommentByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateCommentSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateComment" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateCommentSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateCommentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCommentsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetCommentsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetCommentsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCommentsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetCommentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetComments" />
+  </wsdl:message>
+  <wsdl:message name="GetCommentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetCommentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCommentSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteComment" />
+  </wsdl:message>
+  <wsdl:message name="DeleteCommentSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteCommentResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdatePostCommentSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdatePostComment" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdatePostCommentSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdatePostCommentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostCommentByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostCommentById" />
+  </wsdl:message>
+  <wsdl:message name="GetPostCommentByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostCommentByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeletePostCommentSoapIn">
+    <wsdl:part name="parameters" element="tns:DeletePostComment" />
+  </wsdl:message>
+  <wsdl:message name="DeletePostCommentSoapOut">
+    <wsdl:part name="parameters" element="tns:DeletePostCommentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostCommentsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostCommentsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetPostCommentsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostCommentsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostCommentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostComments" />
+  </wsdl:message>
+  <wsdl:message name="GetPostCommentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostCommentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateImageCommentSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateImageComment" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateImageCommentSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateImageCommentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageCommentByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageCommentById" />
+  </wsdl:message>
+  <wsdl:message name="GetImageCommentByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageCommentByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteImageCommentSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteImageComment" />
+  </wsdl:message>
+  <wsdl:message name="DeleteImageCommentSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteImageCommentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageCommentsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageCommentsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetImageCommentsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageCommentsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageCommentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageComments" />
+  </wsdl:message>
+  <wsdl:message name="GetImageCommentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageCommentsResponse" />
+  </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
   </wsdl:message>
@@ -1589,7 +1992,7 @@
       <wsdl:output message="tns:GetPostImagesCountSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPostImages">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get PostImages.</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get post images.</wsdl:documentation>
       <wsdl:input message="tns:GetPostImagesSoapIn" />
       <wsdl:output message="tns:GetPostImagesSoapOut" />
     </wsdl:operation>
@@ -1622,6 +2025,81 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a permalink.</wsdl:documentation>
       <wsdl:input message="tns:DeletePermalinkSoapIn" />
       <wsdl:output message="tns:DeletePermalinkSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a comment.</wsdl:documentation>
+      <wsdl:input message="tns:GetCommentByIdSoapIn" />
+      <wsdl:output message="tns:GetCommentByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateComment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a comment.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateCommentSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateCommentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get comments count.</wsdl:documentation>
+      <wsdl:input message="tns:GetCommentsCountSoapIn" />
+      <wsdl:output message="tns:GetCommentsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetComments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get comments.</wsdl:documentation>
+      <wsdl:input message="tns:GetCommentsSoapIn" />
+      <wsdl:output message="tns:GetCommentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteComment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a comment.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteCommentSoapIn" />
+      <wsdl:output message="tns:DeleteCommentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdatePostComment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a post comment.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdatePostCommentSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdatePostCommentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostCommentById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a post comment.</wsdl:documentation>
+      <wsdl:input message="tns:GetPostCommentByIdSoapIn" />
+      <wsdl:output message="tns:GetPostCommentByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeletePostComment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a post comment.</wsdl:documentation>
+      <wsdl:input message="tns:DeletePostCommentSoapIn" />
+      <wsdl:output message="tns:DeletePostCommentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostCommentsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get post comment count.</wsdl:documentation>
+      <wsdl:input message="tns:GetPostCommentsCountSoapIn" />
+      <wsdl:output message="tns:GetPostCommentsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostComments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get post comments.</wsdl:documentation>
+      <wsdl:input message="tns:GetPostCommentsSoapIn" />
+      <wsdl:output message="tns:GetPostCommentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateImageComment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a image comment.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateImageCommentSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateImageCommentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageCommentById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a image comment.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageCommentByIdSoapIn" />
+      <wsdl:output message="tns:GetImageCommentByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImageComment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a image comment.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteImageCommentSoapIn" />
+      <wsdl:output message="tns:DeleteImageCommentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageCommentsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image comment count.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageCommentsCountSoapIn" />
+      <wsdl:output message="tns:GetImageCommentsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageComments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image comments.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageCommentsSoapIn" />
+      <wsdl:output message="tns:GetImageCommentsSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -2121,6 +2599,141 @@
     </wsdl:operation>
     <wsdl:operation name="DeletePermalink">
       <soap:operation soapAction="http://dblock.org/ns/DeletePermalink" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentById">
+      <soap:operation soapAction="http://dblock.org/ns/GetCommentById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateComment">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateComment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetCommentsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetComments">
+      <soap:operation soapAction="http://dblock.org/ns/GetComments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteComment">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteComment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdatePostComment">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdatePostComment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostCommentById">
+      <soap:operation soapAction="http://dblock.org/ns/GetPostCommentById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePostComment">
+      <soap:operation soapAction="http://dblock.org/ns/DeletePostComment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostCommentsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetPostCommentsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostComments">
+      <soap:operation soapAction="http://dblock.org/ns/GetPostComments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateImageComment">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateImageComment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageCommentById">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageCommentById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImageComment">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteImageComment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageCommentsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageCommentsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageComments">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageComments" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2646,6 +3259,141 @@
     </wsdl:operation>
     <wsdl:operation name="DeletePermalink">
       <soap12:operation soapAction="http://dblock.org/ns/DeletePermalink" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetCommentById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateComment">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateComment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetCommentsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetCommentsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetComments">
+      <soap12:operation soapAction="http://dblock.org/ns/GetComments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteComment">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteComment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdatePostComment">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdatePostComment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostCommentById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPostCommentById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeletePostComment">
+      <soap12:operation soapAction="http://dblock.org/ns/DeletePostComment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostCommentsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPostCommentsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostComments">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPostComments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateImageComment">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateImageComment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageCommentById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageCommentById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteImageComment">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteImageComment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageCommentsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageCommentsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageComments">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageComments" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

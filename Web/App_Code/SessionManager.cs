@@ -149,7 +149,7 @@ public class SessionManager
         }
     }
 
-    private TransitLogin LoginRecord
+    public TransitLogin LoginRecord
     {
         get
         {

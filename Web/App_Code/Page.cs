@@ -89,4 +89,35 @@ public class BlogPage : DBlog.Tools.Web.Page
         if (notice == null) throw new Exception(message);
         notice.GetType().GetProperty("Warning").SetValue(notice, message, null);
     }
+
+    public string Render(int id, string type, string text)
+    {
+        string result = Renderer.RenderEx(text);
+
+        result = new ReferencesRenderer(this, id, type).Render(result);
+        result = new LiveJournalRenderer(this, id, type).Render(result);
+        result = new MsnSpacesRenderer(this, id, type).Render(result);
+
+        return result;
+    }
+
+    public string CheckInput(string name, string value)
+    {
+        if (string.IsNullOrEmpty(value))
+        {
+            throw new ArgumentException(string.Format("Missing {0}", name));
+        }
+
+        return value;
+    }
+
+    public int CheckInput(string name, int value)
+    {
+        if (value <= 0)
+        {
+            throw new ArgumentException(string.Format("Missing {0}", name));
+        }
+
+        return value;
+    }
 }

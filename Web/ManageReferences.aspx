@@ -8,7 +8,7 @@
   References
  </div>
  <div class="link">
-  <a href="EditReference.aspx">&#187; Create New</a>
+  <a href="EditReference.aspx">Create New</a>
  </div>
  <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
   <ContentTemplate>

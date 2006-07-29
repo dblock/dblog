@@ -6,7 +6,9 @@ a { font-family: Arial; text-decoration: none; }
 .notice_warning { width: 592px; border: dotted 2px orange; font-weight: bold; color: orange; }
 .table_notice { text-align: left; font-family: Arial; width: 95%; }
 .table_notice_tr_td { margin: 10px; font-family: Arial; }
-.table { margin: 10px; text-align: left; font-family: Arial; width: 700px; border: solid 1px black; }
+.table { margin: 2px 10px 2px 10px; text-align: left; font-family: Arial; width: 700px; border: solid 1px black; }
+.table_pager { padding: 2px; font-family: Verdana; font-weight: bold; }
+.table_post { margin: 2px 10px 2px 10px; text-align: left; font-family: Arial; width: 700px; }
 .table_tr_td { padding: 2px; font-family: Arial; }
 .table_tr_td_alt { background: #EEEEEE; padding: 2px; font-family: Arial; }
 .table_tr_th { font-family: Arial; background: black; padding: 2px; font-family: Arial; font-size: 0.9em; font-weight: bold; color: white; }
@@ -23,9 +25,8 @@ a { font-family: Arial; text-decoration: none; }
 .table_highlights_tr_td { padding: 2px; font-family: Arial; font-weight: bold; }
 .table_highlights_tr_td_alt { background: #EEEEEE; padding: 2px; font-family: Arial; font-weight: bold; }
 .table_highlights_tr_th { font-family: Arial; background: black; padding: 2px; font-family: Arial; color: white; font-weight: bold;  }
-.table_pager { padding: 2px; font-family: Verdana; font-weight: bold; }
-.table_post { margin: 2px; text-align: left; font-family: Arial; width: 95%; border: solid 1px black; }
-.table_post_tr_td { text-align: left; padding: 2px; font-family: Arial; }
+.table_post_tr_td_left { text-align: left; padding: 2px; font-family: Arial; }
+.table_post_tr_td_right { width: 200px; text-align: center; padding: 2px; font-family: Arial; }
 .table_post_tr_th { text-align: left; font-family: Arial; background: black; padding: 2px; font-family: Arial; color: white; font-weight: bold;  }
 .table_tr_td_label { text-align: right; font-family: Arial; }
 .table_tr_td_value { text-align: left; font-family: Arial; }
@@ -35,10 +36,20 @@ a { font-family: Arial; text-decoration: none; }
 .upload { font-family: Arial; width: 480px; border: #666666 1px solid; }
 .button { background-color: #dcdcdc; font-family: Arial; border-top: #cccccc 1px solid; border-bottom: #666666 1px solid; border-left: #cccccc 1px solid; border-right: #666666 1px solid; width: 100px; }
 .title { background: url(images/site/title.gif) no-repeat; background-position: 0 50%; font-family: Arial; font-size: 18px; margin-top: 10px; margin-bottom: 10px; padding-left: 20px; font-weight: bold; }
+.subtitle { font-family: Arial; font-size: 12px; margin: 2px 0px 5px 5px; font-weight: bold; }
 .link { margin: 5px; font-family: Arial; font-weight: bold; }
-.table_admin { font-family: Arial; width: 200px; border: solid 1px black; }
+.link_small { margin: 5px; font-family: Arial; font-weight: bold; font-size: 11px;}
+.table_admin { font-family: Arial; width: 150px; border: solid 1px black; }
 .table_admin_tr_td { margin: 5px; font-family: Arial; font-weight: bold; text-align: center; }
 .table_admin_tr_th { text-align: center; font-family: Arial; background: black; padding: 2px; font-family: Arial; font-size: 0.9em; font-weight: bold; color: white; }
 .div_top { height: 25px; }
-.description { font-family: Arial; color: Silver; font-size: smaller; }
-.progress { left: 190px; top: 10px; position: absolute; }
+.description { font-family: Arial; color: Gray; font-size: smaller; }
+.progress { left: 10px; top: 10px; position: absolute; }
+.post_title { margin: 2px 0px 2px 0px; font-size: 18px; font-family: Arial; font-weight: bold; }
+.post_subtitle { margin: 2px 0px 2px 5px; font-size: 12px; font-family: Arial; font-weight: bold; }
+.post_body { margin: 5px 5px 5px 5px; font-family: Arial; }
+.table_comments { border: solid 1px black; text-align: left; font-family: Arial; width: 100%; }
+.table_comments_body { margin: 2px 10px 2px 10px; font-family: Arial; }
+.table_comments_note { margin: 2px 10px 2px 10px; text-align: right; font-size: 11px; font-weight: bold; font-family: Arial; }
+.table_image { border: solid 1px black; margin: 2px 10px 2px 10px; text-align: center; font-family: Arial; width: 700px; }
+.table_image_tr_td { padding: 2px; font-family: Arial; }

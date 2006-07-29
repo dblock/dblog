@@ -9,12 +9,16 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
+using DBlog.Tools.Web;
 
 public partial class Login : BlogPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        if (!IsPostBack)
+        {
+            linkNewUser.NavigateUrl = string.Format("EditLogin.aspx?r={0}", Renderer.UrlEncode(ReturnUrl));
+        }
     }
 
     public string ReturnUrl

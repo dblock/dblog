@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
+using DBlog.Tools.Web;
 
 public partial class DBlogMaster : MasterPage
 {
@@ -20,6 +21,9 @@ public partial class DBlogMaster : MasterPage
         if (!IsPostBack)
         {
             panelAdmin.Visible = SessionManager.IsAdministrator;
+            labelUsername.Text = SessionManager.IsLoggedIn ? 
+                string.Format("logged in as {0}", Renderer.Render(SessionManager.LoginRecord.Name)) 
+                : string.Empty;
         }
     }
 

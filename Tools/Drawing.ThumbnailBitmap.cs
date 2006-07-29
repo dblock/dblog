@@ -89,7 +89,7 @@ namespace DBlog.Tools.Drawing
                 throw new Exception("I don't understand this picture format.");
             }
 
-            mBitmap = GetResizedImageBytes(b, 640, 480, 40);
+            mBitmap = GetResizedImageBytes(b, 640, 480, 80);
             mThumbnail = GetThumbnail(bitmap, min);
         }
 
@@ -99,7 +99,7 @@ namespace DBlog.Tools.Drawing
 
         public ThumbnailBitmap(Bitmap bitmap, Size min)
         {
-            mBitmap = GetResizedImageBytes(bitmap, 640, 480, 40);
+            mBitmap = GetResizedImageBytes(bitmap, 640, 480, 80);
             mThumbnail = GetThumbnail(bitmap, min);
         }
 
@@ -121,7 +121,7 @@ namespace DBlog.Tools.Drawing
                     string.Empty, originalimage.Size, min);
             }
 
-            return GetResizedImageBytes(originalimage, ThumbnailSize.Width, ThumbnailSize.Height, 40);
+            return GetResizedImageBytes(originalimage, ThumbnailSize.Width, ThumbnailSize.Height, 80);
         }
 
         private static Size GetNewSize(Bitmap originalimage, int widthtarget, int heighttarget)

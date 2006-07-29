@@ -10,6 +10,7 @@ using System.Web.UI.HtmlControls;
 using System.IO;
 using DBlog.Tools.Web;
 using DBlog.TransitData;
+using DBlog.Tools.Drawing;
 
 public partial class ShowPicture : BlogPicturePage
 {
@@ -36,6 +37,13 @@ public partial class ShowPicture : BlogPicturePage
         Picture pic = new Picture();
         TransitImage img = SessionManager.BlogService.GetImageWithBitmapById(SessionManager.Ticket, id);
 
+        if (img.Data == null && !string.IsNullOrEmpty(img.Path))
+        {
+            img.Data = new ThumbnailBitmap(Path.Combine(Path.Combine(
+                SessionManager.GetSetting("Images", string.Empty),
+                img.Path), img.Name)).Bitmap;
+        }
+
         pic.Bitmap = img.Data;
         pic.Created = pic.Modified = img.Modified;
         pic.Name = img.Name;
@@ -52,6 +60,13 @@ public partial class ShowPicture : BlogPicturePage
         if (img == null)
         {
             return null;
+        }
+
+        if (img.Data == null && !string.IsNullOrEmpty(img.Path))
+        {
+            img.Data = new ThumbnailBitmap(Path.Combine(Path.Combine(
+                SessionManager.GetSetting("Images", string.Empty),
+                img.Path), img.Name)).Bitmap;
         }
 
         pic.Bitmap = img.Data;

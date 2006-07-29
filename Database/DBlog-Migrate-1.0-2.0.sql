@@ -50,7 +50,7 @@ FOR SELECT Gallery_Id, [Path] FROM Gallery ORDER BY [Created] ASC
 
 OPEN GalleryIterator
 DECLARE @gallery_id int
-DECLARE @gallery_path nvarchar
+DECLARE @gallery_path varchar(128)
 
 FETCH NEXT FROM GalleryIterator INTO @gallery_id, @gallery_path
 While (@@FETCH_STATUS <> -1)
@@ -99,3 +99,38 @@ DROP TABLE GalleryCounter
 DROP TABLE GalleryLogin
 DROP TABLE GalleryComment
 DROP TABLE Gallery
+
+-- Drop the Blog view
+DROP VIEW Blog
+
+-- Alter Comment to allow NULL in Owner_Login_Id
+ALTER TABLE Comment ALTER COLUMN Owner_Login_Id int NULL
+
+-- Modify Counters view
+DROP VIEW Counters
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[Counters] AS
+(SELECT ''Post'' AS Type, dbo.Counter.Counter_Id, dbo.Counter.Resource_Id, dbo.Counter.Count, dbo.Counter.Created
+FROM dbo.Counter INNER JOIN
+ dbo.PostCounter ON dbo.PostCounter.Counter_Id = dbo.Counter.Counter_Id
+UNION ALL
+ SELECT ''Image'' AS Type, Counter_1.Counter_Id, Counter_1.Resource_Id, Counter_1.Count, Counter_1.Created
+ FROM dbo.Counter AS Counter_1 INNER JOIN
+ dbo.ImageCounter ON dbo.ImageCounter.Counter_Id = Counter_1.Counter_Id
+)'
+GO
+
+-- Modify the Comments view
+DROP VIEW Comments
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[Comments] AS
+(SELECT
+ dbo.Comment.Comment_Id, dbo.Comment.Text, dbo.Comment.IpAddress, dbo.Comment.Modified, dbo.Comment.Created, 
+ dbo.Comment.Owner_Login_Id, ''Post'' AS Type, dbo.PostComment.Post_Id AS Parent_Id
+FROM dbo.Comment INNER JOIN
+ dbo.PostComment ON dbo.Comment.Comment_Id = dbo.PostComment.Comment_Id
+UNION ALL
+SELECT Comment_1.Comment_Id, Comment_1.Text, Comment_1.IpAddress, Comment_1.Modified, Comment_1.Created, Comment_1.Owner_Login_Id, 
+ ''Image'' AS Type, dbo.ImageComment.Image_Id AS Parent_Id
+FROM dbo.Comment AS Comment_1 INNER JOIN
+ dbo.ImageComment ON Comment_1.Comment_Id = dbo.ImageComment.Comment_Id
+)' 
+GO

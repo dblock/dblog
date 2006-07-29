@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Text.RegularExpressions;
 using DBlog.TransitData;
 using DBlog.Tools.Web;
+using System.Text;
 
 public partial class ShowBlog : BlogPage
 {
@@ -65,14 +66,41 @@ public partial class ShowBlog : BlogPage
         grid.DataBind();
     }
 
-    public string Render(int id, string type, string text)
+    public void grid_ItemCommand(object source, DataGridCommandEventArgs e)
     {
-        string result = Renderer.RenderEx(text);
+        try
+        {
+            switch (e.CommandName)
+            {
+                case "Delete":
+                    SessionManager.BlogService.DeletePost(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    ReportInfo("Item Deleted");
+                    GetData(source, e);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
+    }
 
-        result = new ReferencesRenderer((BlogPage)Page, id, type).Render(result);
-        result = new LiveJournalRenderer((BlogPage)Page, id, type).Render(result);
-        result = new MsnSpacesRenderer((BlogPage)Page, id, type).Render(result);
+    public string GetLink(int comments_count, int images_count)
+    {
+        StringBuilder result = new StringBuilder();
 
-        return result;
+        if (images_count > 1)
+        {
+            result.AppendFormat(" | {0} Image{1}", images_count
+                , images_count == 1 ? string.Empty : "s");
+        }
+
+        if (comments_count > 0)
+        {
+            result.AppendFormat(" | {0} Comment{1}", comments_count
+                , comments_count == 1 ? string.Empty : "s");
+        }
+
+        return result.ToString();
     }
 }

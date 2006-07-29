@@ -8,7 +8,7 @@
   Referrer Host Rollups
  </div>
  <div class="link">
-  <a href="EditReferrerHostRollup.aspx">&#187; Create New</a>
+  <a href="EditReferrerHostRollup.aspx">Create New</a>
  </div>
  <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
   <ContentTemplate>

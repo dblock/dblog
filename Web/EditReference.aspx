@@ -7,7 +7,7 @@
   Reference
  </div>
  <div class="link">
-  <a href="ManageReferences.aspx">&#187; Cancel</a>
+  <a href="ManageReferences.aspx">Cancel</a>
  </div>
  <atlas:UpdatePanel runat="server" ID="panelReference" Mode="Always">
   <ContentTemplate>

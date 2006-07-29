@@ -6,6 +6,9 @@
  <div class="title">
   Login
  </div>
+ <div class="subtitle">
+  <asp:HyperLink ID="linkNewUser" runat="server" Text="New User" />
+ </div>
  <atlas:UpdatePanel runat="server" ID="panelLogin" Mode="Always">
   <ContentTemplate>
    <table class="table">

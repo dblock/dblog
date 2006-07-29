@@ -8,7 +8,7 @@
   Highlight
  </div>
  <div class="link">
-  <a href="ManageHighlights.aspx">&#187; Cancel</a>
+  <a href="ManageHighlights.aspx">Cancel</a>
  </div>
  <table class="table">
   <tr>

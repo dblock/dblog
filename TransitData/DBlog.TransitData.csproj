@@ -54,8 +54,12 @@
   <ItemGroup>
     <Compile Include="ManagedLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TransitAssociatedComment.cs" />
+    <Compile Include="TransitComment.cs" />
+    <Compile Include="TransitImageComment.cs" />
     <Compile Include="TransitPermalink.cs" />
     <Compile Include="TransitPost.cs" />
+    <Compile Include="TransitPostComment.cs" />
     <Compile Include="TransitPostImage.cs" />
     <Compile Include="TransitHighlight.cs" />
     <Compile Include="TransitImage.cs" />

@@ -15,24 +15,6 @@
   <atlas:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" />         
   <table class="table_main" cellpadding="0" cellspacing="0">
    <tr>
-    <td valign="top" align="center" class="table_main_tr_td_left">
-     <div>
-      <a href="ShowBlog.aspx">
-       <asp:Image runat="server" ID="imageMain" ImageUrl="images/blog/blog.gif" />
-      </a>
-     </div>
-     <div class="div_top"></div>
-     <Controls:Highlights runat="server" ID="highlights" />
-     <div class="div_top"></div>
-     <atlas:UpdatePanel Mode="Conditional" runat="server" ID="panelTopics" RenderMode="Inline">
-      <ContentTemplate>
-       <Controls:Topics runat="server" ID="topics" />
-      </ContentTemplate>
-     </atlas:UpdatePanel>
-     <asp:Panel ID="panelCommands" runat="server">
-      <a href="Login.aspx"><font face="Symbol">p</font></a>
-     </asp:Panel>
-    </td>
     <td valign="top" class="table_main_tr_td_right">
      <atlas:UpdateProgress ID="menuProgress" runat="server">
       <ProgressTemplate>
@@ -46,24 +28,44 @@
        <Controls:Notice ID="noticeMenu" EnableViewState="false" runat="server" />
       </ContentTemplate>
      </atlas:UpdatePanel>
-     <div class="div_top"></div>
      <asp:contentplaceholder id="ContentPlaceHolder1" runat="server">
      </asp:contentplaceholder>
     </td>
-    <td valign="top">
-     <div class="div_top"></div>
+    <td valign="top" align="center" class="table_main_tr_td_left">
+     <div>
+      <a href="ShowBlog.aspx">
+       <asp:Image runat="server" ID="imageMain" ImageUrl="images/blog/blog.gif" />
+      </a>
+     </div>
      <asp:Panel ID="panelAdmin" Visible="false" runat="server">
+      <div class="div_top"></div>
       <table class="table_admin">
        <tr><td class="table_admin_tr_th">Settings</td></tr>
-       <tr><td class="table_admin_tr_td"><a href="ManagePosts.aspx">Posts</a> &#187; <a href="EditPost.aspx">New</a></td></tr>
-       <tr><td class="table_admin_tr_td"><a href="ManageLogins.aspx">Logins</a> &#187; <a href="EditLogin.aspx">New</a></td></tr>
-       <tr><td class="table_admin_tr_td"><a href="ManageTopics.aspx">Topics</a> &#187; <a href="EditTopic.aspx">New</a></td></tr>
-       <tr><td class="table_admin_tr_td"><a href="ManageReferences.aspx">References</a> &#187; <a href="EditReference.aspx">New</a></td></tr>
-       <tr><td class="table_admin_tr_td"><a href="ManageHighlights.aspx">Highlights</a> &#187; <a href="EditHighlight.aspx">New</a></td></tr>
-       <tr><td class="table_admin_tr_td"><a href="ManageReferrerHostRollups.aspx">Referrers</a> &#187; <a href="EditReferrerHostRollup.aspx">New</a></td></tr>
-       <tr><td class="table_admin_tr_td"><a href="ManageImages.aspx">Images</a> &#187; <a href="EditImage.aspx">New</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="EditPost.aspx">New Post</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="ManageLogins.aspx">Logins</a> | <a href="EditLogin.aspx">New</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="ManageTopics.aspx">Topics</a> | <a href="EditTopic.aspx">New</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="ManageReferences.aspx">References</a> | <a href="EditReference.aspx">New</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="ManageHighlights.aspx">Highlights</a> | <a href="EditHighlight.aspx">New</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="ManageReferrerHostRollups.aspx">Referrers</a> | <a href="EditReferrerHostRollup.aspx">New</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="ManageImages.aspx">Images</a> | <a href="EditImage.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><asp:LinkButton ID="linkLogout" Text="Logout" runat="server" OnClick="linkLogout_Click" /></td></tr>
       </table>
+     </asp:Panel>
+     <div class="div_top"></div>
+     <Controls:Highlights runat="server" ID="highlights" />
+     <div class="div_top"></div>
+     <atlas:UpdatePanel Mode="Conditional" runat="server" ID="panelTopics" RenderMode="Inline">
+      <ContentTemplate>
+       <Controls:Topics runat="server" ID="topics" />
+      </ContentTemplate>
+     </atlas:UpdatePanel>
+     <asp:Panel ID="panelCommands" runat="server">
+      <div>
+       <a href="Login.aspx"><font face="Symbol">p</font></a>
+      </div>
+      <div>
+       <asp:Label ID="labelUsername" CssClass="description" runat="server" />
+      </div>
      </asp:Panel>
     </td>
    </tr>

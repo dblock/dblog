@@ -10,8 +10,18 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 
-public partial class EditLogin : BlogAdminPage
+public partial class EditLogin : BlogPage
 {
+    public string ReturnUrl
+    {
+        get
+        {
+            string result = Request.QueryString["r"];
+            if (string.IsNullOrEmpty(result)) return "ManageLogins.aspx";
+            return result;
+        }
+    }
+
     private TransitLogin mLogin = null;
 
     public TransitLogin Login
@@ -31,18 +41,30 @@ public partial class EditLogin : BlogAdminPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            SetDefaultButton(save);
-
-            if (RequestId > 0)
+            if (!IsPostBack)
             {
-                inputName.Text = Login.Name;
-                inputUsername.Text = Login.Username;
-                inputEmail.Text = Login.Email;
-                inputPassword.Attributes["value"] = Login.Password;
-                inputAdministrator.Checked = (Login.Role == TransitLoginRole.Administrator);
+                SetDefaultButton(save);
+
+                linkCancel.NavigateUrl = ReturnUrl;
+
+                panelAdmin.Visible = SessionManager.IsAdministrator;
+
+                if (RequestId > 0)
+                {
+                    inputName.Text = Login.Name;
+                    inputUsername.Text = Login.Username;
+                    inputEmail.Text = Login.Email;
+                    inputPassword.Attributes["value"] = Login.Password;
+                    inputPassword2.Attributes["value"] = Login.Password;
+                    inputAdministrator.Checked = (Login.Role == TransitLoginRole.Administrator);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 
@@ -50,13 +72,31 @@ public partial class EditLogin : BlogAdminPage
     {
         try
         {
+            inputPassword.Attributes["value"] = inputPassword.Text;
+            inputPassword2.Attributes["value"] = inputPassword2.Text;
+
             Login.Name = CheckInput("Name", inputName.Text);
             Login.Username = inputUsername.Text;
-            Login.Email = inputEmail.Text;
-            Login.Password = inputPassword.Text;
+            Login.Email = SessionManager.IsAdministrator ? inputEmail.Text : CheckInput("Email", inputEmail.Text);
+            if (string.IsNullOrEmpty(Login.Username)) Login.Username = Login.Email;
+            Login.Password = SessionManager.IsAdministrator ? inputPassword.Text : CheckInput("Password", inputPassword.Text);
+
+            if (inputPassword.Text != inputPassword2.Text)
+            {
+                throw new Exception("Passwords Don't Match");
+            }
+
             Login.Role = inputAdministrator.Checked ? TransitLoginRole.Administrator : TransitLoginRole.Guest;
             SessionManager.BlogService.CreateOrUpdateLogin(SessionManager.Ticket, Login);
-            Response.Redirect("ManageLogins.aspx");
+
+            if (!SessionManager.IsLoggedIn)
+            {
+                SessionManager.Login(
+                    SessionManager.BlogService.Login(Login.Email, Login.Password),
+                    true);
+            }
+
+            Response.Redirect(ReturnUrl);
         }
         catch (Exception ex)
         {

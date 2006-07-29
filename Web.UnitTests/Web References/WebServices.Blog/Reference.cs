@@ -136,6 +136,36 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback DeletePermalinkOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetCommentByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateCommentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetCommentsCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetCommentsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteCommentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdatePostCommentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPostCommentByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeletePostCommentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPostCommentsCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPostCommentsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateImageCommentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetImageCommentByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteImageCommentOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetImageCommentsCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetImageCommentsOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetTitleOperationCompleted;
@@ -342,6 +372,51 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event DeletePermalinkCompletedEventHandler DeletePermalinkCompleted;
+        
+        /// <remarks/>
+        public event GetCommentByIdCompletedEventHandler GetCommentByIdCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateCommentCompletedEventHandler CreateOrUpdateCommentCompleted;
+        
+        /// <remarks/>
+        public event GetCommentsCountCompletedEventHandler GetCommentsCountCompleted;
+        
+        /// <remarks/>
+        public event GetCommentsCompletedEventHandler GetCommentsCompleted;
+        
+        /// <remarks/>
+        public event DeleteCommentCompletedEventHandler DeleteCommentCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdatePostCommentCompletedEventHandler CreateOrUpdatePostCommentCompleted;
+        
+        /// <remarks/>
+        public event GetPostCommentByIdCompletedEventHandler GetPostCommentByIdCompleted;
+        
+        /// <remarks/>
+        public event DeletePostCommentCompletedEventHandler DeletePostCommentCompleted;
+        
+        /// <remarks/>
+        public event GetPostCommentsCountCompletedEventHandler GetPostCommentsCountCompleted;
+        
+        /// <remarks/>
+        public event GetPostCommentsCompletedEventHandler GetPostCommentsCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateImageCommentCompletedEventHandler CreateOrUpdateImageCommentCompleted;
+        
+        /// <remarks/>
+        public event GetImageCommentByIdCompletedEventHandler GetImageCommentByIdCompleted;
+        
+        /// <remarks/>
+        public event DeleteImageCommentCompletedEventHandler DeleteImageCommentCompleted;
+        
+        /// <remarks/>
+        public event GetImageCommentsCountCompletedEventHandler GetImageCommentsCountCompleted;
+        
+        /// <remarks/>
+        public event GetImageCommentsCompletedEventHandler GetImageCommentsCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -1987,6 +2062,470 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetCommentById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitComment GetCommentById(string ticket, int id) {
+            object[] results = this.Invoke("GetCommentById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitComment)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetCommentByIdAsync(string ticket, int id) {
+            this.GetCommentByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetCommentByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetCommentByIdOperationCompleted == null)) {
+                this.GetCommentByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetCommentByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetCommentById", new object[] {
+                        ticket,
+                        id}, this.GetCommentByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetCommentByIdOperationCompleted(object arg) {
+            if ((this.GetCommentByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetCommentByIdCompleted(this, new GetCommentByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateComment", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateComment(string ticket, TransitComment t_comment) {
+            object[] results = this.Invoke("CreateOrUpdateComment", new object[] {
+                        ticket,
+                        t_comment});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateCommentAsync(string ticket, TransitComment t_comment) {
+            this.CreateOrUpdateCommentAsync(ticket, t_comment, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateCommentAsync(string ticket, TransitComment t_comment, object userState) {
+            if ((this.CreateOrUpdateCommentOperationCompleted == null)) {
+                this.CreateOrUpdateCommentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateCommentOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateComment", new object[] {
+                        ticket,
+                        t_comment}, this.CreateOrUpdateCommentOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateCommentOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateCommentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateCommentCompleted(this, new CreateOrUpdateCommentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetCommentsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetCommentsCount(string ticket) {
+            object[] results = this.Invoke("GetCommentsCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetCommentsCountAsync(string ticket) {
+            this.GetCommentsCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetCommentsCountAsync(string ticket, object userState) {
+            if ((this.GetCommentsCountOperationCompleted == null)) {
+                this.GetCommentsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetCommentsCountOperationCompleted);
+            }
+            this.InvokeAsync("GetCommentsCount", new object[] {
+                        ticket}, this.GetCommentsCountOperationCompleted, userState);
+        }
+        
+        private void OnGetCommentsCountOperationCompleted(object arg) {
+            if ((this.GetCommentsCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetCommentsCountCompleted(this, new GetCommentsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetComments", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitComment[] GetComments(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetComments", new object[] {
+                        ticket,
+                        options});
+            return ((TransitComment[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetCommentsAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetCommentsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetCommentsAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetCommentsOperationCompleted == null)) {
+                this.GetCommentsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetCommentsOperationCompleted);
+            }
+            this.InvokeAsync("GetComments", new object[] {
+                        ticket,
+                        options}, this.GetCommentsOperationCompleted, userState);
+        }
+        
+        private void OnGetCommentsOperationCompleted(object arg) {
+            if ((this.GetCommentsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetCommentsCompleted(this, new GetCommentsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteComment", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteComment(string ticket, int id) {
+            this.Invoke("DeleteComment", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteCommentAsync(string ticket, int id) {
+            this.DeleteCommentAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteCommentAsync(string ticket, int id, object userState) {
+            if ((this.DeleteCommentOperationCompleted == null)) {
+                this.DeleteCommentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteCommentOperationCompleted);
+            }
+            this.InvokeAsync("DeleteComment", new object[] {
+                        ticket,
+                        id}, this.DeleteCommentOperationCompleted, userState);
+        }
+        
+        private void OnDeleteCommentOperationCompleted(object arg) {
+            if ((this.DeleteCommentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteCommentCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdatePostComment", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdatePostComment(string ticket, int post_id, TransitComment t_comment) {
+            object[] results = this.Invoke("CreateOrUpdatePostComment", new object[] {
+                        ticket,
+                        post_id,
+                        t_comment});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdatePostCommentAsync(string ticket, int post_id, TransitComment t_comment) {
+            this.CreateOrUpdatePostCommentAsync(ticket, post_id, t_comment, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdatePostCommentAsync(string ticket, int post_id, TransitComment t_comment, object userState) {
+            if ((this.CreateOrUpdatePostCommentOperationCompleted == null)) {
+                this.CreateOrUpdatePostCommentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdatePostCommentOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdatePostComment", new object[] {
+                        ticket,
+                        post_id,
+                        t_comment}, this.CreateOrUpdatePostCommentOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdatePostCommentOperationCompleted(object arg) {
+            if ((this.CreateOrUpdatePostCommentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdatePostCommentCompleted(this, new CreateOrUpdatePostCommentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostCommentById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPostComment GetPostCommentById(string ticket, int id) {
+            object[] results = this.Invoke("GetPostCommentById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitPostComment)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostCommentByIdAsync(string ticket, int id) {
+            this.GetPostCommentByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostCommentByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetPostCommentByIdOperationCompleted == null)) {
+                this.GetPostCommentByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostCommentByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetPostCommentById", new object[] {
+                        ticket,
+                        id}, this.GetPostCommentByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetPostCommentByIdOperationCompleted(object arg) {
+            if ((this.GetPostCommentByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostCommentByIdCompleted(this, new GetPostCommentByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeletePostComment", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeletePostComment(string ticket, int id) {
+            this.Invoke("DeletePostComment", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeletePostCommentAsync(string ticket, int id) {
+            this.DeletePostCommentAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeletePostCommentAsync(string ticket, int id, object userState) {
+            if ((this.DeletePostCommentOperationCompleted == null)) {
+                this.DeletePostCommentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeletePostCommentOperationCompleted);
+            }
+            this.InvokeAsync("DeletePostComment", new object[] {
+                        ticket,
+                        id}, this.DeletePostCommentOperationCompleted, userState);
+        }
+        
+        private void OnDeletePostCommentOperationCompleted(object arg) {
+            if ((this.DeletePostCommentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeletePostCommentCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostCommentsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetPostCommentsCount(string ticket, TransitPostCommentQueryOptions options) {
+            object[] results = this.Invoke("GetPostCommentsCount", new object[] {
+                        ticket,
+                        options});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostCommentsCountAsync(string ticket, TransitPostCommentQueryOptions options) {
+            this.GetPostCommentsCountAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostCommentsCountAsync(string ticket, TransitPostCommentQueryOptions options, object userState) {
+            if ((this.GetPostCommentsCountOperationCompleted == null)) {
+                this.GetPostCommentsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostCommentsCountOperationCompleted);
+            }
+            this.InvokeAsync("GetPostCommentsCount", new object[] {
+                        ticket,
+                        options}, this.GetPostCommentsCountOperationCompleted, userState);
+        }
+        
+        private void OnGetPostCommentsCountOperationCompleted(object arg) {
+            if ((this.GetPostCommentsCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostCommentsCountCompleted(this, new GetPostCommentsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostComments", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPostComment[] GetPostComments(string ticket, TransitPostCommentQueryOptions options) {
+            object[] results = this.Invoke("GetPostComments", new object[] {
+                        ticket,
+                        options});
+            return ((TransitPostComment[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostCommentsAsync(string ticket, TransitPostCommentQueryOptions options) {
+            this.GetPostCommentsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostCommentsAsync(string ticket, TransitPostCommentQueryOptions options, object userState) {
+            if ((this.GetPostCommentsOperationCompleted == null)) {
+                this.GetPostCommentsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostCommentsOperationCompleted);
+            }
+            this.InvokeAsync("GetPostComments", new object[] {
+                        ticket,
+                        options}, this.GetPostCommentsOperationCompleted, userState);
+        }
+        
+        private void OnGetPostCommentsOperationCompleted(object arg) {
+            if ((this.GetPostCommentsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostCommentsCompleted(this, new GetPostCommentsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateImageComment", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateImageComment(string ticket, int image_id, TransitComment t_comment) {
+            object[] results = this.Invoke("CreateOrUpdateImageComment", new object[] {
+                        ticket,
+                        image_id,
+                        t_comment});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateImageCommentAsync(string ticket, int image_id, TransitComment t_comment) {
+            this.CreateOrUpdateImageCommentAsync(ticket, image_id, t_comment, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateImageCommentAsync(string ticket, int image_id, TransitComment t_comment, object userState) {
+            if ((this.CreateOrUpdateImageCommentOperationCompleted == null)) {
+                this.CreateOrUpdateImageCommentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateImageCommentOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateImageComment", new object[] {
+                        ticket,
+                        image_id,
+                        t_comment}, this.CreateOrUpdateImageCommentOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateImageCommentOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateImageCommentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateImageCommentCompleted(this, new CreateOrUpdateImageCommentCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageCommentById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitImageComment GetImageCommentById(string ticket, int id) {
+            object[] results = this.Invoke("GetImageCommentById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitImageComment)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImageCommentByIdAsync(string ticket, int id) {
+            this.GetImageCommentByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetImageCommentByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetImageCommentByIdOperationCompleted == null)) {
+                this.GetImageCommentByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageCommentByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetImageCommentById", new object[] {
+                        ticket,
+                        id}, this.GetImageCommentByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetImageCommentByIdOperationCompleted(object arg) {
+            if ((this.GetImageCommentByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImageCommentByIdCompleted(this, new GetImageCommentByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteImageComment", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteImageComment(string ticket, int id) {
+            this.Invoke("DeleteImageComment", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteImageCommentAsync(string ticket, int id) {
+            this.DeleteImageCommentAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteImageCommentAsync(string ticket, int id, object userState) {
+            if ((this.DeleteImageCommentOperationCompleted == null)) {
+                this.DeleteImageCommentOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteImageCommentOperationCompleted);
+            }
+            this.InvokeAsync("DeleteImageComment", new object[] {
+                        ticket,
+                        id}, this.DeleteImageCommentOperationCompleted, userState);
+        }
+        
+        private void OnDeleteImageCommentOperationCompleted(object arg) {
+            if ((this.DeleteImageCommentCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteImageCommentCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageCommentsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetImageCommentsCount(string ticket, TransitImageCommentQueryOptions options) {
+            object[] results = this.Invoke("GetImageCommentsCount", new object[] {
+                        ticket,
+                        options});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImageCommentsCountAsync(string ticket, TransitImageCommentQueryOptions options) {
+            this.GetImageCommentsCountAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetImageCommentsCountAsync(string ticket, TransitImageCommentQueryOptions options, object userState) {
+            if ((this.GetImageCommentsCountOperationCompleted == null)) {
+                this.GetImageCommentsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageCommentsCountOperationCompleted);
+            }
+            this.InvokeAsync("GetImageCommentsCount", new object[] {
+                        ticket,
+                        options}, this.GetImageCommentsCountOperationCompleted, userState);
+        }
+        
+        private void OnGetImageCommentsCountOperationCompleted(object arg) {
+            if ((this.GetImageCommentsCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImageCommentsCountCompleted(this, new GetImageCommentsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageComments", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitImageComment[] GetImageComments(string ticket, TransitImageCommentQueryOptions options) {
+            object[] results = this.Invoke("GetImageComments", new object[] {
+                        ticket,
+                        options});
+            return ((TransitImageComment[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImageCommentsAsync(string ticket, TransitImageCommentQueryOptions options) {
+            this.GetImageCommentsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetImageCommentsAsync(string ticket, TransitImageCommentQueryOptions options, object userState) {
+            if ((this.GetImageCommentsOperationCompleted == null)) {
+                this.GetImageCommentsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageCommentsOperationCompleted);
+            }
+            this.InvokeAsync("GetImageComments", new object[] {
+                        ticket,
+                        options}, this.GetImageCommentsOperationCompleted, userState);
+        }
+        
+        private void OnGetImageCommentsOperationCompleted(object arg) {
+            if ((this.GetImageCommentsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImageCommentsCompleted(this, new GetImageCommentsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetVersion", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string GetVersion() {
             object[] results = this.Invoke("GetVersion", new object[0]);
@@ -2238,6 +2777,10 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitAssociatedComment))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImageComment))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostComment))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitComment))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPermalink))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostImage))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPost))]
@@ -2268,6 +2811,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitAssociatedCommentQueryOptions))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImageCommentQueryOptions))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostCommentQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostImageQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImageQueryOptions))]
@@ -2299,6 +2845,71 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.pageNumberField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImageCommentQueryOptions))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostCommentQueryOptions))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitAssociatedCommentQueryOptions : WebServiceQueryOptions {
+        
+        private int associatedIdField;
+        
+        /// <remarks/>
+        public int AssociatedId {
+            get {
+                return this.associatedIdField;
+            }
+            set {
+                this.associatedIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitImageCommentQueryOptions : TransitAssociatedCommentQueryOptions {
+        
+        private int imageIdField;
+        
+        /// <remarks/>
+        public int ImageId {
+            get {
+                return this.imageIdField;
+            }
+            set {
+                this.imageIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitPostCommentQueryOptions : TransitAssociatedCommentQueryOptions {
+        
+        private int postIdField;
+        
+        /// <remarks/>
+        public int PostId {
+            get {
+                return this.postIdField;
+            }
+            set {
+                this.postIdField = value;
             }
         }
     }
@@ -2362,6 +2973,272 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.excludeBlogImagesField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImageComment))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostComment))]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitAssociatedComment : TransitObject {
+        
+        private int commentIdField;
+        
+        private int associatedIdField;
+        
+        private string commentTextField;
+        
+        private string commentIpAddressField;
+        
+        private string commentLoginNameField;
+        
+        private string commentLoginWebsiteField;
+        
+        private System.DateTime commentCreatedField;
+        
+        private System.DateTime commentModifiedField;
+        
+        private int commentLevelField;
+        
+        /// <remarks/>
+        public int CommentId {
+            get {
+                return this.commentIdField;
+            }
+            set {
+                this.commentIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int AssociatedId {
+            get {
+                return this.associatedIdField;
+            }
+            set {
+                this.associatedIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CommentText {
+            get {
+                return this.commentTextField;
+            }
+            set {
+                this.commentTextField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CommentIpAddress {
+            get {
+                return this.commentIpAddressField;
+            }
+            set {
+                this.commentIpAddressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CommentLoginName {
+            get {
+                return this.commentLoginNameField;
+            }
+            set {
+                this.commentLoginNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string CommentLoginWebsite {
+            get {
+                return this.commentLoginWebsiteField;
+            }
+            set {
+                this.commentLoginWebsiteField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime CommentCreated {
+            get {
+                return this.commentCreatedField;
+            }
+            set {
+                this.commentCreatedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime CommentModified {
+            get {
+                return this.commentModifiedField;
+            }
+            set {
+                this.commentModifiedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int CommentLevel {
+            get {
+                return this.commentLevelField;
+            }
+            set {
+                this.commentLevelField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitImageComment : TransitAssociatedComment {
+        
+        private int imageIdField;
+        
+        /// <remarks/>
+        public int ImageId {
+            get {
+                return this.imageIdField;
+            }
+            set {
+                this.imageIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitPostComment : TransitAssociatedComment {
+        
+        private int postIdField;
+        
+        /// <remarks/>
+        public int PostId {
+            get {
+                return this.postIdField;
+            }
+            set {
+                this.postIdField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitComment : TransitObject {
+        
+        private int parentCommentIdField;
+        
+        private string textField;
+        
+        private string ipAddressField;
+        
+        private System.DateTime createdField;
+        
+        private System.DateTime modifiedField;
+        
+        private int loginIdField;
+        
+        private string loginNameField;
+        
+        private string loginWebsiteField;
+        
+        /// <remarks/>
+        public int ParentCommentId {
+            get {
+                return this.parentCommentIdField;
+            }
+            set {
+                this.parentCommentIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Text {
+            get {
+                return this.textField;
+            }
+            set {
+                this.textField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string IpAddress {
+            get {
+                return this.ipAddressField;
+            }
+            set {
+                this.ipAddressField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Created {
+            get {
+                return this.createdField;
+            }
+            set {
+                this.createdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Modified {
+            get {
+                return this.modifiedField;
+            }
+            set {
+                this.modifiedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int LoginId {
+            get {
+                return this.loginIdField;
+            }
+            set {
+                this.loginIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string LoginName {
+            get {
+                return this.loginNameField;
+            }
+            set {
+                this.loginNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string LoginWebsite {
+            get {
+                return this.loginWebsiteField;
+            }
+            set {
+                this.loginWebsiteField = value;
             }
         }
     }
@@ -2435,6 +3312,12 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private int postIdField;
         
+        private string imageNameField;
+        
+        private string imageDescriptionField;
+        
+        private int imageCommentsCountField;
+        
         /// <remarks/>
         public int ImageId {
             get {
@@ -2454,6 +3337,36 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
                 this.postIdField = value;
             }
         }
+        
+        /// <remarks/>
+        public string ImageName {
+            get {
+                return this.imageNameField;
+            }
+            set {
+                this.imageNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string ImageDescription {
+            get {
+                return this.imageDescriptionField;
+            }
+            set {
+                this.imageDescriptionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int ImageCommentsCount {
+            get {
+                return this.imageCommentsCountField;
+            }
+            set {
+                this.imageCommentsCountField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -2465,6 +3378,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     public partial class TransitPost : TransitObject {
         
         private int imageIdField;
+        
+        private int imagesCountField;
         
         private string titleField;
         
@@ -2478,6 +3393,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.DateTime modifiedField;
         
+        private int commentsCountField;
+        
         /// <remarks/>
         public int ImageId {
             get {
@@ -2485,6 +3402,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.imageIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int ImagesCount {
+            get {
+                return this.imagesCountField;
+            }
+            set {
+                this.imagesCountField = value;
             }
         }
         
@@ -2545,6 +3472,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.modifiedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int CommentsCount {
+            get {
+                return this.commentsCountField;
+            }
+            set {
+                this.commentsCountField = value;
             }
         }
     }
@@ -2706,6 +3643,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.DateTime modifiedField;
         
+        private int commentsCountField;
+        
         /// <remarks/>
         public string Name {
             get {
@@ -2775,6 +3714,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.modifiedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int CommentsCount {
+            get {
+                return this.commentsCountField;
+            }
+            set {
+                this.commentsCountField = value;
             }
         }
     }
@@ -3991,6 +4940,330 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeletePermalinkCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetCommentByIdCompletedEventHandler(object sender, GetCommentByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetCommentByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetCommentByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitComment Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitComment)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateCommentCompletedEventHandler(object sender, CreateOrUpdateCommentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateCommentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateCommentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetCommentsCountCompletedEventHandler(object sender, GetCommentsCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetCommentsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetCommentsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetCommentsCompletedEventHandler(object sender, GetCommentsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetCommentsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetCommentsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitComment[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitComment[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteCommentCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdatePostCommentCompletedEventHandler(object sender, CreateOrUpdatePostCommentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdatePostCommentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdatePostCommentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPostCommentByIdCompletedEventHandler(object sender, GetPostCommentByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPostCommentByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPostCommentByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitPostComment Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitPostComment)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeletePostCommentCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPostCommentsCountCompletedEventHandler(object sender, GetPostCommentsCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPostCommentsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPostCommentsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPostCommentsCompletedEventHandler(object sender, GetPostCommentsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPostCommentsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPostCommentsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitPostComment[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitPostComment[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateImageCommentCompletedEventHandler(object sender, CreateOrUpdateImageCommentCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateImageCommentCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateImageCommentCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImageCommentByIdCompletedEventHandler(object sender, GetImageCommentByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImageCommentByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImageCommentByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitImageComment Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitImageComment)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteImageCommentCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImageCommentsCountCompletedEventHandler(object sender, GetImageCommentsCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImageCommentsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImageCommentsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetImageCommentsCompletedEventHandler(object sender, GetImageCommentsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImageCommentsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImageCommentsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitImageComment[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitImageComment[])(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
