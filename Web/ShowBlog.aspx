@@ -3,6 +3,7 @@
 
 <%@ Register TagPrefix="Controls" TagName="Topics" Src="ViewTopicsControl.ascx" %>
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
+<%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
   <atlas:UpdatePanel Mode="Conditional" runat="server" ID="panelPosts" RenderMode="Inline">
@@ -21,7 +22,7 @@
           <td valign="top" class="table_post_tr_td_left">
            <div class="post_title">
             <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
-             <%# this.Render((int) Eval("Id"), "Post", (string) Eval("Title")) %>
+             <%# Renderer.RenderEx(Eval("Title")) %>
             </a>
            </div>
            <div class="post_subtitle">
@@ -43,7 +44,7 @@
             </span>
            </div>
            <div class="post_body">
-            <%# this.Render((int)Eval("Id"), "Post", (string)Eval("Body"))%>
+            <%# Renderer.RenderEx(Eval("Body")) %>
            </div>
           </td>
           <td class="table_post_tr_td_right">

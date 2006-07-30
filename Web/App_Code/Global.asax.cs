@@ -14,6 +14,8 @@ using DBlog.TransitData;
 
 public class Global : DBlog.Tools.Web.HostedApplication
 {
+    private SystemFeedUpdateService mFeedUpdateService = new SystemFeedUpdateService();
+
     public Global()
     {
 
@@ -32,6 +34,8 @@ public class Global : DBlog.Tools.Web.HostedApplication
 
         DBlog.WebServices.Blog blog = new DBlog.WebServices.Blog();
         EventLog.WriteEntry(string.Format("Running with back-end web services {0}.", blog.GetVersion()), EventLogEntryType.Information);
+
+        mFeedUpdateService.Start();
     }
 
     protected void Session_Start(Object sender, EventArgs e)
@@ -61,6 +65,7 @@ public class Global : DBlog.Tools.Web.HostedApplication
 
     protected override void Application_End(Object sender, EventArgs e)
     {
+        mFeedUpdateService.Stop();
         base.Application_End(sender, e);
     }
 

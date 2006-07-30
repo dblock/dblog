@@ -5,6 +5,7 @@ using DBlog.Data;
 using NHibernate;
 using NHibernate.Expression;
 using DBlog.Data.Hibernate;
+using DBlog.TransitData.References;
 
 namespace DBlog.TransitData
 {
@@ -222,8 +223,9 @@ namespace DBlog.TransitData
         public TransitPost(ISession session, DBlog.Data.Post o)
             : base(o.Id)
         {
-            Title = o.Title;
-            Body = o.Body;
+            Title = Render(session, o.Id, o.Title);
+            Body = Render(session, o.Id, o.Body);
+            
             LoginId = o.Login.Id;
             TopicId = o.Topic.Id;
             
@@ -242,6 +244,14 @@ namespace DBlog.TransitData
 
             Counter = TransitCounter.GetAssociatedCounter<Post, PostCounter>(
                 session, o.Id);
+        }
+
+        public static string Render(ISession session, int id, string value)
+        {
+            value = new ReferencesRenderer(session, id, "Post").Render(value);
+            value = new LiveJournalRenderer(session, id, "Post").Render(value);
+            value = new MsnSpacesRenderer(session, id, "Post").Render(value);
+            return value;
         }
 
         public Post GetPost(ISession session)

@@ -2,6 +2,7 @@
 <%@ Register TagPrefix="Controls" TagName="Notice" Src="NoticeControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="Topics" Src="ViewTopicsControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="Highlights" Src="ViewHighlightsControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="Feeds" Src="ViewFeedsControl.ascx" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -48,6 +49,7 @@
        <tr><td class="table_admin_tr_td"><a href="ManageHighlights.aspx">Highlights</a> | <a href="EditHighlight.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><a href="ManageReferrerHostRollups.aspx">Referrers</a> | <a href="EditReferrerHostRollup.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><a href="ManageImages.aspx">Images</a> | <a href="EditImage.aspx">New</a></td></tr>
+       <tr><td class="table_admin_tr_td"><a href="ManageFeeds.aspx">Feeds</a> | <a href="EditFeed.aspx">New</a></td></tr>
        <tr><td class="table_admin_tr_td"><asp:LinkButton ID="linkLogout" Text="Logout" runat="server" OnClick="linkLogout_Click" /></td></tr>
       </table>
      </asp:Panel>
@@ -70,6 +72,8 @@
        <asp:Label ID="labelUsername" CssClass="description" runat="server" />
       </div>
      </asp:Panel>
+     <div class="div_top"></div>
+     <Controls:Feeds runat="server" ID="feeds" Type="Rss" />
     </td>
    </tr>
   </table>     

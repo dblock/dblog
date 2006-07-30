@@ -45,6 +45,7 @@
       <HintPath>..\NHibernate\bin\NHibernate.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -52,11 +53,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManagedAtomFeed.cs" />
+    <Compile Include="ManagedFeed.cs" />
+    <Compile Include="ManagedRssFeed.cs" />
+    <Compile Include="References.ExternalRenderer.cs" />
+    <Compile Include="References.LiveJournalRenderer.cs" />
+    <Compile Include="References.MsnSpacesRenderer.cs" />
+    <Compile Include="References.Renderer.cs" />
     <Compile Include="TransitCounter.cs" />
     <Compile Include="ManagedLogin.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TransitAssociatedComment.cs" />
     <Compile Include="TransitComment.cs" />
+    <Compile Include="TransitFeed.cs" />
+    <Compile Include="TransitFeedItem.cs" />
     <Compile Include="TransitImageComment.cs" />
     <Compile Include="TransitPermalink.cs" />
     <Compile Include="TransitPost.cs" />

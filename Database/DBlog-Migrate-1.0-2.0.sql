@@ -144,3 +144,7 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_cou
 DROP PROCEDURE [sp_counter_increment]
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounter_increment]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [sp_hourlycounter_increment]
+
+-- Update feeds with valid save/update date
+UPDATE Feed SET Saved = getutcdate() WHERE Saved IS NULL
+UPDATE Feed SET Updated = getutcdate() WHERE Updated IS NULL

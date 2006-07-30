@@ -95,17 +95,6 @@ public class BlogPage : DBlog.Tools.Web.Page
         notice.GetType().GetProperty("Warning").SetValue(notice, message, null);
     }
 
-    public string Render(int id, string type, string text)
-    {
-        string result = Renderer.RenderEx(text);
-
-        result = new ReferencesRenderer(this, id, type).Render(result);
-        result = new LiveJournalRenderer(this, id, type).Render(result);
-        result = new MsnSpacesRenderer(this, id, type).Render(result);
-
-        return result;
-    }
-
     public string CheckInput(string name, string value)
     {
         if (string.IsNullOrEmpty(value))

@@ -4,11 +4,11 @@
     <id name="Id" type="Int32" column="Browser_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
     </id>
-    <bag lazy="true" lazy="true" name="BrowserPlatforms" inverse="true">
+    <bag lazy="true" name="BrowserPlatforms" inverse="true">
       <key column="Browser_Id" />
       <one-to-many class="DBlog.Data.BrowserPlatform, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="BrowserVersions" inverse="true">
+    <bag lazy="true" name="BrowserVersions" inverse="true">
       <key column="Browser_Id" />
       <one-to-many class="DBlog.Data.BrowserVersion, DBlog.Data" />
     </bag>
@@ -20,7 +20,7 @@
       <generator class="identity" />
     </id>
     <many-to-one name="Browser" column="Browser_Id" class="DBlog.Data.Browser, DBlog.Data" />
-    <bag lazy="true" lazy="true" name="BrowserVersionPlatforms" inverse="true">
+    <bag lazy="true" name="BrowserVersionPlatforms" inverse="true">
       <key column="BrowserPlatform_Id" />
       <one-to-many class="DBlog.Data.BrowserVersionPlatform, DBlog.Data" />
     </bag>
@@ -31,7 +31,7 @@
       <generator class="identity" />
     </id>
     <many-to-one name="Browser" column="Browser_Id" class="DBlog.Data.Browser, DBlog.Data" />
-    <bag lazy="true" lazy="true" name="BrowserVersionPlatforms" inverse="true">
+    <bag lazy="true" name="BrowserVersionPlatforms" inverse="true">
       <key column="BrowserVersion_Id" />
       <one-to-many class="DBlog.Data.BrowserVersionPlatform, DBlog.Data" />
     </bag>
@@ -44,11 +44,11 @@
     </id>
     <many-to-one name="BrowserPlatform" column="BrowserPlatform_Id" class="DBlog.Data.BrowserPlatform, DBlog.Data" />
     <many-to-one name="BrowserVersion" column="BrowserVersion_Id" class="DBlog.Data.BrowserVersion, DBlog.Data" />
-    <bag lazy="true" lazy="true" name="Requests" inverse="true">
+    <bag lazy="true" name="Requests" inverse="true">
       <key column="BrowserVersionPlatform_Id" />
       <one-to-many class="DBlog.Data.Request, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="RollupBrowserVersionPlatforms" inverse="true">
+    <bag lazy="true" name="RollupBrowserVersionPlatforms" inverse="true">
       <key column="BrowserVersionPlatform_Id" />
       <one-to-many class="DBlog.Data.RollupBrowserVersionPlatform, DBlog.Data" />
     </bag>
@@ -58,23 +58,23 @@
       <generator class="identity" />
     </id>
     <property name="Created" column="Created" type="DateTime" />
-    <bag lazy="true" lazy="true" name="ImageComments" inverse="true">
+    <bag lazy="true" name="ImageComments" inverse="true">
       <key column="Comment_Id" />
       <one-to-many class="DBlog.Data.ImageComment, DBlog.Data" />
     </bag>
     <property name="IpAddress" column="IpAddress" type="String" />
     <property name="Modified" column="Modified" type="DateTime" />
     <many-to-one name="OwnerLogin" column="Owner_Login_Id" class="DBlog.Data.Login, DBlog.Data" />
-    <bag lazy="true" lazy="true" name="ParentCommentThreads" inverse="true">
+    <bag lazy="true" name="ParentCommentThreads" inverse="true">
       <key column="ParentComment_Id" />
       <one-to-many class="DBlog.Data.Thread, DBlog.Data" />
     </bag>
     <property name="Text" column="Text" type="String" />
-    <bag lazy="true" lazy="true" name="Threads" inverse="true">
+    <bag lazy="true" name="Threads" inverse="true">
       <key column="Comment_Id" />
       <one-to-many class="DBlog.Data.Thread, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="PostComments" inverse="true">
+    <bag lazy="true" name="PostComments" inverse="true">
       <key column="Comment_Id" />
       <one-to-many class="DBlog.Data.PostComment, DBlog.Data" />
     </bag>
@@ -85,19 +85,19 @@
     </id>
     <property name="Count" column="Count" type="Int64" />
     <property name="Created" column="Created" type="DateTime" />
-    <bag lazy="true" lazy="true" name="ImageCounters" inverse="true">
+    <bag lazy="true" name="ImageCounters" inverse="true">
       <key column="Counter_Id" />
       <one-to-many class="DBlog.Data.ImageCounter, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="LoginCounters" inverse="true">
+    <bag lazy="true" name="LoginCounters" inverse="true">
       <key column="Counter_Id" />
       <one-to-many class="DBlog.Data.LoginCounter, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="NamedCounters" inverse="true">
+    <bag lazy="true" name="NamedCounters" inverse="true">
       <key column="Counter_Id" />
       <one-to-many class="DBlog.Data.NamedCounter, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="PostCounters" inverse="true">
+    <bag lazy="true" name="PostCounters" inverse="true">
       <key column="Counter_Id" />
       <one-to-many class="DBlog.Data.PostCounter, DBlog.Data" />
     </bag>
@@ -117,7 +117,7 @@
     <property name="Url" column="Url" type="String" />
     <property name="Username" column="Username" type="String" />
     <property name="Xsl" column="Xsl" type="StringClob" />
-    <bag lazy="true" lazy="true" name="FeedItems" inverse="true">
+    <bag lazy="true" name="FeedItems" inverse="true">
       <key column="Feed_Id" />
       <one-to-many class="DBlog.Data.FeedItem, DBlog.Data" />
     </bag>
@@ -153,15 +153,15 @@
     </id>
     <property name="Data" column="Data" type="BinaryBlob" />
     <property name="Description" column="Description" type="StringClob" />
-    <bag lazy="true" lazy="true" name="Highlights" inverse="true">
+    <bag lazy="true" name="Highlights" inverse="true">
       <key column="Image_Id" />
       <one-to-many class="DBlog.Data.Highlight, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="ImageComments" inverse="true">
+    <bag lazy="true" name="ImageComments" inverse="true">
       <key column="Image_Id" />
       <one-to-many class="DBlog.Data.ImageComment, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="ImageCounters" inverse="true">
+    <bag lazy="true" name="ImageCounters" inverse="true">
       <key column="Image_Id" />
       <one-to-many class="DBlog.Data.ImageCounter, DBlog.Data" />
     </bag>
@@ -170,7 +170,7 @@
     <property name="Path" column="Path" type="String" />
     <property name="Preferred" column="Preferred" type="Boolean" />
     <property name="Thumbnail" column="Thumbnail" type="BinaryBlob" />
-    <bag lazy="true" lazy="true" name="PostImages" inverse="true">
+    <bag lazy="true" name="PostImages" inverse="true">
       <key column="Image_Id" />
       <one-to-many class="DBlog.Data.PostImage, DBlog.Data" />
     </bag>
@@ -193,12 +193,12 @@
     <id name="Id" type="Int32" column="Login_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
     </id>
-    <bag lazy="true" lazy="true" name="Comments" inverse="true">
+    <bag lazy="true" name="Comments" inverse="true">
       <key column="Owner_Login_Id" />
       <one-to-many class="DBlog.Data.Comment, DBlog.Data" />
     </bag>
     <property name="Email" column="Email" type="String" />
-    <bag lazy="true" lazy="true" name="LoginCounters" inverse="true">
+    <bag lazy="true" name="LoginCounters" inverse="true">
       <key column="Login_Id" />
       <one-to-many class="DBlog.Data.LoginCounter, DBlog.Data" />
     </bag>
@@ -207,11 +207,11 @@
     <property name="Role" column="Role" type="String" />
     <property name="Username" column="Username" type="String" />
     <property name="Website" column="Website" type="String" />
-    <bag lazy="true" lazy="true" name="Posts" inverse="true">
+    <bag lazy="true" name="Posts" inverse="true">
       <key column="Login_Id" />
       <one-to-many class="DBlog.Data.Post, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="PostLogins" inverse="true">
+    <bag lazy="true" name="PostLogins" inverse="true">
       <key column="Login_Id" />
       <one-to-many class="DBlog.Data.PostLogin, DBlog.Data" />
     </bag>
@@ -243,7 +243,7 @@
     <id name="Id" type="Int32" column="Platform_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
     </id>
-    <bag lazy="true" lazy="true" name="BrowserPlatforms" inverse="true">
+    <bag lazy="true" name="BrowserPlatforms" inverse="true">
       <key column="Platform_Id" />
       <one-to-many class="DBlog.Data.BrowserPlatform, DBlog.Data" />
     </bag>
@@ -257,21 +257,21 @@
     <property name="Created" column="Created" type="DateTime" />
     <many-to-one name="Login" column="Login_Id" class="DBlog.Data.Login, DBlog.Data" />
     <property name="Modified" column="Modified" type="DateTime" />
-    <bag lazy="true" lazy="true" name="PostComments" inverse="true">
+    <bag lazy="true" name="PostComments" inverse="true">
       <key column="Post_Id" />
       <one-to-many class="DBlog.Data.PostComment, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="PostCounters" inverse="true">
+    <bag lazy="true" name="PostCounters" inverse="true">
       <key column="Post_Id" />
       <one-to-many class="DBlog.Data.PostCounter, DBlog.Data" />
     </bag>
-    <bag lazy="true" lazy="true" name="PostImages" inverse="true">
+    <bag lazy="true" name="PostImages" inverse="true">
       <key column="Post_Id" />
       <one-to-many class="DBlog.Data.PostImage, DBlog.Data" />
     </bag>
     <property name="Title" column="Title" type="String" />
     <many-to-one name="Topic" column="Topic_Id" class="DBlog.Data.Topic, DBlog.Data" />
-    <bag lazy="true" lazy="true" name="PostLogins" inverse="true">
+    <bag lazy="true" name="PostLogins" inverse="true">
       <key column="Post_Id" />
       <one-to-many class="DBlog.Data.PostLogin, DBlog.Data" />
     </bag>
@@ -369,7 +369,7 @@
       <generator class="identity" />
     </id>
     <property name="Name" column="Name" type="String" />
-    <bag lazy="true" lazy="true" name="Posts" inverse="true">
+    <bag lazy="true" name="Posts" inverse="true">
       <key column="Topic_Id" />
       <one-to-many class="DBlog.Data.Post, DBlog.Data" />
     </bag>

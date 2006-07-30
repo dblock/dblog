@@ -838,11 +838,8 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:TransitObject">
             <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
-              <s:element minOccurs="1" maxOccurs="1" name="PostId" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="ImageName" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="ImageDescription" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="ImageCommentsCount" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Image" type="tns:TransitImage" />
+              <s:element minOccurs="0" maxOccurs="1" name="Post" type="tns:TransitPost" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -1312,6 +1309,239 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="TransitImageComment" nillable="true" type="tns:TransitImageComment" />
         </s:sequence>
       </s:complexType>
+      <s:element name="IncrementHourlyCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementHourlyCounterResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetHourlyCountSum">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetHourlyCountSumResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetHourlyCountSumResult" type="tns:TransitCounter" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeedById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeedByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFeedByIdResult" type="tns:TransitFeed" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitFeed">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Url" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Interval" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Updated" type="s:dateTime" />
+              <s:element minOccurs="0" maxOccurs="1" name="Exception" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Xsl" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Username" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:TransitFeedType" />
+              <s:element minOccurs="1" maxOccurs="1" name="Saved" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="TransitFeedType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Unknown" />
+          <s:enumeration value="Rss" />
+          <s:enumeration value="Atom" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateOrUpdateFeed">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_feed" type="tns:TransitFeed" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateFeedResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateFeedResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeedsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitFeedQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitFeedQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WebServiceQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:TransitFeedType" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetFeedsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetFeedsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeeds">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitFeedQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeedsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFeedsResult" type="tns:ArrayOfTransitFeed" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitFeed">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitFeed" nillable="true" type="tns:TransitFeed" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteFeed">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteFeedResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetFeedItemById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeedItemByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFeedItemByIdResult" type="tns:TransitFeedItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitFeedItem">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Link" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="FeedId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateOrUpdateFeedItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_feeditem" type="tns:TransitFeedItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateFeedItemResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateFeedItemResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeedItemsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitFeedItemQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitFeedItemQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WebServiceQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="FeedId" type="s:int" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetFeedItemsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetFeedItemsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeedItems">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitFeedItemQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetFeedItemsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetFeedItemsResult" type="tns:ArrayOfTransitFeedItem" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitFeedItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitFeedItem" nillable="true" type="tns:TransitFeedItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteFeedItem">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteFeedItemResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -1784,6 +2014,78 @@
   <wsdl:message name="GetImageCommentsSoapOut">
     <wsdl:part name="parameters" element="tns:GetImageCommentsResponse" />
   </wsdl:message>
+  <wsdl:message name="IncrementHourlyCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementHourlyCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementHourlyCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementHourlyCounterResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetHourlyCountSumSoapIn">
+    <wsdl:part name="parameters" element="tns:GetHourlyCountSum" />
+  </wsdl:message>
+  <wsdl:message name="GetHourlyCountSumSoapOut">
+    <wsdl:part name="parameters" element="tns:GetHourlyCountSumResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFeedById" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFeedByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateFeedSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateFeed" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateFeedSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateFeedResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFeedsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFeedsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFeeds" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFeedsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteFeedSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteFeed" />
+  </wsdl:message>
+  <wsdl:message name="DeleteFeedSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteFeedResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedItemByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFeedItemById" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedItemByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFeedItemByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateFeedItemSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateFeedItem" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateFeedItemSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateFeedItemResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedItemsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFeedItemsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedItemsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFeedItemsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedItemsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetFeedItems" />
+  </wsdl:message>
+  <wsdl:message name="GetFeedItemsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetFeedItemsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteFeedItemSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteFeedItem" />
+  </wsdl:message>
+  <wsdl:message name="DeleteFeedItemSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteFeedItemResponse" />
+  </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
   </wsdl:message>
@@ -2164,6 +2466,66 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image comments.</wsdl:documentation>
       <wsdl:input message="tns:GetImageCommentsSoapIn" />
       <wsdl:output message="tns:GetImageCommentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IncrementHourlyCounter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment hourly counter.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementHourlyCounterSoapIn" />
+      <wsdl:output message="tns:IncrementHourlyCounterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetHourlyCountSum">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the lifetime hourly count sum.</wsdl:documentation>
+      <wsdl:input message="tns:GetHourlyCountSumSoapIn" />
+      <wsdl:output message="tns:GetHourlyCountSumSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a feed.</wsdl:documentation>
+      <wsdl:input message="tns:GetFeedByIdSoapIn" />
+      <wsdl:output message="tns:GetFeedByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateFeed">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a feed.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateFeedSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateFeedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get feeds count.</wsdl:documentation>
+      <wsdl:input message="tns:GetFeedsCountSoapIn" />
+      <wsdl:output message="tns:GetFeedsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeeds">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get feeds.</wsdl:documentation>
+      <wsdl:input message="tns:GetFeedsSoapIn" />
+      <wsdl:output message="tns:GetFeedsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFeed">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a feed.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteFeedSoapIn" />
+      <wsdl:output message="tns:DeleteFeedSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItemById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a feed item.</wsdl:documentation>
+      <wsdl:input message="tns:GetFeedItemByIdSoapIn" />
+      <wsdl:output message="tns:GetFeedItemByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateFeedItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a feed item.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateFeedItemSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateFeedItemSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItemsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get feed items count.</wsdl:documentation>
+      <wsdl:input message="tns:GetFeedItemsCountSoapIn" />
+      <wsdl:output message="tns:GetFeedItemsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItems">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get feed items.</wsdl:documentation>
+      <wsdl:input message="tns:GetFeedItemsSoapIn" />
+      <wsdl:output message="tns:GetFeedItemsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFeedItem">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a feed item.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteFeedItemSoapIn" />
+      <wsdl:output message="tns:DeleteFeedItemSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -2816,6 +3178,114 @@
     </wsdl:operation>
     <wsdl:operation name="GetImageComments">
       <soap:operation soapAction="http://dblock.org/ns/GetImageComments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementHourlyCounter">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementHourlyCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHourlyCountSum">
+      <soap:operation soapAction="http://dblock.org/ns/GetHourlyCountSum" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedById">
+      <soap:operation soapAction="http://dblock.org/ns/GetFeedById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateFeed">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateFeed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetFeedsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeeds">
+      <soap:operation soapAction="http://dblock.org/ns/GetFeeds" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFeed">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteFeed" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItemById">
+      <soap:operation soapAction="http://dblock.org/ns/GetFeedItemById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateFeedItem">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateFeedItem" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItemsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetFeedItemsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItems">
+      <soap:operation soapAction="http://dblock.org/ns/GetFeedItems" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFeedItem">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteFeedItem" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3494,6 +3964,114 @@
     </wsdl:operation>
     <wsdl:operation name="GetImageComments">
       <soap12:operation soapAction="http://dblock.org/ns/GetImageComments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementHourlyCounter">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementHourlyCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetHourlyCountSum">
+      <soap12:operation soapAction="http://dblock.org/ns/GetHourlyCountSum" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetFeedById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateFeed">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateFeed" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetFeedsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeeds">
+      <soap12:operation soapAction="http://dblock.org/ns/GetFeeds" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFeed">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteFeed" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItemById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetFeedItemById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateFeedItem">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateFeedItem" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItemsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetFeedItemsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetFeedItems">
+      <soap12:operation soapAction="http://dblock.org/ns/GetFeedItems" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteFeedItem">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteFeedItem" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -11,6 +11,7 @@ using DBlog.Data;
 using DBlog.Data.Hibernate;
 using System.Collections.Generic;
 using System.Reflection;
+using DBlog.TransitData.References;
 
 namespace DBlog.WebServices
 {
@@ -1340,6 +1341,188 @@ namespace DBlog.WebServices
 
         #endregion
 
+        #region Feeds
 
+        [WebMethod(Description = "Get a feed.")]
+        public TransitFeed GetFeedById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitFeed((Feed)session.Load(typeof(Feed), id));
+            }
+        }
+
+        [WebMethod(Description = "Create or update a feed.")]
+        public int CreateOrUpdateFeed(string ticket, TransitFeed t_feed)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Feed feed = t_feed.GetFeed(session);
+                if (t_feed.Id == 0)
+                {
+                    // HACK: these are nullable and should be NULL
+                    feed.Updated = new DateTime(1900, 1, 1);
+                    feed.Saved = new DateTime(1900, 1, 1);
+                }
+                session.SaveOrUpdate(feed);
+                session.Flush();
+                return feed.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get feeds count.")]
+        public int GetFeedsCount(string ticket, TransitFeedQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CountQuery q = new CountQuery(session, typeof(DBlog.Data.Feed), "Feed");
+                if (options != null)
+                {
+                    options.Apply(q);
+                }
+                return q.Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get feeds.")]
+        public List<TransitFeed> GetFeeds(string ticket, TransitFeedQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(Feed));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitFeed> result = new List<TransitFeed>(list.Count);
+
+                foreach (Feed obj in list)
+                {
+                    result.Add(new TransitFeed(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a feed.")]
+        public void DeleteFeed(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                session.Delete((Feed)session.Load(typeof(Feed), id));
+                session.Flush();
+            }
+        }
+
+        [WebMethod(Description = "Update a feed.")]
+        public int UpdateFeed(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                int result = ManagedFeed.Update((Feed) session.Load(typeof(Feed), id), session, false);
+                session.Flush();
+                return result;
+            }
+        }
+
+
+        #endregion
+
+        #region Feed Items
+
+        [WebMethod(Description = "Get a feed item.")]
+        public TransitFeedItem GetFeedItemById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitFeedItem((FeedItem)session.Load(typeof(FeedItem), id));
+            }
+        }
+
+        [WebMethod(Description = "Create or update a feed item.")]
+        public int CreateOrUpdateFeedItem(string ticket, TransitFeedItem t_feeditem)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                FeedItem feeditem = t_feeditem.GetFeedItem(session);
+                session.SaveOrUpdate(feeditem);
+                session.Flush();
+                return feeditem.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get feed items count.")]
+        public int GetFeedItemsCount(string ticket, TransitFeedItemQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CountQuery q = new CountQuery(session, typeof(DBlog.Data.FeedItem), "FeedItem");
+                if (options != null)
+                {
+                    options.Apply(q);
+                }
+                return q.Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get feed items.")]
+        public List<TransitFeedItem> GetFeedItems(string ticket, TransitFeedItemQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(FeedItem));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitFeedItem> result = new List<TransitFeedItem>(list.Count);
+
+                foreach (FeedItem obj in list)
+                {
+                    result.Add(new TransitFeedItem(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a feed item.")]
+        public void DeleteFeedItem(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                session.Delete((FeedItem)session.Load(typeof(FeedItem), id));
+                session.Flush();
+            }
+        }
+
+        #endregion
     }
 }
