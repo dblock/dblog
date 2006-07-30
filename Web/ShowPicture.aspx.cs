@@ -14,6 +14,11 @@ using DBlog.Tools.Drawing;
 
 public partial class ShowPicture : BlogPicturePage
 {
+    protected override void OnLoad(EventArgs e)
+    {
+        base.OnLoad(e);
+    }
+
     public override PicturePage.PicturePageType PageType
     {
         get
@@ -49,6 +54,8 @@ public partial class ShowPicture : BlogPicturePage
         pic.Name = img.Name;
         pic.Id = img.Id;
 
+        IncrementCounter();
+
         return pic;
     }
 
@@ -73,6 +80,8 @@ public partial class ShowPicture : BlogPicturePage
         pic.Created = pic.Modified = img.Modified;
         pic.Name = img.Name;
         pic.Id = img.Id;
+
+        IncrementCounter();
 
         return pic;
     }
@@ -106,6 +115,15 @@ public partial class ShowPicture : BlogPicturePage
         pic.Id = img.Id;
 
         return pic;
+    }
+
+    public void IncrementCounter()
+    {
+        if (!IsPostBack && !ShowThumbnail)
+        {
+            SessionManager.BlogService.IncrementImageCounter(
+                SessionManager.Ticket, RequestId);
+        }
     }
 
     public override DBlog.Tools.Web.PicturePage.Picture GetRandomPictureWithThumbnail()

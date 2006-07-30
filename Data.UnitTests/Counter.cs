@@ -17,7 +17,6 @@ namespace DBlog.Data.UnitTests
         public CounterTest()
         {
             mCounter = new Counter();
-            mCounter.ResourceId = 1;
             mCounter.Created = DateTime.UtcNow;
         }
 

@@ -24,7 +24,6 @@ namespace DBlog.Data
         private System.Collections.IList m_ImageCounters;
         private System.Collections.IList m_LoginCounters;
         private System.Collections.IList m_NamedCounters;
-        private System.Int32 m_ResourceId;
         private System.Collections.IList m_PostCounters;
 
         //Public properties
@@ -191,31 +190,6 @@ namespace DBlog.Data
             set
             {
                 m_NamedCounters = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent primitive property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts values of the type 'System.Int32'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_ResourceId' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'Resource_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Int32 ResourceId
-        {
-            get
-            {
-                return m_ResourceId;
-            }
-            set
-            {
-                m_ResourceId = value;
             }
         }
 

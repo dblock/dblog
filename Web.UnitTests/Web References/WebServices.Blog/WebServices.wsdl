@@ -243,6 +243,17 @@
               <s:element minOccurs="0" maxOccurs="1" name="Thumbnail" type="s:base64Binary" />
               <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="CommentsCount" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Counter" type="tns:TransitCounter" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TransitCounter">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:long" />
+              <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -324,6 +335,21 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="TransitImage" nillable="true" type="tns:TransitImage" />
         </s:sequence>
       </s:complexType>
+      <s:element name="IncrementImageCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementImageCounterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IncrementImageCounterResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetImageWithBitmapById">
         <s:complexType>
           <s:sequence>
@@ -678,6 +704,7 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:TransitObject">
             <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Counter" type="tns:TransitCounter" />
               <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="ImagesCount" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
@@ -760,6 +787,21 @@
       </s:element>
       <s:element name="DeletePostResponse">
         <s:complexType />
+      </s:element>
+      <s:element name="IncrementPostCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementPostCounterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IncrementPostCounterResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
       </s:element>
       <s:element name="CreateOrUpdatePostImage">
         <s:complexType>
@@ -1424,6 +1466,12 @@
   <wsdl:message name="GetImagesSoapOut">
     <wsdl:part name="parameters" element="tns:GetImagesResponse" />
   </wsdl:message>
+  <wsdl:message name="IncrementImageCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementImageCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementImageCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementImageCounterResponse" />
+  </wsdl:message>
   <wsdl:message name="GetImageWithBitmapByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetImageWithBitmapById" />
   </wsdl:message>
@@ -1573,6 +1621,12 @@
   </wsdl:message>
   <wsdl:message name="DeletePostSoapOut">
     <wsdl:part name="parameters" element="tns:DeletePostResponse" />
+  </wsdl:message>
+  <wsdl:message name="IncrementPostCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementPostCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementPostCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementPostCounterResponse" />
   </wsdl:message>
   <wsdl:message name="CreateOrUpdatePostImageSoapIn">
     <wsdl:part name="parameters" element="tns:CreateOrUpdatePostImage" />
@@ -1846,6 +1900,11 @@
       <wsdl:input message="tns:GetImagesSoapIn" />
       <wsdl:output message="tns:GetImagesSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="IncrementImageCounter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment an image counter.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementImageCounterSoapIn" />
+      <wsdl:output message="tns:IncrementImageCounterSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetImageWithBitmapById">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data.</wsdl:documentation>
       <wsdl:input message="tns:GetImageWithBitmapByIdSoapIn" />
@@ -1970,6 +2029,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a post.</wsdl:documentation>
       <wsdl:input message="tns:DeletePostSoapIn" />
       <wsdl:output message="tns:DeletePostSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IncrementPostCounter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment an image counter.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementPostCounterSoapIn" />
+      <wsdl:output message="tns:IncrementPostCounterSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CreateOrUpdatePostImage">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a post image.</wsdl:documentation>
@@ -2282,6 +2346,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="IncrementImageCounter">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementImageCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetImageWithBitmapById">
       <soap:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
       <wsdl:input>
@@ -2500,6 +2573,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeletePost">
       <soap:operation soapAction="http://dblock.org/ns/DeletePost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementPostCounter">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementPostCounter" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -2942,6 +3024,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="IncrementImageCounter">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementImageCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetImageWithBitmapById">
       <soap12:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
       <wsdl:input>
@@ -3160,6 +3251,15 @@
     </wsdl:operation>
     <wsdl:operation name="DeletePost">
       <soap12:operation soapAction="http://dblock.org/ns/DeletePost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementPostCounter">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementPostCounter" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

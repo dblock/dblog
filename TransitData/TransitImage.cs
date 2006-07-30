@@ -187,6 +187,20 @@ namespace DBlog.TransitData
             }
         }
 
+        private TransitCounter mCounter;
+
+        public TransitCounter Counter
+        {
+            get
+            {
+                return mCounter;
+            }
+            set
+            {
+                mCounter = value;
+            }
+        }
+
         public TransitImage(ISession session, DBlog.Data.Image o)
             : this(session, o, false, false)
         {
@@ -205,6 +219,9 @@ namespace DBlog.TransitData
             CommentsCount = new CountQuery(session, typeof(ImageComment), "ImageComment")
                 .Add(Expression.Eq("Image.Id", o.Id))
                 .Execute();
+
+            Counter = TransitCounter.GetAssociatedCounter<DBlog.Data.Image, ImageCounter>(
+                session, o.Id);
 
             if (withthumbnail)
             {

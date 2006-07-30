@@ -10,6 +10,7 @@ using System.Web.Security;
 using DBlog.Data;
 using DBlog.Data.Hibernate;
 using System.Collections.Generic;
+using System.Reflection;
 
 namespace DBlog.WebServices
 {
@@ -309,6 +310,18 @@ namespace DBlog.WebServices
                     result.Add(new TransitImage(session, obj));
                 }
 
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Increment an image counter.")]
+        public long IncrementImageCounter(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                long result = TransitCounter.Increment<Image, ImageCounter>(session, id);
+                session.Flush();
                 return result;
             }
         }
@@ -711,6 +724,18 @@ namespace DBlog.WebServices
                 session.Delete(string.Format("FROM PostCounter WHERE Post_Id = {0}", id));
                 session.Delete(post);
                 session.Flush();
+            }
+        }
+
+        [WebMethod(Description = "Increment an image counter.")]
+        public long IncrementPostCounter(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                long result = TransitCounter.Increment<Post, PostCounter>(session, id);
+                session.Flush();
+                return result;
             }
         }
 
@@ -1254,5 +1279,67 @@ namespace DBlog.WebServices
             }
         }
         #endregion
+
+        #region Counters
+
+        [WebMethod(Description = "Increment hourly counter.")]
+        public void IncrementHourlyCounter(string ticket, int count)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                DateTime utcnow = DateTime.UtcNow;
+                DateTime hournow = utcnow.Date.AddHours(utcnow.Hour);
+
+                ITransaction t = session.BeginTransaction();
+                try
+                {
+                    HourlyCounter counter = (HourlyCounter) session.CreateCriteria(typeof(HourlyCounter))
+                        .Add(Expression.Eq("DateTime", hournow))
+                        .UniqueResult();
+
+                    if (counter == null)
+                    {
+                        counter = new HourlyCounter();
+                        counter.DateTime = hournow;
+                        counter.RequestCount = 0;
+                    }
+
+                    counter.RequestCount += count;
+                    session.Save(counter);
+                    session.Flush();
+                    t.Commit();
+                }
+                catch
+                {
+                    t.Rollback();
+                }
+            }
+        }
+
+        [WebMethod(Description = "Get the lifetime hourly count sum.")]
+        public TransitCounter GetHourlyCountSum(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                
+                TransitCounter tc = new TransitCounter();
+
+                object[] result = (object[]) session.CreateQuery(
+                    "SELECT sum(hc.RequestCount), min(hc.DateTime) FROM HourlyCounter hc")
+                    .UniqueResult();
+
+                tc.Count = (int) result[0];
+                tc.Created = (DateTime) result[1];
+
+                return tc;
+            }
+        }
+
+        #endregion
+
+
     }
 }

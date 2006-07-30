@@ -67,73 +67,31 @@ namespace DBlog.TransitData
 
     public class TransitPostImage : TransitObject
     {
-        private int mImageId;
+        private TransitImage mImage = null;
 
-        public int ImageId
+        public TransitImage Image
         {
             get
             {
-                return mImageId;
+                return mImage;
             }
             set
             {
-                mImageId = value;
+                mImage = value;
             }
         }
 
-        private int mPostId;
+        private TransitPost mPost = null;
 
-        public int PostId
+        public TransitPost Post
         {
             get
             {
-                return mPostId;
+                return mPost;
             }
             set
             {
-                mPostId = value;
-            }
-        }
-
-        private string mImageName;
-
-        public string ImageName
-        {
-            get
-            {
-                return mImageName;
-            }
-            set
-            {
-                mImageName = value;
-            }
-        }
-
-        private string mImageDescription;
-
-        public string ImageDescription
-        {
-            get
-            {
-                return mImageDescription;
-            }
-            set
-            {
-                mImageDescription = value;
-            }
-        }
-
-        private int mImageCommentsCount = 0;
-
-        public int ImageCommentsCount
-        {
-            get
-            {
-                return mImageCommentsCount;
-            }
-            set
-            {
-                mImageCommentsCount = value;
+                mPost = value;
             }
         }
 
@@ -145,20 +103,15 @@ namespace DBlog.TransitData
         public TransitPostImage(ISession session, DBlog.Data.PostImage o)
             : base(o.Id)
         {
-            PostId = o.Post.Id;
-            ImageId = o.Image.Id;
-            ImageDescription = o.Image.Description;
-            ImageName = o.Image.Name;
-            ImageCommentsCount = new CountQuery(session, typeof(ImageComment), "ImageComment")
-                .Add(Expression.Eq("Image.Id", o.Image.Id))
-                .Execute();
+            Post = new TransitPost(session, o.Post);
+            Image = new TransitImage(session, o.Image);
         }
 
         public PostImage GetPostImage(ISession session)
         {
             PostImage ei = (Id != 0) ? (PostImage)session.Load(typeof(PostImage), Id) : new PostImage();
-            ei.Image = (Image)session.Load(typeof(Image), ImageId);
-            ei.Post = (Post)session.Load(typeof(Post), PostId);
+            ei.Image = (Image)session.Load(typeof(Image), Image.Id);
+            ei.Post = (Post)session.Load(typeof(Post), Post.Id);
             return ei;
         }
     }

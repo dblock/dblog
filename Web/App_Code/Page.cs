@@ -25,6 +25,11 @@ public class BlogPage : DBlog.Tools.Web.Page
             Header.Controls.Add(MetaDescription);
         }
 
+        if (!IsPostBack)
+        {
+            CounterCache.Increment(Cache, SessionManager);
+        }
+
         base.OnLoad(e);
     }
 

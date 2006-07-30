@@ -39,6 +39,8 @@ public partial class ShowPost : BlogPage
 
             if (!IsPostBack)
             {
+                SessionManager.BlogService.IncrementPostCounter(
+                    SessionManager.Ticket, RequestId);
                 GetData(sender, e);
             }
         }
@@ -65,6 +67,8 @@ public partial class ShowPost : BlogPage
         posttitle.Text = Render(post.Id, "Post", post.Title);
         postbody.Text = Render(post.Id, "Post", post.Body);
         postcreated.Text = post.Created.ToString("d");
+        postcounter.Text = string.Format("{0} Click{1}", post.Counter.Count,
+            post.Counter.Count != 1 ? "s" : string.Empty);
         panelPicture.Visible = (post.ImageId != 0 && post.ImagesCount <= 1);
         postimage.ImageUrl = string.Format("ShowPicture.aspx?id={0}", post.ImageId);
         linkimage.HRef = string.Format("ShowImage.aspx?id={0}&pid={1}", post.ImageId, post.Id);

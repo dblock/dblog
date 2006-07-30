@@ -51,7 +51,7 @@ public partial class ShowImage : BlogPage
         panelComments.Update();
         comments.DataSource = SessionManager.BlogService.GetImageComments(
             SessionManager.Ticket, new TransitImageCommentQueryOptions(
-                PostImage.ImageId, comments.AllowPaging ? comments.PageSize : 0, 
+                PostImage.Image.Id, comments.AllowPaging ? comments.PageSize : 0, 
                 comments.AllowPaging ? comments.CurrentPageIndex : 0));
     }
 
@@ -68,7 +68,7 @@ public partial class ShowImage : BlogPage
             int index = 0;
             foreach (TransitPostImage img in list)
             {
-                if (img.ImageId == RequestId)
+                if (img.Image.Id == RequestId)
                 {
                     images.CurrentPageIndex = index;
                     break;
@@ -87,14 +87,17 @@ public partial class ShowImage : BlogPage
 
     public void GetDataComments(object sender, EventArgs e)
     {
-        labelName.Text = PostImage.ImageName;
+        labelName.Text = PostImage.Image.Name;
+        labelCount.Text = string.Format("{0} Click{1}",
+            PostImage.Image.Counter.Count,
+            PostImage.Image.Counter.Count != 1 ? "s" : string.Empty);
 
         panelPicture.Update();
 
-        comments.Visible = (PostImage.ImageCommentsCount > 0);
+        comments.Visible = (PostImage.Image.CommentsCount > 0);
         comments.CurrentPageIndex = 0;
         comments.VirtualItemCount = SessionManager.BlogService.GetImageCommentsCount(
-            SessionManager.Ticket, new TransitImageCommentQueryOptions(PostImage.ImageId));
+            SessionManager.Ticket, new TransitImageCommentQueryOptions(PostImage.Image.Id));
         comments_OnGetDataSource(sender, e);
         comments.DataBind();
 
@@ -112,7 +115,7 @@ public partial class ShowImage : BlogPage
             PostImage = list[0];
 
             linkComment.NavigateUrl = string.Format("EditImageComment.aspx?sid={0}&rid={1}",
-                PostImage.ImageId, GetId("pid"));
+                PostImage.Image.Id, GetId("pid"));
 
             linkBack.NavigateUrl = string.Format("ShowPost.aspx?id={0}", GetId("pid"));
         }

@@ -41,308 +41,317 @@
               <SourceCodeFile>
                 <Name>Browser.cs</Name>
                 <MetaData />
-                <FilePath>Data\Browser.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Browser.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Browser</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.6158976-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.1587504-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>BrowserPlatform.cs</Name>
                 <MetaData />
-                <FilePath>Data\BrowserPlatform.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\BrowserPlatform.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>BrowserPlatform</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.6359264-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.2088224-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>BrowserVersion.cs</Name>
                 <MetaData />
-                <FilePath>Data\BrowserVersion.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\BrowserVersion.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>BrowserVersion</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.6459408-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.2588944-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>BrowserVersionPlatform.cs</Name>
                 <MetaData />
-                <FilePath>Data\BrowserVersionPlatform.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\BrowserVersionPlatform.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>BrowserVersionPlatform</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.6559552-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.3089664-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Comment.cs</Name>
                 <MetaData />
-                <FilePath>Data\Comment.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Comment.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Comment</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.6859984-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.3690528-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Counter.cs</Name>
                 <MetaData />
-                <FilePath>Data\Counter.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Counter.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Counter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.7060272-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.6594704-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Feed.cs</Name>
                 <MetaData />
-                <FilePath>Data\Feed.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Feed.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Feed</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.7260560-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.8096864-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>FeedItem.cs</Name>
                 <MetaData />
-                <FilePath>Data\FeedItem.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\FeedItem.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>FeedItem</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.7360704-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.8697728-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Highlight.cs</Name>
                 <MetaData />
-                <FilePath>Data\Highlight.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Highlight.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Highlight</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.7460848-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.9098304-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>HourlyCounter.cs</Name>
                 <MetaData />
-                <FilePath>Data\HourlyCounter.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\HourlyCounter.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>HourlyCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.7560992-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.9398736-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Image.cs</Name>
                 <MetaData />
-                <FilePath>Data\Image.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Image.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Image</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8362144-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:35.9799312-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ImageComment.cs</Name>
                 <MetaData />
-                <FilePath>Data\ImageComment.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\ImageComment.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ImageComment</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8362144-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.0099744-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ImageCounter.cs</Name>
                 <MetaData />
-                <FilePath>Data\ImageCounter.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\ImageCounter.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ImageCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8462288-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.0600464-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Login.cs</Name>
                 <MetaData />
-                <FilePath>Data\Login.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Login.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Login</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8562432-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.1101184-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>LoginCounter.cs</Name>
                 <MetaData />
-                <FilePath>Data\LoginCounter.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\LoginCounter.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>LoginCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8562432-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.1401616-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>NamedCounter.cs</Name>
                 <MetaData />
-                <FilePath>Data\NamedCounter.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\NamedCounter.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>NamedCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8662576-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.1601904-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Platform.cs</Name>
                 <MetaData />
-                <FilePath>Data\Platform.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Platform.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Platform</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8662576-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.3204208-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Post.cs</Name>
                 <MetaData />
-                <FilePath>Data\Post.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Post.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Post</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8762720-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.5106944-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>PostComment.cs</Name>
                 <MetaData />
-                <FilePath>Data\PostComment.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\PostComment.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>PostComment</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8762720-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.5407376-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>PostCounter.cs</Name>
                 <MetaData />
-                <FilePath>Data\PostCounter.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\PostCounter.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>PostCounter</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8862864-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.5507520-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>PostImage.cs</Name>
                 <MetaData />
-                <FilePath>Data\PostImage.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\PostImage.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>PostImage</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.8862864-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.6008240-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>PostLogin.cs</Name>
                 <MetaData />
-                <FilePath>Data\PostLogin.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\PostLogin.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>PostLogin</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9163296-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:36.7810832-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Reference.cs</Name>
                 <MetaData />
-                <FilePath>Data\Reference.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Reference.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Reference</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9263440-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.0414576-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Referrer.cs</Name>
                 <MetaData />
-                <FilePath>Data\Referrer.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Referrer.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Referrer</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9263440-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.0514720-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ReferrerHost.cs</Name>
                 <MetaData />
-                <FilePath>Data\ReferrerHost.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\ReferrerHost.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ReferrerHost</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9363584-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.0614864-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ReferrerHostRollup.cs</Name>
                 <MetaData />
-                <FilePath>Data\ReferrerHostRollup.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\ReferrerHostRollup.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ReferrerHostRollup</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9363584-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.0815152-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>ReferrerSearchQuery.cs</Name>
                 <MetaData />
-                <FilePath>Data\ReferrerSearchQuery.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\ReferrerSearchQuery.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>ReferrerSearchQuery</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9463728-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.1215728-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Request.cs</Name>
                 <MetaData />
-                <FilePath>Data\Request.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Request.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Request</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9463728-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.1315872-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>RollupBrowserVersionPlatform.cs</Name>
                 <MetaData />
-                <FilePath>Data\RollupBrowserVersionPlatform.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\RollupBrowserVersionPlatform.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>RollupBrowserVersionPlatform</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9764160-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.2317312-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Thread.cs</Name>
                 <MetaData />
-                <FilePath>Data\Thread.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Thread.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Thread</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9764160-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.2417456-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>Topic.cs</Name>
                 <MetaData />
-                <FilePath>Data\Topic.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\Topic.cs</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
                 <MapObjectName>Topic</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:48.9864304-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.2517600-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>AssemblyInfo.cs</Name>
                 <MetaData />
-                <FilePath>Data\AssemblyInfo.cs</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\AssemblyInfo.cs</FilePath>
                 <MapObjectType />
                 <MapObjectName>AssemblyInfo</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:49.0465168-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:37.3418896-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>DBlog.Data.hbm.xml</Name>
                 <MetaData />
-                <FilePath>Data\DBlog.Data.hbm.xml</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\DBlog.Data.hbm.xml</FilePath>
                 <MapObjectType />
                 <MapObjectName>MapFile</MapObjectName>
                 <FileType>Xml</FileType>
-                <LastWrittenTo>2006-07-29T09:19:49.0865744-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:38.1129984-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>DBlog.Data.csproj</Name>
                 <MetaData />
-                <FilePath>Data\DBlog.Data.csproj</FilePath>
+                <FilePath>C:\source\dblog\trunk\Data\DBlog.Data.csproj</FilePath>
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.DomainMap</MapObjectType>
                 <MapObjectName>DBlog.Data</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2006-07-29T09:19:49.1366464-04:00</LastWrittenTo>
+                <LastWrittenTo>2006-07-29T09:56:38.7539200-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Permalink.cs</Name>
+                <MetaData />
+                <FilePath>C:\source\dblog\trunk\Data\Permalink.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Permalink</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2006-07-29T09:56:36.2102624-04:00</LastWrittenTo>
               </SourceCodeFile>
             </SourceCodeFiles>
             <PutAllClassesInOneFile>false</PutAllClassesInOneFile>

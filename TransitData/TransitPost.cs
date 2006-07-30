@@ -74,6 +74,20 @@ namespace DBlog.TransitData
 
     public class TransitPost : TransitObject
     {
+        private TransitCounter mCounter;
+
+        public TransitCounter Counter
+        {
+            get
+            {
+                return mCounter;
+            }
+            set
+            {
+                mCounter = value;
+            }
+        }
+
         private int mImageId = 0;
 
         public int ImageId
@@ -225,6 +239,9 @@ namespace DBlog.TransitData
             CommentsCount = new CountQuery(session, typeof(PostComment), "PostComment")
                 .Add(Expression.Eq("Post.Id", o.Id))
                 .Execute();
+
+            Counter = TransitCounter.GetAssociatedCounter<Post, PostCounter>(
+                session, o.Id);
         }
 
         public Post GetPost(ISession session)

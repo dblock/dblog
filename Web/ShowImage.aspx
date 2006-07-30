@@ -12,6 +12,7 @@
    <div class="subtitle">
     <asp:HyperLink ID="linkBack" runat="server" text="Back" />
     | <asp:HyperLink ID="linkComment" runat="server" text="New Comment" />
+    | <asp:Label ID="labelCount" runat="server" />    
    </div>
   </ContentTemplate>
  </atlas:UpdatePanel>
@@ -24,8 +25,8 @@
     <pagerstyle cssclass="table_pager" position="TopAndBottom" nextpagetext="Next" prevpagetext="Prev"
      horizontalalign="Center" />
     <ItemTemplate>
-     <a href='ShowPicture.aspx?id=<%# Eval("ImageId") %>&ShowThumbnail=false'>
-      <img src='ShowPicture.aspx?id=<%# Eval("ImageId") %>&ShowThumbnail=false' border="0" />
+     <a href='ShowPicture.aspx?id=<%# Eval("Image.Id") %>&ShowThumbnail=false'>
+      <img src='ShowPicture.aspx?id=<%# Eval("Image.Id") %>&ShowThumbnail=false' border="0" />
      </a>
     </ItemTemplate>
    </Controls:PagedList>

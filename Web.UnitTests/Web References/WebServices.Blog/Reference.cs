@@ -64,6 +64,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback GetImagesOperationCompleted;
         
+        private System.Threading.SendOrPostCallback IncrementImageCounterOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetImageWithBitmapByIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetImageWithBitmapByIdIfModifiedSinceOperationCompleted;
@@ -113,6 +115,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private System.Threading.SendOrPostCallback GetPostsOperationCompleted;
         
         private System.Threading.SendOrPostCallback DeletePostOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback IncrementPostCounterOperationCompleted;
         
         private System.Threading.SendOrPostCallback CreateOrUpdatePostImageOperationCompleted;
         
@@ -266,6 +270,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         public event GetImagesCompletedEventHandler GetImagesCompleted;
         
         /// <remarks/>
+        public event IncrementImageCounterCompletedEventHandler IncrementImageCounterCompleted;
+        
+        /// <remarks/>
         public event GetImageWithBitmapByIdCompletedEventHandler GetImageWithBitmapByIdCompleted;
         
         /// <remarks/>
@@ -339,6 +346,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event DeletePostCompletedEventHandler DeletePostCompleted;
+        
+        /// <remarks/>
+        public event IncrementPostCounterCompletedEventHandler IncrementPostCounterCompleted;
         
         /// <remarks/>
         public event CreateOrUpdatePostImageCompletedEventHandler CreateOrUpdatePostImageCompleted;
@@ -948,6 +958,37 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.GetImagesCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetImagesCompleted(this, new GetImagesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementImageCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public long IncrementImageCounter(string ticket, int id) {
+            object[] results = this.Invoke("IncrementImageCounter", new object[] {
+                        ticket,
+                        id});
+            return ((long)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void IncrementImageCounterAsync(string ticket, int id) {
+            this.IncrementImageCounterAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void IncrementImageCounterAsync(string ticket, int id, object userState) {
+            if ((this.IncrementImageCounterOperationCompleted == null)) {
+                this.IncrementImageCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementImageCounterOperationCompleted);
+            }
+            this.InvokeAsync("IncrementImageCounter", new object[] {
+                        ticket,
+                        id}, this.IncrementImageCounterOperationCompleted, userState);
+        }
+        
+        private void OnIncrementImageCounterOperationCompleted(object arg) {
+            if ((this.IncrementImageCounterCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IncrementImageCounterCompleted(this, new IncrementImageCounterCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1717,6 +1758,37 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.DeletePostCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.DeletePostCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementPostCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public long IncrementPostCounter(string ticket, int id) {
+            object[] results = this.Invoke("IncrementPostCounter", new object[] {
+                        ticket,
+                        id});
+            return ((long)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void IncrementPostCounterAsync(string ticket, int id) {
+            this.IncrementPostCounterAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void IncrementPostCounterAsync(string ticket, int id, object userState) {
+            if ((this.IncrementPostCounterOperationCompleted == null)) {
+                this.IncrementPostCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementPostCounterOperationCompleted);
+            }
+            this.InvokeAsync("IncrementPostCounter", new object[] {
+                        ticket,
+                        id}, this.IncrementPostCounterOperationCompleted, userState);
+        }
+        
+        private void OnIncrementPostCounterOperationCompleted(object arg) {
+            if ((this.IncrementPostCounterCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IncrementPostCounterCompleted(this, new IncrementPostCounterCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2787,6 +2859,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitHighlight))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHostRollup))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReference))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitCounter))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImage))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitTopic))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitLogin))]
@@ -3377,6 +3450,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitPost : TransitObject {
         
+        private TransitCounter counterField;
+        
         private int imageIdField;
         
         private int imagesCountField;
@@ -3394,6 +3469,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private System.DateTime modifiedField;
         
         private int commentsCountField;
+        
+        /// <remarks/>
+        public TransitCounter Counter {
+            get {
+                return this.counterField;
+            }
+            set {
+                this.counterField = value;
+            }
+        }
         
         /// <remarks/>
         public int ImageId {
@@ -3482,6 +3567,39 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.commentsCountField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitCounter : TransitObject {
+        
+        private long countField;
+        
+        private System.DateTime createdField;
+        
+        /// <remarks/>
+        public long Count {
+            get {
+                return this.countField;
+            }
+            set {
+                this.countField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Created {
+            get {
+                return this.createdField;
+            }
+            set {
+                this.createdField = value;
             }
         }
     }
@@ -3645,6 +3763,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private int commentsCountField;
         
+        private TransitCounter counterField;
+        
         /// <remarks/>
         public string Name {
             get {
@@ -3724,6 +3844,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.commentsCountField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public TransitCounter Counter {
+            get {
+                return this.counterField;
+            }
+            set {
+                this.counterField = value;
             }
         }
     }
@@ -4133,6 +4263,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((TransitImage[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void IncrementImageCounterCompletedEventHandler(object sender, IncrementImageCounterCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class IncrementImageCounterCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal IncrementImageCounterCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public long Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((long)(this.results[0]));
             }
         }
     }
@@ -4698,6 +4854,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeletePostCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void IncrementPostCounterCompletedEventHandler(object sender, IncrementPostCounterCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class IncrementPostCounterCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal IncrementPostCounterCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public long Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((long)(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

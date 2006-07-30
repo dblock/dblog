@@ -106,6 +106,7 @@ namespace DBlog.Web.UnitTests.WebServices
             Assert.Greater(t_image.Id, 0);
 
             Blog.DeletePost(Ticket, t_post.Id);
+            Blog.DeleteTopic(Ticket, t_topic.Id);
         }
 
         [Test]
@@ -131,6 +132,28 @@ namespace DBlog.Web.UnitTests.WebServices
             Assert.Greater(t_comment.Id, 0);
 
             Blog.DeletePost(Ticket, t_post.Id);
+            Blog.DeleteTopic(Ticket, t_topic.Id);
+        }
+
+        [Test]
+        public void CreatePostIncrementCounterTest()
+        {
+            TransitTopic t_topic = new TransitTopic();
+            t_topic.Name = Guid.NewGuid().ToString();
+            t_topic.Id = Blog.CreateOrUpdateTopic(Ticket, t_topic);
+
+            TransitPost t_post = new TransitPost();
+            t_post.Body = Guid.NewGuid().ToString();
+            t_post.Title = Guid.NewGuid().ToString();
+            t_post.TopicId = t_topic.Id;
+            t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
+            Assert.Greater(t_post.Id, 0);
+
+            Assert.AreEqual(1, Blog.IncrementPostCounter(Ticket, t_post.Id), 
+                "New post counter must be one after a single increment.");
+
+            Blog.DeletePost(Ticket, t_post.Id);
+            Blog.DeleteTopic(Ticket, t_topic.Id);
         }
     }
 }

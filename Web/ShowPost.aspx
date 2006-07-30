@@ -13,6 +13,7 @@
     <div class="post_subtitle">
      <a href="ShowBlog.aspx">Back</a> |
      <asp:Label ID="postcreated" runat="server" /> |
+     <asp:Label ID="postcounter" runat="server" /> |
      <asp:Hyperlink ID="linkComment" runat="server" Text="New Comment" />
     </div>
     <div class="post_body">
@@ -37,12 +38,12 @@
     <pagerstyle cssclass="table_pager" position="TopAndBottom" nextpagetext="Next" prevpagetext="Prev"
      horizontalalign="Center" />
     <ItemTemplate>
-     <a href='ShowImage.aspx?id=<%# Eval("ImageId") %>&pid=<%# Eval("PostId") %>'>
-      <img border="0" alt='<%# Renderer.Render(Eval("ImageDescription")) %>' src='ShowPicture.aspx?id=<%# Eval("ImageId") %>' />
+     <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>'>
+      <img border="0" alt='<%# Renderer.Render(Eval("Image.Description")) %>' src='ShowPicture.aspx?id=<%# Eval("Image.Id") %>' />
      </a>
      <div class="link_small">
-      <a href='ShowImage.aspx?id=<%# Eval("ImageId") %>&pid=<%# Eval("PostId") %>'>
-       <%# GetImageLink((string) Eval("ImageName"), (int) Eval("ImageCommentsCount")) %>
+      <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>'>
+       <%# GetImageLink((string) Eval("Image.Name"), (int) Eval("Image.CommentsCount")) %>
       </a>
      </div>
     </ItemTemplate>

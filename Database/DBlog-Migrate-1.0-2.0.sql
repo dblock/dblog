@@ -134,3 +134,13 @@ FROM dbo.Comment AS Comment_1 INNER JOIN
  dbo.ImageComment ON Comment_1.Comment_Id = dbo.ImageComment.Comment_Id
 )' 
 GO
+
+-- Drop the counter Resource column
+IF EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Counter]') AND [name] = 'Resource_Id')
+ALTER TABLE Counter DROP COLUMN Resource_Id
+
+-- Drop sp_counter procedures
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_counter_increment]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [sp_counter_increment]
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounter_increment]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [sp_hourlycounter_increment]

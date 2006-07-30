@@ -85,6 +85,12 @@ public partial class ShowBlog : BlogPage
         }
     }
 
+    public string GetCounter(long count)
+    {
+        return string.Format("{0} Click{1}", count,
+            count != 1 ? "s" : string.Empty);
+    }
+
     public string GetLink(int comments_count, int images_count)
     {
         StringBuilder result = new StringBuilder();

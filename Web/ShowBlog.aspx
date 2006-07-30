@@ -25,18 +25,21 @@
             </a>
            </div>
            <div class="post_subtitle">
-            <%# ((DateTime) Eval("Created")).ToString("d") %> |
             <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
              Read
             </a>
+            | <%# ((DateTime) Eval("Created")).ToString("d") %>
             <%# GetLink((int)Eval("CommentsCount"), (int)Eval("ImagesCount"))%>
             <a href='EditPostComment.aspx?sid=<%# Eval("Id") %>'>
              | New Comment
             </a>
+            | <%# GetCounter((long) Eval("Counter.Count")) %>
             <span id="Span1" runat="server" style='<%# (bool) SessionManager.IsAdministrator ? String.Empty : "display: none;" %>'>
-             <a href='EditPost.aspx?id=<%# Eval("Id") %>'>| Edit</a>
-             <asp:LinkButton ID="linkDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
-              runat="server" Text="| Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />
+             | <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
+              Edit
+             </a>
+             | <asp:LinkButton ID="linkDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
+              runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />
             </span>
            </div>
            <div class="post_body">
