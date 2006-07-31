@@ -110,6 +110,12 @@ namespace DBlog.Tools.Web
                     }
                 }
 
+                if (p.Bitmap == null)
+                {
+                    Response.StatusCode = 403;
+                    return;
+                }
+
                 Response.Cache.SetLastModified(p.Modified.ToLocalTime());
                 Response.Cache.SetCacheability(HttpCacheability.Private);
 

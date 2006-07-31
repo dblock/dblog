@@ -10,6 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 using System.Text;
+using DBlog.Tools.Web;
 
 public partial class ShowPost : BlogPage
 {
@@ -22,7 +23,7 @@ public partial class ShowPost : BlogPage
             if (mPost == null)
             {
                 mPost = (RequestId > 0)
-                    ? SessionManager.BlogService.GetPostById(SessionManager.Ticket, RequestId)
+                    ? SessionManager.BlogService.GetPostById(SessionManager.PostTicket, RequestId)
                     : new TransitPost();
             }
 
@@ -39,8 +40,15 @@ public partial class ShowPost : BlogPage
 
             if (!IsPostBack)
             {
+                if (! SessionManager.BlogService.HasAccessToPost(SessionManager.PostTicket, RequestId))
+                {
+                    Response.Redirect(string.Format("Login.aspx?r={0}&cookie={1}",
+                        Renderer.UrlEncode(Request.Url.PathAndQuery), SessionManager.sDBlogPostCookieName));
+                }
+
                 SessionManager.BlogService.IncrementPostCounter(
-                    SessionManager.Ticket, RequestId);
+                    SessionManager.PostTicket, RequestId);
+
                 GetData(sender, e);
             }
         }
@@ -53,7 +61,7 @@ public partial class ShowPost : BlogPage
     public void comments_OnGetDataSource(object sender, EventArgs e)
     {
         comments.DataSource = SessionManager.BlogService.GetPostComments(
-            SessionManager.Ticket, new TransitPostCommentQueryOptions(
+            SessionManager.PostTicket, new TransitPostCommentQueryOptions(
                 Post.Id, comments.AllowPaging ? comments.PageSize : 0, 
                 comments.AllowPaging ? comments.CurrentPageIndex : 0));
     }
@@ -76,14 +84,14 @@ public partial class ShowPost : BlogPage
         images.Visible = (post.ImagesCount > 1);
         images.CurrentPageIndex = 0;
         images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
-            SessionManager.Ticket, new TransitPostImageQueryOptions(Post.Id));
+            SessionManager.PostTicket, new TransitPostImageQueryOptions(Post.Id));
         images_OnGetDataSource(sender, e);
         images.DataBind();
 
         comments.Visible = (post.CommentsCount > 0);
         comments.CurrentPageIndex = 0;
         comments.VirtualItemCount = SessionManager.BlogService.GetPostCommentsCount(
-            SessionManager.Ticket, new TransitPostCommentQueryOptions(Post.Id));
+            SessionManager.PostTicket, new TransitPostCommentQueryOptions(Post.Id));
         comments_OnGetDataSource(sender, e);
         comments.DataBind();
     }
@@ -91,7 +99,7 @@ public partial class ShowPost : BlogPage
     void images_OnGetDataSource(object sender, EventArgs e)
     {
         images.DataSource = SessionManager.BlogService.GetPostImages(
-            SessionManager.Ticket, new TransitPostImageQueryOptions(Post.Id, images.PageSize, images.CurrentPageIndex));
+            SessionManager.PostTicket, new TransitPostImageQueryOptions(Post.Id, images.PageSize, images.CurrentPageIndex));
     }
 
     public string GetImageLink(string name, int comments_count)

@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Controls" TagName="FeedItems" Src="ViewFeedItemsControl.ascx" %>
 <Controls:PagedGrid runat="server" ID="grid" CssClass="table_feeds" AutoGenerateColumns="false"
- AllowPaging="false" ShowHeader="false" BorderWidth="0">
+ AllowPaging="false" ShowHeader="false" BorderWidth="0" BorderColor="White">
  <ItemStyle HorizontalAlign="Center" CssClass="table_feeds_tr_td" />
  <Columns>
   <asp:BoundColumn DataField="Id" Visible="false" />

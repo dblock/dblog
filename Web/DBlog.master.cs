@@ -10,6 +10,7 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Tools.Web;
 using DBlog.TransitData;
+using System.Text;
 
 public partial class DBlogMaster : MasterPage
 {
@@ -37,9 +38,22 @@ public partial class DBlogMaster : MasterPage
         if (!IsPostBack)
         {
             panelAdmin.Visible = SessionManager.IsAdministrator;
-            labelUsername.Text = SessionManager.IsLoggedIn ? 
-                string.Format("logged in as {0}", Renderer.Render(SessionManager.LoginRecord.Name)) 
-                : string.Empty;
+
+            if (SessionManager.LoginRecord != null)
+            {
+                labelUsername.Text = string.Format("logged in as {0}", Renderer.Render(
+                    string.IsNullOrEmpty(SessionManager.LoginRecord.Name)
+                        ? SessionManager.LoginRecord.Username
+                        : SessionManager.LoginRecord.Name)); 
+            }
+
+            if (SessionManager.PostLoginRecord != null)
+            {
+                labelPostUsername.Text = string.Format("post access as {0}", Renderer.Render(
+                    string.IsNullOrEmpty(SessionManager.PostLoginRecord.Name)
+                        ? SessionManager.PostLoginRecord.Username
+                        : SessionManager.PostLoginRecord.Name));
+            }
 
             TransitCounter c = Counter;
             labelCounter.Text = string.Format("{0} click{1} since {2}",

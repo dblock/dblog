@@ -75,7 +75,10 @@ public partial class EditLogin : BlogPage
             inputPassword.Attributes["value"] = inputPassword.Text;
             inputPassword2.Attributes["value"] = inputPassword2.Text;
 
-            Login.Name = CheckInput("Name", inputName.Text);
+            Login.Name = (string.IsNullOrEmpty(inputUsername.Text)) 
+                ? CheckInput("Name", inputName.Text) 
+                : inputName.Text;
+
             Login.Username = inputUsername.Text;
             Login.Email = SessionManager.IsAdministrator ? inputEmail.Text : CheckInput("Email", inputEmail.Text);
             if (string.IsNullOrEmpty(Login.Username)) Login.Username = Login.Email;

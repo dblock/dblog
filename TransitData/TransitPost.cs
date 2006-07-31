@@ -145,6 +145,20 @@ namespace DBlog.TransitData
             }
         }
 
+        private string mTopicName;
+
+        public string TopicName
+        {
+            get
+            {
+                return mTopicName;
+            }
+            set
+            {
+                mTopicName = value;
+            }
+        }
+
         private int mTopicId;
 
         public int TopicId
@@ -220,19 +234,57 @@ namespace DBlog.TransitData
 
         }
 
-        public TransitPost(ISession session, DBlog.Data.Post o)
+        public TransitPost(ISession session, DBlog.Data.Post o, string ticket)
+            : this(session, o, HasAccess(session, o, ticket))
+        {
+
+        }
+
+        public static bool HasAccess(ISession session, Post post, string ticket)
+        {
+            if (post.PostLogins == null || post.PostLogins.Count == 0)
+                return true;
+
+            if (string.IsNullOrEmpty(ticket))
+                return false;
+
+            if (ManagedLogin.IsAdministrator(session, ticket))
+                return true;
+
+            int login_id = ManagedLogin.GetLoginId(ticket);
+            foreach (PostLogin pl in post.PostLogins)
+            {
+                if (pl.Login.Id == login_id)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        public TransitPost(ISession session, DBlog.Data.Post o, bool hasaccess)
             : base(o.Id)
         {
-            Title = Render(session, o.Id, o.Title);
-            Body = Render(session, o.Id, o.Body);
-            
+            Title = o.Title;
+
+            if (hasaccess)
+            {
+                Body = Render(session, o.Id, o.Body);
+            }
+
             LoginId = o.Login.Id;
             TopicId = o.Topic.Id;
-            
+            TopicName = o.Topic.Name;
+
             if (o.PostImages != null && o.PostImages.Count > 0)
             {
                 ImagesCount = o.PostImages.Count;
-                ImageId = ((PostImage)TransitObject.GetRandomElement(o.PostImages)).Image.Id;
+
+                if (hasaccess)
+                {
+                    ImageId = ((PostImage)TransitObject.GetRandomElement(o.PostImages)).Image.Id;
+                }
             }
 
             Created = o.Created;

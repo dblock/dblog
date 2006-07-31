@@ -40,7 +40,8 @@ public partial class ShowPicture : BlogPicturePage
     public override DBlog.Tools.Web.PicturePage.Picture GetPictureWithBitmap(int id)
     {
         Picture pic = new Picture();
-        TransitImage img = SessionManager.BlogService.GetImageWithBitmapById(SessionManager.Ticket, id);
+        TransitImage img = SessionManager.BlogService.GetImageWithBitmapById(
+            SessionManager.PostTicket, id);
 
         if (img.Data == null && !string.IsNullOrEmpty(img.Path))
         {
@@ -62,7 +63,8 @@ public partial class ShowPicture : BlogPicturePage
     public override DBlog.Tools.Web.PicturePage.Picture GetPictureWithBitmap(int id, DateTime ifModifiedSince)
     {
         Picture pic = new Picture();
-        TransitImage img = SessionManager.BlogService.GetImageWithBitmapByIdIfModifiedSince(SessionManager.Ticket, id, ifModifiedSince);
+        TransitImage img = SessionManager.BlogService.GetImageWithBitmapByIdIfModifiedSince(
+            SessionManager.PostTicket, id, ifModifiedSince);
 
         if (img == null)
         {
@@ -89,7 +91,7 @@ public partial class ShowPicture : BlogPicturePage
     public override DBlog.Tools.Web.PicturePage.Picture GetPictureWithThumbnail(int id)
     {
         Picture pic = new Picture();
-        TransitImage img = SessionManager.BlogService.GetImageWithThumbnailById(SessionManager.Ticket, id);
+        TransitImage img = SessionManager.BlogService.GetImageWithThumbnailById(SessionManager.PostTicket, id);
 
         pic.Bitmap = img.Thumbnail;
         pic.Created = pic.Modified = img.Modified;
@@ -102,7 +104,8 @@ public partial class ShowPicture : BlogPicturePage
     public override DBlog.Tools.Web.PicturePage.Picture GetPictureWithThumbnail(int id, DateTime ifModifiedSince)
     {
         Picture pic = new Picture();
-        TransitImage img = SessionManager.BlogService.GetImageWithThumbnailByIdIfModifiedSince(SessionManager.Ticket, id, ifModifiedSince);
+        TransitImage img = SessionManager.BlogService.GetImageWithThumbnailByIdIfModifiedSince(
+            SessionManager.PostTicket, id, ifModifiedSince);
 
         if (img == null)
         {

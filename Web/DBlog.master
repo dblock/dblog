@@ -69,7 +69,13 @@
        <asp:Label ID="labelCounter" runat="server" />
       </div>
       <div>
+       <a href="RssBlog.aspx"><img src="images/site/rss.gif" border="0" alt="rss"></a>
+      </div>
+      <div>
        <asp:Label ID="labelUsername" CssClass="description" runat="server" />
+      </div>
+      <div>
+       <asp:Label ID="labelPostUsername" CssClass="description" runat="server" />
       </div>
      </asp:Panel>
      <div class="div_top"></div>

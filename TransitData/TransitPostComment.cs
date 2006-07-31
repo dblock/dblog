@@ -65,6 +65,12 @@ namespace DBlog.TransitData
 
         }
 
+        public TransitPostComment(ISession session, DBlog.Data.PostComment o, string ticket)
+            : base(session, o.Post.Id, o.Comment, TransitPost.HasAccess(session, o.Post, ticket))
+        {
+
+        }
+
         public TransitPostComment(ISession session, DBlog.Data.PostComment o)
             : base(session, o.Post.Id, o.Comment)
         {

@@ -304,7 +304,10 @@ namespace DBlog.Tools.WebControls
             if (PagerStyle.HasPagerOnTop)
             {
                 writer.Write("<tr>");
-                Pagers[pagerIndex++].Navigator.RenderControl(writer);
+                if (Pagers.Count > pagerIndex)
+                {
+                    Pagers[pagerIndex++].Navigator.RenderControl(writer);
+                }
                 writer.Write("</tr>");
             }
             writer.Write("<tr><td>");
@@ -313,7 +316,10 @@ namespace DBlog.Tools.WebControls
             if (PagerStyle.HasPagerOnBottom)
             {
                 writer.Write("<tr>");
-                Pagers[pagerIndex++].Navigator.RenderControl(writer);
+                if (Pagers.Count > pagerIndex)
+                {
+                    Pagers[pagerIndex++].Navigator.RenderControl(writer);
+                }
                 writer.Write("</tr>");
             }
             writer.Write("</table>");

@@ -48,9 +48,12 @@ public partial class ShowImage : BlogPage
 
     public void comments_OnGetDataSource(object sender, EventArgs e)
     {
+        if (PostImage == null)
+            return;
+
         panelComments.Update();
         comments.DataSource = SessionManager.BlogService.GetImageComments(
-            SessionManager.Ticket, new TransitImageCommentQueryOptions(
+            SessionManager.PostTicket, new TransitImageCommentQueryOptions(
                 PostImage.Image.Id, comments.AllowPaging ? comments.PageSize : 0, 
                 comments.AllowPaging ? comments.CurrentPageIndex : 0));
     }
@@ -62,7 +65,7 @@ public partial class ShowImage : BlogPage
         if (RequestId > 0 && ! IsPostBack)
         {            
             // HACK: navigate images to find the one we're looking for
-            List<TransitPostImage> list = SessionManager.BlogService.GetPostImages(SessionManager.Ticket,
+            List<TransitPostImage> list = SessionManager.BlogService.GetPostImages(SessionManager.PostTicket,
                 new TransitPostImageQueryOptions(GetId("pid")));
 
             int index = 0;
@@ -79,7 +82,7 @@ public partial class ShowImage : BlogPage
         }
 
         images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
-            SessionManager.Ticket, new TransitPostImageQueryOptions(GetId("pid")));
+            SessionManager.PostTicket, new TransitPostImageQueryOptions(GetId("pid")));
         images_OnGetDataSource(sender, e);
         images.DataBind();
         panelImages.Update();
@@ -87,7 +90,11 @@ public partial class ShowImage : BlogPage
 
     public void GetDataComments(object sender, EventArgs e)
     {
+        if (PostImage == null)
+            return;
+
         labelName.Text = PostImage.Image.Name;
+
         labelCount.Text = string.Format("{0} Click{1}",
             PostImage.Image.Counter.Count,
             PostImage.Image.Counter.Count != 1 ? "s" : string.Empty);
@@ -97,7 +104,7 @@ public partial class ShowImage : BlogPage
         comments.Visible = (PostImage.Image.CommentsCount > 0);
         comments.CurrentPageIndex = 0;
         comments.VirtualItemCount = SessionManager.BlogService.GetImageCommentsCount(
-            SessionManager.Ticket, new TransitImageCommentQueryOptions(PostImage.Image.Id));
+            SessionManager.PostTicket, new TransitImageCommentQueryOptions(PostImage.Image.Id));
         comments_OnGetDataSource(sender, e);
         comments.DataBind();
 
@@ -107,7 +114,7 @@ public partial class ShowImage : BlogPage
     void images_OnGetDataSource(object sender, EventArgs e)
     {
         List<TransitPostImage> list = SessionManager.BlogService.GetPostImages(
-            SessionManager.Ticket, new TransitPostImageQueryOptions(
+            SessionManager.PostTicket, new TransitPostImageQueryOptions(
                 GetId("pid"), images.PageSize, images.CurrentPageIndex));
 
         if (list.Count > 0)

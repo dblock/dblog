@@ -12,7 +12,10 @@ BEGIN
  -- copy Entry -> Post
  DECLARE @entry_post_id int
  INSERT INTO Post ( Topic_Id, Login_Id, Title, Body, Created, Modified )
- SELECT Topic_Id, Owner_Login_Id, Title, [Text], Created, Modified FROM Entry
+ SELECT Topic_Id, Owner_Login_Id, Title, [Text]
+	, DATEADD(hh, DATEDIFF(hh, getdate(), getutcdate()), Created)
+	, DATEADD(hh, DATEDIFF(hh, getdate(), getutcdate()), Modified)
+ FROM Entry
  WHERE Entry_Id = @entry_id
  SET @entry_post_id = SCOPE_IDENTITY()
 
@@ -59,7 +62,10 @@ BEGIN
  -- copy Gallery -> Post
  DECLARE @gallery_post_id int
  INSERT INTO Post ( Topic_Id, Login_Id, Title, Body, Created, Modified )
- SELECT Topic_Id, Owner_Login_Id, Title, [Text], Created, Modified FROM Gallery
+ SELECT Topic_Id, Owner_Login_Id, Title, [Text]
+	, DATEADD(hh, DATEDIFF(hh, getdate(), getutcdate()), Created)
+	, DATEADD(hh, DATEDIFF(hh, getdate(), getutcdate()), Modified) 
+ FROM Gallery
  WHERE Gallery_Id = @gallery_id
  SET @gallery_post_id = SCOPE_IDENTITY()
 

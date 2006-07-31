@@ -87,7 +87,7 @@ namespace DBlog.TransitData
                 XmlNamespaceManager xmlnsmgr = new XmlNamespaceManager(xmlEntry.NameTable);
                 xmlnsmgr.AddNamespace("ns", AtomNamespace);
 
-                xmlEntry.SelectSingleNode("//ns:title", xmlnsmgr).InnerText = TransitPost.Render(session, post.Id, post.Title);
+                xmlEntry.SelectSingleNode("//ns:title", xmlnsmgr).InnerText = Renderer.RenderEx(post.Title);
                 xmlEntry.SelectSingleNode("//ns:created", xmlnsmgr).InnerText = post.Modified.ToString("s");
                 xmlEntry.SelectSingleNode("//ns:content", xmlnsmgr).InnerText =
                  ((post.Created != post.Modified) ? "<b>UPDATE: " + post.Modified.ToString() + "</b><br/>" : string.Empty) +

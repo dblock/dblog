@@ -201,36 +201,60 @@ namespace DBlog.TransitData
             }
         }
 
-        public TransitImage(ISession session, DBlog.Data.Image o)
-            : this(session, o, false, false)
+        public TransitImage(ISession session, DBlog.Data.Image o, string ticket)
+            : this(session, o, false, false, HasAccess(session, o, ticket))
         {
 
         }
 
-        public TransitImage(ISession session, DBlog.Data.Image o, bool withthumbnail, bool withdata)
+        public static bool HasAccess(ISession session, DBlog.Data.Image image, string ticket)
+        {
+            if (image.PostImages == null || image.PostImages.Count == 0)
+                return true;
+
+            foreach (PostImage pi in image.PostImages)
+            {
+                if (TransitPost.HasAccess(session, pi.Post, ticket))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public TransitImage(ISession session, DBlog.Data.Image o, bool withthumbnail, bool withdata, string ticket)
+            : this(session, o, withthumbnail, withdata, HasAccess(session, o, ticket))
+        {
+
+        }
+
+        public TransitImage(ISession session, DBlog.Data.Image o, bool withthumbnail, bool withdata, bool hasaccess)
             : base(o.Id)
         {
-            Path = o.Path;
             Name = o.Name;
-            Preferred = o.Preferred;
-            Description = o.Description;
-            Modified = o.Modified;
-
-            CommentsCount = new CountQuery(session, typeof(ImageComment), "ImageComment")
-                .Add(Expression.Eq("Image.Id", o.Id))
-                .Execute();
+            Path = o.Path;
 
             Counter = TransitCounter.GetAssociatedCounter<DBlog.Data.Image, ImageCounter>(
                 session, o.Id);
 
-            if (withthumbnail)
+            if (hasaccess)
             {
-                Thumbnail = o.Thumbnail;
-            }
+                Preferred = o.Preferred;
+                Description = o.Description;
+                Modified = o.Modified;
 
-            if (withdata)
-            {
-                Data = o.Data;
+                CommentsCount = new CountQuery(session, typeof(ImageComment), "ImageComment")
+                    .Add(Expression.Eq("Image.Id", o.Id))
+                    .Execute();
+
+                if (withthumbnail)
+                {
+                    Thumbnail = o.Thumbnail;
+                }
+
+                if (withdata)
+                {
+                    Data = o.Data;
+                }
             }
         }
 

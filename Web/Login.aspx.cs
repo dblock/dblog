@@ -31,12 +31,22 @@ public partial class Login : BlogPage
         }
     }
 
+    public string CookieName
+    {
+        get
+        {
+            string result = Request.QueryString["cookie"];
+            if (string.IsNullOrEmpty(result)) return SessionManager.sDBlogAuthCookieName;
+            return result;
+        }
+    }
+
     public void button_Click(object sender, EventArgs e)
     {
         try
         {
             string ticket = SessionManager.BlogService.Login(inputUsername.Text, inputPassword.Text);
-            SessionManager.Login(ticket, inputRememberMe.Checked);
+            SessionManager.Login(ticket, inputRememberMe.Checked, CookieName);
             Response.Redirect(ReturnUrl);
         }
         catch (Exception ex)

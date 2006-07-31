@@ -13,6 +13,7 @@ using DBlog.TransitData;
 using System.IO;
 using System.Collections.ObjectModel;
 using DBlog.Tools.Drawing;
+using DBlog.Tools.Web;
 
 public partial class EditPost : BlogAdminPage
 {
@@ -52,7 +53,8 @@ public partial class EditPost : BlogAdminPage
     {
         try
         {
-            grid.OnGetDataSource += new EventHandler(grid_OnGetDataSource);
+            images.OnGetDataSource += new EventHandler(images_OnGetDataSource);
+            logins.OnGetDataSource += new EventHandler(logins_OnGetDataSource);
             this.addFile.Attributes["onclick"] = inputImages.GetAddFileScriptReference() + "return false;";
 
             if (!IsPostBack)
@@ -60,20 +62,23 @@ public partial class EditPost : BlogAdminPage
                 PostId = RequestId;
 
                 SetDefaultButton(save);
+                PageManager.SetDefaultButton(loginAdd, panelLogins.Controls);
 
                 inputTopic.DataSource = SessionManager.BlogService.GetTopics(SessionManager.Ticket, null);
                 inputTopic.DataBind();
 
                 if (PostId > 0)
                 {
-                    GetData(sender, e);
+                    GetDataImages(sender, e);
+                    GetDataLogins(sender, e);
                     inputTitle.Text = Post.Title;
                     inputBody.Text = Post.Body;
                     inputTopic.Items.FindByValue(Post.TopicId.ToString()).Selected = true;
                 }
                 else
                 {
-                    grid.Visible = false;
+                    images.Visible = false;
+                    logins.Visible = false;
                     inputTopic.Items.Insert(0, new ListItem(string.Empty, "0"));
                 }
             }
@@ -82,6 +87,13 @@ public partial class EditPost : BlogAdminPage
         {
             ReportException(ex);
         }
+    }
+
+    void logins_OnGetDataSource(object sender, EventArgs e)
+    {
+        logins.DataSource = SessionManager.BlogService.GetPostLogins(
+            SessionManager.Ticket, new TransitPostLoginQueryOptions(
+                PostId, images.PageSize, images.CurrentPageIndex));
     }
 
     protected override void OnPreRender(EventArgs e)
@@ -106,8 +118,8 @@ public partial class EditPost : BlogAdminPage
 
             if (e.PostedFiles.Count > 0)
             {
-                grid.Visible = true;
-                GetData(sender, e);
+                images.Visible = true;
+                GetDataImages(sender, e);
             }
         }
     }
@@ -145,8 +157,8 @@ public partial class EditPost : BlogAdminPage
                         SessionManager.Ticket, PostId, image);
                 }
 
-                grid.Visible = true;
-                GetData(sender, e);
+                images.Visible = true;
+                GetDataImages(sender, e);
             }
 
             ReportInfo("Item Saved");
@@ -157,7 +169,7 @@ public partial class EditPost : BlogAdminPage
         }
     }
 
-    public void grid_ItemCommand(object source, DataListCommandEventArgs e)
+    public void images_ItemCommand(object source, DataListCommandEventArgs e)
     {
         try
         {
@@ -166,7 +178,7 @@ public partial class EditPost : BlogAdminPage
                 case "Delete":
                     SessionManager.BlogService.DeletePostImage(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
                     ReportInfo("Item Deleted");
-                    GetData(source, e);
+                    GetDataImages(source, e);
                     break;
             }
         }
@@ -176,19 +188,65 @@ public partial class EditPost : BlogAdminPage
         }
     }
 
-    void grid_OnGetDataSource(object sender, EventArgs e)
+    public void login_ItemCommand(object source, DataGridCommandEventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetPostImages(
-            SessionManager.Ticket, new TransitPostImageQueryOptions(
-                PostId, grid.PageSize, grid.CurrentPageIndex));
+        try
+        {
+            switch (e.CommandName)
+            {
+                case "Remove":
+                    SessionManager.BlogService.DeletePostLogin(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    ReportInfo("Login Removed");
+                    GetDataLogins(source, e);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
     }
 
-    public void GetData(object sender, EventArgs e)
+
+    void images_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
+        images.DataSource = SessionManager.BlogService.GetPostImages(
+            SessionManager.Ticket, new TransitPostImageQueryOptions(
+                PostId, images.PageSize, images.CurrentPageIndex));
+    }
+
+    public void GetDataImages(object sender, EventArgs e)
+    {
+        images.CurrentPageIndex = 0;
+        images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
             SessionManager.Ticket, new TransitPostImageQueryOptions(PostId));
-        grid_OnGetDataSource(sender, e);
-        grid.DataBind();
+        images_OnGetDataSource(sender, e);
+        images.DataBind();
+    }
+
+    public void GetDataLogins(object sender, EventArgs e)
+    {
+        logins.CurrentPageIndex = 0;
+        logins.VirtualItemCount = SessionManager.BlogService.GetPostLoginsCount(
+            SessionManager.Ticket, new TransitPostLoginQueryOptions(PostId));
+        logins_OnGetDataSource(sender, e);
+        logins.DataBind();
+    }
+
+    public void loginAdd_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            TransitLogin t_login = SessionManager.BlogService.GetLoginByUsername(
+                SessionManager.Ticket, inputLogin.Text);
+            SessionManager.BlogService.CreateOrUpdatePostLogin(
+                SessionManager.Ticket, PostId, t_login);
+            GetDataLogins(sender, e);
+            ReportInfo(string.Format("Added {0}", inputLogin.Text));
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
     }
 }

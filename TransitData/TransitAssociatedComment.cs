@@ -217,20 +217,29 @@ namespace DBlog.TransitData
         }
 
         public TransitAssociatedComment(ISession session, int id, DBlog.Data.Comment o)
+            : this(session, id, o, true)
+        {
+        }
+
+        public TransitAssociatedComment(ISession session, int id, DBlog.Data.Comment o, bool hasaccess)
             : base(id)
         {
             AssociatedId = id;
             CommentId = o.Id;
-            CommentIpAddress = o.IpAddress;
-            CommentText = o.Text;
-            if (o.OwnerLogin != null)
+
+            if (hasaccess)
             {
-                CommentLoginName = o.OwnerLogin.Name;
-                CommentLoginWebsite = o.OwnerLogin.Website;
+                CommentIpAddress = o.IpAddress;
+                CommentText = o.Text;
+                if (o.OwnerLogin != null)
+                {
+                    CommentLoginName = o.OwnerLogin.Name;
+                    CommentLoginWebsite = o.OwnerLogin.Website;
+                }
+                CommentCreated = o.Created;
+                CommentModified = o.Modified;
+                CommentLevel = GetLevel(o);
             }
-            CommentCreated = o.Created;
-            CommentModified = o.Modified;
-            CommentLevel = GetLevel(o);
         }
 
         public static int GetLevel(Comment comment)

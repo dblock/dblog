@@ -248,5 +248,10 @@ namespace DBlog.Tools.Web
         {
             return string.Format("<a href=\"{0}\" target=\"_blank\">{1}</a>", uri, text);
         }
+
+        public static string ToRfc822(DateTime value)
+        {
+            return value.ToString("ddd, dd MMM yyyy HH:mm:ss UTC");
+        }
     }
 }

@@ -79,6 +79,26 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Get a login by username.")]
+        public TransitLogin GetLoginByUsername(string ticket, string username)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Login login = (Login)session.CreateCriteria(typeof(Login))
+                    .Add(Expression.Eq("Username", username))
+                    .UniqueResult();
+
+                if (login == null)
+                {
+                    throw new Exception("User Not Found");
+                }
+
+                return new TransitLogin(login);
+            }
+        }
+
         [WebMethod(Description = "Create or update a login.")]
         public int CreateOrUpdateLogin(string ticket, TransitLogin t_login)
         {
@@ -260,7 +280,8 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id));
+                DBlog.Data.Image image = (DBlog.Data.Image)session.Load(typeof(DBlog.Data.Image), id);
+                return new TransitImage(session, image, ticket);
             }
         }
 
@@ -308,7 +329,7 @@ namespace DBlog.WebServices
 
                 foreach (Image obj in list)
                 {
-                    result.Add(new TransitImage(session, obj));
+                    result.Add(new TransitImage(session, obj, ticket));
                 }
 
                 return result;
@@ -337,7 +358,8 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), false, true);
+                DBlog.Data.Image image = (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id);
+                return new TransitImage(session, image, false, true, ticket);
             }
         }
 
@@ -347,14 +369,15 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                TransitImage img = new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id));
+                DBlog.Data.Image image = (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id);
+                TransitImage img = new TransitImage(session, image, ticket);
 
                 if (img.Modified <= ifModifiedSince)
                 {
                     return null;
                 }
 
-                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), false, true);
+                return new TransitImage(session, image, false, true, ticket);
             }
         }
 
@@ -364,7 +387,8 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), true, false); 
+                DBlog.Data.Image image = (DBlog.Data.Image)session.Load(typeof(DBlog.Data.Image), id);
+                return new TransitImage(session, image, true, false, ticket); 
             }
         }
 
@@ -375,14 +399,15 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                TransitImage img = new TransitImage(session, (DBlog.Data.Image)session.Load(typeof(DBlog.Data.Image), id));
+                DBlog.Data.Image image = (DBlog.Data.Image)session.Load(typeof(DBlog.Data.Image), id);
+                TransitImage img = new TransitImage(session, image, ticket);
 
                 if (img.Modified <= ifModifiedSince)
                 {
                     return null;
                 }
 
-                return new TransitImage(session, (DBlog.Data.Image) session.Load(typeof(DBlog.Data.Image), id), true, false);
+                return new TransitImage(session, image, true, false, ticket);
             }
         }
 
@@ -641,7 +666,20 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitPost(session, (Post)session.Load(typeof(Post), id));
+                Post post = (Post)session.Load(typeof(Post), id);
+                TransitPost t_post = new TransitPost(session, post, ticket);
+                return t_post;
+            }
+        }
+
+        [WebMethod(Description = "Check whether access is granted to post.")]
+        public bool HasAccessToPost(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                Post post = (Post)session.Load(typeof(Post), id);
+                return TransitPost.HasAccess(session, post, ticket);
             }
         }
 
@@ -699,7 +737,7 @@ namespace DBlog.WebServices
 
                 foreach (Post obj in list)
                 {
-                    result.Add(new TransitPost(session, obj));
+                    result.Add(new TransitPost(session, obj, ticket));
                 }
 
                 return result;
@@ -782,7 +820,8 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitPostImage(session, (PostImage) session.Load(typeof(DBlog.Data.PostImage), id));
+                PostImage pi = (PostImage) session.Load(typeof(DBlog.Data.PostImage), id);
+                return new TransitPostImage(session, pi, ticket);
             }
         }
 
@@ -832,7 +871,7 @@ namespace DBlog.WebServices
 
                 foreach (PostImage obj in list)
                 {
-                    result.Add(new TransitPostImage(session, obj));
+                    result.Add(new TransitPostImage(session, obj, ticket));
                 }
 
                 return result;
@@ -1073,7 +1112,8 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitPostComment(session, (PostComment)session.Load(typeof(DBlog.Data.PostComment), id));
+                PostComment pc = (PostComment) session.Load(typeof(DBlog.Data.PostComment), id);
+                return new TransitPostComment(session, pc, ticket);
             }
         }
 
@@ -1125,7 +1165,7 @@ namespace DBlog.WebServices
                 {
                     if (obj.Comment.Threads == null || obj.Comment.Threads.Count == 0)
                     {
-                        result.Insert(0, new TransitPostComment(session, obj));
+                        result.Insert(0, new TransitPostComment(session, obj, ticket));
                     }
                     else
                     {
@@ -1133,7 +1173,7 @@ namespace DBlog.WebServices
                         {
                             if (result[i].CommentId == ((Thread)obj.Comment.Threads[0]).ParentComment.Id)
                             {
-                                result.Insert(i + 1, new TransitPostComment(session, obj));
+                                result.Insert(i + 1, new TransitPostComment(session, obj, ticket));
                                 break;
                             }
                         }
@@ -1209,7 +1249,8 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitImageComment(session, (ImageComment)session.Load(typeof(DBlog.Data.ImageComment), id));
+                DBlog.Data.ImageComment ic = (ImageComment) session.Load(typeof(DBlog.Data.ImageComment), id);
+                return new TransitImageComment(session, ic, ticket);
             }
         }
 
@@ -1261,7 +1302,7 @@ namespace DBlog.WebServices
                 {
                     if (obj.Comment.Threads == null || obj.Comment.Threads.Count == 0)
                     {
-                        result.Insert(0, new TransitImageComment(session, obj));
+                        result.Insert(0, new TransitImageComment(session, obj, ticket));
                     }
                     else
                     {
@@ -1269,7 +1310,7 @@ namespace DBlog.WebServices
                         {
                             if (result[i].CommentId == ((Thread)obj.Comment.Threads[0]).ParentComment.Id)
                             {
-                                result.Insert(i + 1, new TransitImageComment(session, obj));
+                                result.Insert(i + 1, new TransitImageComment(session, obj, ticket));
                                 break;
                             }
                         }
@@ -1520,6 +1561,103 @@ namespace DBlog.WebServices
                 CheckAdministrator(session, ticket);
                 session.Delete((FeedItem)session.Load(typeof(FeedItem), id));
                 session.Flush();
+            }
+        }
+
+        #endregion
+
+        #region Post Logins
+
+        [WebMethod(Description = "Create or update a post login.")]
+        public int CreateOrUpdatePostLogin(string ticket, int post_id, TransitLogin t_login)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+
+                Post post = (Post)session.Load(typeof(Post), post_id);
+
+                Login login = t_login.GetLogin(session);
+                session.SaveOrUpdate(login);
+
+                PostLogin post_login = (PostLogin)session.CreateCriteria(typeof(PostLogin))
+                    .Add(Expression.Eq("Post.Id", post_id))
+                    .Add(Expression.Eq("Login.Id", t_login.Id))
+                    .UniqueResult();
+
+                if (post_login == null)
+                {
+                    post_login = new PostLogin();
+                    post_login.Post = post;
+                    post_login.Login = login;
+                    session.SaveOrUpdate(post_login);
+                }
+
+                session.Flush();
+                return login.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get a post login.")]
+        public TransitPostLogin GetPostLoginById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitPostLogin(session, (PostLogin)session.Load(typeof(DBlog.Data.PostLogin), id));
+            }
+        }
+
+        [WebMethod(Description = "Delete a post login.")]
+        public void DeletePostLogin(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                PostLogin ei = (PostLogin)session.Load(typeof(PostLogin), id);
+                session.Delete(ei);
+                session.Flush();
+            }
+        }
+
+        [WebMethod(Description = "Get post login count.")]
+        public int GetPostLoginsCount(string ticket, TransitPostLoginQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.PostLogin), "PostLogin");
+                if (options != null) options.Apply(query);
+                return query.Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get post logins.")]
+        public List<TransitPostLogin> GetPostLogins(string ticket, TransitPostLoginQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(PostLogin));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitPostLogin> result = new List<TransitPostLogin>(list.Count);
+
+                foreach (PostLogin obj in list)
+                {
+                    result.Add(new TransitPostLogin(session, obj));
+                }
+
+                return result;
             }
         }
 

@@ -36,6 +36,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback GetLoginByIdOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetLoginByUsernameOperationCompleted;
+        
         private System.Threading.SendOrPostCallback CreateOrUpdateLoginOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetLoginsCountOperationCompleted;
@@ -107,6 +109,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private System.Threading.SendOrPostCallback DeleteHighlightOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetPostByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback HasAccessToPostOperationCompleted;
         
         private System.Threading.SendOrPostCallback CreateOrUpdatePostOperationCompleted;
         
@@ -184,6 +188,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback DeleteFeedOperationCompleted;
         
+        private System.Threading.SendOrPostCallback UpdateFeedOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetFeedItemByIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback CreateOrUpdateFeedItemOperationCompleted;
@@ -193,6 +199,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private System.Threading.SendOrPostCallback GetFeedItemsOperationCompleted;
         
         private System.Threading.SendOrPostCallback DeleteFeedItemOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdatePostLoginOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPostLoginByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeletePostLoginOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPostLoginsCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetPostLoginsOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
@@ -250,6 +266,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event GetLoginByIdCompletedEventHandler GetLoginByIdCompleted;
+        
+        /// <remarks/>
+        public event GetLoginByUsernameCompletedEventHandler GetLoginByUsernameCompleted;
         
         /// <remarks/>
         public event CreateOrUpdateLoginCompletedEventHandler CreateOrUpdateLoginCompleted;
@@ -358,6 +377,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event GetPostByIdCompletedEventHandler GetPostByIdCompleted;
+        
+        /// <remarks/>
+        public event HasAccessToPostCompletedEventHandler HasAccessToPostCompleted;
         
         /// <remarks/>
         public event CreateOrUpdatePostCompletedEventHandler CreateOrUpdatePostCompleted;
@@ -474,6 +496,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         public event DeleteFeedCompletedEventHandler DeleteFeedCompleted;
         
         /// <remarks/>
+        public event UpdateFeedCompletedEventHandler UpdateFeedCompleted;
+        
+        /// <remarks/>
         public event GetFeedItemByIdCompletedEventHandler GetFeedItemByIdCompleted;
         
         /// <remarks/>
@@ -487,6 +512,21 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event DeleteFeedItemCompletedEventHandler DeleteFeedItemCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdatePostLoginCompletedEventHandler CreateOrUpdatePostLoginCompleted;
+        
+        /// <remarks/>
+        public event GetPostLoginByIdCompletedEventHandler GetPostLoginByIdCompleted;
+        
+        /// <remarks/>
+        public event DeletePostLoginCompletedEventHandler DeletePostLoginCompleted;
+        
+        /// <remarks/>
+        public event GetPostLoginsCountCompletedEventHandler GetPostLoginsCountCompleted;
+        
+        /// <remarks/>
+        public event GetPostLoginsCompletedEventHandler GetPostLoginsCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -591,6 +631,37 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.GetLoginByIdCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetLoginByIdCompleted(this, new GetLoginByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetLoginByUsername", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitLogin GetLoginByUsername(string ticket, string username) {
+            object[] results = this.Invoke("GetLoginByUsername", new object[] {
+                        ticket,
+                        username});
+            return ((TransitLogin)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetLoginByUsernameAsync(string ticket, string username) {
+            this.GetLoginByUsernameAsync(ticket, username, null);
+        }
+        
+        /// <remarks/>
+        public void GetLoginByUsernameAsync(string ticket, string username, object userState) {
+            if ((this.GetLoginByUsernameOperationCompleted == null)) {
+                this.GetLoginByUsernameOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetLoginByUsernameOperationCompleted);
+            }
+            this.InvokeAsync("GetLoginByUsername", new object[] {
+                        ticket,
+                        username}, this.GetLoginByUsernameOperationCompleted, userState);
+        }
+        
+        private void OnGetLoginByUsernameOperationCompleted(object arg) {
+            if ((this.GetLoginByUsernameCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetLoginByUsernameCompleted(this, new GetLoginByUsernameCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -1695,6 +1766,37 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.GetPostByIdCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.GetPostByIdCompleted(this, new GetPostByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/HasAccessToPost", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public bool HasAccessToPost(string ticket, int id) {
+            object[] results = this.Invoke("HasAccessToPost", new object[] {
+                        ticket,
+                        id});
+            return ((bool)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void HasAccessToPostAsync(string ticket, int id) {
+            this.HasAccessToPostAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void HasAccessToPostAsync(string ticket, int id, object userState) {
+            if ((this.HasAccessToPostOperationCompleted == null)) {
+                this.HasAccessToPostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnHasAccessToPostOperationCompleted);
+            }
+            this.InvokeAsync("HasAccessToPost", new object[] {
+                        ticket,
+                        id}, this.HasAccessToPostOperationCompleted, userState);
+        }
+        
+        private void OnHasAccessToPostOperationCompleted(object arg) {
+            if ((this.HasAccessToPostCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.HasAccessToPostCompleted(this, new HasAccessToPostCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -2871,6 +2973,37 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/UpdateFeed", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int UpdateFeed(string ticket, int id) {
+            object[] results = this.Invoke("UpdateFeed", new object[] {
+                        ticket,
+                        id});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void UpdateFeedAsync(string ticket, int id) {
+            this.UpdateFeedAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void UpdateFeedAsync(string ticket, int id, object userState) {
+            if ((this.UpdateFeedOperationCompleted == null)) {
+                this.UpdateFeedOperationCompleted = new System.Threading.SendOrPostCallback(this.OnUpdateFeedOperationCompleted);
+            }
+            this.InvokeAsync("UpdateFeed", new object[] {
+                        ticket,
+                        id}, this.UpdateFeedOperationCompleted, userState);
+        }
+        
+        private void OnUpdateFeedOperationCompleted(object arg) {
+            if ((this.UpdateFeedCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.UpdateFeedCompleted(this, new UpdateFeedCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetFeedItemById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public TransitFeedItem GetFeedItemById(string ticket, int id) {
             object[] results = this.Invoke("GetFeedItemById", new object[] {
@@ -3021,6 +3154,162 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.DeleteFeedItemCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.DeleteFeedItemCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdatePostLogin", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdatePostLogin(string ticket, int post_id, TransitLogin t_login) {
+            object[] results = this.Invoke("CreateOrUpdatePostLogin", new object[] {
+                        ticket,
+                        post_id,
+                        t_login});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdatePostLoginAsync(string ticket, int post_id, TransitLogin t_login) {
+            this.CreateOrUpdatePostLoginAsync(ticket, post_id, t_login, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdatePostLoginAsync(string ticket, int post_id, TransitLogin t_login, object userState) {
+            if ((this.CreateOrUpdatePostLoginOperationCompleted == null)) {
+                this.CreateOrUpdatePostLoginOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdatePostLoginOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdatePostLogin", new object[] {
+                        ticket,
+                        post_id,
+                        t_login}, this.CreateOrUpdatePostLoginOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdatePostLoginOperationCompleted(object arg) {
+            if ((this.CreateOrUpdatePostLoginCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdatePostLoginCompleted(this, new CreateOrUpdatePostLoginCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostLoginById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPostLogin GetPostLoginById(string ticket, int id) {
+            object[] results = this.Invoke("GetPostLoginById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitPostLogin)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostLoginByIdAsync(string ticket, int id) {
+            this.GetPostLoginByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostLoginByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetPostLoginByIdOperationCompleted == null)) {
+                this.GetPostLoginByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostLoginByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetPostLoginById", new object[] {
+                        ticket,
+                        id}, this.GetPostLoginByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetPostLoginByIdOperationCompleted(object arg) {
+            if ((this.GetPostLoginByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostLoginByIdCompleted(this, new GetPostLoginByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeletePostLogin", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeletePostLogin(string ticket, int id) {
+            this.Invoke("DeletePostLogin", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeletePostLoginAsync(string ticket, int id) {
+            this.DeletePostLoginAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeletePostLoginAsync(string ticket, int id, object userState) {
+            if ((this.DeletePostLoginOperationCompleted == null)) {
+                this.DeletePostLoginOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeletePostLoginOperationCompleted);
+            }
+            this.InvokeAsync("DeletePostLogin", new object[] {
+                        ticket,
+                        id}, this.DeletePostLoginOperationCompleted, userState);
+        }
+        
+        private void OnDeletePostLoginOperationCompleted(object arg) {
+            if ((this.DeletePostLoginCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeletePostLoginCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostLoginsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetPostLoginsCount(string ticket, TransitPostLoginQueryOptions options) {
+            object[] results = this.Invoke("GetPostLoginsCount", new object[] {
+                        ticket,
+                        options});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostLoginsCountAsync(string ticket, TransitPostLoginQueryOptions options) {
+            this.GetPostLoginsCountAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostLoginsCountAsync(string ticket, TransitPostLoginQueryOptions options, object userState) {
+            if ((this.GetPostLoginsCountOperationCompleted == null)) {
+                this.GetPostLoginsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostLoginsCountOperationCompleted);
+            }
+            this.InvokeAsync("GetPostLoginsCount", new object[] {
+                        ticket,
+                        options}, this.GetPostLoginsCountOperationCompleted, userState);
+        }
+        
+        private void OnGetPostLoginsCountOperationCompleted(object arg) {
+            if ((this.GetPostLoginsCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostLoginsCountCompleted(this, new GetPostLoginsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostLogins", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitPostLogin[] GetPostLogins(string ticket, TransitPostLoginQueryOptions options) {
+            object[] results = this.Invoke("GetPostLogins", new object[] {
+                        ticket,
+                        options});
+            return ((TransitPostLogin[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetPostLoginsAsync(string ticket, TransitPostLoginQueryOptions options) {
+            this.GetPostLoginsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetPostLoginsAsync(string ticket, TransitPostLoginQueryOptions options, object userState) {
+            if ((this.GetPostLoginsOperationCompleted == null)) {
+                this.GetPostLoginsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPostLoginsOperationCompleted);
+            }
+            this.InvokeAsync("GetPostLogins", new object[] {
+                        ticket,
+                        options}, this.GetPostLoginsOperationCompleted, userState);
+        }
+        
+        private void OnGetPostLoginsOperationCompleted(object arg) {
+            if ((this.GetPostLoginsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetPostLoginsCompleted(this, new GetPostLoginsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -3276,6 +3565,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostLogin))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeedItem))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeed))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitAssociatedComment))]
@@ -3313,6 +3603,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostLoginQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeedItemQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeedQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitAssociatedCommentQueryOptions))]
@@ -3349,6 +3640,27 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.pageNumberField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitPostLoginQueryOptions : WebServiceQueryOptions {
+        
+        private int postIdField;
+        
+        /// <remarks/>
+        public int PostId {
+            get {
+                return this.postIdField;
+            }
+            set {
+                this.postIdField = value;
             }
         }
     }
@@ -3535,6 +3847,213 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.excludeBlogImagesField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitPostLogin : TransitObject {
+        
+        private TransitLogin loginField;
+        
+        private TransitPost postField;
+        
+        /// <remarks/>
+        public TransitLogin Login {
+            get {
+                return this.loginField;
+            }
+            set {
+                this.loginField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public TransitPost Post {
+            get {
+                return this.postField;
+            }
+            set {
+                this.postField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitPost : TransitObject {
+        
+        private TransitCounter counterField;
+        
+        private int imageIdField;
+        
+        private int imagesCountField;
+        
+        private string titleField;
+        
+        private string bodyField;
+        
+        private string topicNameField;
+        
+        private int topicIdField;
+        
+        private int loginIdField;
+        
+        private System.DateTime createdField;
+        
+        private System.DateTime modifiedField;
+        
+        private int commentsCountField;
+        
+        /// <remarks/>
+        public TransitCounter Counter {
+            get {
+                return this.counterField;
+            }
+            set {
+                this.counterField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int ImageId {
+            get {
+                return this.imageIdField;
+            }
+            set {
+                this.imageIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int ImagesCount {
+            get {
+                return this.imagesCountField;
+            }
+            set {
+                this.imagesCountField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Title {
+            get {
+                return this.titleField;
+            }
+            set {
+                this.titleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Body {
+            get {
+                return this.bodyField;
+            }
+            set {
+                this.bodyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string TopicName {
+            get {
+                return this.topicNameField;
+            }
+            set {
+                this.topicNameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int TopicId {
+            get {
+                return this.topicIdField;
+            }
+            set {
+                this.topicIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int LoginId {
+            get {
+                return this.loginIdField;
+            }
+            set {
+                this.loginIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Created {
+            get {
+                return this.createdField;
+            }
+            set {
+                this.createdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Modified {
+            get {
+                return this.modifiedField;
+            }
+            set {
+                this.modifiedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int CommentsCount {
+            get {
+                return this.commentsCountField;
+            }
+            set {
+                this.commentsCountField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitCounter : TransitObject {
+        
+        private long countField;
+        
+        private System.DateTime createdField;
+        
+        /// <remarks/>
+        public long Count {
+            get {
+                return this.countField;
+            }
+            set {
+                this.countField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Created {
+            get {
+                return this.createdField;
+            }
+            set {
+                this.createdField = value;
             }
         }
     }
@@ -4218,168 +4737,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public partial class TransitCounter : TransitObject {
-        
-        private long countField;
-        
-        private System.DateTime createdField;
-        
-        /// <remarks/>
-        public long Count {
-            get {
-                return this.countField;
-            }
-            set {
-                this.countField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime Created {
-            get {
-                return this.createdField;
-            }
-            set {
-                this.createdField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public partial class TransitPost : TransitObject {
-        
-        private TransitCounter counterField;
-        
-        private int imageIdField;
-        
-        private int imagesCountField;
-        
-        private string titleField;
-        
-        private string bodyField;
-        
-        private int topicIdField;
-        
-        private int loginIdField;
-        
-        private System.DateTime createdField;
-        
-        private System.DateTime modifiedField;
-        
-        private int commentsCountField;
-        
-        /// <remarks/>
-        public TransitCounter Counter {
-            get {
-                return this.counterField;
-            }
-            set {
-                this.counterField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int ImageId {
-            get {
-                return this.imageIdField;
-            }
-            set {
-                this.imageIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int ImagesCount {
-            get {
-                return this.imagesCountField;
-            }
-            set {
-                this.imagesCountField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Title {
-            get {
-                return this.titleField;
-            }
-            set {
-                this.titleField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Body {
-            get {
-                return this.bodyField;
-            }
-            set {
-                this.bodyField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int TopicId {
-            get {
-                return this.topicIdField;
-            }
-            set {
-                this.topicIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int LoginId {
-            get {
-                return this.loginIdField;
-            }
-            set {
-                this.loginIdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime Created {
-            get {
-                return this.createdField;
-            }
-            set {
-                this.createdField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime Modified {
-            get {
-                return this.modifiedField;
-            }
-            set {
-                this.modifiedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int CommentsCount {
-            get {
-                return this.commentsCountField;
-            }
-            set {
-                this.commentsCountField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitHighlight : TransitObject {
         
         private string titleField;
@@ -4607,6 +4964,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private object[] results;
         
         internal GetLoginByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitLogin Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitLogin)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetLoginByUsernameCompletedEventHandler(object sender, GetLoginByUsernameCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetLoginByUsernameCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetLoginByUsernameCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
@@ -5426,6 +5809,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void HasAccessToPostCompletedEventHandler(object sender, HasAccessToPostCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class HasAccessToPostCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal HasAccessToPostCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public bool Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((bool)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void CreateOrUpdatePostCompletedEventHandler(object sender, CreateOrUpdatePostCompletedEventArgs e);
     
     /// <remarks/>
@@ -6238,6 +6647,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void UpdateFeedCompletedEventHandler(object sender, UpdateFeedCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class UpdateFeedCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal UpdateFeedCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void GetFeedItemByIdCompletedEventHandler(object sender, GetFeedItemByIdCompletedEventArgs e);
     
     /// <remarks/>
@@ -6343,6 +6778,114 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeleteFeedItemCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdatePostLoginCompletedEventHandler(object sender, CreateOrUpdatePostLoginCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdatePostLoginCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdatePostLoginCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPostLoginByIdCompletedEventHandler(object sender, GetPostLoginByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPostLoginByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPostLoginByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitPostLogin Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitPostLogin)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeletePostLoginCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPostLoginsCountCompletedEventHandler(object sender, GetPostLoginsCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPostLoginsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPostLoginsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetPostLoginsCompletedEventHandler(object sender, GetPostLoginsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetPostLoginsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetPostLoginsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitPostLogin[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitPostLogin[])(this.results[0]));
+            }
+        }
+    }
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

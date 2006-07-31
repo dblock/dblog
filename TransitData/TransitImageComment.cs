@@ -64,8 +64,14 @@ namespace DBlog.TransitData
 
         }
 
-        public TransitImageComment(ISession session, DBlog.Data.ImageComment o)
-            : base(session, o.Image.Id, o.Comment)
+        public TransitImageComment(ISession session, DBlog.Data.ImageComment o, string ticket)
+            : this(session, o, TransitImage.HasAccess(session, o.Image, ticket))
+        {
+
+        }
+
+        public TransitImageComment(ISession session, DBlog.Data.ImageComment o, bool hasaccess)
+            : base(session, o.Image.Id, o.Comment, hasaccess)
         {
 
         }

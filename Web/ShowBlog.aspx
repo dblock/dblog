@@ -8,8 +8,10 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
   <atlas:UpdatePanel Mode="Conditional" runat="server" ID="panelPosts" RenderMode="Inline">
    <ContentTemplate>
-    <Controls:PagedGrid runat="server" ID="grid" CssClass="table" BorderWidth="0px" AutoGenerateColumns="false"
-     AllowPaging="true" AllowCustomPaging="true" PageSize="7" ShowHeader="false" OnItemCommand="grid_ItemCommand">
+    <Controls:PagedGrid runat="server" ID="grid" CssClass="table" 
+     AutoGenerateColumns="false" AllowPaging="true" AllowCustomPaging="true" 
+     PageSize="7" ShowHeader="false" OnItemCommand="grid_ItemCommand" 
+     BorderWidth="0" BorderColor="White">
      <ItemStyle HorizontalAlign="Center" CssClass="table_tr_td" />
      <PagerStyle CssClass="table_pager" Position="TopAndBottom" NextPageText="Next"
       PrevPageText="Prev" HorizontalAlign="Center" />

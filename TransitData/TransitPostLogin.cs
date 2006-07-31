@@ -8,7 +8,7 @@ using DBlog.Data.Hibernate;
 
 namespace DBlog.TransitData
 {
-    public class TransitPostImageQueryOptions : WebServiceQueryOptions
+    public class TransitPostLoginQueryOptions : WebServiceQueryOptions
     {
         private int mPostId = 0;
 
@@ -24,17 +24,17 @@ namespace DBlog.TransitData
             }
         }
 
-        public TransitPostImageQueryOptions()
+        public TransitPostLoginQueryOptions()
         {
         }
 
-        public TransitPostImageQueryOptions(
+        public TransitPostLoginQueryOptions(
             int postid)
         {
             mPostId = postid;
         }
 
-        public TransitPostImageQueryOptions(
+        public TransitPostLoginQueryOptions(
             int postid,
             int pagesize,
             int pagenumber)
@@ -65,19 +65,19 @@ namespace DBlog.TransitData
     }
 
 
-    public class TransitPostImage : TransitObject
+    public class TransitPostLogin : TransitObject
     {
-        private TransitImage mImage = null;
+        private TransitLogin mLogin = null;
 
-        public TransitImage Image
+        public TransitLogin Login
         {
             get
             {
-                return mImage;
+                return mLogin;
             }
             set
             {
-                mImage = value;
+                mLogin = value;
             }
         }
 
@@ -95,22 +95,22 @@ namespace DBlog.TransitData
             }
         }
 
-        public TransitPostImage()
+        public TransitPostLogin()
         {
 
         }
 
-        public TransitPostImage(ISession session, DBlog.Data.PostImage o, string ticket)
+        public TransitPostLogin(ISession session, DBlog.Data.PostLogin o)
             : base(o.Id)
         {
-            Post = new TransitPost(session, o.Post, ticket);
-            Image = new TransitImage(session, o.Image, ticket);
+            Post = new TransitPost(session, o.Post, false);
+            Login = new TransitLogin(o.Login);
         }
 
-        public PostImage GetPostImage(ISession session)
+        public PostLogin GetPostLogin(ISession session)
         {
-            PostImage ei = (Id != 0) ? (PostImage)session.Load(typeof(PostImage), Id) : new PostImage();
-            ei.Image = (Image)session.Load(typeof(Image), Image.Id);
+            PostLogin ei = (Id != 0) ? (PostLogin)session.Load(typeof(PostLogin), Id) : new PostLogin();
+            ei.Login = (Login)session.Load(typeof(Login), Login.Id);
             ei.Post = (Post)session.Load(typeof(Post), Post.Id);
             return ei;
         }

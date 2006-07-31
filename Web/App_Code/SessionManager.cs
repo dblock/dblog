@@ -16,7 +16,9 @@ using DBlog.TransitData;
 
 public class SessionManager
 {
-    const string sDBlogAuthCookieName = "DBlog.authcookie";
+    public const string sDBlogAuthCookieName = "DBlog.authcookie";
+    public const string sDBlogPostCookieName = "DBlog.postcookie";
+    
     const string sDBlogImpersonateCookieName = "DBlog.impersonatecookie";
     const string sDBlogRememberLogin = "DBlog.rememberlogin";
 
@@ -24,8 +26,10 @@ public class SessionManager
     private HttpRequest mRequest = null;
     private HttpResponse mResponse = null;
     private string mTicket = string.Empty;
+    private string mPostTicket = string.Empty;
     private Blog mBlogService = null;
     private TransitLogin mLoginRecord = null;
+    private TransitLogin mPostLoginRecord = null;
 
     public Cache Cache
     {
@@ -89,19 +93,32 @@ public class SessionManager
         mRequest = request;
         mResponse = response;
 
-        HttpCookie authcookie = Request.Cookies[sDBlogAuthCookieName];
+        CacheTicket(sDBlogAuthCookieName, ref mTicket);
+        CacheTicket(sDBlogPostCookieName, ref mPostTicket);
+
+        if (!string.IsNullOrEmpty(mTicket) && string.IsNullOrEmpty(mPostTicket))
+        {
+            // use main ticket as default (avoid login twice for admins)
+            mPostTicket = mTicket;
+        }
+    }
+
+    private void CacheTicket(string name, ref string ticket)
+    {
+        HttpCookie authcookie = Request.Cookies[name];
         if (authcookie != null)
         {
             try
             {
                 // cache a verified ticket for an hour
-                mTicket = (string) Cache[string.Format("ticket:{0}", authcookie.Value)];
-                if (string.IsNullOrEmpty(mTicket))
+                string key = string.Format("ticket:{0}", authcookie.Value);
+                ticket = (string)Cache[key];
+                if (string.IsNullOrEmpty(ticket))
                 {
                     ManagedLogin.GetLoginId(authcookie.Value);
-                    mTicket = authcookie.Value;
-                    Cache.Insert(string.Format("ticket:{0}", authcookie.Value),
-                        mTicket, null, DateTime.Now.AddHours(1), TimeSpan.Zero);
+                    ticket = authcookie.Value;
+                    Cache.Insert(key, ticket, null, 
+                        DateTime.Now.AddHours(1), TimeSpan.Zero);
                 }
             }
             catch
@@ -116,6 +133,14 @@ public class SessionManager
         get
         {
             return mTicket;
+        }
+    }
+
+    public string PostTicket
+    {
+        get
+        {
+            return mPostTicket;
         }
     }
 
@@ -149,31 +174,52 @@ public class SessionManager
         }
     }
 
+    public TransitLogin GetLoginRecord(string ticket)
+    {
+        TransitLogin result = null;
+        
+        if (!string.IsNullOrEmpty(ticket))
+        {
+            try
+            {
+                result = (TransitLogin)Cache[string.Format("login:{0}", ticket)];
+                if (result == null)
+                {
+                    result = BlogService.GetLogin(ticket);
+                    Cache.Insert(string.Format("login:{0}", ticket),
+                        result, null, DateTime.Now.AddHours(1), TimeSpan.Zero);
+                }
+            }
+            catch
+            {
+
+            }
+        }
+
+        return result;
+    }
+
     public TransitLogin LoginRecord
     {
         get
-        {
+        {            
             if (mLoginRecord == null)
             {
-                if (! string.IsNullOrEmpty(Ticket))
-                {
-                    try
-                    {
-                        mLoginRecord = (TransitLogin) Cache[string.Format("login:{0}", Ticket)];
-                        if (mLoginRecord == null)
-                        {
-                            mLoginRecord = BlogService.GetLogin(Ticket);
-                            Cache.Insert(string.Format("login:{0}", Ticket),
-                                mLoginRecord, null, DateTime.Now.AddHours(1), TimeSpan.Zero);
-                        }
-                    }
-                    catch
-                    {
-
-                    }
-                }
+                mLoginRecord = GetLoginRecord(Ticket);
             }
             return mLoginRecord;
+        }
+    }
+
+    public TransitLogin PostLoginRecord
+    {
+        get
+        {
+            if (mPostLoginRecord == null)
+            {
+                mPostLoginRecord = GetLoginRecord(PostTicket);
+            }
+            return mPostLoginRecord;
         }
     }
 
@@ -216,7 +262,12 @@ public class SessionManager
 
     public void Login(string ticket, bool rememberme)
     {
-        HttpCookie c = new HttpCookie(sDBlogAuthCookieName);
+        Login(ticket, rememberme, sDBlogAuthCookieName);
+    }
+
+    public void Login(string ticket, bool rememberme, string name)
+    {
+        HttpCookie c = new HttpCookie(name);
         c.Value = ticket;
         if (rememberme)
         {

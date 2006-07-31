@@ -55,13 +55,14 @@ public partial class ShowBlog : BlogPage
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
         grid.DataSource = SessionManager.BlogService.GetPosts(
-            SessionManager.Ticket, new TransitPostQueryOptions(TopicId, grid.PageSize, grid.CurrentPageIndex));
+            SessionManager.PostTicket, new TransitPostQueryOptions(TopicId, grid.PageSize, grid.CurrentPageIndex));
     }
 
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetPostsCount(SessionManager.Ticket, new TransitPostQueryOptions(TopicId));
+        grid.VirtualItemCount = SessionManager.BlogService.GetPostsCount(
+            SessionManager.PostTicket, new TransitPostQueryOptions(TopicId));
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }
