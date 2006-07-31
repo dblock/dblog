@@ -30,10 +30,10 @@ a { font-family: Arial; text-decoration: none; }
 .table_post_tr_th { text-align: left; font-family: Arial; background: black; padding: 2px; font-family: Arial; color: white; font-weight: bold;  }
 .table_tr_td_label { text-align: right; font-family: Arial; }
 .table_tr_td_value { text-align: left; font-family: Arial; }
-.textbox { font-family: Arial; width: 480px; }
-.dropdown { font-family: Arial; width: 480px; }
-.checkbox { font-family: Arial; width: 480px; }
-.upload { font-family: Arial; width: 480px; border: #666666 1px solid; }
+.textbox { font-family: Arial; width: 400px; }
+.dropdown { font-family: Arial; width: 400px; }
+.checkbox { font-family: Arial; width: 400px; }
+.upload { font-family: Arial; width: 400px; border: #666666 1px solid; }
 .button { background-color: #dcdcdc; font-family: Arial; border-top: #cccccc 1px solid; border-bottom: #666666 1px solid; border-left: #cccccc 1px solid; border-right: #666666 1px solid; width: 100px; }
 .title { background: url(images/site/title.gif) no-repeat; background-position: 0 50%; font-family: Arial; font-size: 18px; margin-top: 10px; margin-bottom: 10px; padding-left: 20px; font-weight: bold; }
 .subtitle { font-family: Arial; font-size: 12px; margin: 2px 0px 5px 5px; font-weight: bold; }
@@ -44,7 +44,7 @@ a { font-family: Arial; text-decoration: none; }
 .table_admin_tr_th { text-align: center; font-family: Arial; background: black; padding: 2px; font-family: Arial; font-size: 0.9em; font-weight: bold; color: white; }
 .div_top { height: 25px; }
 .description { font-family: Arial; color: Gray; font-size: smaller; }
-.progress { left: 10px; top: 10px; position: absolute; }
+.progress { left: 800px; top: 70px; position: absolute; }
 .post_title { margin: 2px 0px 2px 0px; font-size: 18px; font-family: Arial; font-weight: bold; }
 .post_subtitle { margin: 2px 0px 2px 5px; font-size: 12px; font-family: Arial; font-weight: bold; }
 .post_body { margin: 5px 5px 5px 5px; font-family: Arial; }
