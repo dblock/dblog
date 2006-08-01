@@ -17,6 +17,21 @@ namespace DBlog.Web.UnitTests.WebServices
 
         }
 
+        private string mTicket = string.Empty;
+
+        public string Ticket
+        {
+            get
+            {
+                if (string.IsNullOrEmpty(mTicket))
+                {
+                    mTicket = Blog.Login("Administrator", string.Empty);
+                }
+
+                return mTicket;
+            }
+        }
+
         protected string Url
         {
             get

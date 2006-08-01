@@ -176,6 +176,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback IncrementHourlyCounterOperationCompleted;
         
+        private System.Threading.SendOrPostCallback IncrementNamedCounterOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetHourlyCountSumOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetFeedByIdOperationCompleted;
@@ -476,6 +478,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event IncrementHourlyCounterCompletedEventHandler IncrementHourlyCounterCompleted;
+        
+        /// <remarks/>
+        public event IncrementNamedCounterCompletedEventHandler IncrementNamedCounterCompleted;
         
         /// <remarks/>
         public event GetHourlyCountSumCompletedEventHandler GetHourlyCountSumCompleted;
@@ -2786,6 +2791,38 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.IncrementHourlyCounterCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.IncrementHourlyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementNamedCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void IncrementNamedCounter(string ticket, string name, int count) {
+            this.Invoke("IncrementNamedCounter", new object[] {
+                        ticket,
+                        name,
+                        count});
+        }
+        
+        /// <remarks/>
+        public void IncrementNamedCounterAsync(string ticket, string name, int count) {
+            this.IncrementNamedCounterAsync(ticket, name, count, null);
+        }
+        
+        /// <remarks/>
+        public void IncrementNamedCounterAsync(string ticket, string name, int count, object userState) {
+            if ((this.IncrementNamedCounterOperationCompleted == null)) {
+                this.IncrementNamedCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementNamedCounterOperationCompleted);
+            }
+            this.InvokeAsync("IncrementNamedCounter", new object[] {
+                        ticket,
+                        name,
+                        count}, this.IncrementNamedCounterOperationCompleted, userState);
+        }
+        
+        private void OnIncrementNamedCounterOperationCompleted(object arg) {
+            if ((this.IncrementNamedCounterCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IncrementNamedCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -6510,6 +6547,10 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void IncrementHourlyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void IncrementNamedCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

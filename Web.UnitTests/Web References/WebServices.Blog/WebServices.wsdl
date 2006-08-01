@@ -1351,6 +1351,18 @@
       <s:element name="IncrementHourlyCounterResponse">
         <s:complexType />
       </s:element>
+      <s:element name="IncrementNamedCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementNamedCounterResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetHourlyCountSum">
         <s:complexType>
           <s:sequence>
@@ -2174,6 +2186,12 @@
   <wsdl:message name="IncrementHourlyCounterSoapOut">
     <wsdl:part name="parameters" element="tns:IncrementHourlyCounterResponse" />
   </wsdl:message>
+  <wsdl:message name="IncrementNamedCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementNamedCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementNamedCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementNamedCounterResponse" />
+  </wsdl:message>
   <wsdl:message name="GetHourlyCountSumSoapIn">
     <wsdl:part name="parameters" element="tns:GetHourlyCountSum" />
   </wsdl:message>
@@ -2671,6 +2689,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment hourly counter.</wsdl:documentation>
       <wsdl:input message="tns:IncrementHourlyCounterSoapIn" />
       <wsdl:output message="tns:IncrementHourlyCounterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IncrementNamedCounter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment named counter.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementNamedCounterSoapIn" />
+      <wsdl:output message="tns:IncrementNamedCounterSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetHourlyCountSum">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get the lifetime hourly count sum.</wsdl:documentation>
@@ -3435,6 +3458,15 @@
     </wsdl:operation>
     <wsdl:operation name="IncrementHourlyCounter">
       <soap:operation soapAction="http://dblock.org/ns/IncrementHourlyCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementNamedCounter">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementNamedCounter" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4293,6 +4325,15 @@
     </wsdl:operation>
     <wsdl:operation name="IncrementHourlyCounter">
       <soap12:operation soapAction="http://dblock.org/ns/IncrementHourlyCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementNamedCounter">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementNamedCounter" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

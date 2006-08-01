@@ -19,6 +19,9 @@ public partial class AtomBlog : BlogPage
     {
         if (!IsPostBack)
         {
+            SessionManager.BlogService.IncrementNamedCounter(
+                SessionManager.Ticket, "Atom", 1);
+
             repeater.DataSource = SessionManager.BlogService.GetPosts(
                 SessionManager.Ticket, new TransitPostQueryOptions(25, 0));
             repeater.DataBind();

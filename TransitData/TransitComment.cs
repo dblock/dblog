@@ -125,16 +125,42 @@ namespace DBlog.TransitData
 
         }
 
-        public TransitComment(DBlog.Data.Comment o)
+        public TransitComment(ISession session, DBlog.Data.Comment o, string ticket)
+            : this(session, o, HasAccess(session, o, ticket))
+        {
+
+        }
+
+        public static bool HasAccess(ISession session, DBlog.Data.Comment comment, string ticket)
+        {
+            if (comment.PostComments == null || comment.PostComments.Count == 0)
+                return true;
+
+            foreach (PostComment pi in comment.PostComments)
+            {
+                if (TransitPost.HasAccess(session, pi.Post, ticket))
+                    return true;
+            }
+
+            return false;
+        }
+
+        public TransitComment(ISession session, DBlog.Data.Comment o, bool hasaccess)
             : base(o.Id)
         {
-            Text = o.Text;
-            IpAddress = o.IpAddress;
+            if (hasaccess)
+            {
+                Text = o.Text;
+                IpAddress = o.IpAddress;
+                LoginName = o.OwnerLogin.Name;
+                LoginWebsite = o.OwnerLogin.Website;
+            }
+
             LoginId = o.OwnerLogin.Id;
-            LoginName = o.OwnerLogin.Name;
-            LoginWebsite = o.OwnerLogin.Website;
+
             ParentCommentId = (o.Threads != null && o.Threads.Count > 0) ?
                 ((Thread) o.Threads[0]).ParentComment.Id : 0;
+            
             Created = o.Created;
             Modified = o.Modified;
         }

@@ -759,6 +759,7 @@ namespace DBlog.WebServices
                     session.Delete(ei.Image);
                 }
 
+                session.Delete(string.Format("FROM PostLogin WHERE Post_Id = {0}", id));
                 session.Delete(string.Format("FROM PostComment WHERE Post_Id = {0}", id));
                 session.Delete(string.Format("FROM PostCounter WHERE Post_Id = {0}", id));
                 session.Delete(post);
@@ -979,7 +980,8 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitComment((Comment)session.Load(typeof(Comment), id));
+                Comment c = (Comment)session.Load(typeof(Comment), id);
+                return new TransitComment(session, c, ticket);
             }
         }
 
@@ -1027,7 +1029,7 @@ namespace DBlog.WebServices
 
                 foreach (Comment obj in list)
                 {
-                    result.Add(new TransitComment(obj));
+                    result.Add(new TransitComment(session, obj, ticket));
                 }
 
                 return result;
@@ -1350,6 +1352,46 @@ namespace DBlog.WebServices
 
                     counter.RequestCount += count;
                     session.Save(counter);
+                    session.Flush();
+                    t.Commit();
+                }
+                catch
+                {
+                    t.Rollback();
+                }
+            }
+        }
+
+        [WebMethod(Description = "Increment named counter.")]
+        public void IncrementNamedCounter(string ticket, string name, int count)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ITransaction t = session.BeginTransaction();
+                try
+                {
+                    NamedCounter counter = (NamedCounter) session.CreateCriteria(typeof(NamedCounter))
+                        .Add(Expression.Eq("Name", name))
+                        .UniqueResult();
+
+                    if (counter == null)
+                    {
+                        counter = new NamedCounter();
+                        counter.Name = name;
+                        counter.Counter = new Counter();
+                        counter.Counter.Count = 1;
+                        counter.Counter.Created = DateTime.UtcNow;
+                        session.Save(counter.Counter);
+                        session.Save(counter);
+                    }
+                    else
+                    {
+                        counter.Counter.Count += count;
+                        session.Save(counter.Counter);
+                    }
+
                     session.Flush();
                     t.Commit();
                 }

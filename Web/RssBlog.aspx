@@ -22,7 +22,7 @@
        <pubDate><%# Renderer.ToRfc822((DateTime) Eval("Modified")) %></pubDate>
        <description>
          <![CDATA[
-          <link rel="stylesheet" href="/blog.css">
+          <link rel="stylesheet" href='<%# SessionManager.GetSetting("url", string.Empty) %>Style.css'>
           <%# Renderer.RenderEx(Eval("Body")) %>
          ]]>
        </description>

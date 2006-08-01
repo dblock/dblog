@@ -20,7 +20,7 @@
      <content type="text/html" mode="xml">
       <body xmlns="http://www.w3.org/1999/xhtml">
        <![CDATA[
-        <link rel="stylesheet" href="/blog.css">
+        <link rel="stylesheet" href='<%# SessionManager.GetSetting("url", string.Empty) %>Style.css'>
         <%# Renderer.RenderEx(Eval("Body")) %>
        ]]>
       </body>

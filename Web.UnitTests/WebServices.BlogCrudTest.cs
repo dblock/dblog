@@ -29,21 +29,6 @@ namespace DBlog.Web.UnitTests.WebServices
             }
         }
 
-        private string mTicket = string.Empty;
-
-        public string Ticket
-        {
-            get
-            {
-                if (string.IsNullOrEmpty(mTicket))
-                {
-                    mTicket = Blog.Login("Administrator", string.Empty);
-                }
-
-                return mTicket;
-            }
-        }
-
         public virtual int Create()
         {
             string method = string.Format("CreateOrUpdate{0}", ObjectType);
