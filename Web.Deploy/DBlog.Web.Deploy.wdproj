@@ -1,0 +1,63 @@
+﻿<!-- 
+  Microsoft Visual Studio 2005 Web Deployment Project 
+  http://go.microsoft.com/fwlink/?LinkId=55111
+-->
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.51103</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6DACA3AC-FE40-4DAF-8722-D991A351EF24}</ProjectGuid>
+    <SourceWebPhysicalPath>..\Web</SourceWebPhysicalPath>
+    <SourceWebProject>{8CE895ED-CDC6-41F0-AE93-2ED257DEC9FB}|http://localhost/DBlog</SourceWebProject>
+    <SourceWebVirtualPath>/DBlog</SourceWebVirtualPath>
+    <SourceWebMetabasePath>/LM/W3SVC/1/ROOT/DBlog/</SourceWebMetabasePath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>.\Debug</OutputPath>
+    <EnableUpdateable>true</EnableUpdateable>
+    <UseMerge>true</UseMerge>
+    <SingleAssemblyName>DBlog.Web.Deploy</SingleAssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>false</DebugSymbols>
+    <OutputPath>.\Release</OutputPath>
+    <EnableUpdateable>true</EnableUpdateable>
+    <UseMerge>true</UseMerge>
+    <SingleAssemblyName>DBlog.Web.Deploy</SingleAssemblyName>
+  </PropertyGroup>
+  <ItemGroup>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Data.Hibernate\DBlog.Data.Hibernate.csproj">
+      <Project>{437F9693-8C20-49BD-A4FD-68A88E9A92C0}</Project>
+      <Name>DBlog.Data.Hibernate</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Data\DBlog.Data.csproj">
+      <Project>{C6E8220C-5AD2-445A-9EF2-079D6547AEAD}</Project>
+      <Name>DBlog.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Tools\DBlog.Tools.csproj">
+      <Project>{75FB606F-0483-49CA-AF2F-8E57DB9864AB}</Project>
+      <Name>DBlog.Tools</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\TransitData\DBlog.TransitData.csproj">
+      <Project>{07B2FB5A-1FB0-4955-A218-12229318ECBE}</Project>
+      <Name>DBlog.TransitData</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\WebDeployment\v8.0\Microsoft.WebDeployment.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.WebDeployment.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="BeforeMerge">
+  </Target>
+  <Target Name="AfterMerge">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

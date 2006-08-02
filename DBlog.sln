@@ -35,6 +35,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.TransitData", "Transi
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Web.UnitTests", "Web.UnitTests\DBlog.Web.UnitTests.csproj", "{EA8183AF-FB41-4F28-9B07-5AB96A37A277}"
 EndProject
+Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "DBlog.Web.Deploy", "Web.Deploy\DBlog.Web.Deploy.wdproj", "{6DACA3AC-FE40-4DAF-8722-D991A351EF24}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -125,6 +127,16 @@ Global
 		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{EA8183AF-FB41-4F28-9B07-5AB96A37A277}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Release|.NET.ActiveCfg = Release|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
