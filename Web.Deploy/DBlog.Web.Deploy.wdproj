@@ -6,7 +6,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>8.0.51103</ProductVersion>
+    <ProductVersion>8.0.60403</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{6DACA3AC-FE40-4DAF-8722-D991A351EF24}</ProjectGuid>
     <SourceWebPhysicalPath>..\Web</SourceWebPhysicalPath>
@@ -20,6 +20,11 @@
     <EnableUpdateable>true</EnableUpdateable>
     <UseMerge>true</UseMerge>
     <SingleAssemblyName>DBlog.Web.Deploy</SingleAssemblyName>
+    <AssemblyPrefixName>
+    </AssemblyPrefixName>
+    <UseFixedNames>false</UseFixedNames>
+    <ContentAssemblyName>
+    </ContentAssemblyName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugSymbols>false</DebugSymbols>
@@ -27,6 +32,11 @@
     <EnableUpdateable>true</EnableUpdateable>
     <UseMerge>true</UseMerge>
     <SingleAssemblyName>DBlog.Web.Deploy</SingleAssemblyName>
+    <AssemblyPrefixName>
+    </AssemblyPrefixName>
+    <UseFixedNames>false</UseFixedNames>
+    <ContentAssemblyName>
+    </ContentAssemblyName>
   </PropertyGroup>
   <ItemGroup>
   </ItemGroup>
