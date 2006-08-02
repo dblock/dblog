@@ -50,6 +50,8 @@ BEGIN
 	DROP TABLE Entry
 END
 
+GO
+
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Gallery]') AND type in (N'U'))
 BEGIN
 
@@ -113,12 +115,7 @@ BEGIN
 	DROP TABLE Gallery
 END
 
--- Drop the Blog view
-IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[Blog]'))
-DROP VIEW Blog
-
--- Alter Comment to allow NULL in Owner_Login_Id
-ALTER TABLE Comment ALTER COLUMN Owner_Login_Id int NULL
+GO
 
 -- Drop the Counters view
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[Counters]'))
@@ -143,6 +140,7 @@ DROP PROCEDURE [sp_namedcounter_increment]
 -- Update feeds with valid save/update date
 UPDATE Feed SET Saved = getutcdate() WHERE Saved IS NULL
 UPDATE Feed SET Updated = getutcdate() WHERE Updated IS NULL
+GO
 
 -- Merge counters
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_daily]') AND type in (N'P', N'PC'))
@@ -152,14 +150,16 @@ BEGIN
  insert into DailyCounter select c, ts from #tmp_daily
  DROP PROCEDURE [sp_hourlycounters_daily]
 END
+GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_weekly]') AND type in (N'P', N'PC'))
 BEGIN
  CREATE TABLE #tmp_weekly ( [Id] int, [c] bigint, [ts] DateTime )
  insert into #tmp_weekly exec sp_hourlycounters_weekly
- insert into WeeklyCounter select c, ts from #tmp_weekly
+ insert into WeeklyCounter select c, ts from #tmp_weekly 
  DROP PROCEDURE [sp_hourlycounters_weekly]
 END
+GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_monthly]') AND type in (N'P', N'PC'))
 BEGIN
@@ -168,6 +168,7 @@ BEGIN
  insert into MonthlyCounter select c, ts from #tmp_monthly
  DROP PROCEDURE [sp_hourlycounters_monthly]
 END
+GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_yearly]') AND type in (N'P', N'PC'))
 BEGIN
@@ -176,17 +177,20 @@ BEGIN
  insert into YearlyCounter select c, ts from #tmp_yearly
  DROP PROCEDURE [sp_hourlycounters_yearly]
 END
+GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_hourly]') AND type in (N'P', N'PC'))
 BEGIN
  DROP PROCEDURE [sp_hourlycounters_hourly]
 END
+GO
 
 -- Drop named counters
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_namedconter_increment]') AND type in (N'P', N'PC'))
 BEGIN
  DROP PROCEDURE [sp_namedconter_increment]
 END
+GO
 
 -- Drop stats views
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[BrowsersByName]'))
@@ -200,15 +204,31 @@ DROP VIEW Platforms
 
 IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[BrowsersByName]'))
 DROP VIEW BrowsersByName
+GO
 
-IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[udf_mondayofweek]') AND type in (N'FN', N'IF', N'TF', N'FS', N'FT'))
-DROP FUNCTION udf_mondayofweek
+-- Drop the Blog view
+IF EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[Blog]'))
+DROP VIEW Blog
+
+-- Alter Comment to allow NULL in Owner_Login_Id
+ALTER TABLE Comment ALTER COLUMN Owner_Login_Id int NULL
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_rollup_browserversionplatform]') AND type in (N'P', N'PC'))
+BEGIN
+ ALTER TABLE [Browser] DROP CONSTRAINT DF_Browser_Crawler
+ ALTER TABLE [Browser] DROP COLUMN [Crawler]
+ ALTER TABLE [Browser] ADD [Platform] nvarchar(128) NULL
+ ALTER TABLE [Browser] ADD [Version] nvarchar(12) NULL
+END
+GO
 
 -- Update browser table and counter
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_rollup_browserversionplatform]') AND type in (N'P', N'PC'))
-BEGIN
+EXEC [sp_rollup_browserversionplatform]
+GO
 
-	EXEC [sp_rollup_browserversionplatform]
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_rollup_browserversionplatform]') AND type in (N'P', N'PC'))
+BEGIN
 
 	CREATE TABLE #tmp_Browser ( 
 	   [Id] int
@@ -243,20 +263,43 @@ BEGIN
 	AND BrowserVersionPlatform.BrowserPlatform_Id = BrowserPlatform.BrowserPlatform_Id
 	AND BrowserVersionPlatform.BrowserVersion_Id = BrowserVersion.BrowserVersion_Id
 	AND RollupBrowserVersionPlatform.BrowserVersionPlatform_Id = BrowserVersionPlatform.BrowserVersionPlatform_Id
+END
+GO
 
-	DROP TABLE Request
-	DROP TABLE RollupBrowserVersionPlatform
-	DROP TABLE BrowserVersionPlatform
-	DROP TABLE BrowserVersion
-	DROP TABLE BrowserPlatform
-	DROP TABLE Platform
-	DELETE Browser
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Request]') AND type in (N'U'))
+DROP TABLE Request
+GO
 
-	ALTER TABLE [Browser] DROP CONSTRAINT DF_Browser_Crawler
-	ALTER TABLE [Browser] DROP COLUMN [Crawler]
-	ALTER TABLE [Browser] ADD [Platform] nvarchar(128) NOT NULL
-	ALTER TABLE [Browser] ADD [Version] nvarchar(12) NOT NULL
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RollupBrowserVersionPlatform]') AND type in (N'U'))
+DROP TABLE RollupBrowserVersionPlatform
+GO
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BrowserVersionPlatform]') AND type in (N'U'))
+DROP TABLE BrowserVersionPlatform
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BrowserVersion]') AND type in (N'U'))
+DROP TABLE BrowserVersion
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BrowserPlatform]') AND type in (N'U'))
+DROP TABLE BrowserPlatform
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Platform]') AND type in (N'U'))
+DROP TABLE Platform
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_rollup_browserversionplatform]') AND type in (N'P', N'PC'))
+DELETE Browser
+GO
+
+ALTER TABLE [Browser] ALTER COLUMN [Platform] nvarchar(128) NOT NULL
+ALTER TABLE [Browser] ALTER COLUMN [Version] nvarchar(12) NOT NULL
+GO
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_rollup_browserversionplatform]') AND type in (N'P', N'PC'))
+BEGIN
 	DECLARE tmp_BrowserIterator Cursor
 	FOR SELECT Id, [Name], Platform, Version, RequestCount FROM #tmp_Browser
 	OPEN tmp_BrowserIterator
@@ -285,10 +328,12 @@ BEGIN
 	 
 	 FETCH NEXT FROM tmp_BrowserIterator INTO @browser_id, @browser_name, @browser_platform, @browser_version, @browser_rc
 	END
+
 	CLOSE tmp_BrowserIterator
 	DEALLOCATE tmp_BrowserIterator
-
+    DROP TABLE #tmp_Browser
 END
+GO
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_rollup_browserversionplatform]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [sp_rollup_browserversionplatform]
@@ -322,3 +367,8 @@ DROP PROCEDURE [sp_rollup_referrersearchquery]
 
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Referrer]') AND type in (N'U'))
 DROP TABLE Referrer
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[udf_mondayofweek]') AND type in (N'FN', N'IF', N'TF', N'FS', N'FT'))
+DROP FUNCTION udf_mondayofweek
+GO
+

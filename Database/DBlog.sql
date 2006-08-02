@@ -84,14 +84,6 @@ CREATE TABLE [dbo].[Browser](
 END
 GO
 
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Browser]') AND name = N'UK_Browser')
-CREATE UNIQUE NONCLUSTERED INDEX [UK_Browser] ON [dbo].[Browser] 
-(
-	[Name] ASC,
-	[Platform] ASC,
-	[Version] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-GO
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
