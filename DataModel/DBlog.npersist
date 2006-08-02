@@ -175,11 +175,6 @@
     <property name="Url" columns="Url" type="System.String" />
     <property name="Word" columns="Word" type="System.String" />
   </class>
-  <class name="Referrer" table="Referrer">
-    <property name="Id" id="true" columns="Referrer_Id" type="System.Int32" />
-    <property name="Source" columns="Source" type="System.String" />
-    <property name="Url" columns="Url" type="System.String" />
-  </class>
   <class name="ReferrerHost" table="ReferrerHost">
     <property name="Id" id="true" columns="ReferrerHost_Id" type="System.Int32" />
     <property name="LastSource" columns="LastSource" type="System.String" />
@@ -253,7 +248,7 @@
       <column name="Feed_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="Description" type="String" prec="256" allow-null="true" length="512" scale="0" />
       <column name="Exception" type="String" prec="0" allow-null="true" length="16" scale="0" specific-type="NTEXT" />
-      <column name="Interval" type="Int32" prec="10" length="4" scale="0" default="(60)" />
+      <column name="Interval" type="Int32" prec="10" length="4" scale="0" default="((60))" />
       <column name="Name" type="String" prec="64" allow-null="true" length="128" scale="0" />
       <column name="Password" type="AnsiString" prec="64" allow-null="true" length="64" scale="0" />
       <column name="Saved" type="DateTime" prec="23" allow-null="true" length="8" scale="3" />
@@ -280,7 +275,7 @@
     <table name="HourlyCounter">
       <column name="HourlyCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="DateTime" type="DateTime" prec="23" length="8" scale="3" default="(getdate())" />
-      <column name="RequestCount" type="Int32" prec="10" length="4" scale="0" default="(0)" />
+      <column name="RequestCount" type="Int32" prec="10" length="4" scale="0" default="((0))" />
     </table>
     <table name="Image">
       <column name="Image_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
@@ -289,7 +284,7 @@
       <column name="Modified" type="DateTime" prec="23" length="8" scale="3" />
       <column name="Name" type="String" prec="64" length="128" scale="0" />
       <column name="Path" type="String" prec="260" allow-null="true" length="520" scale="0" />
-      <column name="Preferred" type="Boolean" prec="1" allow-null="true" length="1" scale="0" default="(0)" />
+      <column name="Preferred" type="Boolean" prec="1" allow-null="true" length="1" scale="0" default="((0))" />
       <column name="Thumbnail" type="Object" prec="0" allow-null="true" length="16" scale="0" />
     </table>
     <table name="ImageComment">
@@ -372,17 +367,12 @@
       <column name="Url" type="String" prec="256" length="512" scale="0" />
       <column name="Word" type="String" prec="256" length="512" scale="0" />
     </table>
-    <table name="Referrer">
-      <column name="Referrer_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Source" type="String" prec="1024" length="2048" scale="0" />
-      <column name="Url" type="String" prec="1024" length="2048" scale="0" />
-    </table>
     <table name="ReferrerHost">
       <column name="ReferrerHost_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="LastSource" type="String" prec="1024" length="2048" scale="0" />
       <column name="LastUrl" type="String" prec="1024" length="2048" scale="0" />
       <column name="Name" type="String" prec="128" length="256" scale="0" />
-      <column name="RequestCount" type="Int64" prec="19" allow-null="true" length="8" scale="0" default="(0)" />
+      <column name="RequestCount" type="Int64" prec="19" allow-null="true" length="8" scale="0" default="((0))" />
     </table>
     <table name="ReferrerHostRollup">
       <column name="ReferrerHostRollup_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
@@ -391,7 +381,7 @@
     </table>
     <table name="ReferrerSearchQuery">
       <column name="ReferrerSearchQuery_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" default="(0)" />
+      <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" default="((0))" />
       <column name="SearchQuery" type="String" prec="128" length="256" scale="0" />
     </table>
     <table name="Thread">

@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 using DBlog.Tools.Web;
 
-public partial class Login : BlogPage
+public partial class BlogLogin : BlogPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {

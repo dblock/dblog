@@ -372,3 +372,6 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[udf_mo
 DROP FUNCTION udf_mondayofweek
 GO
 
+-- Reset admin passwords where null
+UPDATE Login SET Password = '1B2M2Y8AsgTpgAmY7PhCfg==' 
+WHERE ( Password IS NULL OR Password = '' ) AND Role = 'Administrator'

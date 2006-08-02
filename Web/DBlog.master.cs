@@ -55,6 +55,10 @@ public partial class DBlogMaster : MasterPage
                         : SessionManager.PostLoginRecord.Name));
             }
 
+            imageMain.ImageUrl = SessionManager.GetSetting("image", imageMain.ImageUrl);
+            imageMain.Width = int.Parse(SessionManager.GetSetting("imagewidth", imageMain.Width.ToString()));
+            imageMain.Height = int.Parse(SessionManager.GetSetting("imageheight", imageMain.Height.ToString()));
+
             TransitCounter c = Counter;
             labelCounter.Text = string.Format("{0} click{1} since {2}",
                 c.Count, c.Count != 1 ? "s" : string.Empty, c.Created.ToString("d"));

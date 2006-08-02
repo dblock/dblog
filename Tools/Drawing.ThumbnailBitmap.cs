@@ -140,11 +140,11 @@ namespace DBlog.Tools.Drawing
 
         public static byte[] GetThumbnail(Bitmap originalimage, Size min)
         {
-            if (min != null && originalimage.Width < min.Width && originalimage.Height < min.Height)
-            {
-                throw new InvalidImageSizeException(
-                    string.Empty, originalimage.Size, min);
-            }
+            //if (min != null && originalimage.Width < min.Width && originalimage.Height < min.Height)
+            //{
+            //    throw new InvalidImageSizeException(
+            //        string.Empty, originalimage.Size, min);
+            //}
 
             return GetResizedImageBytes(originalimage, ThumbnailSize.Width, ThumbnailSize.Height, 80);
         }

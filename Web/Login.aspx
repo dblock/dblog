@@ -1,5 +1,5 @@
 <%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="Login.aspx.cs"
- Inherits="Login" Title="Login" %>
+ Inherits="BlogLogin" Title="Login" %>
 
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
