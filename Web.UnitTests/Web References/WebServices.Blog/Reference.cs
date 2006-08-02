@@ -122,6 +122,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback IncrementPostCounterOperationCompleted;
         
+        private System.Threading.SendOrPostCallback CreateOrUpdateStatsOperationCompleted;
+        
         private System.Threading.SendOrPostCallback CreateOrUpdatePostImageOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetPostImageByIdOperationCompleted;
@@ -176,16 +178,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback IncrementCountersOperationCompleted;
         
-        private System.Threading.SendOrPostCallback IncrementHourlyCounterOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback IncrementDailyCounterOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback IncrementWeeklyCounterOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback IncrementMonthlyCounterOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback IncrementYearlyCounterOperationCompleted;
-        
         private System.Threading.SendOrPostCallback IncrementNamedCounterOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetHourlyCountSumOperationCompleted;
@@ -233,6 +225,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private System.Threading.SendOrPostCallback GetBrowsersOperationCompleted;
         
         private System.Threading.SendOrPostCallback DeleteBrowserOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferrerHostByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateReferrerHostOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferrerHostsCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferrerHostsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteReferrerHostOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
@@ -421,6 +423,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         public event IncrementPostCounterCompletedEventHandler IncrementPostCounterCompleted;
         
         /// <remarks/>
+        public event CreateOrUpdateStatsCompletedEventHandler CreateOrUpdateStatsCompleted;
+        
+        /// <remarks/>
         public event CreateOrUpdatePostImageCompletedEventHandler CreateOrUpdatePostImageCompleted;
         
         /// <remarks/>
@@ -502,21 +507,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         public event IncrementCountersCompletedEventHandler IncrementCountersCompleted;
         
         /// <remarks/>
-        public event IncrementHourlyCounterCompletedEventHandler IncrementHourlyCounterCompleted;
-        
-        /// <remarks/>
-        public event IncrementDailyCounterCompletedEventHandler IncrementDailyCounterCompleted;
-        
-        /// <remarks/>
-        public event IncrementWeeklyCounterCompletedEventHandler IncrementWeeklyCounterCompleted;
-        
-        /// <remarks/>
-        public event IncrementMonthlyCounterCompletedEventHandler IncrementMonthlyCounterCompleted;
-        
-        /// <remarks/>
-        public event IncrementYearlyCounterCompletedEventHandler IncrementYearlyCounterCompleted;
-        
-        /// <remarks/>
         public event IncrementNamedCounterCompletedEventHandler IncrementNamedCounterCompleted;
         
         /// <remarks/>
@@ -587,6 +577,21 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event DeleteBrowserCompletedEventHandler DeleteBrowserCompleted;
+        
+        /// <remarks/>
+        public event GetReferrerHostByIdCompletedEventHandler GetReferrerHostByIdCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateReferrerHostCompletedEventHandler CreateOrUpdateReferrerHostCompleted;
+        
+        /// <remarks/>
+        public event GetReferrerHostsCountCompletedEventHandler GetReferrerHostsCountCompleted;
+        
+        /// <remarks/>
+        public event GetReferrerHostsCompletedEventHandler GetReferrerHostsCompleted;
+        
+        /// <remarks/>
+        public event DeleteReferrerHostCompletedEventHandler DeleteReferrerHostCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -2015,6 +2020,39 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateStats", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateStats(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs) {
+            object[] results = this.Invoke("CreateOrUpdateStats", new object[] {
+                        ticket,
+                        t_browsers,
+                        t_rhs});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateStatsAsync(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs) {
+            this.CreateOrUpdateStatsAsync(ticket, t_browsers, t_rhs, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateStatsAsync(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs, object userState) {
+            if ((this.CreateOrUpdateStatsOperationCompleted == null)) {
+                this.CreateOrUpdateStatsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateStatsOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateStats", new object[] {
+                        ticket,
+                        t_browsers,
+                        t_rhs}, this.CreateOrUpdateStatsOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateStatsOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateStatsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateStatsCompleted(this, new CreateOrUpdateStatsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdatePostImage", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public int CreateOrUpdatePostImage(string ticket, int post_id, TransitImage t_image) {
             object[] results = this.Invoke("CreateOrUpdatePostImage", new object[] {
@@ -2850,156 +2888,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementHourlyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void IncrementHourlyCounter(string ticket, int count) {
-            this.Invoke("IncrementHourlyCounter", new object[] {
-                        ticket,
-                        count});
-        }
-        
-        /// <remarks/>
-        public void IncrementHourlyCounterAsync(string ticket, int count) {
-            this.IncrementHourlyCounterAsync(ticket, count, null);
-        }
-        
-        /// <remarks/>
-        public void IncrementHourlyCounterAsync(string ticket, int count, object userState) {
-            if ((this.IncrementHourlyCounterOperationCompleted == null)) {
-                this.IncrementHourlyCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementHourlyCounterOperationCompleted);
-            }
-            this.InvokeAsync("IncrementHourlyCounter", new object[] {
-                        ticket,
-                        count}, this.IncrementHourlyCounterOperationCompleted, userState);
-        }
-        
-        private void OnIncrementHourlyCounterOperationCompleted(object arg) {
-            if ((this.IncrementHourlyCounterCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.IncrementHourlyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementDailyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void IncrementDailyCounter(string ticket, int count) {
-            this.Invoke("IncrementDailyCounter", new object[] {
-                        ticket,
-                        count});
-        }
-        
-        /// <remarks/>
-        public void IncrementDailyCounterAsync(string ticket, int count) {
-            this.IncrementDailyCounterAsync(ticket, count, null);
-        }
-        
-        /// <remarks/>
-        public void IncrementDailyCounterAsync(string ticket, int count, object userState) {
-            if ((this.IncrementDailyCounterOperationCompleted == null)) {
-                this.IncrementDailyCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementDailyCounterOperationCompleted);
-            }
-            this.InvokeAsync("IncrementDailyCounter", new object[] {
-                        ticket,
-                        count}, this.IncrementDailyCounterOperationCompleted, userState);
-        }
-        
-        private void OnIncrementDailyCounterOperationCompleted(object arg) {
-            if ((this.IncrementDailyCounterCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.IncrementDailyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementWeeklyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void IncrementWeeklyCounter(string ticket, int count) {
-            this.Invoke("IncrementWeeklyCounter", new object[] {
-                        ticket,
-                        count});
-        }
-        
-        /// <remarks/>
-        public void IncrementWeeklyCounterAsync(string ticket, int count) {
-            this.IncrementWeeklyCounterAsync(ticket, count, null);
-        }
-        
-        /// <remarks/>
-        public void IncrementWeeklyCounterAsync(string ticket, int count, object userState) {
-            if ((this.IncrementWeeklyCounterOperationCompleted == null)) {
-                this.IncrementWeeklyCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementWeeklyCounterOperationCompleted);
-            }
-            this.InvokeAsync("IncrementWeeklyCounter", new object[] {
-                        ticket,
-                        count}, this.IncrementWeeklyCounterOperationCompleted, userState);
-        }
-        
-        private void OnIncrementWeeklyCounterOperationCompleted(object arg) {
-            if ((this.IncrementWeeklyCounterCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.IncrementWeeklyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementMonthlyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void IncrementMonthlyCounter(string ticket, int count) {
-            this.Invoke("IncrementMonthlyCounter", new object[] {
-                        ticket,
-                        count});
-        }
-        
-        /// <remarks/>
-        public void IncrementMonthlyCounterAsync(string ticket, int count) {
-            this.IncrementMonthlyCounterAsync(ticket, count, null);
-        }
-        
-        /// <remarks/>
-        public void IncrementMonthlyCounterAsync(string ticket, int count, object userState) {
-            if ((this.IncrementMonthlyCounterOperationCompleted == null)) {
-                this.IncrementMonthlyCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementMonthlyCounterOperationCompleted);
-            }
-            this.InvokeAsync("IncrementMonthlyCounter", new object[] {
-                        ticket,
-                        count}, this.IncrementMonthlyCounterOperationCompleted, userState);
-        }
-        
-        private void OnIncrementMonthlyCounterOperationCompleted(object arg) {
-            if ((this.IncrementMonthlyCounterCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.IncrementMonthlyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementYearlyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public void IncrementYearlyCounter(string ticket, int count) {
-            this.Invoke("IncrementYearlyCounter", new object[] {
-                        ticket,
-                        count});
-        }
-        
-        /// <remarks/>
-        public void IncrementYearlyCounterAsync(string ticket, int count) {
-            this.IncrementYearlyCounterAsync(ticket, count, null);
-        }
-        
-        /// <remarks/>
-        public void IncrementYearlyCounterAsync(string ticket, int count, object userState) {
-            if ((this.IncrementYearlyCounterOperationCompleted == null)) {
-                this.IncrementYearlyCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementYearlyCounterOperationCompleted);
-            }
-            this.InvokeAsync("IncrementYearlyCounter", new object[] {
-                        ticket,
-                        count}, this.IncrementYearlyCounterOperationCompleted, userState);
-        }
-        
-        private void OnIncrementYearlyCounterOperationCompleted(object arg) {
-            if ((this.IncrementYearlyCounterCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.IncrementYearlyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementNamedCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void IncrementNamedCounter(string ticket, string name, int count) {
             this.Invoke("IncrementNamedCounter", new object[] {
@@ -3739,6 +3627,158 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerHostById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitReferrerHost GetReferrerHostById(string ticket, int id) {
+            object[] results = this.Invoke("GetReferrerHostById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitReferrerHost)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostByIdAsync(string ticket, int id) {
+            this.GetReferrerHostByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetReferrerHostByIdOperationCompleted == null)) {
+                this.GetReferrerHostByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerHostByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetReferrerHostById", new object[] {
+                        ticket,
+                        id}, this.GetReferrerHostByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetReferrerHostByIdOperationCompleted(object arg) {
+            if ((this.GetReferrerHostByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferrerHostByIdCompleted(this, new GetReferrerHostByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateReferrerHost", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateReferrerHost(string ticket, TransitReferrerHost t_referrerhost) {
+            object[] results = this.Invoke("CreateOrUpdateReferrerHost", new object[] {
+                        ticket,
+                        t_referrerhost});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateReferrerHostAsync(string ticket, TransitReferrerHost t_referrerhost) {
+            this.CreateOrUpdateReferrerHostAsync(ticket, t_referrerhost, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateReferrerHostAsync(string ticket, TransitReferrerHost t_referrerhost, object userState) {
+            if ((this.CreateOrUpdateReferrerHostOperationCompleted == null)) {
+                this.CreateOrUpdateReferrerHostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateReferrerHostOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateReferrerHost", new object[] {
+                        ticket,
+                        t_referrerhost}, this.CreateOrUpdateReferrerHostOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateReferrerHostOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateReferrerHostCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateReferrerHostCompleted(this, new CreateOrUpdateReferrerHostCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerHostsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetReferrerHostsCount(string ticket) {
+            object[] results = this.Invoke("GetReferrerHostsCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostsCountAsync(string ticket) {
+            this.GetReferrerHostsCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostsCountAsync(string ticket, object userState) {
+            if ((this.GetReferrerHostsCountOperationCompleted == null)) {
+                this.GetReferrerHostsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerHostsCountOperationCompleted);
+            }
+            this.InvokeAsync("GetReferrerHostsCount", new object[] {
+                        ticket}, this.GetReferrerHostsCountOperationCompleted, userState);
+        }
+        
+        private void OnGetReferrerHostsCountOperationCompleted(object arg) {
+            if ((this.GetReferrerHostsCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferrerHostsCountCompleted(this, new GetReferrerHostsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerHosts", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitReferrerHost[] GetReferrerHosts(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetReferrerHosts", new object[] {
+                        ticket,
+                        options});
+            return ((TransitReferrerHost[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostsAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetReferrerHostsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferrerHostsAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetReferrerHostsOperationCompleted == null)) {
+                this.GetReferrerHostsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerHostsOperationCompleted);
+            }
+            this.InvokeAsync("GetReferrerHosts", new object[] {
+                        ticket,
+                        options}, this.GetReferrerHostsOperationCompleted, userState);
+        }
+        
+        private void OnGetReferrerHostsOperationCompleted(object arg) {
+            if ((this.GetReferrerHostsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferrerHostsCompleted(this, new GetReferrerHostsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteReferrerHost", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteReferrerHost(string ticket, int id) {
+            this.Invoke("DeleteReferrerHost", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteReferrerHostAsync(string ticket, int id) {
+            this.DeleteReferrerHostAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteReferrerHostAsync(string ticket, int id, object userState) {
+            if ((this.DeleteReferrerHostOperationCompleted == null)) {
+                this.DeleteReferrerHostOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteReferrerHostOperationCompleted);
+            }
+            this.InvokeAsync("DeleteReferrerHost", new object[] {
+                        ticket,
+                        id}, this.DeleteReferrerHostOperationCompleted, userState);
+        }
+        
+        private void OnDeleteReferrerHostOperationCompleted(object arg) {
+            if ((this.DeleteReferrerHostCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteReferrerHostCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetVersion", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string GetVersion() {
             object[] results = this.Invoke("GetVersion", new object[0]);
@@ -3990,7 +4030,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitBrowser))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostLogin))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeedItem))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeed))]
@@ -4000,6 +4039,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitComment))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPermalink))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostImage))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHost))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitBrowser))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPost))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitHighlight))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHostRollup))]
@@ -4273,51 +4314,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.excludeBlogImagesField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public partial class TransitBrowser : TransitObject {
-        
-        private string nameField;
-        
-        private string versionField;
-        
-        private string platformField;
-        
-        /// <remarks/>
-        public string Name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Version {
-            get {
-                return this.versionField;
-            }
-            set {
-                this.versionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Platform {
-            get {
-                return this.platformField;
-            }
-            set {
-                this.platformField = value;
             }
         }
     }
@@ -5198,6 +5194,108 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.counterField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitReferrerHost : TransitObject {
+        
+        private string lastUrlField;
+        
+        private string lastSourceField;
+        
+        private long requestCountField;
+        
+        private string nameField;
+        
+        /// <remarks/>
+        public string LastUrl {
+            get {
+                return this.lastUrlField;
+            }
+            set {
+                this.lastUrlField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string LastSource {
+            get {
+                return this.lastSourceField;
+            }
+            set {
+                this.lastSourceField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long RequestCount {
+            get {
+                return this.requestCountField;
+            }
+            set {
+                this.requestCountField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitBrowser : TransitObject {
+        
+        private string nameField;
+        
+        private string versionField;
+        
+        private string platformField;
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Platform {
+            get {
+                return this.platformField;
+            }
+            set {
+                this.platformField = value;
             }
         }
     }
@@ -6414,6 +6512,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateStatsCompletedEventHandler(object sender, CreateOrUpdateStatsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateStatsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateStatsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void CreateOrUpdatePostImageCompletedEventHandler(object sender, CreateOrUpdatePostImageCompletedEventArgs e);
     
     /// <remarks/>
@@ -6984,26 +7108,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void IncrementHourlyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void IncrementDailyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void IncrementWeeklyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void IncrementMonthlyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
-    public delegate void IncrementYearlyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void IncrementNamedCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
@@ -7515,6 +7619,114 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeleteBrowserCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferrerHostByIdCompletedEventHandler(object sender, GetReferrerHostByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferrerHostByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferrerHostByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitReferrerHost Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitReferrerHost)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateReferrerHostCompletedEventHandler(object sender, CreateOrUpdateReferrerHostCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateReferrerHostCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateReferrerHostCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferrerHostsCountCompletedEventHandler(object sender, GetReferrerHostsCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferrerHostsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferrerHostsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferrerHostsCompletedEventHandler(object sender, GetReferrerHostsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferrerHostsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferrerHostsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitReferrerHost[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitReferrerHost[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteReferrerHostCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

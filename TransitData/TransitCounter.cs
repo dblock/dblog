@@ -150,7 +150,7 @@ namespace DBlog.TransitData
             while (utcnow.DayOfWeek != DayOfWeek.Monday)
                 utcnow = utcnow.AddDays(-1);
 
-            WeeklyCounter counter = (WeeklyCounter)session.CreateCriteria(typeof(HourlyCounter))
+            WeeklyCounter counter = (WeeklyCounter)session.CreateCriteria(typeof(WeeklyCounter))
                 .Add(Expression.Eq("DateTime", utcnow))
                 .UniqueResult();
 

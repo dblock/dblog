@@ -64,7 +64,9 @@
     <Compile Include="WebServices.BlogProperties.cs" />
     <Compile Include="WebServices.BlogReferenceTest.cs" />
     <Compile Include="WebServices.BlogReferrerHostRollupTest.cs" />
+    <Compile Include="WebServices.BlogReferrerHostTest.cs" />
     <Compile Include="WebServices.BlogSecurityTest.cs" />
+    <Compile Include="WebServices.BlogStatsTest.cs" />
     <Compile Include="WebServices.BlogTopicTest.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -834,6 +834,55 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CreateOrUpdateStats">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_browsers" type="tns:ArrayOfTransitBrowser" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_rhs" type="tns:ArrayOfTransitReferrerHost" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitBrowser">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitBrowser" nillable="true" type="tns:TransitBrowser" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransitBrowser">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Platform" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="ArrayOfTransitReferrerHost">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitReferrerHost" nillable="true" type="tns:TransitReferrerHost" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransitReferrerHost">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="LastUrl" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LastSource" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="RequestCount" type="s:long" />
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateOrUpdateStatsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateStatsResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="CreateOrUpdatePostImage">
         <s:complexType>
           <s:sequence>
@@ -1351,61 +1400,6 @@
       <s:element name="IncrementCountersResponse">
         <s:complexType />
       </s:element>
-      <s:element name="IncrementHourlyCounter">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="IncrementHourlyCounterResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="IncrementDailyCounter">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="IncrementDailyCounterResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="IncrementWeeklyCounter">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="IncrementWeeklyCounterResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="IncrementMonthlyCounter">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="IncrementMonthlyCounterResponse">
-        <s:complexType />
-      </s:element>
-      <s:element name="IncrementYearlyCounter">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="IncrementYearlyCounterResponse">
-        <s:complexType />
-      </s:element>
       <s:element name="IncrementNamedCounter">
         <s:complexType>
           <s:sequence>
@@ -1766,17 +1760,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="TransitBrowser">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:TransitObject">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="Platform" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
       <s:element name="CreateOrUpdateBrowser">
         <s:complexType>
           <s:sequence>
@@ -1836,11 +1819,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="ArrayOfTransitBrowser">
-        <s:sequence>
-          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitBrowser" nillable="true" type="tns:TransitBrowser" />
-        </s:sequence>
-      </s:complexType>
       <s:element name="DeleteBrowser">
         <s:complexType>
           <s:sequence>
@@ -1850,6 +1828,76 @@
         </s:complexType>
       </s:element>
       <s:element name="DeleteBrowserResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="GetReferrerHostById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHostByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReferrerHostByIdResult" type="tns:TransitReferrerHost" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateReferrerHost">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_referrerhost" type="tns:TransitReferrerHost" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateReferrerHostResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateReferrerHostResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHostsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHostsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetReferrerHostsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHosts">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerHostsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReferrerHostsResult" type="tns:ArrayOfTransitReferrerHost" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteReferrerHost">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteReferrerHostResponse">
         <s:complexType />
       </s:element>
       <s:element name="GetVersion">
@@ -2180,6 +2228,12 @@
   <wsdl:message name="IncrementPostCounterSoapOut">
     <wsdl:part name="parameters" element="tns:IncrementPostCounterResponse" />
   </wsdl:message>
+  <wsdl:message name="CreateOrUpdateStatsSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateStats" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateStatsSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateStatsResponse" />
+  </wsdl:message>
   <wsdl:message name="CreateOrUpdatePostImageSoapIn">
     <wsdl:part name="parameters" element="tns:CreateOrUpdatePostImage" />
   </wsdl:message>
@@ -2342,36 +2396,6 @@
   <wsdl:message name="IncrementCountersSoapOut">
     <wsdl:part name="parameters" element="tns:IncrementCountersResponse" />
   </wsdl:message>
-  <wsdl:message name="IncrementHourlyCounterSoapIn">
-    <wsdl:part name="parameters" element="tns:IncrementHourlyCounter" />
-  </wsdl:message>
-  <wsdl:message name="IncrementHourlyCounterSoapOut">
-    <wsdl:part name="parameters" element="tns:IncrementHourlyCounterResponse" />
-  </wsdl:message>
-  <wsdl:message name="IncrementDailyCounterSoapIn">
-    <wsdl:part name="parameters" element="tns:IncrementDailyCounter" />
-  </wsdl:message>
-  <wsdl:message name="IncrementDailyCounterSoapOut">
-    <wsdl:part name="parameters" element="tns:IncrementDailyCounterResponse" />
-  </wsdl:message>
-  <wsdl:message name="IncrementWeeklyCounterSoapIn">
-    <wsdl:part name="parameters" element="tns:IncrementWeeklyCounter" />
-  </wsdl:message>
-  <wsdl:message name="IncrementWeeklyCounterSoapOut">
-    <wsdl:part name="parameters" element="tns:IncrementWeeklyCounterResponse" />
-  </wsdl:message>
-  <wsdl:message name="IncrementMonthlyCounterSoapIn">
-    <wsdl:part name="parameters" element="tns:IncrementMonthlyCounter" />
-  </wsdl:message>
-  <wsdl:message name="IncrementMonthlyCounterSoapOut">
-    <wsdl:part name="parameters" element="tns:IncrementMonthlyCounterResponse" />
-  </wsdl:message>
-  <wsdl:message name="IncrementYearlyCounterSoapIn">
-    <wsdl:part name="parameters" element="tns:IncrementYearlyCounter" />
-  </wsdl:message>
-  <wsdl:message name="IncrementYearlyCounterSoapOut">
-    <wsdl:part name="parameters" element="tns:IncrementYearlyCounterResponse" />
-  </wsdl:message>
   <wsdl:message name="IncrementNamedCounterSoapIn">
     <wsdl:part name="parameters" element="tns:IncrementNamedCounter" />
   </wsdl:message>
@@ -2515,6 +2539,36 @@
   </wsdl:message>
   <wsdl:message name="DeleteBrowserSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteBrowserResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostById" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateReferrerHostSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateReferrerHost" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateReferrerHostSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateReferrerHostResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostsCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrerHosts" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerHostsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferrerHostsResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteReferrerHostSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteReferrerHost" />
+  </wsdl:message>
+  <wsdl:message name="DeleteReferrerHostSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteReferrerHostResponse" />
   </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
@@ -2777,6 +2831,11 @@
       <wsdl:input message="tns:IncrementPostCounterSoapIn" />
       <wsdl:output message="tns:IncrementPostCounterSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateStats">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update statistics for a series of requests.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateStatsSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateStatsSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="CreateOrUpdatePostImage">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a post image.</wsdl:documentation>
       <wsdl:input message="tns:CreateOrUpdatePostImageSoapIn" />
@@ -2912,31 +2971,6 @@
       <wsdl:input message="tns:IncrementCountersSoapIn" />
       <wsdl:output message="tns:IncrementCountersSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="IncrementHourlyCounter">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment hourly counter.</wsdl:documentation>
-      <wsdl:input message="tns:IncrementHourlyCounterSoapIn" />
-      <wsdl:output message="tns:IncrementHourlyCounterSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="IncrementDailyCounter">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment daily counter.</wsdl:documentation>
-      <wsdl:input message="tns:IncrementDailyCounterSoapIn" />
-      <wsdl:output message="tns:IncrementDailyCounterSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="IncrementWeeklyCounter">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment weekly counter.</wsdl:documentation>
-      <wsdl:input message="tns:IncrementWeeklyCounterSoapIn" />
-      <wsdl:output message="tns:IncrementWeeklyCounterSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="IncrementMonthlyCounter">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment monthly counter.</wsdl:documentation>
-      <wsdl:input message="tns:IncrementMonthlyCounterSoapIn" />
-      <wsdl:output message="tns:IncrementMonthlyCounterSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="IncrementYearlyCounter">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment yearly counter.</wsdl:documentation>
-      <wsdl:input message="tns:IncrementYearlyCounterSoapIn" />
-      <wsdl:output message="tns:IncrementYearlyCounterSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="IncrementNamedCounter">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment named counter.</wsdl:documentation>
       <wsdl:input message="tns:IncrementNamedCounterSoapIn" />
@@ -3056,6 +3090,31 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a browser.</wsdl:documentation>
       <wsdl:input message="tns:DeleteBrowserSoapIn" />
       <wsdl:output message="tns:DeleteBrowserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a referrer host.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferrerHostByIdSoapIn" />
+      <wsdl:output message="tns:GetReferrerHostByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReferrerHost">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a referrer host.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateReferrerHostSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateReferrerHostSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get referrer hosts count.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferrerHostsCountSoapIn" />
+      <wsdl:output message="tns:GetReferrerHostsCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHosts">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get referrer hosts.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferrerHostsSoapIn" />
+      <wsdl:output message="tns:GetReferrerHostsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReferrerHost">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a referrer host.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteReferrerHostSoapIn" />
+      <wsdl:output message="tns:DeleteReferrerHostSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -3499,6 +3558,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateStats">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateStats" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateOrUpdatePostImage">
       <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdatePostImage" style="document" />
       <wsdl:input>
@@ -3742,51 +3810,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="IncrementHourlyCounter">
-      <soap:operation soapAction="http://dblock.org/ns/IncrementHourlyCounter" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="IncrementDailyCounter">
-      <soap:operation soapAction="http://dblock.org/ns/IncrementDailyCounter" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="IncrementWeeklyCounter">
-      <soap:operation soapAction="http://dblock.org/ns/IncrementWeeklyCounter" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="IncrementMonthlyCounter">
-      <soap:operation soapAction="http://dblock.org/ns/IncrementMonthlyCounter" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="IncrementYearlyCounter">
-      <soap:operation soapAction="http://dblock.org/ns/IncrementYearlyCounter" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="IncrementNamedCounter">
       <soap:operation soapAction="http://dblock.org/ns/IncrementNamedCounter" style="document" />
       <wsdl:input>
@@ -3996,6 +4019,51 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteBrowser">
       <soap:operation soapAction="http://dblock.org/ns/DeleteBrowser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostById">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferrerHostById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReferrerHost">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateReferrerHost" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferrerHostsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHosts">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferrerHosts" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReferrerHost">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteReferrerHost" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4465,6 +4533,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateStats">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateStats" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateOrUpdatePostImage">
       <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdatePostImage" style="document" />
       <wsdl:input>
@@ -4708,51 +4785,6 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="IncrementHourlyCounter">
-      <soap12:operation soapAction="http://dblock.org/ns/IncrementHourlyCounter" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="IncrementDailyCounter">
-      <soap12:operation soapAction="http://dblock.org/ns/IncrementDailyCounter" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="IncrementWeeklyCounter">
-      <soap12:operation soapAction="http://dblock.org/ns/IncrementWeeklyCounter" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="IncrementMonthlyCounter">
-      <soap12:operation soapAction="http://dblock.org/ns/IncrementMonthlyCounter" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="IncrementYearlyCounter">
-      <soap12:operation soapAction="http://dblock.org/ns/IncrementYearlyCounter" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="IncrementNamedCounter">
       <soap12:operation soapAction="http://dblock.org/ns/IncrementNamedCounter" style="document" />
       <wsdl:input>
@@ -4962,6 +4994,51 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteBrowser">
       <soap12:operation soapAction="http://dblock.org/ns/DeleteBrowser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferrerHostById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReferrerHost">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateReferrerHost" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHostsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferrerHostsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerHosts">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferrerHosts" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReferrerHost">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteReferrerHost" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -780,21 +780,34 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Update statistics for a series of requests.")]
-        public void CreateOrUpdateBrowsersAndCounters(string ticket, TransitBrowser[] t_browsers)
+        public int CreateOrUpdateStats(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
 
-                TransitCounter.IncrementCounters(session, t_browsers.Length);
+                TransitCounter.IncrementCounters(session, Math.Max(t_browsers.Length, t_rhs.Length));
 
-                foreach(TransitBrowser t_browser in t_browsers)
+                if (t_browsers != null)
                 {
-                    Browser browser = t_browser.GetBrowser(session);
-                    session.SaveOrUpdate(browser);
+                    foreach (TransitBrowser t_browser in t_browsers)
+                    {
+                        Browser browser = t_browser.GetBrowser(session);
+                        session.SaveOrUpdate(browser);
+                    }
+                }
+
+                if (t_rhs != null)
+                {
+                    foreach (TransitReferrerHost t_rh in t_rhs)
+                    {
+                        ReferrerHost rh = t_rh.GetReferrerHost(session);
+                        session.SaveOrUpdate(rh);
+                    }
                 }
 
                 session.Flush();
+                return Math.Max(t_browsers.Length, t_rhs.Length);
             }
         }
 
@@ -1717,6 +1730,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
                 Browser browser = t_browser.GetBrowser(session);
                 session.SaveOrUpdate(browser);
                 session.Flush();
@@ -1779,11 +1793,90 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
                 session.Delete((Browser)session.Load(typeof(Browser), id));
                 session.Flush();
             }
         }
 
         #endregion
+
+        #region Referrer Hosts
+
+        [WebMethod(Description = "Get a referrer host.")]
+        public TransitReferrerHost GetReferrerHostById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitReferrerHost((ReferrerHost)session.Load(typeof(ReferrerHost), id));
+            }
+        }
+
+        [WebMethod(Description = "Create or update a referrer host.")]
+        public int CreateOrUpdateReferrerHost(string ticket, TransitReferrerHost t_referrerhost)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                ReferrerHost referrerhost = t_referrerhost.GetReferrerHost(session);
+                session.SaveOrUpdate(referrerhost);
+                session.Flush();
+                return referrerhost.Id;
+            }
+        }
+
+        [WebMethod(Description = "Get referrer hosts count.")]
+        public int GetReferrerHostsCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.ReferrerHost), "ReferrerHost").Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get referrer hosts.")]
+        public List<TransitReferrerHost> GetReferrerHosts(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(ReferrerHost));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitReferrerHost> result = new List<TransitReferrerHost>(list.Count);
+
+                foreach (ReferrerHost obj in list)
+                {
+                    result.Add(new TransitReferrerHost(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a referrer host.")]
+        public void DeleteReferrerHost(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                session.Delete((ReferrerHost)session.Load(typeof(ReferrerHost), id));
+                session.Flush();
+            }
+        }
+
+        #endregion
+
     }
 }

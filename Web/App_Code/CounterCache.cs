@@ -46,7 +46,10 @@ public class CounterCache
 
     public void Flush(SessionManager manager)
     {
-        manager.BlogService.IncrementCounters(manager.Ticket, mRequests.Count);
+        List<TransitBrowser> browsers = new List<TransitBrowser>();
+        List<TransitReferrerHost> rhs = new List<TransitReferrerHost>();
+
+        // TODO: use a unique sorted collection
 
         foreach(HttpRequest request in mRequests)
         {
@@ -54,11 +57,23 @@ public class CounterCache
             browser.Name = request.Browser.Browser;
             browser.Platform = request.Browser.Platform;
             browser.Version = request.Browser.Version;
+            browsers.Add(browser);
 
-            browser.Id = manager.BlogService.CreateOrUpdateBrowser(manager.Ticket, browser);
-            manager.BlogService.IncrementBrowserCounter(manager.Ticket, browser.Id);
+            // don't track navigation between pages
+            if (request.UrlReferrer != null && request.UrlReferrer.Host != request.Url.Host)
+            {
+                TransitReferrerHost rh = new TransitReferrerHost();
+                rh.Name = request.UrlReferrer.Host;
+                rh.LastSource = request.UrlReferrer.ToString();
+                rh.LastUrl = request.Url.ToString();
+                rh.RequestCount = 1;
+                rhs.Add(rh);
+            }
         }
 
+        manager.BlogService.CreateOrUpdateStats(
+            manager.Ticket, browsers.ToArray(), rhs.ToArray());
+        
         mRequests.Clear();
         LastFlush = DateTime.UtcNow;
     }

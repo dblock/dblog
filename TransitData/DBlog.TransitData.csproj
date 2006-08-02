@@ -60,7 +60,6 @@
     <Compile Include="References.LiveJournalRenderer.cs" />
     <Compile Include="References.MsnSpacesRenderer.cs" />
     <Compile Include="References.Renderer.cs" />
-    <Compile Include="ReferrerHost.cs" />
     <Compile Include="TransitBrowser.cs" />
     <Compile Include="TransitCounter.cs" />
     <Compile Include="ManagedLogin.cs" />
@@ -81,6 +80,7 @@
     <Compile Include="TransitPostLogin.cs" />
     <Compile Include="TransitReference.cs" />
     <Compile Include="TransitReferrer.cs" />
+    <Compile Include="TransitReferrerHost.cs" />
     <Compile Include="TransitReferrerHostRollup.cs" />
     <Compile Include="TransitReferrerSearchQuery.cs" />
     <Compile Include="TransitTopic.cs" />
