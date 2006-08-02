@@ -4,22 +4,22 @@ namespace DBlog.Data
 
     ///--------------------------------------------------------------------------------
     ///<summary>
-    ///Persistent domain entity class representing 'RollupBrowserVersionPlatform' entities.
+    ///Persistent domain entity class representing 'YearlyCounter' entities.
     ///</summary>
     ///<remarks>
     ///
     ///Mapping information:
-    ///This class maps to the 'RollupBrowserVersionPlatform' table in the data source.
+    ///This class maps to the 'YearlyCounter' table in the data source.
     ///</remarks>
     ///--------------------------------------------------------------------------------
-    public class RollupBrowserVersionPlatform
+    public class YearlyCounter
     {
 #region " Generated Code Region "
         //Private field variables
 
         //Holds property values
         private System.Int32 m_Id;
-        private BrowserVersionPlatform m_BrowserVersionPlatform;
+        private System.DateTime m_DateTime;
         private System.Int64 m_RequestCount;
 
         //Public properties
@@ -35,7 +35,7 @@ namespace DBlog.Data
         ///The accessibility level for the field 'm_Id' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'RollupBrowserVersionPlatform_Id' in the data source.
+        ///The property maps to the column 'YearlyCounter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
         public  System.Int32 Id
@@ -48,28 +48,26 @@ namespace DBlog.Data
 
         ///--------------------------------------------------------------------------------
         ///<summary>
-        ///Persistent one-many reference property.
+        ///Persistent primitive property.
         ///</summary>
         ///<remarks>
-        ///This property accepts references to objects of the type 'BrowserVersionPlatform'.
-        ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'BrowserVersionPlatform.RollupBrowserVersionPlatforms'.
+        ///This property accepts values of the type 'System.DateTime'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_BrowserVersionPlatform' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_DateTime' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'BrowserVersionPlatform_Id' in the data source.
+        ///The property maps to the column 'DateTime' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  BrowserVersionPlatform BrowserVersionPlatform
+        public  System.DateTime DateTime
         {
             get
             {
-                return m_BrowserVersionPlatform;
+                return m_DateTime;
             }
             set
             {
-                m_BrowserVersionPlatform = value;
+                m_DateTime = value;
             }
         }
 

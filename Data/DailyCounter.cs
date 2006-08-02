@@ -4,24 +4,23 @@ namespace DBlog.Data
 
     ///--------------------------------------------------------------------------------
     ///<summary>
-    ///Persistent domain entity class representing 'Request' entities.
+    ///Persistent domain entity class representing 'DailyCounter' entities.
     ///</summary>
     ///<remarks>
     ///
     ///Mapping information:
-    ///This class maps to the 'Request' table in the data source.
+    ///This class maps to the 'DailyCounter' table in the data source.
     ///</remarks>
     ///--------------------------------------------------------------------------------
-    public class Request
+    public class DailyCounter
     {
 #region " Generated Code Region "
         //Private field variables
 
         //Holds property values
         private System.Int32 m_Id;
-        private BrowserVersionPlatform m_BrowserVersionPlatform;
         private System.DateTime m_DateTime;
-        private System.String m_IpAddress;
+        private System.Int32 m_RequestCount;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -36,7 +35,7 @@ namespace DBlog.Data
         ///The accessibility level for the field 'm_Id' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Request_Id' in the data source.
+        ///The property maps to the column 'DailyCounter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
         public  System.Int32 Id
@@ -44,33 +43,6 @@ namespace DBlog.Data
             get
             {
                 return m_Id;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent one-many reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts references to objects of the type 'BrowserVersionPlatform'.
-        ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'BrowserVersionPlatform.Requests'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_BrowserVersionPlatform' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'BrowserVersionPlatform_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  BrowserVersionPlatform BrowserVersionPlatform
-        {
-            get
-            {
-                return m_BrowserVersionPlatform;
-            }
-            set
-            {
-                m_BrowserVersionPlatform = value;
             }
         }
 
@@ -104,23 +76,23 @@ namespace DBlog.Data
         ///Persistent primitive property.
         ///</summary>
         ///<remarks>
-        ///This property accepts values of the type 'System.String'.
+        ///This property accepts values of the type 'System.Int32'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_IpAddress' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_RequestCount' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'IpAddress' in the data source.
+        ///The property maps to the column 'RequestCount' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String IpAddress
+        public  System.Int32 RequestCount
         {
             get
             {
-                return m_IpAddress;
+                return m_RequestCount;
             }
             set
             {
-                m_IpAddress = value;
+                m_RequestCount = value;
             }
         }
 

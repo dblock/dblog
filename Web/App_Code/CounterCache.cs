@@ -8,6 +8,8 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using System.Web.Caching;
+using System.Collections.Generic;
+using DBlog.TransitData;
 
 public class CounterCache
 {
@@ -15,7 +17,7 @@ public class CounterCache
     static string CounterCacheKey = "__countercache";
 
     private DateTime mLastFlush;
-    private int mCounter = 0;
+    private List<HttpRequest> mRequests = new List<HttpRequest>();
 
     public DateTime LastFlush
     {
@@ -29,31 +31,8 @@ public class CounterCache
         }
     }
 
-    public int Counter
-    {
-        get
-        {
-            return mCounter;
-        }
-        set
-        {
-            mCounter = value;
-        }
-    }
-
-    public int Increment()
-    {
-        return (++mCounter);
-    }
-
-    public int Increment(int count)
-    {
-        return (mCounter += count);
-    }
-
     public CounterCache()
     {
-        mCounter = 0;
         mLastFlush = DateTime.UtcNow;
     }
 
@@ -67,23 +46,41 @@ public class CounterCache
 
     public void Flush(SessionManager manager)
     {
-        manager.BlogService.IncrementHourlyCounter(manager.Ticket, Counter);
-        Counter = 0;
+        manager.BlogService.IncrementCounters(manager.Ticket, mRequests.Count);
+
+        foreach(HttpRequest request in mRequests)
+        {
+            TransitBrowser browser = new TransitBrowser();
+            browser.Name = request.Browser.Browser;
+            browser.Platform = request.Browser.Platform;
+            browser.Version = request.Browser.Version;
+
+            browser.Id = manager.BlogService.CreateOrUpdateBrowser(manager.Ticket, browser);
+            manager.BlogService.IncrementBrowserCounter(manager.Ticket, browser.Id);
+        }
+
+        mRequests.Clear();
         LastFlush = DateTime.UtcNow;
     }
 
-    public static int Increment(Cache cache, SessionManager manager)
+    public int Add(HttpRequest request)
+    {
+        mRequests.Add(request);
+        return mRequests.Count;
+    }
+
+    public static int Increment(HttpRequest request, Cache cache, SessionManager manager)
     {
         CounterCache cc = (CounterCache) cache[CounterCacheKey];
 
         if (cc == null)
         {
             cc = new CounterCache();
-            cc.Counter = 0;
             cache.Insert(CounterCacheKey, cc);
         }
 
-        int result = cc.Increment();
+
+        int result = cc.Add(request);
 
         if (cc.Expired)
         {

@@ -27,7 +27,7 @@ public class BlogPage : DBlog.Tools.Web.Page
 
         if (!IsPostBack)
         {
-            CounterCache.Increment(Cache, SessionManager);
+            CounterCache.Increment(Request, Cache, SessionManager);
         }
 
         base.OnLoad(e);

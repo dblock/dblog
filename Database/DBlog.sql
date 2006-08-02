@@ -28,6 +28,52 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[Browsers]'))
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[Browsers] AS
+(
+	SELECT 
+	   Browser.Browser_Id AS ''Browser_Id''
+	 , Browser.[Name] AS ''BrowserName''
+	 , Browser.Crawler As ''BrowserCrawler''
+	 , LTRIM(STR(BrowserVersion.Major)) + ''.'' + LTRIM(STR(BrowserVersion.Minor)) AS ''BrowserVersion''
+	 , Platform.[Name] AS ''BrowserPlatform''
+         , RequestCount AS ''RequestCount''
+	FROM Browser
+	 INNER JOIN BrowserVersion ON Browser.Browser_Id = BrowserVersion.Browser_Id
+	 INNER JOIN BrowserPlatform ON Browser.Browser_Id = BrowserPlatform.Browser_Id
+	 INNER JOIN Platform ON BrowserPlatform.Platform_Id = Platform.Platform_Id
+         INNER JOIN BrowserVersionPlatform ON (
+               BrowserVersion.BrowserVersion_Id = BrowserVersionPlatform.BrowserVersion_Id
+           AND BrowserPlatform.BrowserPlatform_Id = BrowserVersionPlatform.BrowserPlatform_Id
+         )
+         INNER JOIN RollupBrowserVersionPlatform ON RollupBrowserVersionPlatform.BrowserVersionPlatform_Id = BrowserVersionPlatform.BrowserVersionPlatform_Id
+)
+' 
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[Platforms]'))
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[Platforms] AS
+(
+  SELECT
+      0 AS ''Platforms_Id''
+    , Platform.[Name] AS ''Name''
+    , SUM(RollupBrowserVersionPlatform.RequestCount) AS ''RequestCount'' 
+  FROM 
+    RollupBrowserVersionPlatform
+  INNER JOIN BrowserPlatform ON RollupBrowserVersionPlatform.BrowserVersionPlatform_Id = BrowserPlatform.BrowserPlatform_Id
+  INNER JOIN Platform ON BrowserPlatform.Platform_Id = Platform.Platform_Id
+  GROUP BY 
+    Platform.[Name]
+)
+' 
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Permalink]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Permalink](
@@ -73,6 +119,33 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Browser]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[Browser](
+	[Browser_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](128) NOT NULL,
+	[Platform] [nvarchar](128) NOT NULL,
+	[Version] [nvarchar](12) NOT NULL,
+ CONSTRAINT [PK_Browser] PRIMARY KEY CLUSTERED 
+(
+	[Browser_Id] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Browser]') AND name = N'UK_Browser')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_Browser] ON [dbo].[Browser] 
+(
+	[Name] ASC,
+	[Platform] ASC,
+	[Version] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ReferrerHostRollup]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[ReferrerHostRollup](
@@ -86,23 +159,6 @@ CREATE TABLE [dbo].[ReferrerHostRollup](
  CONSTRAINT [UK_ReferrerHostRollup] UNIQUE NONCLUSTERED 
 (
 	[Name] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Browser]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[Browser](
-	[Browser_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](128) NOT NULL,
-	[Crawler] [bit] NOT NULL CONSTRAINT [DF_Browser_Crawler]  DEFAULT (0),
- CONSTRAINT [PK_Browser] PRIMARY KEY CLUSTERED 
-(
-	[Browser_Id] ASC
 )WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -168,8 +224,8 @@ CREATE TABLE [dbo].[HourlyCounter](
 END
 GO
 
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[HourlyCounter]') AND name = N'IX_HourlyCounter')
-CREATE NONCLUSTERED INDEX [IX_HourlyCounter] ON [dbo].[HourlyCounter] 
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[HourlyCounter]') AND name = N'UK_HourlyCounter')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_HourlyCounter] ON [dbo].[HourlyCounter] 
 (
 	[DateTime] ASC
 )WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
@@ -218,26 +274,6 @@ CREATE TABLE [dbo].[Login](
 (
 	[Email] ASC,
 	[Username] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Platform]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[Platform](
-	[Platform_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Name] [nvarchar](128) NOT NULL,
- CONSTRAINT [PK_Platform] PRIMARY KEY CLUSTERED 
-(
-	[Platform_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_Platform] UNIQUE NONCLUSTERED 
-(
-	[Name] ASC
 )WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -349,6 +385,102 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[DailyCounter]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[DailyCounter](
+	[DailyCounter_Id] [int] IDENTITY(1,1) NOT NULL,
+	[RequestCount] [int] NOT NULL,
+	[DateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_DailyCounter] PRIMARY KEY CLUSTERED 
+(
+	[DailyCounter_Id] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[DailyCounter]') AND name = N'UK_DailyCounter')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_DailyCounter] ON [dbo].[DailyCounter] 
+(
+	[DateTime] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[WeeklyCounter]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[WeeklyCounter](
+	[WeeklyCounter_Id] [int] IDENTITY(1,1) NOT NULL,
+	[RequestCount] [bigint] NOT NULL,
+	[DateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_WeeklyCounter] PRIMARY KEY CLUSTERED 
+(
+	[WeeklyCounter_Id] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[WeeklyCounter]') AND name = N'UK_WeeklyCounter')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_WeeklyCounter] ON [dbo].[WeeklyCounter] 
+(
+	[DateTime] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[MonthlyCounter]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[MonthlyCounter](
+	[MonthlyCounter_Id] [int] IDENTITY(1,1) NOT NULL,
+	[RequestCount] [bigint] NOT NULL,
+	[DateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_MonthlyCounter] PRIMARY KEY CLUSTERED 
+(
+	[MonthlyCounter_Id] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[MonthlyCounter]') AND name = N'UK_MonthlyCounter')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_MonthlyCounter] ON [dbo].[MonthlyCounter] 
+(
+	[DateTime] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[YearlyCounter]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[YearlyCounter](
+	[YearlyCounter_Id] [int] IDENTITY(1,1) NOT NULL,
+	[RequestCount] [bigint] NOT NULL,
+	[DateTime] [datetime] NOT NULL,
+ CONSTRAINT [PK_YearlyCounter] PRIMARY KEY CLUSTERED 
+(
+	[YearlyCounter_Id] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[YearlyCounter]') AND name = N'UK_YearlyCounter')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_YearlyCounter] ON [dbo].[YearlyCounter] 
+(
+	[DateTime] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[Post](
@@ -377,45 +509,20 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BrowserVersionPlatform]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ImageComment]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[BrowserVersionPlatform](
-	[BrowserVersionPlatform_Id] [int] IDENTITY(1,1) NOT NULL,
-	[BrowserPlatform_Id] [int] NOT NULL,
-	[BrowserVersion_Id] [int] NOT NULL,
- CONSTRAINT [PK_BrowserVersionPlatform] PRIMARY KEY CLUSTERED 
-(
-	[BrowserVersionPlatform_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
-GO
-
-IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[BrowserVersionPlatform]') AND name = N'UK_BrowserVersionPlatform')
-CREATE NONCLUSTERED INDEX [UK_BrowserVersionPlatform] ON [dbo].[BrowserVersionPlatform] 
-(
-	[BrowserPlatform_Id] ASC,
-	[BrowserVersion_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Thread]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[Thread](
-	[Thread_Id] [int] IDENTITY(1,1) NOT NULL,
+CREATE TABLE [dbo].[ImageComment](
+	[ImageComment_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Image_Id] [int] NOT NULL,
 	[Comment_Id] [int] NOT NULL,
-	[ParentComment_Id] [int] NOT NULL,
- CONSTRAINT [PK_CommentThread] PRIMARY KEY CLUSTERED 
+ CONSTRAINT [PK_ImageComment] PRIMARY KEY CLUSTERED 
 (
-	[Thread_Id] ASC
+	[ImageComment_Id] ASC
 )WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_Thread] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UK_ImageComment] UNIQUE NONCLUSTERED 
 (
-	[Comment_Id] ASC,
-	[ParentComment_Id] ASC
+	[Image_Id] ASC,
+	[Comment_Id] ASC
 )WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -449,59 +556,20 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[ImageComment]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Thread]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[ImageComment](
-	[ImageComment_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Image_Id] [int] NOT NULL,
+CREATE TABLE [dbo].[Thread](
+	[Thread_Id] [int] IDENTITY(1,1) NOT NULL,
 	[Comment_Id] [int] NOT NULL,
- CONSTRAINT [PK_ImageComment] PRIMARY KEY CLUSTERED 
+	[ParentComment_Id] [int] NOT NULL,
+ CONSTRAINT [PK_CommentThread] PRIMARY KEY CLUSTERED 
 (
-	[ImageComment_Id] ASC
+	[Thread_Id] ASC
 )WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_ImageComment] UNIQUE NONCLUSTERED 
+ CONSTRAINT [UK_Thread] UNIQUE NONCLUSTERED 
 (
-	[Image_Id] ASC,
-	[Comment_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Request]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[Request](
-	[Request_Id] [int] IDENTITY(1,1) NOT NULL,
-	[IpAddress] [varchar](24) NOT NULL,
-	[DateTime] [datetime] NOT NULL CONSTRAINT [DF_Request_DateTime]  DEFAULT (getdate()),
-	[BrowserVersionPlatform_Id] [int] NOT NULL,
- CONSTRAINT [PK_Request] PRIMARY KEY CLUSTERED 
-(
-	[Request_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[RollupBrowserVersionPlatform]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[RollupBrowserVersionPlatform](
-	[RollupBrowserVersionPlatform_Id] [int] IDENTITY(1,1) NOT NULL,
-	[RequestCount] [bigint] NOT NULL CONSTRAINT [DF_RollupBrowserVersionPlatform_RequestCount]  DEFAULT (0),
-	[BrowserVersionPlatform_Id] [int] NOT NULL,
- CONSTRAINT [PK_RollupBrowserVersionPlatform] PRIMARY KEY CLUSTERED 
-(
-	[RollupBrowserVersionPlatform_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_RollupBrowserVersionPlatform] UNIQUE NONCLUSTERED 
-(
-	[BrowserVersionPlatform_Id] ASC
+	[Comment_Id] ASC,
+	[ParentComment_Id] ASC
 )WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 END
@@ -535,6 +603,23 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PostLogin]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[PostLogin](
+	[PostLogin_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Post_Id] [int] NOT NULL,
+	[Login_Id] [int] NOT NULL,
+ CONSTRAINT [PK_PostLogin] PRIMARY KEY CLUSTERED 
+(
+	[PostLogin_Id] ASC
+)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
 IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PostImage]') AND type in (N'U'))
 BEGIN
 CREATE TABLE [dbo].[PostImage](
@@ -560,64 +645,26 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PostLogin]') AND type in (N'U'))
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BrowserCounter]') AND type in (N'U'))
 BEGIN
-CREATE TABLE [dbo].[PostLogin](
-	[PostLogin_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Post_Id] [int] NOT NULL,
-	[Login_Id] [int] NOT NULL,
- CONSTRAINT [PK_PostLogin] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[BrowserCounter](
+	[BrowserCounter_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Browser_Id] [int] NOT NULL,
+	[Counter_Id] [int] NOT NULL,
+ CONSTRAINT [PK_BrowserCounter] PRIMARY KEY CLUSTERED 
 (
-	[PostLogin_Id] ASC
+	[BrowserCounter_Id] ASC
 )WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
 ) ON [PRIMARY]
 END
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BrowserPlatform]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[BrowserPlatform](
-	[BrowserPlatform_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Browser_Id] [int] NOT NULL,
-	[Platform_Id] [int] NOT NULL,
- CONSTRAINT [PK_BrowserPlatform] PRIMARY KEY CLUSTERED 
-(
-	[BrowserPlatform_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_BrowserPlatform] UNIQUE NONCLUSTERED 
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[BrowserCounter]') AND name = N'UK_BrowserCounter')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_BrowserCounter] ON [dbo].[BrowserCounter] 
 (
 	[Browser_Id] ASC,
-	[Platform_Id] ASC
+	[Counter_Id] ASC
 )WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[BrowserVersion]') AND type in (N'U'))
-BEGIN
-CREATE TABLE [dbo].[BrowserVersion](
-	[BrowserVersion_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Major] [int] NULL,
-	[Minor] [int] NULL,
-	[Browser_Id] [int] NOT NULL,
- CONSTRAINT [PK_BrowserVersion] PRIMARY KEY CLUSTERED 
-(
-	[BrowserVersion_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY],
- CONSTRAINT [UK_BrowserVersion] UNIQUE NONCLUSTERED 
-(
-	[Major] ASC,
-	[Minor] ASC,
-	[Browser_Id] ASC
-)WITH (IGNORE_DUP_KEY = OFF) ON [PRIMARY]
-) ON [PRIMARY]
-END
 GO
 SET ANSI_NULLS ON
 GO
@@ -759,148 +806,19 @@ SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
-IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[Platforms]'))
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[Platforms] AS
+IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[BrowsersByName]'))
+EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[BrowsersByName] AS
 (
   SELECT
-      0 AS ''Platforms_Id''
-    , Platform.[Name] AS ''Name''
-    , SUM(RollupBrowserVersionPlatform.RequestCount) AS ''RequestCount'' 
+      0 AS ''BrowsersByName_Id''
+    , BrowserName AS ''Name''
+    , SUM(RequestCount) AS ''RequestCount'' 
   FROM 
-    RollupBrowserVersionPlatform
-  INNER JOIN BrowserPlatform ON RollupBrowserVersionPlatform.BrowserVersionPlatform_Id = BrowserPlatform.BrowserPlatform_Id
-  INNER JOIN Platform ON BrowserPlatform.Platform_Id = Platform.Platform_Id
+    Browsers
   GROUP BY 
-    Platform.[Name]
+    BrowserName
 )
 ' 
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[Browsers]'))
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[Browsers] AS
-(
-	SELECT 
-	   Browser.Browser_Id AS ''Browser_Id''
-	 , Browser.[Name] AS ''BrowserName''
-	 , Browser.Crawler As ''BrowserCrawler''
-	 , LTRIM(STR(BrowserVersion.Major)) + ''.'' + LTRIM(STR(BrowserVersion.Minor)) AS ''BrowserVersion''
-	 , Platform.[Name] AS ''BrowserPlatform''
-         , RequestCount AS ''RequestCount''
-	FROM Browser
-	 INNER JOIN BrowserVersion ON Browser.Browser_Id = BrowserVersion.Browser_Id
-	 INNER JOIN BrowserPlatform ON Browser.Browser_Id = BrowserPlatform.Browser_Id
-	 INNER JOIN Platform ON BrowserPlatform.Platform_Id = Platform.Platform_Id
-         INNER JOIN BrowserVersionPlatform ON (
-               BrowserVersion.BrowserVersion_Id = BrowserVersionPlatform.BrowserVersion_Id
-           AND BrowserPlatform.BrowserPlatform_Id = BrowserVersionPlatform.BrowserPlatform_Id
-         )
-         INNER JOIN RollupBrowserVersionPlatform ON RollupBrowserVersionPlatform.BrowserVersionPlatform_Id = BrowserVersionPlatform.BrowserVersionPlatform_Id
-)
-' 
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_browserplatform_create]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_browserplatform_create]
-(
-        @browser_id int
-      , @platform_id int
-)
-AS
-BEGIN
-    DECLARE @BrowserPlatformId int
-    BEGIN TRANSACTION BrowserPlatformCreate
-    
-	    SELECT @BrowserPlatformId = (
-	        SELECT
-	            [BrowserPlatform_Id]
-	        FROM
-	            [BrowserPlatform]
-	        WHERE
-	            BrowserPlatform.[Platform_Id] = @platform_id
-	            AND BrowserPlatform.[Browser_Id] = @browser_id
-	    )
-	    
-	    IF @BrowserPlatformId IS NULL
-	    BEGIN   
-	
-	        INSERT INTO 
-	            [BrowserPlatform]
-	        (
-	              [Browser_Id]
-                    , [Platform_Id]
-	        )
-	        VALUES
-	        ( 
-	               @browser_id
-                     , @platform_id
-	        )
-	        
-	        SET @BrowserPlatformId = SCOPE_IDENTITY()
-	    END
-    COMMIT TRANSACTION BrowserPlatformCreate
-    RETURN @BrowserPlatformId
-END
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_browserversion_create]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_browserversion_create]
-(
-        @browser_id int
-      , @major int = NULL
-      , @minor int = NULL
-)
-AS
-BEGIN
-    DECLARE @BrowserVersionId int    
-    BEGIN TRANSACTION BrowserVersionCreate
-    
-    SELECT @BrowserVersionId = (
-        SELECT
-            [BrowserVersion_Id]
-        FROM
-            [BrowserVersion]
-        WHERE
-            BrowserVersion.[Browser_Id] = @browser_id
-            AND BrowserVersion.[Major] = @major
-            AND BrowserVersion.[Minor] = @minor
-    )
-    
-    IF @BrowserVersionId IS NULL
-    BEGIN   
-        INSERT INTO 
-            dbo.[BrowserVersion]
-        (
-              [Browser_Id]
-            , [Major]
-            , [Minor]
-        )
-        VALUES
-        ( 
-              @browser_id
-            , @major
-            , @minor
-        )
-        
-        SET @BrowserVersionId = SCOPE_IDENTITY()
-    END
-    COMMIT TRANSACTION BrowserVersionCreate
-    RETURN @BrowserVersionId
-END
-' 
-END
 GO
 SET ANSI_NULLS ON
 GO
@@ -934,154 +852,6 @@ UNION ALL
  FROM dbo.Counter AS Counter_1 INNER JOIN
  dbo.ImageCounter ON dbo.ImageCounter.Counter_Id = Counter_1.Counter_Id
 )' 
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_namedcounter_increment]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_namedcounter_increment]
-(
-      @name varchar(64)
-)
-AS
-BEGIN
-    BEGIN TRANSACTION CounterIncrement
-    DECLARE @CounterId int
-    SELECT @CounterId = [Counter_Id]
-    FROM [NamedCounter]
-    WHERE [Name] = @name
-    IF @CounterId IS NULL
-    BEGIN
-        INSERT INTO [Counter]
-        (
-            [Resource_Id],
-            [Count],
-            [Created]
-        )
-        VALUES
-        (
-            0
-          , 0
-          , getdate()
-        )
-        SET @CounterId = SCOPE_IDENTITY()
-        INSERT INTO [NamedCounter]
-        (
-            [Name],
-            [Counter_Id]
-        )
-        VALUES
-        (
-            @name
-          , @CounterId
-        )
-    END
-    UPDATE [Counter]
-    SET [Count] = [Count] + 1
-    WHERE [Counter_Id] = @CounterId
-    SELECT [Count] 
-    FROM [Counter]
-    WHERE [Counter_Id] = @CounterId
-    COMMIT TRANSACTION CounterIncrement
-END
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_rollup_browserversionplatform]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_rollup_browserversionplatform]
-AS
-BEGIN
-  BEGIN TRANSACTION RollupBrowserVersionPlatformT
-  INSERT INTO [RollupBrowserVersionPlatform]
-  (
-      [BrowserVersionPlatform_Id]
-    , [RequestCount]
-  )
-  SELECT 
-      BrowserVersionPlatform.BrowserVersionPlatform_Id
-    , 0
-  FROM
-      BrowserVersionPlatform
-  WHERE NOT EXISTS
-  (
-   SELECT BrowserVersionPlatform_Id 
-   FROM 
-    [RollupBrowserVersionPlatform]
-   WHERE 
-      RollupBrowserVersionPlatform.BrowserVersionPlatform_Id = BrowserVersionPlatform.BrowserVersionPlatform_Id
-  )
-  UPDATE 
-      [RollupBrowserVersionPlatform]
-  SET
-      [RequestCount] = [RequestCount] + 
-      (
-        SELECT 
-          COUNT(*) 
-        FROM 
-          [Request] 
-        WHERE 
-          Request.BrowserVersionPlatform_Id = RollupBrowserVersionPlatform.BrowserVersionPlatform_Id
-      )
-  TRUNCATE TABLE [Request]
-  COMMIT Transaction RollupBrowserVersionPlatformT
-END
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_browserversionplatform_create]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_browserversionplatform_create]
-(
-        @browserversion_id int
-      , @browserplatform_id int
-)
-AS
-BEGIN
-    DECLARE @BrowserVersionPlatformId int    
-    BEGIN TRANSACTION BrowserVersionPlatformCreate
-    
-    SELECT @BrowserVersionPlatformId = (
-        SELECT
-            [BrowserVersionPlatform_Id]
-        FROM
-            [BrowserVersionPlatform]
-        WHERE
-            BrowserVersionPlatform.[BrowserVersion_Id] = @browserversion_id
-            AND BrowserVersionPlatform.[BrowserPlatform_Id] = @browserplatform_id
-    )
-    
-    IF @BrowserVersionPlatformId IS NULL
-    BEGIN   
-        INSERT INTO 
-            dbo.[BrowserVersionPlatform]
-        (
-              [BrowserVersion_Id]
-            , [BrowserPlatform_Id]
-        )
-        VALUES
-        ( 
-              @browserversion_id
-            , @browserplatform_id
-        )
-        
-        SET @BrowserVersionPlatformId = SCOPE_IDENTITY()
-    END
-    COMMIT TRANSACTION BrowserVersionPlatformCreate
-    RETURN @BrowserVersionPlatformId
-END
-' 
-END
 GO
 SET ANSI_NULLS ON
 GO
@@ -1122,256 +892,6 @@ BEGIN
 
 END
 
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_browser_create]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_browser_create]
-(
-	  @name nvarchar(128)
-      	, @crawler bit = 0
-)
-AS
-BEGIN
-    DECLARE @BrowserId int
-    BEGIN TRANSACTION BrowserCreate
-    
-    SELECT @BrowserId = (
-        SELECT
-            [Browser_Id]
-        FROM
-            [Browser]
-        WHERE
-            Browser.[Name] = @name
-            AND Browser.[Crawler] = @crawler
-    )
-    
-    IF @BrowserId IS NULL
-    BEGIN   
-        INSERT INTO 
-            [Browser]
-        (
-              [Name]
-            , [Crawler]
-        )
-        VALUES
-        ( 
-              @name
-            , @crawler
-        )
-        
-        SET @BrowserId = SCOPE_IDENTITY()
-    END
-    COMMIT TRANSACTION BrowserCreate
-    RETURN @BrowserId
-END
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_weekly]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_hourlycounters_weekly]
-(
-    @hhdelta int = 0
-  , @hhperiod int = 0
-)
-AS
-BEGIN
-  SELECT 
-    0 AS ''HourlyCounter_Id'',
-    SUM(RequestCount) AS ''RequestCount'',
-    dbo.udf_mondayofweek(DATEPART("wk", DATEADD("hh", @hhdelta, [DateTime])), DATEPART("year", DATEADD("hh", @hhdelta, [DateTime])))
-    AS ''DateTime''
-  FROM 
-    HourlyCounter
-  WHERE
-    [DateTime] >= DATEADD("hh", - @hhperiod, GETDATE())
-    OR @hhperiod = 0
-  GROUP BY
-    dbo.udf_mondayofweek(DATEPART("wk", DATEADD("hh", @hhdelta, [DateTime])), DATEPART("year", DATEADD("hh", @hhdelta, [DateTime])))
-  ORDER BY
-    [DateTime] DESC
-END
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_monthly]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_hourlycounters_monthly]
-(
-    @hhdelta int = 0
-  , @hhperiod int = 0
-)
-AS
-BEGIN
-  SELECT
-    0 AS ''HourlyCounter_Id'', 
-    SUM(RequestCount) AS ''RequestCount'',
-    CONVERT(DATETIME, LTRIM(STR(DATEPART("year", DATEADD("hh", @hhdelta, [DateTime])))) + ''-'' +
-    LTRIM(STR(DATEPART("month", DATEADD("hh", @hhdelta, [DateTime])))) + ''-01'')
-    AS ''DateTime''
-    FROM HourlyCounter
-  WHERE
-    [DateTime] >= DATEADD("hh", - @hhperiod, GETDATE())
-    OR @hhperiod = 0
-  GROUP BY
-    CONVERT(DATETIME, LTRIM(STR(DATEPART("year", DATEADD("hh", @hhdelta, [DateTime])))) + ''-'' +
-    LTRIM(STR(DATEPART("month", DATEADD("hh", @hhdelta, [DateTime])))) + ''-01'')
-  ORDER BY
-    [DateTime] DESC
-END
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_hourly]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_hourlycounters_hourly]
-(
-    @hhdelta int = 0
-  , @hhperiod int = 0
-)
-AS
-BEGIN
-  SELECT  
-    0 AS ''HourlyCounter_Id'',   
-    RequestCount AS ''RequestCount'',  
-    DATEADD("hh", @hhdelta, [DateTime]) 
-    AS ''DateTime''  
-  FROM 
-    HourlyCounter
-  WHERE
-    [DateTime] >= DATEADD("hh", - @hhperiod, GETDATE())
-    OR @hhperiod = 0
-  ORDER BY
-    [DateTime] DESC
-END
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_yearly]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_hourlycounters_yearly]
-(
-    @hhdelta int = 0
-  , @hhperiod int = 0
-)
-AS
-BEGIN
-  SELECT
-    0 AS ''HourlyCounter_Id'', 
-    SUM(RequestCount) AS ''RequestCount'',
-    CONVERT(DATETIME, LTRIM(STR(DATEPART("year", DATEADD("hh", @hhdelta, [DateTime])))) + ''-01-01'')
-    AS ''DateTime''
-    FROM HourlyCounter
-  WHERE
-    [DateTime] >= DATEADD("hh", - @hhperiod, GETDATE())
-    OR @hhperiod = 0
-  GROUP BY
-    CONVERT(DATETIME, LTRIM(STR(DATEPART("year", DATEADD("hh", @hhdelta, [DateTime])))) + ''-01-01'')
-  ORDER BY
-    [DateTime] DESC
- 
-END
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_daily]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_hourlycounters_daily]
-(
-    @hhdelta int = 0
-  , @hhperiod int = 0
-)
-AS
-BEGIN
-  SELECT  
-    0 AS ''HourlyCounter_Id'',   
-    SUM(RequestCount) AS ''RequestCount'',  
-    CONVERT(DATETIME, LTRIM(STR(DATEPART("year", DATEADD("hh", @hhdelta, [DateTime])))) + ''-'' +  
-    LTRIM(STR(DATEPART("month", DATEADD("hh", @hhdelta, [DateTime])))) + ''-'' +  
-    LTRIM(STR(DATEPART("day", DATEADD("hh", @hhdelta, [DateTime])))))  
-    AS ''DateTime''  
-  FROM 
-    HourlyCounter
-  WHERE
-    [DateTime] >= DATEADD("hh", - @hhperiod, GETDATE())
-    OR @hhperiod = 0
-  GROUP BY  
-    CONVERT(DATETIME, LTRIM(STR(DATEPART("year", DATEADD("hh", @hhdelta, [DateTime])))) + ''-'' +  
-    LTRIM(STR(DATEPART("month", DATEADD("hh", @hhdelta, [DateTime])))) + ''-'' +  
-    LTRIM(STR(DATEPART("day", DATEADD("hh", @hhdelta, [DateTime])))))
-  ORDER BY
-    [DateTime] DESC
-END
-' 
-END
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_platform_create]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_platform_create]
-(
-      @name nvarchar(128)
-)
-AS
-BEGIN
-    DECLARE @PlatformId int    
-    BEGIN TRANSACTION PlatformCreate
-    
-    SELECT @PlatformId = (
-        SELECT
-            [Platform_Id]
-        FROM
-            [Platform]
-        WHERE
-            Platform.[Name] = @name
-    )
-    
-    IF @PlatformId IS NULL
-    BEGIN   
-        INSERT INTO 
-            dbo.[Platform]
-        (
-              [Name]
-        )
-        VALUES
-        ( 
-              @name
-        )
-        
-        SET @PlatformId = SCOPE_IDENTITY()
-    END
-    COMMIT TRANSACTION PlatformCreate
-    RETURN @PlatformId
-END
 ' 
 END
 GO
@@ -1494,77 +1014,6 @@ END
 ' 
 END
 GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.views WHERE object_id = OBJECT_ID(N'[dbo].[BrowsersByName]'))
-EXEC dbo.sp_executesql @statement = N'CREATE VIEW [dbo].[BrowsersByName] AS
-(
-  SELECT
-      0 AS ''BrowsersByName_Id''
-    , BrowserName AS ''Name''
-    , SUM(RequestCount) AS ''RequestCount'' 
-  FROM 
-    Browsers
-  GROUP BY 
-    BrowserName
-)
-' 
-GO
-SET ANSI_NULLS ON
-GO
-SET QUOTED_IDENTIFIER ON
-GO
-IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_request_create]') AND type in (N'P', N'PC'))
-BEGIN
-EXEC dbo.sp_executesql @statement = N'CREATE PROCEDURE [dbo].[sp_request_create]
-(
-          @ipaddress nvarchar(24)
-	, @browser_name nvarchar(128)
-	, @browser_platform nvarchar(128)
-      	, @browser_crawler bit = 0
-	, @browser_majorversion int = 0
-	, @browser_minorversion int = 0
-)
-AS
-BEGIN
-    DECLARE @BrowserId int
-    DECLARE @BrowserPlatformId int
-    DECLARE @BrowserVersionId int
-    DECLARE @PlatformId int
-    DECLARE @BrowserVersionPlatformId int
-    EXEC @BrowserId = sp_browser_create
-          @name = @browser_name
-        , @crawler = @browser_crawler
-    EXEC @PlatformId = sp_platform_create
-          @name = @browser_platform
-    EXEC @BrowserPlatformId = sp_browserplatform_create
-          @browser_id = @BrowserId
-        , @platform_id = @PlatformId
-    EXEC @BrowserVersionId = sp_browserversion_create
-          @browser_id = @BrowserId
-        , @major = @browser_majorversion
-        , @minor = @browser_minorversion
-    EXEC @BrowserVersionPlatformId = sp_browserversionplatform_create
-          @browserversion_id = @BrowserVersionId
-        , @browserplatform_id = @BrowserPlatformId
-    INSERT INTO [Request]
-    (
-	  [IpAddress]
-	, [DateTime]
-        , [BrowserVersionPlatform_Id]
-    )
-    VALUES
-    (
-	  @ipaddress
-	, DEFAULT
-        , @BrowserVersionPlatformId
-    )
-END
-' 
-END
-GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Post_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Post]'))
 ALTER TABLE [dbo].[Post]  WITH CHECK ADD  CONSTRAINT [FK_Post_Login] FOREIGN KEY([Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
@@ -1572,30 +1021,6 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Post_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[Post]'))
 ALTER TABLE [dbo].[Post]  WITH CHECK ADD  CONSTRAINT [FK_Post_Topic] FOREIGN KEY([Topic_Id])
 REFERENCES [dbo].[Topic] ([Topic_Id])
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserVersionPlatform_BrowserPlatform]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserVersionPlatform]'))
-ALTER TABLE [dbo].[BrowserVersionPlatform]  WITH CHECK ADD  CONSTRAINT [FK_BrowserVersionPlatform_BrowserPlatform] FOREIGN KEY([BrowserPlatform_Id])
-REFERENCES [dbo].[BrowserPlatform] ([BrowserPlatform_Id])
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserVersionPlatform_BrowserVersion]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserVersionPlatform]'))
-ALTER TABLE [dbo].[BrowserVersionPlatform]  WITH CHECK ADD  CONSTRAINT [FK_BrowserVersionPlatform_BrowserVersion] FOREIGN KEY([BrowserVersion_Id])
-REFERENCES [dbo].[BrowserVersion] ([BrowserVersion_Id])
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
-ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment] FOREIGN KEY([Comment_Id])
-REFERENCES [dbo].[Comment] ([Comment_Id])
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment_Parent]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
-ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment_Parent] FOREIGN KEY([ParentComment_Id])
-REFERENCES [dbo].[Comment] ([Comment_Id])
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
-ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Comment] FOREIGN KEY([Comment_Id])
-REFERENCES [dbo].[Comment] ([Comment_Id])
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
-ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Post] FOREIGN KEY([Post_Id])
-REFERENCES [dbo].[Post] ([Post_Id])
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageComment]'))
 ALTER TABLE [dbo].[ImageComment]  WITH CHECK ADD  CONSTRAINT [FK_ImageComment_Comment] FOREIGN KEY([Comment_Id])
@@ -1605,13 +1030,21 @@ IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo
 ALTER TABLE [dbo].[ImageComment]  WITH CHECK ADD  CONSTRAINT [FK_ImageComment_Image] FOREIGN KEY([Image_Id])
 REFERENCES [dbo].[Image] ([Image_Id])
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Request_BrowserVersionPlatform]') AND parent_object_id = OBJECT_ID(N'[dbo].[Request]'))
-ALTER TABLE [dbo].[Request]  WITH CHECK ADD  CONSTRAINT [FK_Request_BrowserVersionPlatform] FOREIGN KEY([BrowserVersionPlatform_Id])
-REFERENCES [dbo].[BrowserVersionPlatform] ([BrowserVersionPlatform_Id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
+ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Comment] FOREIGN KEY([Comment_Id])
+REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_RollupBrowserVersionPlatform_BrowserVersionPlatform]') AND parent_object_id = OBJECT_ID(N'[dbo].[RollupBrowserVersionPlatform]'))
-ALTER TABLE [dbo].[RollupBrowserVersionPlatform]  WITH CHECK ADD  CONSTRAINT [FK_RollupBrowserVersionPlatform_BrowserVersionPlatform] FOREIGN KEY([BrowserVersionPlatform_Id])
-REFERENCES [dbo].[BrowserVersionPlatform] ([BrowserVersionPlatform_Id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
+ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Post] FOREIGN KEY([Post_Id])
+REFERENCES [dbo].[Post] ([Post_Id])
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
+ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment] FOREIGN KEY([Comment_Id])
+REFERENCES [dbo].[Comment] ([Comment_Id])
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment_Parent]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
+ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment_Parent] FOREIGN KEY([ParentComment_Id])
+REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostCounter_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostCounter]'))
 ALTER TABLE [dbo].[PostCounter]  WITH CHECK ADD  CONSTRAINT [FK_PostCounter_Post] FOREIGN KEY([Post_Id])
@@ -1621,14 +1054,6 @@ IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo
 ALTER TABLE [dbo].[PostCounter]  WITH CHECK ADD  CONSTRAINT [FK_PostCounter_PostCounter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
-ALTER TABLE [dbo].[PostImage]  WITH CHECK ADD  CONSTRAINT [FK_PostImage_Image] FOREIGN KEY([Image_Id])
-REFERENCES [dbo].[Image] ([Image_Id])
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
-ALTER TABLE [dbo].[PostImage]  WITH CHECK ADD  CONSTRAINT [FK_PostImage_Post] FOREIGN KEY([Post_Id])
-REFERENCES [dbo].[Post] ([Post_Id])
-GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostLogin_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostLogin]'))
 ALTER TABLE [dbo].[PostLogin]  WITH CHECK ADD  CONSTRAINT [FK_PostLogin_Login] FOREIGN KEY([Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
@@ -1637,17 +1062,21 @@ IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo
 ALTER TABLE [dbo].[PostLogin]  WITH CHECK ADD  CONSTRAINT [FK_PostLogin_Post] FOREIGN KEY([Post_Id])
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserPlatform_Browser]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserPlatform]'))
-ALTER TABLE [dbo].[BrowserPlatform]  WITH CHECK ADD  CONSTRAINT [FK_BrowserPlatform_Browser] FOREIGN KEY([Browser_Id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
+ALTER TABLE [dbo].[PostImage]  WITH CHECK ADD  CONSTRAINT [FK_PostImage_Image] FOREIGN KEY([Image_Id])
+REFERENCES [dbo].[Image] ([Image_Id])
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
+ALTER TABLE [dbo].[PostImage]  WITH CHECK ADD  CONSTRAINT [FK_PostImage_Post] FOREIGN KEY([Post_Id])
+REFERENCES [dbo].[Post] ([Post_Id])
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserCounter_Browser]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserCounter]'))
+ALTER TABLE [dbo].[BrowserCounter]  WITH CHECK ADD  CONSTRAINT [FK_BrowserCounter_Browser] FOREIGN KEY([Browser_Id])
 REFERENCES [dbo].[Browser] ([Browser_Id])
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserPlatform_Platform]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserPlatform]'))
-ALTER TABLE [dbo].[BrowserPlatform]  WITH CHECK ADD  CONSTRAINT [FK_BrowserPlatform_Platform] FOREIGN KEY([Platform_Id])
-REFERENCES [dbo].[Platform] ([Platform_Id])
-GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserVersion_Browser]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserVersion]'))
-ALTER TABLE [dbo].[BrowserVersion]  WITH CHECK ADD  CONSTRAINT [FK_BrowserVersion_Browser] FOREIGN KEY([Browser_Id])
-REFERENCES [dbo].[Browser] ([Browser_Id])
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserCounter]'))
+ALTER TABLE [dbo].[BrowserCounter]  WITH CHECK ADD  CONSTRAINT [FK_BrowserCounter_Counter] FOREIGN KEY([Counter_Id])
+REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageCounter]'))
 ALTER TABLE [dbo].[ImageCounter]  WITH CHECK ADD  CONSTRAINT [FK_ImageCounter_Counter] FOREIGN KEY([Counter_Id])

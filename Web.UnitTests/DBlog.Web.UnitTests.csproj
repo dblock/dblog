@@ -51,6 +51,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Reference.map</DependentUpon>
     </Compile>
+    <Compile Include="WebServices.BlogBrowserTest.cs" />
     <Compile Include="WebServices.BlogCrudTest.cs" />
     <Compile Include="WebServices.Blog.cs" />
     <Compile Include="WebServices.BlogFeedItemTest.cs" />
@@ -93,6 +94,9 @@
       <LastGenOutput>Reference.cs</LastGenOutput>
     </None>
     <None Include="Web References\WebServices.Blog\TransitBlog.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebServices.Blog\TransitBrowser.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\WebServices.Blog\TransitComment.datasource">

@@ -26,6 +26,8 @@ namespace DBlog.Data.UnitTests
         {
             mBrowser = new Browser();
             mBrowser.Name = Guid.NewGuid().ToString();
+            mBrowser.Platform = Guid.NewGuid().ToString();
+            mBrowser.Version = Guid.NewGuid().ToString().Substring(0, 6);
         }
 
         public override object Object

@@ -779,6 +779,25 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Update statistics for a series of requests.")]
+        public void CreateOrUpdateBrowsersAndCounters(string ticket, TransitBrowser[] t_browsers)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                TransitCounter.IncrementCounters(session, t_browsers.Length);
+
+                foreach(TransitBrowser t_browser in t_browsers)
+                {
+                    Browser browser = t_browser.GetBrowser(session);
+                    session.SaveOrUpdate(browser);
+                }
+
+                session.Flush();
+            }
+        }
+
         #endregion
 
         #region Post Images
@@ -1326,39 +1345,14 @@ namespace DBlog.WebServices
 
         #region Counters
 
-        [WebMethod(Description = "Increment hourly counter.")]
-        public void IncrementHourlyCounter(string ticket, int count)
+        [WebMethod(Description = "Increment counters.")]
+        public void IncrementCounters(string ticket, int count)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-
-                DateTime utcnow = DateTime.UtcNow;
-                DateTime hournow = utcnow.Date.AddHours(utcnow.Hour);
-
-                ITransaction t = session.BeginTransaction();
-                try
-                {
-                    HourlyCounter counter = (HourlyCounter) session.CreateCriteria(typeof(HourlyCounter))
-                        .Add(Expression.Eq("DateTime", hournow))
-                        .UniqueResult();
-
-                    if (counter == null)
-                    {
-                        counter = new HourlyCounter();
-                        counter.DateTime = hournow;
-                        counter.RequestCount = 0;
-                    }
-
-                    counter.RequestCount += count;
-                    session.Save(counter);
-                    session.Flush();
-                    t.Commit();
-                }
-                catch
-                {
-                    t.Rollback();
-                }
+                TransitCounter.IncrementCounters(session, count);
+                session.Flush();
             }
         }
 
@@ -1700,6 +1694,93 @@ namespace DBlog.WebServices
                 }
 
                 return result;
+            }
+        }
+
+        #endregion
+
+        #region Browsers
+
+        [WebMethod(Description = "Get a browser.")]
+        public TransitBrowser GetBrowserById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitBrowser((Browser)session.Load(typeof(Browser), id));
+            }
+        }
+
+        [WebMethod(Description = "Create or update a browser.")]
+        public int CreateOrUpdateBrowser(string ticket, TransitBrowser t_browser)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                Browser browser = t_browser.GetBrowser(session);
+                session.SaveOrUpdate(browser);
+                session.Flush();
+                return browser.Id;
+            }
+        }
+
+        [WebMethod(Description = "Increment a browser counter.")]
+        public long IncrementBrowserCounter(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                long result = TransitCounter.Increment<Browser, BrowserCounter>(session, id);
+                session.Flush();
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Get browsers count.")]
+        public int GetBrowsersCount(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.Browser), "Browser").Execute();
+            }
+        }
+
+        [WebMethod(Description = "Get browsers.")]
+        public List<TransitBrowser> GetBrowsers(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(Browser));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitBrowser> result = new List<TransitBrowser>(list.Count);
+
+                foreach (Browser obj in list)
+                {
+                    result.Add(new TransitBrowser(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Delete a browser.")]
+        public void DeleteBrowser(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                session.Delete((Browser)session.Load(typeof(Browser), id));
+                session.Flush();
             }
         }
 

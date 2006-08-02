@@ -3,7 +3,7 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C6E8220C-5AD2-445A-9EF2-079D6547AEAD}</ProjectGuid>
+    <ProjectGuid>{a186ae46-dfb3-4c78-985b-849a574d4c74}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -91,19 +91,16 @@
     <Compile Include="Browser.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BrowserPlatform.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BrowserVersion.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BrowserVersionPlatform.cs">
+    <Compile Include="BrowserCounter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Comment.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Counter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DailyCounter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Feed.cs">
@@ -131,6 +128,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="LoginCounter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="MonthlyCounter.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="NamedCounter.cs">
@@ -172,16 +172,16 @@
     <Compile Include="ReferrerSearchQuery.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Request.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RollupBrowserVersionPlatform.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Thread.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Topic.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="WeeklyCounter.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="YearlyCounter.cs">
       <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Include="DBlog.Data.hbm.xml" />

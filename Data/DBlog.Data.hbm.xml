@@ -4,54 +4,20 @@
     <id name="Id" type="Int32" column="Browser_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
     </id>
-    <bag lazy="true" name="BrowserPlatforms" inverse="true">
-      <key column="Browser_Id" />
-      <one-to-many class="DBlog.Data.BrowserPlatform, DBlog.Data" />
-    </bag>
-    <bag lazy="true" name="BrowserVersions" inverse="true">
-      <key column="Browser_Id" />
-      <one-to-many class="DBlog.Data.BrowserVersion, DBlog.Data" />
-    </bag>
-    <property name="Crawler" column="Crawler" type="Boolean" />
     <property name="Name" column="Name" type="String" />
+    <property name="Platform" column="Platform" type="String" />
+    <property name="Version" column="Version" type="String" />
+    <bag lazy="true" name="BrowserCounters" inverse="true">
+      <key column="Browser_Id" />
+      <one-to-many class="DBlog.Data.BrowserCounter, DBlog.Data" />
+    </bag>
   </class>
-  <class name="DBlog.Data.BrowserPlatform, DBlog.Data" table="BrowserPlatform">
-    <id name="Id" type="Int32" column="BrowserPlatform_Id" access="field.pascalcase-m-underscore">
+  <class name="DBlog.Data.BrowserCounter, DBlog.Data" table="BrowserCounter">
+    <id name="Id" type="Int32" column="BrowserCounter_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
     </id>
     <many-to-one name="Browser" column="Browser_Id" class="DBlog.Data.Browser, DBlog.Data" />
-    <bag lazy="true" name="BrowserVersionPlatforms" inverse="true">
-      <key column="BrowserPlatform_Id" />
-      <one-to-many class="DBlog.Data.BrowserVersionPlatform, DBlog.Data" />
-    </bag>
-    <many-to-one name="Platform" column="Platform_Id" class="DBlog.Data.Platform, DBlog.Data" />
-  </class>
-  <class name="DBlog.Data.BrowserVersion, DBlog.Data" table="BrowserVersion">
-    <id name="Id" type="Int32" column="BrowserVersion_Id" access="field.pascalcase-m-underscore">
-      <generator class="identity" />
-    </id>
-    <many-to-one name="Browser" column="Browser_Id" class="DBlog.Data.Browser, DBlog.Data" />
-    <bag lazy="true" name="BrowserVersionPlatforms" inverse="true">
-      <key column="BrowserVersion_Id" />
-      <one-to-many class="DBlog.Data.BrowserVersionPlatform, DBlog.Data" />
-    </bag>
-    <property name="Major" column="Major" type="Int32" />
-    <property name="Minor" column="Minor" type="Int32" />
-  </class>
-  <class name="DBlog.Data.BrowserVersionPlatform, DBlog.Data" table="BrowserVersionPlatform">
-    <id name="Id" type="Int32" column="BrowserVersionPlatform_Id" access="field.pascalcase-m-underscore">
-      <generator class="identity" />
-    </id>
-    <many-to-one name="BrowserPlatform" column="BrowserPlatform_Id" class="DBlog.Data.BrowserPlatform, DBlog.Data" />
-    <many-to-one name="BrowserVersion" column="BrowserVersion_Id" class="DBlog.Data.BrowserVersion, DBlog.Data" />
-    <bag lazy="true" name="Requests" inverse="true">
-      <key column="BrowserVersionPlatform_Id" />
-      <one-to-many class="DBlog.Data.Request, DBlog.Data" />
-    </bag>
-    <bag lazy="true" name="RollupBrowserVersionPlatforms" inverse="true">
-      <key column="BrowserVersionPlatform_Id" />
-      <one-to-many class="DBlog.Data.RollupBrowserVersionPlatform, DBlog.Data" />
-    </bag>
+    <many-to-one name="Counter" column="Counter_Id" class="DBlog.Data.Counter, DBlog.Data" />
   </class>
   <class name="DBlog.Data.Comment, DBlog.Data" table="Comment">
     <id name="Id" type="Int32" column="Comment_Id" access="field.pascalcase-m-underscore">
@@ -101,6 +67,17 @@
       <key column="Counter_Id" />
       <one-to-many class="DBlog.Data.PostCounter, DBlog.Data" />
     </bag>
+    <bag lazy="true" name="BrowserCounters" inverse="true">
+      <key column="Counter_Id" />
+      <one-to-many class="DBlog.Data.BrowserCounter, DBlog.Data" />
+    </bag>
+  </class>
+  <class name="DBlog.Data.DailyCounter, DBlog.Data" table="DailyCounter">
+    <id name="Id" type="Int32" column="DailyCounter_Id" access="field.pascalcase-m-underscore">
+      <generator class="identity" />
+    </id>
+    <property name="DateTime" column="DateTime" type="DateTime" />
+    <property name="RequestCount" column="RequestCount" type="Int32" />
   </class>
   <class name="DBlog.Data.Feed, DBlog.Data" table="Feed">
     <id name="Id" type="Int32" column="Feed_Id" access="field.pascalcase-m-underscore">
@@ -223,6 +200,13 @@
     <many-to-one name="Counter" column="Counter_Id" class="DBlog.Data.Counter, DBlog.Data" />
     <many-to-one name="Login" column="Login_Id" class="DBlog.Data.Login, DBlog.Data" />
   </class>
+  <class name="DBlog.Data.MonthlyCounter, DBlog.Data" table="MonthlyCounter">
+    <id name="Id" type="Int32" column="MonthlyCounter_Id" access="field.pascalcase-m-underscore">
+      <generator class="identity" />
+    </id>
+    <property name="DateTime" column="DateTime" type="DateTime" />
+    <property name="RequestCount" column="RequestCount" type="Int64" />
+  </class>
   <class name="DBlog.Data.NamedCounter, DBlog.Data" table="NamedCounter">
     <id name="Id" type="Int32" column="NamedCounter_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
@@ -243,10 +227,6 @@
     <id name="Id" type="Int32" column="Platform_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
     </id>
-    <bag lazy="true" name="BrowserPlatforms" inverse="true">
-      <key column="Platform_Id" />
-      <one-to-many class="DBlog.Data.BrowserPlatform, DBlog.Data" />
-    </bag>
     <property name="Name" column="Name" type="String" />
   </class>
   <class name="DBlog.Data.Post, DBlog.Data" table="Post">
@@ -342,21 +322,6 @@
     <property name="RequestCount" column="RequestCount" type="Int64" />
     <property name="SearchQuery" column="SearchQuery" type="String" />
   </class>
-  <class name="DBlog.Data.Request, DBlog.Data" table="Request">
-    <id name="Id" type="Int32" column="Request_Id" access="field.pascalcase-m-underscore">
-      <generator class="identity" />
-    </id>
-    <many-to-one name="BrowserVersionPlatform" column="BrowserVersionPlatform_Id" class="DBlog.Data.BrowserVersionPlatform, DBlog.Data" />
-    <property name="DateTime" column="DateTime" type="DateTime" />
-    <property name="IpAddress" column="IpAddress" type="String" />
-  </class>
-  <class name="DBlog.Data.RollupBrowserVersionPlatform, DBlog.Data" table="RollupBrowserVersionPlatform">
-    <id name="Id" type="Int32" column="RollupBrowserVersionPlatform_Id" access="field.pascalcase-m-underscore">
-      <generator class="identity" />
-    </id>
-    <many-to-one name="BrowserVersionPlatform" column="BrowserVersionPlatform_Id" class="DBlog.Data.BrowserVersionPlatform, DBlog.Data" />
-    <property name="RequestCount" column="RequestCount" type="Int64" />
-  </class>
   <class name="DBlog.Data.Thread, DBlog.Data" table="Thread">
     <id name="Id" type="Int32" column="Thread_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
@@ -374,5 +339,19 @@
       <one-to-many class="DBlog.Data.Post, DBlog.Data" />
     </bag>
     <property name="Type" column="Type" type="String" />
+  </class>
+  <class name="DBlog.Data.WeeklyCounter, DBlog.Data" table="WeeklyCounter">
+    <id name="Id" type="Int32" column="WeeklyCounter_Id" access="field.pascalcase-m-underscore">
+      <generator class="identity" />
+    </id>
+    <property name="DateTime" column="DateTime" type="DateTime" />
+    <property name="RequestCount" column="RequestCount" type="Int64" />
+  </class>
+  <class name="DBlog.Data.YearlyCounter, DBlog.Data" table="YearlyCounter">
+    <id name="Id" type="Int32" column="YearlyCounter_Id" access="field.pascalcase-m-underscore">
+      <generator class="identity" />
+    </id>
+    <property name="DateTime" column="DateTime" type="DateTime" />
+    <property name="RequestCount" column="RequestCount" type="Int64" />
   </class>
 </hibernate-mapping>

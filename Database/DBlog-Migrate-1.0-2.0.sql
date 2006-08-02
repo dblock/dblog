@@ -6,7 +6,7 @@ OPEN EntryIterator
 DECLARE @entry_id int
 
 FETCH NEXT FROM EntryIterator INTO @entry_id
-While (@@FETCH_STATUS <> -1)
+WHILE (@@FETCH_STATUS <> -1)
 BEGIN
 
  -- copy Entry -> Post
@@ -56,7 +56,7 @@ DECLARE @gallery_id int
 DECLARE @gallery_path varchar(128)
 
 FETCH NEXT FROM GalleryIterator INTO @gallery_id, @gallery_path
-While (@@FETCH_STATUS <> -1)
+WHILE (@@FETCH_STATUS <> -1)
 BEGIN
 
  -- copy Gallery -> Post
@@ -150,7 +150,144 @@ IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_cou
 DROP PROCEDURE [sp_counter_increment]
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounter_increment]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [sp_hourlycounter_increment]
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_namedcounter_increment]') AND type in (N'P', N'PC'))
+DROP PROCEDURE [sp_namedcounter_increment]
 
 -- Update feeds with valid save/update date
 UPDATE Feed SET Saved = getutcdate() WHERE Saved IS NULL
 UPDATE Feed SET Updated = getutcdate() WHERE Updated IS NULL
+
+-- Merge counters
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_daily]') AND type in (N'P', N'PC'))
+BEGIN
+ CREATE TABLE #tmp_daily ( [Id] int, [c] bigint, [ts] DateTime )
+ insert into #tmp_daily exec sp_hourlycounters_daily
+ insert into DailyCounter select c, ts from #tmp_daily
+ DROP PROCEDURE [sp_hourlycounters_daily]
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_weekly]') AND type in (N'P', N'PC'))
+BEGIN
+ CREATE TABLE #tmp_weekly ( [Id] int, [c] bigint, [ts] DateTime )
+ insert into #tmp_weekly exec sp_hourlycounters_weekly
+ insert into WeeklyCounter select c, ts from #tmp_weekly
+ DROP PROCEDURE [sp_hourlycounters_weekly]
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_monthly]') AND type in (N'P', N'PC'))
+BEGIN
+ CREATE TABLE #tmp_monthly ( [Id] int, [c] bigint, [ts] DateTime )
+ insert into #tmp_monthly exec sp_hourlycounters_monthly
+ insert into MonthlyCounter select c, ts from #tmp_monthly
+ DROP PROCEDURE [sp_hourlycounters_monthly]
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_yearly]') AND type in (N'P', N'PC'))
+BEGIN
+ CREATE TABLE #tmp_yearly ( [Id] int, [c] bigint, [ts] DateTime )
+ insert into #tmp_yearly exec sp_hourlycounters_yearly
+ insert into YearlyCounter select c, ts from #tmp_yearly
+ DROP PROCEDURE [sp_hourlycounters_yearly]
+END
+
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_hourlycounters_hourly]') AND type in (N'P', N'PC'))
+BEGIN
+ DROP PROCEDURE [sp_hourlycounters_hourly]
+END
+
+-- Drop named counters
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_namedconter_increment]') AND type in (N'P', N'PC'))
+BEGIN
+ DROP PROCEDURE [sp_namedconter_increment]
+END
+
+-- Update browser table and counter
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_rollup_browserversionplatform]') AND type in (N'P', N'PC'))
+BEGIN
+
+EXEC [sp_rollup_browserversionplatform]
+
+DROP PROCEDURE [sp_rollup_browserversionplatform]
+DROP PROCEDURE [sp_browser_create]
+DROP PROCEDURE [sp_browserplatform_create]
+DROP PROCEDURE [sp_browserversion_create]
+DROP PROCEDURE [sp_browserversionplatform_create]
+DROP PROCEDURE [sp_platform_create]
+DROP PROCEDURE [sp_request_create]
+
+CREATE TABLE #tmp_Browser ( 
+   [Id] int
+ , [Name] nvarchar(128) 
+ , [Platform] nvarchar(128)
+ , [Version] nvarchar(12)
+ , [RequestCount] bigint
+)
+
+INSERT INTO #tmp_Browser ( 
+   [Id]
+ , [Name]
+ , [Platform]
+ , [Version]
+ , [RequestCount] )
+SELECT 
+   BrowserVersionPlatform.BrowserVersionPlatform_Id
+ , Browser.[Name]
+ , Platform.[Name]
+ , RTRIM(LTRIM(STR(BrowserVersion.Major))) + '.' + RTRIM(LTRIM(STR(BrowserVersion.Minor)))
+ , RollupBrowserVersionPlatform.RequestCount
+FROM 
+   Browser
+ , BrowserPlatform
+ , Platform
+ , BrowserVersion
+ , BrowserVersionPlatform
+ , RollupBrowserVersionPlatform
+WHERE BrowserPlatform.Browser_Id = Browser.Browser_Id
+AND Platform.Platform_Id = BrowserPlatform.Platform_Id
+AND BrowserVersion.Browser_Id = Browser.Browser_Id
+AND BrowserVersionPlatform.BrowserPlatform_Id = BrowserPlatform.BrowserPlatform_Id
+AND BrowserVersionPlatform.BrowserVersion_Id = BrowserVersion.BrowserVersion_Id
+AND RollupBrowserVersionPlatform.BrowserVersionPlatform_Id = BrowserVersionPlatform.BrowserVersionPlatform_Id
+
+DROP TABLE Request
+DROP TABLE RollupBrowserVersionPlatform
+DROP TABLE BrowserVersionPlatform
+DROP TABLE BrowserVersion
+DROP TABLE BrowserPlatform
+DROP TABLE Platform
+DELETE Browser
+
+ALTER TABLE [Browser] DROP CONSTRAINT DF_Browser_Crawler
+ALTER TABLE [Browser] DROP COLUMN [Crawler]
+ALTER TABLE [Browser] ADD [Platform] nvarchar(128) NOT NULL
+ALTER TABLE [Browser] ADD [Version] nvarchar(12) NOT NULL
+
+DECLARE tmp_BrowserIterator Cursor
+FOR SELECT Id, [Name], Platform, Version, RequestCount FROM #tmp_Browser
+OPEN tmp_BrowserIterator
+DECLARE @browser_name nvarchar(128)
+DECLARE @browser_platform nvarchar(128)
+DECLARE @browser_version nvarchar(12)
+DECLARE @browser_rc bigint
+DECLARE @browser_id int
+DECLARE @counter_id int
+
+DECLARE @counter_created_oldest DATETIME
+SELECT @counter_created_oldest = MIN(Created) FROM Counter
+
+FETCH NEXT FROM tmp_BrowserIterator INTO @browser_id, @browser_name, @browser_platform, @browser_version, @browser_rc
+WHILE (@@FETCH_STATUS <> -1)
+BEGIN
+ INSERT INTO Browser ( [Name], [Platform], [Version] )
+ VALUES ( @browser_name, @browser_platform, @browser_version )
+ 
+ SET @browser_id = SCOPE_IDENTITY()
+
+ INSERT INTO Counter ( [Count], [Created] ) VALUES ( @browser_rc, @counter_created_oldest )
+ SET @counter_id = SCOPE_IDENTITY()
+
+ INSERT INTO BrowserCounter ( [Browser_Id], [Counter_Id] ) VALUES ( @browser_id, @counter_id )
+ 
+ FETCH NEXT FROM tmp_BrowserIterator INTO @browser_id, @browser_name, @browser_platform, @browser_version, @browser_rc
+END
+DEALLOCATE tmp_BrowserIterator

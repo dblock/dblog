@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DBlog.Data;
 using NHibernate;
+using NHibernate.Expression;
 
 namespace DBlog.TransitData
 {
@@ -22,17 +23,31 @@ namespace DBlog.TransitData
             }
         }
 
-        private bool mCrawler;
+        private string mVersion;
 
-        public bool Crawler
+        public string Version
         {
             get
             {
-                return mCrawler;
+                return mVersion;
             }
             set
             {
-                mCrawler = value;
+                mVersion = value;
+            }
+        }
+
+        private string mPlatform;
+
+        public string Platform
+        {
+            get
+            {
+                return mPlatform;
+            }
+            set
+            {
+                mPlatform = value;
             }
         }
 
@@ -45,14 +60,35 @@ namespace DBlog.TransitData
             : base(o.Id)
         {
             Name = o.Name;
-            Crawler = o.Crawler;
+            Version = o.Version;
+            Platform = o.Platform;
         }
 
         public Browser GetBrowser(ISession session)
         {
-            Browser browser = (Id != 0) ? (Browser)session.Load(typeof(Browser), Id) : new Browser();
+            Browser browser = null;
+            if (Id == 0)
+            {
+                browser = (Browser)session.CreateCriteria(typeof(Browser))
+                    .Add(Expression.Eq("Name", Name))
+                    .Add(Expression.Eq("Platform", Platform))
+                    .Add(Expression.Eq("Version", Version))
+                    .UniqueResult();
+
+                if (browser == null)
+                {
+                    browser = new Browser();
+                }
+            }
+            else
+            {
+                browser = (Browser) session.Load(typeof(Browser), Id);
+            }
+
             browser.Name = Name;
-            browser.Crawler = Crawler;
+            browser.Version = Version;
+            browser.Platform = Platform;
+
             return browser;
         }
     }

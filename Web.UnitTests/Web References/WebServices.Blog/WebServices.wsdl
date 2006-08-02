@@ -1340,6 +1340,17 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="TransitImageComment" nillable="true" type="tns:TransitImageComment" />
         </s:sequence>
       </s:complexType>
+      <s:element name="IncrementCounters">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementCountersResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="IncrementHourlyCounter">
         <s:complexType>
           <s:sequence>
@@ -1349,6 +1360,50 @@
         </s:complexType>
       </s:element>
       <s:element name="IncrementHourlyCounterResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="IncrementDailyCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementDailyCounterResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="IncrementWeeklyCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementWeeklyCounterResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="IncrementMonthlyCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementMonthlyCounterResponse">
+        <s:complexType />
+      </s:element>
+      <s:element name="IncrementYearlyCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="count" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementYearlyCounterResponse">
         <s:complexType />
       </s:element>
       <s:element name="IncrementNamedCounter">
@@ -1696,6 +1751,107 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="TransitPostLogin" nillable="true" type="tns:TransitPostLogin" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetBrowserById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBrowserByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBrowserByIdResult" type="tns:TransitBrowser" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitBrowser">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Version" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Platform" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateOrUpdateBrowser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_browser" type="tns:TransitBrowser" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateBrowserResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateBrowserResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementBrowserCounter">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementBrowserCounterResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IncrementBrowserCounterResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBrowsersCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBrowsersCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetBrowsersCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBrowsers">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetBrowsersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetBrowsersResult" type="tns:ArrayOfTransitBrowser" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitBrowser">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitBrowser" nillable="true" type="tns:TransitBrowser" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteBrowser">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteBrowserResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -2180,11 +2336,41 @@
   <wsdl:message name="GetImageCommentsSoapOut">
     <wsdl:part name="parameters" element="tns:GetImageCommentsResponse" />
   </wsdl:message>
+  <wsdl:message name="IncrementCountersSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementCounters" />
+  </wsdl:message>
+  <wsdl:message name="IncrementCountersSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementCountersResponse" />
+  </wsdl:message>
   <wsdl:message name="IncrementHourlyCounterSoapIn">
     <wsdl:part name="parameters" element="tns:IncrementHourlyCounter" />
   </wsdl:message>
   <wsdl:message name="IncrementHourlyCounterSoapOut">
     <wsdl:part name="parameters" element="tns:IncrementHourlyCounterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IncrementDailyCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementDailyCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementDailyCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementDailyCounterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IncrementWeeklyCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementWeeklyCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementWeeklyCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementWeeklyCounterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IncrementMonthlyCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementMonthlyCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementMonthlyCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementMonthlyCounterResponse" />
+  </wsdl:message>
+  <wsdl:message name="IncrementYearlyCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementYearlyCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementYearlyCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementYearlyCounterResponse" />
   </wsdl:message>
   <wsdl:message name="IncrementNamedCounterSoapIn">
     <wsdl:part name="parameters" element="tns:IncrementNamedCounter" />
@@ -2293,6 +2479,42 @@
   </wsdl:message>
   <wsdl:message name="GetPostLoginsSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostLoginsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBrowserByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBrowserById" />
+  </wsdl:message>
+  <wsdl:message name="GetBrowserByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBrowserByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateBrowserSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateBrowser" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateBrowserSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateBrowserResponse" />
+  </wsdl:message>
+  <wsdl:message name="IncrementBrowserCounterSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementBrowserCounter" />
+  </wsdl:message>
+  <wsdl:message name="IncrementBrowserCounterSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementBrowserCounterResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBrowsersCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBrowsersCount" />
+  </wsdl:message>
+  <wsdl:message name="GetBrowsersCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBrowsersCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetBrowsersSoapIn">
+    <wsdl:part name="parameters" element="tns:GetBrowsers" />
+  </wsdl:message>
+  <wsdl:message name="GetBrowsersSoapOut">
+    <wsdl:part name="parameters" element="tns:GetBrowsersResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteBrowserSoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteBrowser" />
+  </wsdl:message>
+  <wsdl:message name="DeleteBrowserSoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteBrowserResponse" />
   </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
@@ -2685,10 +2907,35 @@
       <wsdl:input message="tns:GetImageCommentsSoapIn" />
       <wsdl:output message="tns:GetImageCommentsSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="IncrementCounters">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment counters.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementCountersSoapIn" />
+      <wsdl:output message="tns:IncrementCountersSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="IncrementHourlyCounter">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment hourly counter.</wsdl:documentation>
       <wsdl:input message="tns:IncrementHourlyCounterSoapIn" />
       <wsdl:output message="tns:IncrementHourlyCounterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IncrementDailyCounter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment daily counter.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementDailyCounterSoapIn" />
+      <wsdl:output message="tns:IncrementDailyCounterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IncrementWeeklyCounter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment weekly counter.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementWeeklyCounterSoapIn" />
+      <wsdl:output message="tns:IncrementWeeklyCounterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IncrementMonthlyCounter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment monthly counter.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementMonthlyCounterSoapIn" />
+      <wsdl:output message="tns:IncrementMonthlyCounterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IncrementYearlyCounter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment yearly counter.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementYearlyCounterSoapIn" />
+      <wsdl:output message="tns:IncrementYearlyCounterSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="IncrementNamedCounter">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment named counter.</wsdl:documentation>
@@ -2779,6 +3026,36 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get post logins.</wsdl:documentation>
       <wsdl:input message="tns:GetPostLoginsSoapIn" />
       <wsdl:output message="tns:GetPostLoginsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBrowserById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a browser.</wsdl:documentation>
+      <wsdl:input message="tns:GetBrowserByIdSoapIn" />
+      <wsdl:output message="tns:GetBrowserByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateBrowser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a browser.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateBrowserSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateBrowserSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IncrementBrowserCounter">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment a browser counter.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementBrowserCounterSoapIn" />
+      <wsdl:output message="tns:IncrementBrowserCounterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBrowsersCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get browsers count.</wsdl:documentation>
+      <wsdl:input message="tns:GetBrowsersCountSoapIn" />
+      <wsdl:output message="tns:GetBrowsersCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetBrowsers">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get browsers.</wsdl:documentation>
+      <wsdl:input message="tns:GetBrowsersSoapIn" />
+      <wsdl:output message="tns:GetBrowsersSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBrowser">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a browser.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteBrowserSoapIn" />
+      <wsdl:output message="tns:DeleteBrowserSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
@@ -3456,8 +3733,53 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="IncrementCounters">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementCounters" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="IncrementHourlyCounter">
       <soap:operation soapAction="http://dblock.org/ns/IncrementHourlyCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementDailyCounter">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementDailyCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementWeeklyCounter">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementWeeklyCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementMonthlyCounter">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementMonthlyCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementYearlyCounter">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementYearlyCounter" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3620,6 +3942,60 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostLogins">
       <soap:operation soapAction="http://dblock.org/ns/GetPostLogins" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBrowserById">
+      <soap:operation soapAction="http://dblock.org/ns/GetBrowserById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateBrowser">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateBrowser" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementBrowserCounter">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementBrowserCounter" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBrowsersCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetBrowsersCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBrowsers">
+      <soap:operation soapAction="http://dblock.org/ns/GetBrowsers" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBrowser">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteBrowser" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4323,8 +4699,53 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="IncrementCounters">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementCounters" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="IncrementHourlyCounter">
       <soap12:operation soapAction="http://dblock.org/ns/IncrementHourlyCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementDailyCounter">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementDailyCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementWeeklyCounter">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementWeeklyCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementMonthlyCounter">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementMonthlyCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementYearlyCounter">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementYearlyCounter" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -4487,6 +4908,60 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostLogins">
       <soap12:operation soapAction="http://dblock.org/ns/GetPostLogins" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBrowserById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetBrowserById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateBrowser">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateBrowser" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="IncrementBrowserCounter">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementBrowserCounter" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBrowsersCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetBrowsersCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetBrowsers">
+      <soap12:operation soapAction="http://dblock.org/ns/GetBrowsers" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteBrowser">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteBrowser" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

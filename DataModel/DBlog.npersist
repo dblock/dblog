@@ -224,6 +224,26 @@
     <property name="Posts" table="Post" id-columns="Topic_Id" list="true" item-type="Post" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" />
     <property name="Type" columns="Type" type="System.String" />
   </class>
+  <class name="DailyCounter" table="DailyCounter">
+    <property name="Id" id="true" columns="DailyCounter_Id" type="System.Int32" />
+    <property name="DateTime" columns="DateTime" type="System.DateTime" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int32" />
+  </class>
+  <class name="MonthlyCounter" table="MonthlyCounter">
+    <property name="Id" id="true" columns="MonthlyCounter_Id" type="System.Int32" />
+    <property name="DateTime" columns="DateTime" type="System.DateTime" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int64" />
+  </class>
+  <class name="WeeklyCounter" table="WeeklyCounter">
+    <property name="Id" id="true" columns="WeeklyCounter_Id" type="System.Int32" />
+    <property name="DateTime" columns="DateTime" type="System.DateTime" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int64" />
+  </class>
+  <class name="YearlyCounter" table="YearlyCounter">
+    <property name="Id" id="true" columns="YearlyCounter_Id" type="System.Int32" />
+    <property name="DateTime" columns="DateTime" type="System.DateTime" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int64" />
+  </class>
   <source name="DBlog" type="MSSqlServer" provider="SqlClient" schema="dbo" catalog="Blog">
     <connection-string>Server=localhost;Database=Blog;Trusted_Connection=yes</connection-string>
     <table name="Browser">
@@ -252,7 +272,7 @@
       <column name="Created" type="DateTime" prec="23" length="8" scale="3" />
       <column name="IpAddress" type="AnsiString" prec="24" length="24" scale="0" />
       <column name="Modified" type="DateTime" prec="23" length="8" scale="3" />
-      <column name="Owner_Login_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_Comment_Login" />
+      <column name="Owner_Login_Id" type="Int32" prec="10" allow-null="true" length="4" scale="0" foreign="true" primary-table="Login" primary-column="Login_Id" foreign-key="FK_Comment_Login" />
       <column name="Text" type="String" prec="0" length="16" scale="0" specific-type="NTEXT" />
     </table>
     <table name="Counter">
@@ -420,6 +440,26 @@
       <column name="Name" type="String" prec="64" length="128" scale="0" />
       <column name="Topic_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="Type" type="AnsiString" prec="64" allow-null="true" length="64" scale="0" />
+    </table>
+    <table name="DailyCounter">
+      <column name="DailyCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="DateTime" type="DateTime" prec="23" length="8" scale="3" />
+      <column name="RequestCount" type="Int32" prec="10" length="4" scale="0" />
+    </table>
+    <table name="MonthlyCounter">
+      <column name="MonthlyCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="DateTime" type="DateTime" prec="23" length="8" scale="3" />
+      <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" />
+    </table>
+    <table name="WeeklyCounter">
+      <column name="WeeklyCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="DateTime" type="DateTime" prec="23" length="8" scale="3" />
+      <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" />
+    </table>
+    <table name="YearlyCounter">
+      <column name="YearlyCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="DateTime" type="DateTime" prec="23" length="8" scale="3" />
+      <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" />
     </table>
   </source>
 </domain>

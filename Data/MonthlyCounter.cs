@@ -4,22 +4,23 @@ namespace DBlog.Data
 
     ///--------------------------------------------------------------------------------
     ///<summary>
-    ///Persistent domain entity class representing 'Platform' entities.
+    ///Persistent domain entity class representing 'MonthlyCounter' entities.
     ///</summary>
     ///<remarks>
     ///
     ///Mapping information:
-    ///This class maps to the 'Platform' table in the data source.
+    ///This class maps to the 'MonthlyCounter' table in the data source.
     ///</remarks>
     ///--------------------------------------------------------------------------------
-    public class Platform
+    public class MonthlyCounter
     {
 #region " Generated Code Region "
         //Private field variables
 
         //Holds property values
         private System.Int32 m_Id;
-        private System.String m_Name;
+        private System.DateTime m_DateTime;
+        private System.Int64 m_RequestCount;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -34,7 +35,7 @@ namespace DBlog.Data
         ///The accessibility level for the field 'm_Id' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Platform_Id' in the data source.
+        ///The property maps to the column 'MonthlyCounter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
         public  System.Int32 Id
@@ -50,23 +51,48 @@ namespace DBlog.Data
         ///Persistent primitive property.
         ///</summary>
         ///<remarks>
-        ///This property accepts values of the type 'System.String'.
+        ///This property accepts values of the type 'System.DateTime'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Name' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_DateTime' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Name' in the data source.
+        ///The property maps to the column 'DateTime' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Name
+        public  System.DateTime DateTime
         {
             get
             {
-                return m_Name;
+                return m_DateTime;
             }
             set
             {
-                m_Name = value;
+                m_DateTime = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.Int64'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_RequestCount' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'RequestCount' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Int64 RequestCount
+        {
+            get
+            {
+                return m_RequestCount;
+            }
+            set
+            {
+                m_RequestCount = value;
             }
         }
 

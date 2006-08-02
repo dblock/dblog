@@ -4,15 +4,15 @@ namespace DBlog.Data
 
     ///--------------------------------------------------------------------------------
     ///<summary>
-    ///Persistent domain entity class representing 'BrowserPlatform' entities.
+    ///Persistent domain entity class representing 'BrowserCounter' entities.
     ///</summary>
     ///<remarks>
     ///
     ///Mapping information:
-    ///This class maps to the 'BrowserPlatform' table in the data source.
+    ///This class maps to the 'BrowserCounter' table in the data source.
     ///</remarks>
     ///--------------------------------------------------------------------------------
-    public class BrowserPlatform
+    public class BrowserCounter
     {
 #region " Generated Code Region "
         //Private field variables
@@ -20,8 +20,7 @@ namespace DBlog.Data
         //Holds property values
         private System.Int32 m_Id;
         private Browser m_Browser;
-        private System.Collections.IList m_BrowserVersionPlatforms;
-        private Platform m_Platform;
+        private Counter m_Counter;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -36,7 +35,7 @@ namespace DBlog.Data
         ///The accessibility level for the field 'm_Id' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'BrowserPlatform_Id' in the data source.
+        ///The property maps to the column 'BrowserCounter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
         public  System.Int32 Id
@@ -54,7 +53,7 @@ namespace DBlog.Data
         ///<remarks>
         ///This property accepts references to objects of the type 'Browser'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Browser.BrowserPlatforms'.
+        ///The inverse property for this property is 'Browser.BrowserCounters'.
         ///The accessibility level for this property is 'PublicAccess'.
         ///The accessibility level for the field 'm_Browser' that holds the value for this property is 'PrivateAccess'.
         ///
@@ -76,59 +75,28 @@ namespace DBlog.Data
 
         ///--------------------------------------------------------------------------------
         ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'BrowserVersionPlatform'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'BrowserVersionPlatform.BrowserPlatform'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_BrowserVersionPlatforms' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'BrowserVersionPlatform' table in the data source.
-        ///The property maps to the identity column 'BrowserPlatform_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList BrowserVersionPlatforms
-        {
-            get
-            {
-                return m_BrowserVersionPlatforms;
-            }
-            set
-            {
-                m_BrowserVersionPlatforms = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
         ///Persistent one-many reference property.
         ///</summary>
         ///<remarks>
-        ///This property accepts references to objects of the type 'Platform'.
+        ///This property accepts references to objects of the type 'Counter'.
         ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Platform.BrowserPlatforms'.
+        ///The inverse property for this property is 'Counter.BrowserCounters'.
         ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Platform' that holds the value for this property is 'PrivateAccess'.
+        ///The accessibility level for the field 'm_Counter' that holds the value for this property is 'PrivateAccess'.
         ///
         ///Mapping information:
-        ///The property maps to the column 'Platform_Id' in the data source.
+        ///The property maps to the column 'Counter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Platform Platform
+        public  Counter Counter
         {
             get
             {
-                return m_Platform;
+                return m_Counter;
             }
             set
             {
-                m_Platform = value;
+                m_Counter = value;
             }
         }
 

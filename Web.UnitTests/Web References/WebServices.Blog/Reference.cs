@@ -174,7 +174,17 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback GetImageCommentsOperationCompleted;
         
+        private System.Threading.SendOrPostCallback IncrementCountersOperationCompleted;
+        
         private System.Threading.SendOrPostCallback IncrementHourlyCounterOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback IncrementDailyCounterOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback IncrementWeeklyCounterOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback IncrementMonthlyCounterOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback IncrementYearlyCounterOperationCompleted;
         
         private System.Threading.SendOrPostCallback IncrementNamedCounterOperationCompleted;
         
@@ -211,6 +221,18 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private System.Threading.SendOrPostCallback GetPostLoginsCountOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetPostLoginsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetBrowserByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateBrowserOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback IncrementBrowserCounterOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetBrowsersCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetBrowsersOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteBrowserOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetVersionOperationCompleted;
         
@@ -477,7 +499,22 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         public event GetImageCommentsCompletedEventHandler GetImageCommentsCompleted;
         
         /// <remarks/>
+        public event IncrementCountersCompletedEventHandler IncrementCountersCompleted;
+        
+        /// <remarks/>
         public event IncrementHourlyCounterCompletedEventHandler IncrementHourlyCounterCompleted;
+        
+        /// <remarks/>
+        public event IncrementDailyCounterCompletedEventHandler IncrementDailyCounterCompleted;
+        
+        /// <remarks/>
+        public event IncrementWeeklyCounterCompletedEventHandler IncrementWeeklyCounterCompleted;
+        
+        /// <remarks/>
+        public event IncrementMonthlyCounterCompletedEventHandler IncrementMonthlyCounterCompleted;
+        
+        /// <remarks/>
+        public event IncrementYearlyCounterCompletedEventHandler IncrementYearlyCounterCompleted;
         
         /// <remarks/>
         public event IncrementNamedCounterCompletedEventHandler IncrementNamedCounterCompleted;
@@ -532,6 +569,24 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event GetPostLoginsCompletedEventHandler GetPostLoginsCompleted;
+        
+        /// <remarks/>
+        public event GetBrowserByIdCompletedEventHandler GetBrowserByIdCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateBrowserCompletedEventHandler CreateOrUpdateBrowserCompleted;
+        
+        /// <remarks/>
+        public event IncrementBrowserCounterCompletedEventHandler IncrementBrowserCounterCompleted;
+        
+        /// <remarks/>
+        public event GetBrowsersCountCompletedEventHandler GetBrowsersCountCompleted;
+        
+        /// <remarks/>
+        public event GetBrowsersCompletedEventHandler GetBrowsersCompleted;
+        
+        /// <remarks/>
+        public event DeleteBrowserCompletedEventHandler DeleteBrowserCompleted;
         
         /// <remarks/>
         public event GetVersionCompletedEventHandler GetVersionCompleted;
@@ -2765,6 +2820,36 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementCounters", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void IncrementCounters(string ticket, int count) {
+            this.Invoke("IncrementCounters", new object[] {
+                        ticket,
+                        count});
+        }
+        
+        /// <remarks/>
+        public void IncrementCountersAsync(string ticket, int count) {
+            this.IncrementCountersAsync(ticket, count, null);
+        }
+        
+        /// <remarks/>
+        public void IncrementCountersAsync(string ticket, int count, object userState) {
+            if ((this.IncrementCountersOperationCompleted == null)) {
+                this.IncrementCountersOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementCountersOperationCompleted);
+            }
+            this.InvokeAsync("IncrementCounters", new object[] {
+                        ticket,
+                        count}, this.IncrementCountersOperationCompleted, userState);
+        }
+        
+        private void OnIncrementCountersOperationCompleted(object arg) {
+            if ((this.IncrementCountersCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IncrementCountersCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementHourlyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public void IncrementHourlyCounter(string ticket, int count) {
             this.Invoke("IncrementHourlyCounter", new object[] {
@@ -2791,6 +2876,126 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.IncrementHourlyCounterCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.IncrementHourlyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementDailyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void IncrementDailyCounter(string ticket, int count) {
+            this.Invoke("IncrementDailyCounter", new object[] {
+                        ticket,
+                        count});
+        }
+        
+        /// <remarks/>
+        public void IncrementDailyCounterAsync(string ticket, int count) {
+            this.IncrementDailyCounterAsync(ticket, count, null);
+        }
+        
+        /// <remarks/>
+        public void IncrementDailyCounterAsync(string ticket, int count, object userState) {
+            if ((this.IncrementDailyCounterOperationCompleted == null)) {
+                this.IncrementDailyCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementDailyCounterOperationCompleted);
+            }
+            this.InvokeAsync("IncrementDailyCounter", new object[] {
+                        ticket,
+                        count}, this.IncrementDailyCounterOperationCompleted, userState);
+        }
+        
+        private void OnIncrementDailyCounterOperationCompleted(object arg) {
+            if ((this.IncrementDailyCounterCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IncrementDailyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementWeeklyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void IncrementWeeklyCounter(string ticket, int count) {
+            this.Invoke("IncrementWeeklyCounter", new object[] {
+                        ticket,
+                        count});
+        }
+        
+        /// <remarks/>
+        public void IncrementWeeklyCounterAsync(string ticket, int count) {
+            this.IncrementWeeklyCounterAsync(ticket, count, null);
+        }
+        
+        /// <remarks/>
+        public void IncrementWeeklyCounterAsync(string ticket, int count, object userState) {
+            if ((this.IncrementWeeklyCounterOperationCompleted == null)) {
+                this.IncrementWeeklyCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementWeeklyCounterOperationCompleted);
+            }
+            this.InvokeAsync("IncrementWeeklyCounter", new object[] {
+                        ticket,
+                        count}, this.IncrementWeeklyCounterOperationCompleted, userState);
+        }
+        
+        private void OnIncrementWeeklyCounterOperationCompleted(object arg) {
+            if ((this.IncrementWeeklyCounterCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IncrementWeeklyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementMonthlyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void IncrementMonthlyCounter(string ticket, int count) {
+            this.Invoke("IncrementMonthlyCounter", new object[] {
+                        ticket,
+                        count});
+        }
+        
+        /// <remarks/>
+        public void IncrementMonthlyCounterAsync(string ticket, int count) {
+            this.IncrementMonthlyCounterAsync(ticket, count, null);
+        }
+        
+        /// <remarks/>
+        public void IncrementMonthlyCounterAsync(string ticket, int count, object userState) {
+            if ((this.IncrementMonthlyCounterOperationCompleted == null)) {
+                this.IncrementMonthlyCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementMonthlyCounterOperationCompleted);
+            }
+            this.InvokeAsync("IncrementMonthlyCounter", new object[] {
+                        ticket,
+                        count}, this.IncrementMonthlyCounterOperationCompleted, userState);
+        }
+        
+        private void OnIncrementMonthlyCounterOperationCompleted(object arg) {
+            if ((this.IncrementMonthlyCounterCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IncrementMonthlyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementYearlyCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void IncrementYearlyCounter(string ticket, int count) {
+            this.Invoke("IncrementYearlyCounter", new object[] {
+                        ticket,
+                        count});
+        }
+        
+        /// <remarks/>
+        public void IncrementYearlyCounterAsync(string ticket, int count) {
+            this.IncrementYearlyCounterAsync(ticket, count, null);
+        }
+        
+        /// <remarks/>
+        public void IncrementYearlyCounterAsync(string ticket, int count, object userState) {
+            if ((this.IncrementYearlyCounterOperationCompleted == null)) {
+                this.IncrementYearlyCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementYearlyCounterOperationCompleted);
+            }
+            this.InvokeAsync("IncrementYearlyCounter", new object[] {
+                        ticket,
+                        count}, this.IncrementYearlyCounterOperationCompleted, userState);
+        }
+        
+        private void OnIncrementYearlyCounterOperationCompleted(object arg) {
+            if ((this.IncrementYearlyCounterCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IncrementYearlyCounterCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -3351,6 +3556,189 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetBrowserById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitBrowser GetBrowserById(string ticket, int id) {
+            object[] results = this.Invoke("GetBrowserById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitBrowser)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetBrowserByIdAsync(string ticket, int id) {
+            this.GetBrowserByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetBrowserByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetBrowserByIdOperationCompleted == null)) {
+                this.GetBrowserByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetBrowserByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetBrowserById", new object[] {
+                        ticket,
+                        id}, this.GetBrowserByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetBrowserByIdOperationCompleted(object arg) {
+            if ((this.GetBrowserByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetBrowserByIdCompleted(this, new GetBrowserByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateBrowser", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateBrowser(string ticket, TransitBrowser t_browser) {
+            object[] results = this.Invoke("CreateOrUpdateBrowser", new object[] {
+                        ticket,
+                        t_browser});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateBrowserAsync(string ticket, TransitBrowser t_browser) {
+            this.CreateOrUpdateBrowserAsync(ticket, t_browser, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateBrowserAsync(string ticket, TransitBrowser t_browser, object userState) {
+            if ((this.CreateOrUpdateBrowserOperationCompleted == null)) {
+                this.CreateOrUpdateBrowserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateBrowserOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateBrowser", new object[] {
+                        ticket,
+                        t_browser}, this.CreateOrUpdateBrowserOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateBrowserOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateBrowserCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateBrowserCompleted(this, new CreateOrUpdateBrowserCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/IncrementBrowserCounter", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public long IncrementBrowserCounter(string ticket, int id) {
+            object[] results = this.Invoke("IncrementBrowserCounter", new object[] {
+                        ticket,
+                        id});
+            return ((long)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void IncrementBrowserCounterAsync(string ticket, int id) {
+            this.IncrementBrowserCounterAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void IncrementBrowserCounterAsync(string ticket, int id, object userState) {
+            if ((this.IncrementBrowserCounterOperationCompleted == null)) {
+                this.IncrementBrowserCounterOperationCompleted = new System.Threading.SendOrPostCallback(this.OnIncrementBrowserCounterOperationCompleted);
+            }
+            this.InvokeAsync("IncrementBrowserCounter", new object[] {
+                        ticket,
+                        id}, this.IncrementBrowserCounterOperationCompleted, userState);
+        }
+        
+        private void OnIncrementBrowserCounterOperationCompleted(object arg) {
+            if ((this.IncrementBrowserCounterCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.IncrementBrowserCounterCompleted(this, new IncrementBrowserCounterCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetBrowsersCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetBrowsersCount(string ticket) {
+            object[] results = this.Invoke("GetBrowsersCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetBrowsersCountAsync(string ticket) {
+            this.GetBrowsersCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetBrowsersCountAsync(string ticket, object userState) {
+            if ((this.GetBrowsersCountOperationCompleted == null)) {
+                this.GetBrowsersCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetBrowsersCountOperationCompleted);
+            }
+            this.InvokeAsync("GetBrowsersCount", new object[] {
+                        ticket}, this.GetBrowsersCountOperationCompleted, userState);
+        }
+        
+        private void OnGetBrowsersCountOperationCompleted(object arg) {
+            if ((this.GetBrowsersCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetBrowsersCountCompleted(this, new GetBrowsersCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetBrowsers", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitBrowser[] GetBrowsers(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetBrowsers", new object[] {
+                        ticket,
+                        options});
+            return ((TransitBrowser[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetBrowsersAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetBrowsersAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetBrowsersAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetBrowsersOperationCompleted == null)) {
+                this.GetBrowsersOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetBrowsersOperationCompleted);
+            }
+            this.InvokeAsync("GetBrowsers", new object[] {
+                        ticket,
+                        options}, this.GetBrowsersOperationCompleted, userState);
+        }
+        
+        private void OnGetBrowsersOperationCompleted(object arg) {
+            if ((this.GetBrowsersCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetBrowsersCompleted(this, new GetBrowsersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteBrowser", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteBrowser(string ticket, int id) {
+            this.Invoke("DeleteBrowser", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteBrowserAsync(string ticket, int id) {
+            this.DeleteBrowserAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteBrowserAsync(string ticket, int id, object userState) {
+            if ((this.DeleteBrowserOperationCompleted == null)) {
+                this.DeleteBrowserOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteBrowserOperationCompleted);
+            }
+            this.InvokeAsync("DeleteBrowser", new object[] {
+                        ticket,
+                        id}, this.DeleteBrowserOperationCompleted, userState);
+        }
+        
+        private void OnDeleteBrowserOperationCompleted(object arg) {
+            if ((this.DeleteBrowserCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteBrowserCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetVersion", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public string GetVersion() {
             object[] results = this.Invoke("GetVersion", new object[0]);
@@ -3602,6 +3990,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitBrowser))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostLogin))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeedItem))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeed))]
@@ -3884,6 +4273,51 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.excludeBlogImagesField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitBrowser : TransitObject {
+        
+        private string nameField;
+        
+        private string versionField;
+        
+        private string platformField;
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Version {
+            get {
+                return this.versionField;
+            }
+            set {
+                this.versionField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Platform {
+            get {
+                return this.platformField;
+            }
+            set {
+                this.platformField = value;
             }
         }
     }
@@ -6546,7 +6980,27 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void IncrementCountersCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void IncrementHourlyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void IncrementDailyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void IncrementWeeklyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void IncrementMonthlyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void IncrementYearlyCounterCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
@@ -6927,6 +7381,140 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
         }
     }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetBrowserByIdCompletedEventHandler(object sender, GetBrowserByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetBrowserByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetBrowserByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitBrowser Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitBrowser)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateBrowserCompletedEventHandler(object sender, CreateOrUpdateBrowserCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateBrowserCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateBrowserCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void IncrementBrowserCounterCompletedEventHandler(object sender, IncrementBrowserCounterCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class IncrementBrowserCounterCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal IncrementBrowserCounterCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public long Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((long)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetBrowsersCountCompletedEventHandler(object sender, GetBrowsersCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetBrowsersCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetBrowsersCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetBrowsersCompletedEventHandler(object sender, GetBrowsersCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetBrowsersCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetBrowsersCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitBrowser[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitBrowser[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteBrowserCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]

@@ -19,10 +19,10 @@ namespace DBlog.Data
 
         //Holds property values
         private System.Int32 m_Id;
-        private System.Collections.IList m_BrowserPlatforms;
-        private System.Collections.IList m_BrowserVersions;
-        private System.Boolean m_Crawler;
         private System.String m_Name;
+        private System.String m_Platform;
+        private System.String m_Version;
+        private System.Collections.IList m_BrowserCounters;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -50,93 +50,6 @@ namespace DBlog.Data
 
         ///--------------------------------------------------------------------------------
         ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'BrowserPlatform'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'BrowserPlatform.Browser'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_BrowserPlatforms' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'BrowserPlatform' table in the data source.
-        ///The property maps to the identity column 'Browser_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList BrowserPlatforms
-        {
-            get
-            {
-                return m_BrowserPlatforms;
-            }
-            set
-            {
-                m_BrowserPlatforms = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'BrowserVersion'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'BrowserVersion.Browser'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_BrowserVersions' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'BrowserVersion' table in the data source.
-        ///The property maps to the identity column 'Browser_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Collections.IList BrowserVersions
-        {
-            get
-            {
-                return m_BrowserVersions;
-            }
-            set
-            {
-                m_BrowserVersions = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent primitive property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts values of the type 'System.Boolean'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Crawler' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'Crawler' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public  System.Boolean Crawler
-        {
-            get
-            {
-                return m_Crawler;
-            }
-            set
-            {
-                m_Crawler = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
         ///Persistent primitive property.
         ///</summary>
         ///<remarks>
@@ -157,6 +70,87 @@ namespace DBlog.Data
             set
             {
                 m_Name = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.String'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Platform' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Platform' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.String Platform
+        {
+            get
+            {
+                return m_Platform;
+            }
+            set
+            {
+                m_Platform = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.String'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Version' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Version' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.String Version
+        {
+            get
+            {
+                return m_Version;
+            }
+            set
+            {
+                m_Version = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'BrowserCounter'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'BrowserCounter.Browser'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_BrowserCounters' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'BrowserCounter' table in the data source.
+        ///The property maps to the identity column 'Browser_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Collections.IList BrowserCounters
+        {
+            get
+            {
+                return m_BrowserCounters;
+            }
+            set
+            {
+                m_BrowserCounters = value;
             }
         }
 

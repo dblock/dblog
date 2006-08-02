@@ -54,14 +54,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Browser.cs" />
-    <Compile Include="BrowserPlatform.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BrowserVersion.cs" />
-    <Compile Include="BrowserVersionPlatform.cs" />
+    <Compile Include="BrowserCounter.cs" />
     <Compile Include="Comment.cs" />
     <Compile Include="Counter.cs" />
+    <Compile Include="DailyCounter.cs" />
     <Compile Include="Data.cs" />
+    <Compile Include="MonthlyCounter.cs" />
     <Compile Include="Permalink.cs" />
     <Compile Include="PostComment.cs" />
     <Compile Include="PostCounter.cs" />
@@ -80,7 +78,6 @@
     <Compile Include="NamedCounter.cs" />
     <Compile Include="NHibernateCrudTest.cs" />
     <Compile Include="NHibernateTest.cs" />
-    <Compile Include="Platform.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reference.cs" />
@@ -88,10 +85,10 @@
     <Compile Include="ReferrerHost.cs" />
     <Compile Include="ReferrerHostRollup.cs" />
     <Compile Include="ReferrerSearchQuery.cs" />
-    <Compile Include="Request.cs" />
-    <Compile Include="RollupBrowserVersionPlatform.cs" />
     <Compile Include="Thread.cs" />
     <Compile Include="Topic.cs" />
+    <Compile Include="WeeklyCounter.cs" />
+    <Compile Include="YearlyCounter.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Data.Hibernate\DBlog.Data.Hibernate.csproj">
