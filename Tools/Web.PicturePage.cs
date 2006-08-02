@@ -42,6 +42,14 @@ namespace DBlog.Tools.Web
 
         public abstract PicturePageType PageType { get; }
 
+        public virtual string Copyright
+        {
+            get
+            {
+                return null;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
@@ -125,6 +133,14 @@ namespace DBlog.Tools.Web
                 {
                     case PicturePageType.Thumbnail:
                         p.Name.Insert(0, "thumbnail-");
+                        break;
+                    case PicturePageType.Bitmap:
+                        if (!string.IsNullOrEmpty(Copyright))
+                        {
+                            ThumbnailBitmap bitmap = new ThumbnailBitmap(p.Bitmap);
+                            bitmap.AddCopyright(Copyright);
+                            p.Bitmap = bitmap.Bitmap;
+                        }
                         break;
                 }
 

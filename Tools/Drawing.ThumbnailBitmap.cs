@@ -11,6 +11,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.Drawing.Drawing2D;
 using System.IO;
+using System.Text;
 
 namespace DBlog.Tools.Drawing
 {
@@ -38,7 +39,8 @@ namespace DBlog.Tools.Drawing
 
         byte[] mThumbnail = null;
         byte[] mBitmap = null;
-
+        private Exif.EXIFMetaData mMetaData = null;
+	
         public byte[] Thumbnail
         {
             get
@@ -55,23 +57,45 @@ namespace DBlog.Tools.Drawing
             }
         }
 
+        public Exif.EXIFMetaData MetaData
+        {
+            get
+            {
+                if (mMetaData == null)
+                {
+                    mMetaData = new Exif.EXIFMetaData(
+                        new Bitmap(new MemoryStream(mBitmap)).PropertyItems);
+                }
+
+                return mMetaData;
+            }
+            set
+            {
+                mMetaData = value;
+            }
+        }
+
+
         public ThumbnailBitmap(byte[] bitmap, Size min)
         {
             mBitmap = bitmap;
             mThumbnail = GetThumbnail(new Bitmap(new MemoryStream(bitmap)), min);
         }
 
-        public ThumbnailBitmap(string filename) : this(new Bitmap(filename))
-        {
-                        
-        }
-
-        public ThumbnailBitmap(byte[] bitmap) : this(bitmap, ThumbnailSize)
+        public ThumbnailBitmap(string filename)
+            : this(new Bitmap(filename))
         {
 
         }
 
-        public ThumbnailBitmap(Stream bitmap) : this(bitmap, ThumbnailSize)
+        public ThumbnailBitmap(byte[] bitmap)
+            : this(bitmap, ThumbnailSize)
+        {
+
+        }
+
+        public ThumbnailBitmap(Stream bitmap)
+            : this(bitmap, ThumbnailSize)
         {
 
         }
@@ -93,7 +117,8 @@ namespace DBlog.Tools.Drawing
             mThumbnail = GetThumbnail(bitmap, min);
         }
 
-        public ThumbnailBitmap(Bitmap bitmap) : this(bitmap, ThumbnailSize)
+        public ThumbnailBitmap(Bitmap bitmap)
+            : this(bitmap, ThumbnailSize)
         {
         }
 
@@ -207,7 +232,7 @@ namespace DBlog.Tools.Drawing
 
             try
             {
-                EncoderParameter ratio = new EncoderParameter(Encoder.Quality, quality);
+                EncoderParameter ratio = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, quality);
                 EncoderParameters codecParams = new EncoderParameters(1);
                 codecParams.Param[0] = ratio;
 
@@ -310,5 +335,57 @@ namespace DBlog.Tools.Drawing
         {
             return GetBitmap(GetBitmapFromText(message, fontsize, width, height));
         }
+
+        public void AddCopyright(string text)
+        {
+            Bitmap bitmap = new Bitmap(new MemoryStream(mBitmap));
+            Graphics g = Graphics.FromImage(bitmap);
+            StringFormat Align = new StringFormat();
+            Align.Alignment = StringAlignment.Center;
+
+            float FontSize = (float)((bitmap.Height / bitmap.PhysicalDimension.Height) * 3);
+            Font Font = new Font("Verdana", FontSize, FontStyle.Regular);
+
+            Exif.EXIFPropertyItem ExifModel = MetaData.GetItem(Exif.KnownEXIFIDCodes.Model);
+            Exif.EXIFPropertyItem ExifManufacturer = MetaData.GetItem(Exif.KnownEXIFIDCodes.Manufacturer);
+            Exif.EXIFPropertyItem ExifDateTime = MetaData.GetItem(Exif.KnownEXIFIDCodes.DateTime);
+
+            StringBuilder ExifData = new StringBuilder();
+
+            if (ExifManufacturer != null && ExifModel != null)
+            {
+                if (ExifModel.ParsedString.Split(" ".ToCharArray(), 2)[0] == ExifManufacturer.ParsedString.Split(" ".ToCharArray(), 2)[0])
+                {
+                    ExifManufacturer = null;
+                }
+            }
+
+            if (ExifManufacturer != null) ExifData.Append(ExifManufacturer.ParsedString + " ");
+            if (ExifModel != null) ExifData.Append(ExifModel.ParsedString + " ");
+            if (ExifDateTime != null) ExifData.Append(ExifDateTime.ParsedDate.ToString("yyyy/MM/dd") + " ");
+            if (text != null) ExifData.Append(text + " ");
+
+            if (ExifData.Length > 0)
+            {
+                SizeF ExifSize = g.MeasureString(ExifData.ToString(), Font);
+
+                g.DrawString(
+                 ExifData.ToString(),
+                 Font,
+                 Brushes.Black,
+                 bitmap.Size.Width - ExifSize.Width - 3,
+                 bitmap.Size.Height - ExifSize.Height - 1);
+
+                g.DrawString(
+                 ExifData.ToString(),
+                 Font,
+                 Brushes.Silver,
+                 bitmap.Size.Width - ExifSize.Width - 4,
+                 bitmap.Size.Height - ExifSize.Height - 1);
+            }
+
+            mBitmap = GetJpegBits(bitmap, 100);
+        }
+
     }
 }

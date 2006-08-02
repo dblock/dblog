@@ -29,6 +29,15 @@ public abstract class BlogPicturePage : DBlog.Tools.Web.PicturePage
         }
     }
 
+    public override string Copyright
+    {
+        get
+        {
+            return SessionManager.GetSetting(
+                "Copyright", string.Empty);
+        }
+    }
+
     public BlogPicturePage()
     {
 
