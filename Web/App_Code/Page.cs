@@ -27,6 +27,9 @@ public class BlogPage : DBlog.Tools.Web.Page
 
         if (!IsPostBack)
         {
+            Page.Title = string.Format("{0} - {1}", SessionManager.GetSetting(
+                "title", "Blog"), Page.Title);
+
             CounterCache.Increment(Request, Cache, SessionManager);
         }
 
