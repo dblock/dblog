@@ -1419,11 +1419,14 @@ namespace DBlog.WebServices
                 TransitCounter tc = new TransitCounter();
 
                 object[] result = (object[]) session.CreateQuery(
-                    "SELECT sum(hc.RequestCount), min(hc.DateTime) FROM HourlyCounter hc")
+                    "SELECT SUM(hc.RequestCount), MIN(hc.DateTime) FROM HourlyCounter hc")
                     .UniqueResult();
 
-                tc.Count = (int) result[0];
-                tc.Created = (DateTime) result[1];
+                if (result != null)
+                {
+                    tc.Count = (result[0] == null) ? 0 : (int) result[0];
+                    tc.Created = (result[1] == null) ? DateTime.UtcNow : (DateTime) result[1];
+                }
 
                 return tc;
             }
