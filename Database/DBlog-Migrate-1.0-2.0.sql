@@ -320,3 +320,5 @@ DROP PROCEDURE [sp_rollup_referrerhost]
 IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[sp_rollup_referrersearchquery]') AND type in (N'P', N'PC'))
 DROP PROCEDURE [sp_rollup_referrersearchquery]
 
+IF EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Referrer]') AND type in (N'U'))
+DROP TABLE Referrer

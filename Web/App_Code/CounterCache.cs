@@ -48,6 +48,7 @@ public class CounterCache
     {
         List<TransitBrowser> browsers = new List<TransitBrowser>();
         List<TransitReferrerHost> rhs = new List<TransitReferrerHost>();
+        List<TransitReferrerSearchQuery> rsqs = new List<TransitReferrerSearchQuery>();
 
         // TODO: use a unique sorted collection
 
@@ -68,11 +69,24 @@ public class CounterCache
                 rh.LastUrl = request.Url.ToString();
                 rh.RequestCount = 1;
                 rhs.Add(rh);
+
+                string q = request.QueryString["q"];
+                if (string.IsNullOrEmpty(q)) q = request.QueryString["s"];
+                if (string.IsNullOrEmpty(q)) q = request.QueryString["search"];
+                if (string.IsNullOrEmpty(q)) q = request.QueryString["query"];
+
+                if (!string.IsNullOrEmpty(q))
+                {
+                    TransitReferrerSearchQuery trsq = new TransitReferrerSearchQuery();
+                    trsq.RequestCount = 1;
+                    trsq.SearchQuery = q;
+                    rsqs.Add(trsq);
+                }                    
             }
         }
 
         manager.BlogService.CreateOrUpdateStats(
-            manager.Ticket, browsers.ToArray(), rhs.ToArray());
+            manager.Ticket, browsers.ToArray(), rhs.ToArray(), rsqs.ToArray());
         
         mRequests.Clear();
         LastFlush = DateTime.UtcNow;

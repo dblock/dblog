@@ -65,6 +65,7 @@
     <Compile Include="WebServices.BlogReferenceTest.cs" />
     <Compile Include="WebServices.BlogReferrerHostRollupTest.cs" />
     <Compile Include="WebServices.BlogReferrerHostTest.cs" />
+    <Compile Include="WebServices.BlogReferrerSearchQueryTest.cs" />
     <Compile Include="WebServices.BlogSecurityTest.cs" />
     <Compile Include="WebServices.BlogStatsTest.cs" />
     <Compile Include="WebServices.BlogTopicTest.cs" />
@@ -152,7 +153,13 @@
     <None Include="Web References\WebServices.Blog\TransitReference1.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
+    <None Include="Web References\WebServices.Blog\TransitReferrerHost.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
     <None Include="Web References\WebServices.Blog\TransitReferrerHostRollup.datasource">
+      <DependentUpon>Reference.map</DependentUpon>
+    </None>
+    <None Include="Web References\WebServices.Blog\TransitReferrerSearchQuery.datasource">
       <DependentUpon>Reference.map</DependentUpon>
     </None>
     <None Include="Web References\WebServices.Blog\TransitTopic.datasource">

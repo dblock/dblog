@@ -79,7 +79,6 @@
     <Compile Include="TransitObject.cs" />
     <Compile Include="TransitPostLogin.cs" />
     <Compile Include="TransitReference.cs" />
-    <Compile Include="TransitReferrer.cs" />
     <Compile Include="TransitReferrerHost.cs" />
     <Compile Include="TransitReferrerHostRollup.cs" />
     <Compile Include="TransitReferrerSearchQuery.cs" />

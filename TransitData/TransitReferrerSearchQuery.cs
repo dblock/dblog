@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DBlog.Data;
 using NHibernate;
+using NHibernate.Expression;
 
 namespace DBlog.TransitData
 {
@@ -50,10 +51,32 @@ namespace DBlog.TransitData
 
         public ReferrerSearchQuery GetReferrerSearchQuery(ISession session)
         {
-            ReferrerSearchQuery referrersearchquery = (Id != 0) ? (ReferrerSearchQuery)session.Load(typeof(ReferrerSearchQuery), Id) : new ReferrerSearchQuery();
-            referrersearchquery.SearchQuery = SearchQuery;
-            referrersearchquery.RequestCount = RequestCount;
-            return referrersearchquery;
+            ReferrerSearchQuery rsq = null;
+
+            if (Id == 0)
+            {
+                rsq = (ReferrerSearchQuery)session.CreateCriteria(typeof(ReferrerSearchQuery))
+                    .Add(Expression.Eq("SearchQuery", SearchQuery))
+                    .UniqueResult();
+
+                if (rsq == null)
+                {
+                    rsq = new ReferrerSearchQuery();
+                    rsq.RequestCount = RequestCount;
+                }
+                else
+                {
+                    rsq.RequestCount += RequestCount;
+                }
+            }
+            else
+            {
+                rsq = (ReferrerSearchQuery)session.Load(typeof(ReferrerSearchQuery), Id);
+                rsq.RequestCount = RequestCount;
+            }
+
+            rsq.SearchQuery = SearchQuery;
+            return rsq;
         }
     }
 }

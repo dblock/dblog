@@ -613,6 +613,91 @@
       <s:element name="DeleteReferrerHostRollupResponse">
         <s:complexType />
       </s:element>
+      <s:element name="GetReferrerSearchQueryById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerSearchQueryByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReferrerSearchQueryByIdResult" type="tns:TransitReferrerSearchQuery" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitReferrerSearchQuery">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SearchQuery" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="RequestCount" type="s:long" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="CreateOrUpdateReferrerSearchQuery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_referrersearchquery" type="tns:TransitReferrerSearchQuery" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateReferrerSearchQueryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateReferrerSearchQueryResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerSearchQueriesCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerSearchQueriesCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetReferrerSearchQueriesCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerSearchQueries">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetReferrerSearchQueriesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetReferrerSearchQueriesResult" type="tns:ArrayOfTransitReferrerSearchQuery" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitReferrerSearchQuery">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitReferrerSearchQuery" nillable="true" type="tns:TransitReferrerSearchQuery" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="DeleteReferrerSearchQuery">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="DeleteReferrerSearchQueryResponse">
+        <s:complexType />
+      </s:element>
       <s:element name="GetHighlightById">
         <s:complexType>
           <s:sequence>
@@ -840,6 +925,7 @@
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="t_browsers" type="tns:ArrayOfTransitBrowser" />
             <s:element minOccurs="0" maxOccurs="1" name="t_rhs" type="tns:ArrayOfTransitReferrerHost" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_rsqs" type="tns:ArrayOfTransitReferrerSearchQuery" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2156,6 +2242,36 @@
   <wsdl:message name="DeleteReferrerHostRollupSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteReferrerHostRollupResponse" />
   </wsdl:message>
+  <wsdl:message name="GetReferrerSearchQueryByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrerSearchQueryById" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerSearchQueryByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferrerSearchQueryByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateReferrerSearchQuerySoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateReferrerSearchQuery" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateReferrerSearchQuerySoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateReferrerSearchQueryResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerSearchQueriesCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrerSearchQueriesCount" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerSearchQueriesCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferrerSearchQueriesCountResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerSearchQueriesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetReferrerSearchQueries" />
+  </wsdl:message>
+  <wsdl:message name="GetReferrerSearchQueriesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetReferrerSearchQueriesResponse" />
+  </wsdl:message>
+  <wsdl:message name="DeleteReferrerSearchQuerySoapIn">
+    <wsdl:part name="parameters" element="tns:DeleteReferrerSearchQuery" />
+  </wsdl:message>
+  <wsdl:message name="DeleteReferrerSearchQuerySoapOut">
+    <wsdl:part name="parameters" element="tns:DeleteReferrerSearchQueryResponse" />
+  </wsdl:message>
   <wsdl:message name="GetHighlightByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetHighlightById" />
   </wsdl:message>
@@ -2770,6 +2886,31 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a referrer host rollup.</wsdl:documentation>
       <wsdl:input message="tns:DeleteReferrerHostRollupSoapIn" />
       <wsdl:output message="tns:DeleteReferrerHostRollupSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerSearchQueryById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a referrer search query.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferrerSearchQueryByIdSoapIn" />
+      <wsdl:output message="tns:GetReferrerSearchQueryByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReferrerSearchQuery">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a referrer search query.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateReferrerSearchQuerySoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateReferrerSearchQuerySoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerSearchQueriesCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get referrer search queries count.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferrerSearchQueriesCountSoapIn" />
+      <wsdl:output message="tns:GetReferrerSearchQueriesCountSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerSearchQueries">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get referrer search queries.</wsdl:documentation>
+      <wsdl:input message="tns:GetReferrerSearchQueriesSoapIn" />
+      <wsdl:output message="tns:GetReferrerSearchQueriesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReferrerSearchQuery">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a referrer search query.</wsdl:documentation>
+      <wsdl:input message="tns:DeleteReferrerSearchQuerySoapIn" />
+      <wsdl:output message="tns:DeleteReferrerSearchQuerySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetHighlightById">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a highlight.</wsdl:documentation>
@@ -3443,6 +3584,51 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteReferrerHostRollup">
       <soap:operation soapAction="http://dblock.org/ns/DeleteReferrerHostRollup" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerSearchQueryById">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferrerSearchQueryById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReferrerSearchQuery">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateReferrerSearchQuery" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerSearchQueriesCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferrerSearchQueriesCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerSearchQueries">
+      <soap:operation soapAction="http://dblock.org/ns/GetReferrerSearchQueries" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReferrerSearchQuery">
+      <soap:operation soapAction="http://dblock.org/ns/DeleteReferrerSearchQuery" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4418,6 +4604,51 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteReferrerHostRollup">
       <soap12:operation soapAction="http://dblock.org/ns/DeleteReferrerHostRollup" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerSearchQueryById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferrerSearchQueryById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateReferrerSearchQuery">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateReferrerSearchQuery" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerSearchQueriesCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferrerSearchQueriesCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetReferrerSearchQueries">
+      <soap12:operation soapAction="http://dblock.org/ns/GetReferrerSearchQueries" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="DeleteReferrerSearchQuery">
+      <soap12:operation soapAction="http://dblock.org/ns/DeleteReferrerSearchQuery" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

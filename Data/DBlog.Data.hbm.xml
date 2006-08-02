@@ -292,13 +292,6 @@
     <property name="Url" column="Url" type="String" />
     <property name="Word" column="Word" type="String" />
   </class>
-  <class name="DBlog.Data.Referrer, DBlog.Data" table="Referrer">
-    <id name="Id" type="Int32" column="Referrer_Id" access="field.pascalcase-m-underscore">
-      <generator class="identity" />
-    </id>
-    <property name="Source" column="Source" type="String" />
-    <property name="Url" column="Url" type="String" />
-  </class>
   <class name="DBlog.Data.ReferrerHost, DBlog.Data" table="ReferrerHost">
     <id name="Id" type="Int32" column="ReferrerHost_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />

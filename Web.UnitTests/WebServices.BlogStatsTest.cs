@@ -34,17 +34,26 @@ namespace DBlog.Web.UnitTests.WebServices
             browser.Version = Guid.NewGuid().ToString().Substring(0, 10);
             browser.Id = Blog.CreateOrUpdateBrowser(Ticket, browser);
 
+            TransitReferrerSearchQuery query = new TransitReferrerSearchQuery();
+            query.RequestCount = 1;
+            query.SearchQuery = Guid.NewGuid().ToString();
+            query.Id = Blog.CreateOrUpdateReferrerSearchQuery(Ticket, query);
+
             List<TransitReferrerHost> hosts = new List<TransitReferrerHost>();
             hosts.Add(host);
 
             List<TransitBrowser> browsers = new List<TransitBrowser>();
             browsers.Add(browser);
 
-            int result = Blog.CreateOrUpdateStats(Ticket, browsers.ToArray(), hosts.ToArray());
-            Assert.AreEqual(result, Math.Max(browsers.Count, hosts.Count));
+            List<TransitReferrerSearchQuery> queries = new List<TransitReferrerSearchQuery>();
+            queries.Add(query);
+
+            int result = Blog.CreateOrUpdateStats(Ticket, browsers.ToArray(), hosts.ToArray(), queries.ToArray());
+            Assert.AreEqual(result, Math.Max(Math.Max(browsers.Count, hosts.Count), queries.Count));
 
             Blog.DeleteReferrerHost(Ticket, host.Id);
             Blog.DeleteBrowser(Ticket, browser.Id);
+            Blog.DeleteReferrerSearchQuery(Ticket, query.Id);
         }
     }
 }

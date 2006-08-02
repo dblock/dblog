@@ -98,6 +98,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback DeleteReferrerHostRollupOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetReferrerSearchQueryByIdOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback CreateOrUpdateReferrerSearchQueryOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferrerSearchQueriesCountOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetReferrerSearchQueriesOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback DeleteReferrerSearchQueryOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetHighlightByIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback CreateOrUpdateHighlightOperationCompleted;
@@ -385,6 +395,21 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event DeleteReferrerHostRollupCompletedEventHandler DeleteReferrerHostRollupCompleted;
+        
+        /// <remarks/>
+        public event GetReferrerSearchQueryByIdCompletedEventHandler GetReferrerSearchQueryByIdCompleted;
+        
+        /// <remarks/>
+        public event CreateOrUpdateReferrerSearchQueryCompletedEventHandler CreateOrUpdateReferrerSearchQueryCompleted;
+        
+        /// <remarks/>
+        public event GetReferrerSearchQueriesCountCompletedEventHandler GetReferrerSearchQueriesCountCompleted;
+        
+        /// <remarks/>
+        public event GetReferrerSearchQueriesCompletedEventHandler GetReferrerSearchQueriesCompleted;
+        
+        /// <remarks/>
+        public event DeleteReferrerSearchQueryCompletedEventHandler DeleteReferrerSearchQueryCompleted;
         
         /// <remarks/>
         public event GetHighlightByIdCompletedEventHandler GetHighlightByIdCompleted;
@@ -1652,6 +1677,158 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerSearchQueryById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitReferrerSearchQuery GetReferrerSearchQueryById(string ticket, int id) {
+            object[] results = this.Invoke("GetReferrerSearchQueryById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitReferrerSearchQuery)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferrerSearchQueryByIdAsync(string ticket, int id) {
+            this.GetReferrerSearchQueryByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferrerSearchQueryByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetReferrerSearchQueryByIdOperationCompleted == null)) {
+                this.GetReferrerSearchQueryByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerSearchQueryByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetReferrerSearchQueryById", new object[] {
+                        ticket,
+                        id}, this.GetReferrerSearchQueryByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetReferrerSearchQueryByIdOperationCompleted(object arg) {
+            if ((this.GetReferrerSearchQueryByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferrerSearchQueryByIdCompleted(this, new GetReferrerSearchQueryByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateReferrerSearchQuery", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int CreateOrUpdateReferrerSearchQuery(string ticket, TransitReferrerSearchQuery t_referrersearchquery) {
+            object[] results = this.Invoke("CreateOrUpdateReferrerSearchQuery", new object[] {
+                        ticket,
+                        t_referrersearchquery});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateReferrerSearchQueryAsync(string ticket, TransitReferrerSearchQuery t_referrersearchquery) {
+            this.CreateOrUpdateReferrerSearchQueryAsync(ticket, t_referrersearchquery, null);
+        }
+        
+        /// <remarks/>
+        public void CreateOrUpdateReferrerSearchQueryAsync(string ticket, TransitReferrerSearchQuery t_referrersearchquery, object userState) {
+            if ((this.CreateOrUpdateReferrerSearchQueryOperationCompleted == null)) {
+                this.CreateOrUpdateReferrerSearchQueryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateReferrerSearchQueryOperationCompleted);
+            }
+            this.InvokeAsync("CreateOrUpdateReferrerSearchQuery", new object[] {
+                        ticket,
+                        t_referrersearchquery}, this.CreateOrUpdateReferrerSearchQueryOperationCompleted, userState);
+        }
+        
+        private void OnCreateOrUpdateReferrerSearchQueryOperationCompleted(object arg) {
+            if ((this.CreateOrUpdateReferrerSearchQueryCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.CreateOrUpdateReferrerSearchQueryCompleted(this, new CreateOrUpdateReferrerSearchQueryCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerSearchQueriesCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetReferrerSearchQueriesCount(string ticket) {
+            object[] results = this.Invoke("GetReferrerSearchQueriesCount", new object[] {
+                        ticket});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferrerSearchQueriesCountAsync(string ticket) {
+            this.GetReferrerSearchQueriesCountAsync(ticket, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferrerSearchQueriesCountAsync(string ticket, object userState) {
+            if ((this.GetReferrerSearchQueriesCountOperationCompleted == null)) {
+                this.GetReferrerSearchQueriesCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerSearchQueriesCountOperationCompleted);
+            }
+            this.InvokeAsync("GetReferrerSearchQueriesCount", new object[] {
+                        ticket}, this.GetReferrerSearchQueriesCountOperationCompleted, userState);
+        }
+        
+        private void OnGetReferrerSearchQueriesCountOperationCompleted(object arg) {
+            if ((this.GetReferrerSearchQueriesCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferrerSearchQueriesCountCompleted(this, new GetReferrerSearchQueriesCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerSearchQueries", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitReferrerSearchQuery[] GetReferrerSearchQueries(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetReferrerSearchQueries", new object[] {
+                        ticket,
+                        options});
+            return ((TransitReferrerSearchQuery[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetReferrerSearchQueriesAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetReferrerSearchQueriesAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetReferrerSearchQueriesAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetReferrerSearchQueriesOperationCompleted == null)) {
+                this.GetReferrerSearchQueriesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerSearchQueriesOperationCompleted);
+            }
+            this.InvokeAsync("GetReferrerSearchQueries", new object[] {
+                        ticket,
+                        options}, this.GetReferrerSearchQueriesOperationCompleted, userState);
+        }
+        
+        private void OnGetReferrerSearchQueriesOperationCompleted(object arg) {
+            if ((this.GetReferrerSearchQueriesCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetReferrerSearchQueriesCompleted(this, new GetReferrerSearchQueriesCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/DeleteReferrerSearchQuery", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public void DeleteReferrerSearchQuery(string ticket, int id) {
+            this.Invoke("DeleteReferrerSearchQuery", new object[] {
+                        ticket,
+                        id});
+        }
+        
+        /// <remarks/>
+        public void DeleteReferrerSearchQueryAsync(string ticket, int id) {
+            this.DeleteReferrerSearchQueryAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void DeleteReferrerSearchQueryAsync(string ticket, int id, object userState) {
+            if ((this.DeleteReferrerSearchQueryOperationCompleted == null)) {
+                this.DeleteReferrerSearchQueryOperationCompleted = new System.Threading.SendOrPostCallback(this.OnDeleteReferrerSearchQueryOperationCompleted);
+            }
+            this.InvokeAsync("DeleteReferrerSearchQuery", new object[] {
+                        ticket,
+                        id}, this.DeleteReferrerSearchQueryOperationCompleted, userState);
+        }
+        
+        private void OnDeleteReferrerSearchQueryOperationCompleted(object arg) {
+            if ((this.DeleteReferrerSearchQueryCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.DeleteReferrerSearchQueryCompleted(this, new System.ComponentModel.AsyncCompletedEventArgs(invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetHighlightById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public TransitHighlight GetHighlightById(string ticket, int id) {
             object[] results = this.Invoke("GetHighlightById", new object[] {
@@ -2021,28 +2198,30 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/CreateOrUpdateStats", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int CreateOrUpdateStats(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs) {
+        public int CreateOrUpdateStats(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs, TransitReferrerSearchQuery[] t_rsqs) {
             object[] results = this.Invoke("CreateOrUpdateStats", new object[] {
                         ticket,
                         t_browsers,
-                        t_rhs});
+                        t_rhs,
+                        t_rsqs});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void CreateOrUpdateStatsAsync(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs) {
-            this.CreateOrUpdateStatsAsync(ticket, t_browsers, t_rhs, null);
+        public void CreateOrUpdateStatsAsync(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs, TransitReferrerSearchQuery[] t_rsqs) {
+            this.CreateOrUpdateStatsAsync(ticket, t_browsers, t_rhs, t_rsqs, null);
         }
         
         /// <remarks/>
-        public void CreateOrUpdateStatsAsync(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs, object userState) {
+        public void CreateOrUpdateStatsAsync(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs, TransitReferrerSearchQuery[] t_rsqs, object userState) {
             if ((this.CreateOrUpdateStatsOperationCompleted == null)) {
                 this.CreateOrUpdateStatsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnCreateOrUpdateStatsOperationCompleted);
             }
             this.InvokeAsync("CreateOrUpdateStats", new object[] {
                         ticket,
                         t_browsers,
-                        t_rhs}, this.CreateOrUpdateStatsOperationCompleted, userState);
+                        t_rhs,
+                        t_rsqs}, this.CreateOrUpdateStatsOperationCompleted, userState);
         }
         
         private void OnCreateOrUpdateStatsOperationCompleted(object arg) {
@@ -4043,6 +4222,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitBrowser))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPost))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitHighlight))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerSearchQuery))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHostRollup))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReference))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitCounter))]
@@ -5363,6 +5543,39 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitReferrerSearchQuery : TransitObject {
+        
+        private string searchQueryField;
+        
+        private long requestCountField;
+        
+        /// <remarks/>
+        public string SearchQuery {
+            get {
+                return this.searchQueryField;
+            }
+            set {
+                this.searchQueryField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public long RequestCount {
+            get {
+                return this.requestCountField;
+            }
+            set {
+                this.requestCountField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.42")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitReferrerHostRollup : TransitObject {
         
         private string nameField;
@@ -6241,6 +6454,114 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
     public delegate void DeleteReferrerHostRollupCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferrerSearchQueryByIdCompletedEventHandler(object sender, GetReferrerSearchQueryByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferrerSearchQueryByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferrerSearchQueryByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitReferrerSearchQuery Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitReferrerSearchQuery)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void CreateOrUpdateReferrerSearchQueryCompletedEventHandler(object sender, CreateOrUpdateReferrerSearchQueryCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class CreateOrUpdateReferrerSearchQueryCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal CreateOrUpdateReferrerSearchQueryCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferrerSearchQueriesCountCompletedEventHandler(object sender, GetReferrerSearchQueriesCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferrerSearchQueriesCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferrerSearchQueriesCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void GetReferrerSearchQueriesCompletedEventHandler(object sender, GetReferrerSearchQueriesCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetReferrerSearchQueriesCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetReferrerSearchQueriesCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitReferrerSearchQuery[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitReferrerSearchQuery[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
+    public delegate void DeleteReferrerSearchQueryCompletedEventHandler(object sender, System.ComponentModel.AsyncCompletedEventArgs e);
     
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.42")]
