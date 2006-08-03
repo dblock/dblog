@@ -61,28 +61,37 @@ public partial class ShowImage : BlogPage
     public void GetDataImages(object sender, EventArgs e)
     {
         images.CurrentPageIndex = 0;
+        int pid = GetId("pid");
 
         if (RequestId > 0 && ! IsPostBack)
-        {            
-            // HACK: navigate images to find the one we're looking for
-            List<TransitPostImage> list = SessionManager.BlogService.GetPostImages(SessionManager.PostTicket,
-                new TransitPostImageQueryOptions(GetId("pid")));
-
-            int index = 0;
-            foreach (TransitPostImage img in list)
+        {
+            if (pid > 0)
             {
-                if (img.Image.Id == RequestId)
+                // HACK: navigate images to find the one we're looking for
+                List<TransitPostImage> list = SessionManager.BlogService.GetPostImages(SessionManager.PostTicket,
+                    new TransitPostImageQueryOptions(pid));
+
+                int index = 0;
+                foreach (TransitPostImage img in list)
                 {
-                    images.CurrentPageIndex = index;
-                    break;
+                    if (img.Image.Id == RequestId)
+                    {
+                        images.CurrentPageIndex = index;
+                        break;
+                    }
+
+                    index++;
                 }
 
-                index++;
+                images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
+                    SessionManager.PostTicket, new TransitPostImageQueryOptions(pid));
+            }
+            else
+            {
+                images.VirtualItemCount = 1;
             }
         }
 
-        images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
-            SessionManager.PostTicket, new TransitPostImageQueryOptions(GetId("pid")));
         images_OnGetDataSource(sender, e);
         images.DataBind();
         panelImages.Update();
@@ -113,9 +122,26 @@ public partial class ShowImage : BlogPage
 
     void images_OnGetDataSource(object sender, EventArgs e)
     {
-        List<TransitPostImage> list = SessionManager.BlogService.GetPostImages(
-            SessionManager.PostTicket, new TransitPostImageQueryOptions(
-                GetId("pid"), images.PageSize, images.CurrentPageIndex));
+        int pid = GetId("pid");
+
+        List<TransitPostImage> list = null;
+        if (pid > 0)
+        {
+            list = SessionManager.BlogService.GetPostImages(
+                SessionManager.PostTicket, new TransitPostImageQueryOptions(
+                    pid, images.PageSize, images.CurrentPageIndex));
+
+            linkBack.NavigateUrl = string.Format("ShowPost.aspx?id={0}", GetId("pid"));
+        }
+        else
+        {
+            TransitPostImage image = SessionManager.BlogService.GetPostImageById(SessionManager.PostTicket,
+                RequestId);
+            list = new List<TransitPostImage>();
+            list.Add(image);
+
+            linkBack.NavigateUrl = "ShowBlog.aspx";
+        }
 
         if (list.Count > 0)
         {
@@ -123,8 +149,6 @@ public partial class ShowImage : BlogPage
 
             linkComment.NavigateUrl = string.Format("EditImageComment.aspx?sid={0}&rid={1}",
                 PostImage.Image.Id, GetId("pid"));
-
-            linkBack.NavigateUrl = string.Format("ShowPost.aspx?id={0}", GetId("pid"));
         }
 
         GetDataComments(sender, e);
