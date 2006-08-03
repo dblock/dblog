@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Data.Hibernate;
+using DBlog.TransitData;
 
 public partial class ViewHighlightsControl : BlogControl
 {
@@ -31,8 +32,8 @@ public partial class ViewHighlightsControl : BlogControl
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetHighlights(
-            SessionManager.Ticket, null);
+        grid.DataSource = SessionManager.GetCachedCollection<TransitHighlight>(
+            "GetHighlights", SessionManager.Ticket, null);
     }
 
     private void GetData(object sender, EventArgs e)

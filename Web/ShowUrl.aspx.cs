@@ -23,8 +23,7 @@ public partial class ShowUrl : BlogPage
                 switch((string) Request.QueryString["ObjectType"])
                 {
                     case "Post":
-                        SessionManager.BlogService.IncrementPostCounter(
-                            SessionManager.Ticket, int.Parse(Request.QueryString["ObjectId"]));
+                        CounterCache.IncrementPostCounter(int.Parse(Request.QueryString["ObjectId"]), Cache, SessionManager);
                         break;
                 }
 

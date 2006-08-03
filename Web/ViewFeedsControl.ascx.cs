@@ -46,8 +46,8 @@ public partial class ViewFeedsControl : BlogControl
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetFeeds(
-            SessionManager.Ticket, new TransitFeedQueryOptions(Type));
+        grid.DataSource = SessionManager.GetCachedCollection<TransitFeed>(
+            "GetFeeds", SessionManager.Ticket, new TransitFeedQueryOptions(Type));
     }
 
     private void GetData(object sender, EventArgs e)

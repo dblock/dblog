@@ -348,6 +348,26 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Increment image counters.")]
+        public long IncrementImageCounters(string ticket, int[] ids)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                long result = 0;
+                if (ids != null)
+                {
+                    foreach(int id in ids)
+                    {
+                        result += TransitCounter.Increment<Image, ImageCounter>(
+                            session, id);
+                    }
+                }
+                session.Flush();
+                return result;
+            }
+        }
+
         #endregion
 
         #region Images with Bitmaps
@@ -844,7 +864,7 @@ namespace DBlog.WebServices
             }
         }
 
-        [WebMethod(Description = "Increment an image counter.")]
+        [WebMethod(Description = "Increment a post counter.")]
         public long IncrementPostCounter(string ticket, int id)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
@@ -855,6 +875,27 @@ namespace DBlog.WebServices
                 return result;
             }
         }
+
+        [WebMethod(Description = "Increment post counters.")]
+        public long IncrementPostCounters(string ticket, int[] ids)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                long result = 0;
+                if (ids != null)
+                {
+                    foreach(int id in ids)
+                    {
+                        result += TransitCounter.Increment<Post, PostCounter>(
+                            session, id);
+                    }
+                }
+                session.Flush();
+                return result;
+            }
+        }
+
 
         [WebMethod(Description = "Update statistics for a series of requests.")]
         public int CreateOrUpdateStats(string ticket, TransitBrowser[] t_browsers, TransitReferrerHost[] t_rhs, TransitReferrerSearchQuery[] t_rsqs)
@@ -1577,7 +1618,6 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-
                 ICriteria cr = session.CreateCriteria(typeof(Feed));
 
                 if (options != null)
@@ -1589,8 +1629,16 @@ namespace DBlog.WebServices
 
                 List<TransitFeed> result = new List<TransitFeed>(list.Count);
 
+                bool fAdmin = ManagedLogin.IsAdministrator(session, ticket);
+
                 foreach (Feed obj in list)
                 {
+                    if (!fAdmin)
+                    {
+                        obj.Username = string.Empty;
+                        obj.Password = string.Empty;
+                    }
+
                     result.Add(new TransitFeed(obj));
                 }
 

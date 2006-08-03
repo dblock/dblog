@@ -2,6 +2,7 @@ using System;
 using System.Data;
 using System.Configuration;
 using System.Collections;
+using System.Collections.Generic;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
@@ -54,15 +55,16 @@ public partial class ShowBlog : BlogPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetPosts(
-            SessionManager.PostTicket, new TransitPostQueryOptions(TopicId, grid.PageSize, grid.CurrentPageIndex));
+        grid.DataSource = SessionManager.GetCachedCollection<TransitPost>(
+            "GetPosts", SessionManager.PostTicket, new TransitPostQueryOptions(
+                TopicId, grid.PageSize, grid.CurrentPageIndex));
     }
 
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetPostsCount(
-            SessionManager.PostTicket, new TransitPostQueryOptions(TopicId));
+        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+            "GetPostsCount", SessionManager.PostTicket, new TransitPostQueryOptions(TopicId));
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }

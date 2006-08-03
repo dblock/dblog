@@ -28,7 +28,7 @@
      </asp:TemplateColumn>
      <asp:TemplateColumn>
       <itemtemplate>
-       <img src='ShowPicture.aspx?id=<%# Renderer.Render(Eval("ImageId")) %>&ShowThumbnail=false' 
+       <img src='ShowPicture.aspx?id=<%# Renderer.Render(Eval("ImageId")) %>&ShowThumbnail=false&IncrementCounter=false' 
         alt='<%# Renderer.Render(Eval("Description")) %>' width="32" height="32" />
       </itemtemplate>
      </asp:TemplateColumn>

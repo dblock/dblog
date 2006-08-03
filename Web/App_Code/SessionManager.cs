@@ -13,6 +13,7 @@ using System.Web.Caching;
 using System.Collections.Generic;
 using DBlog.WebServices;
 using DBlog.TransitData;
+using DBlog.Data.Hibernate;
 
 public class SessionManager
 {
@@ -309,4 +310,51 @@ public class SessionManager
             return mBlogService;
         }
     }
+
+    public TransitType GetCachedObject<TransitType>(string invoke, string ticket, int id)
+    {
+        string key = string.Format("{0}:{1}:{2}",
+            ticket.GetHashCode(), invoke, id);
+        TransitType result = (TransitType) Cache[key];
+        if (result == null || IsAdministrator)
+        {
+            object[] args = { ticket, id };
+            result = (TransitType) BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
+            Cache.Insert(key, result, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+        }
+        return result;
+    }
+
+    public List<TransitType> GetCachedCollection<TransitType>(
+        string invoke, string ticket, WebServiceQueryOptions options)
+    {
+        string key = string.Format("{0}:{1}:{2}", 
+            ticket.GetHashCode(), options == null ? "null" : options.GetSignature(),
+            invoke);
+        List<TransitType> result = (List<TransitType>) Cache[key];
+        if (result == null || IsAdministrator)
+        {
+            object[] args = { ticket, options };
+            result = (List<TransitType>) BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
+            Cache.Insert(key, result, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+        }
+        return result;
+    }
+
+    public int GetCachedCollectionCount(
+        string invoke, string ticket, WebServiceQueryOptions options)
+    {
+        string key = string.Format("{0}:{1}:{2}", 
+            ticket.GetHashCode(), options == null ? "null" : options.GetSignature(),
+            invoke);
+        object count = Cache[key];
+        if (count == null || IsAdministrator)
+        {
+            object[] args = { ticket, options };
+            count = BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
+            Cache.Insert(key, count, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+        }
+        return (int) count;
+    }
+
 }

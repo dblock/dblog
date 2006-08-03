@@ -48,8 +48,9 @@ public partial class ViewFeedItemsControl : BlogControl
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetFeedItems(
-            SessionManager.Ticket, new TransitFeedItemQueryOptions(FeedId, grid.PageSize, grid.CurrentPageIndex));
+        grid.DataSource = SessionManager.GetCachedCollection<TransitFeedItem>(
+            "GetFeedItems", SessionManager.Ticket, new TransitFeedItemQueryOptions(
+                FeedId, grid.PageSize, grid.CurrentPageIndex));
 
         panelItems.Update();
     }
@@ -57,8 +58,8 @@ public partial class ViewFeedItemsControl : BlogControl
     private void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetFeedItemsCount(
-            SessionManager.Ticket, new TransitFeedItemQueryOptions(FeedId));
+        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+            "GetFeedItemsCount", SessionManager.Ticket, new TransitFeedItemQueryOptions(FeedId));
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }

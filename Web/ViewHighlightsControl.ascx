@@ -11,7 +11,7 @@
   <asp:BoundColumn DataField="Id" Visible="false" />
   <asp:TemplateColumn>
    <itemtemplate>
-    <img src='ShowPicture.aspx?id=<%# Renderer.Render(Eval("ImageId")) %>&ShowThumbnail=false' width="32" height="32">
+    <img src='ShowPicture.aspx?id=<%# Renderer.Render(Eval("ImageId")) %>&ShowThumbnail=false&IncrementCounter=false' width="32" height="32">
    </itemtemplate>
   </asp:TemplateColumn>
   <asp:TemplateColumn HeaderText="Highlights">

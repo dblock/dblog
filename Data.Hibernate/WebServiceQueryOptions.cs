@@ -41,5 +41,11 @@ namespace DBlog.Data.Hibernate
         {
 
         }
+
+        public virtual string GetSignature()
+        {
+            return string.Format("{0}:{1}:{2}", 
+                PageSize, PageNumber, GetType().Name);
+        }
     };
 }

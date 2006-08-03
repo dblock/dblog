@@ -18,6 +18,8 @@ public class CounterCache
 
     private DateTime mLastFlush;
     private List<HttpRequest> mRequests = new List<HttpRequest>();
+    private List<int> mPostCounters = new List<int>();
+    private List<int> mImageCounters = new List<int>();
 
     public DateTime LastFlush
     {
@@ -89,6 +91,13 @@ public class CounterCache
             manager.Ticket, browsers.ToArray(), rhs.ToArray(), rsqs.ToArray());
         
         mRequests.Clear();
+
+        manager.BlogService.IncrementPostCounters(manager.Ticket, mPostCounters.ToArray());
+        mPostCounters.Clear();
+
+        manager.BlogService.IncrementImageCounters(manager.Ticket, mImageCounters.ToArray());
+        mImageCounters.Clear();
+
         LastFlush = DateTime.UtcNow;
     }
 
@@ -98,9 +107,21 @@ public class CounterCache
         return mRequests.Count;
     }
 
-    public static int Increment(HttpRequest request, Cache cache, SessionManager manager)
+    public int AddPostCounter(int id)
     {
-        CounterCache cc = (CounterCache) cache[CounterCacheKey];
+        mPostCounters.Add(id);
+        return mPostCounters.Count;
+    }
+
+    public int AddImageCounter(int id)
+    {
+        mImageCounters.Add(id);
+        return mImageCounters.Count;
+    }
+
+    public static CounterCache GetCounterCache(Cache cache, SessionManager manager)
+    {
+        CounterCache cc = (CounterCache)cache[CounterCacheKey];
 
         if (cc == null)
         {
@@ -108,14 +129,32 @@ public class CounterCache
             cache.Insert(CounterCacheKey, cc);
         }
 
-
-        int result = cc.Add(request);
-
         if (cc.Expired)
         {
-            cc.Flush(manager);
+            lock (cc)
+            {
+                if (cc.Expired)
+                {
+                    cc.Flush(manager);
+                }
+            }
         }
 
-        return result;
+        return cc;
+    }
+
+    public static int Increment(HttpRequest request, Cache cache, SessionManager manager)
+    {
+        return GetCounterCache(cache, manager).Add(request);
+    }
+
+    public static int IncrementImageCounter(int id, Cache cache, SessionManager manager)
+    {
+        return GetCounterCache(cache, manager).AddImageCounter(id);
+    }
+
+    public static int IncrementPostCounter(int id, Cache cache, SessionManager manager)
+    {
+        return GetCounterCache(cache, manager).AddPostCounter(id);
     }
 }

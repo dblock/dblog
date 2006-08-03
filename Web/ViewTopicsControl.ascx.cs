@@ -67,12 +67,15 @@ public partial class ViewTopicsControl : BlogControl
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        List<TransitTopic> topics = SessionManager.BlogService.GetTopics(
-            SessionManager.Ticket, null);
+        List<TransitTopic> topics = SessionManager.GetCachedCollection<TransitTopic>(
+            "GetTopics", SessionManager.Ticket, null);
 
-        TransitTopic t_all = new TransitTopic();
-        t_all.Name = "all posts";
-        topics.Insert(0, t_all);
+        if (topics.Count > 0 && topics[0].Id != 0)
+        {
+            TransitTopic t_all = new TransitTopic();
+            t_all.Name = "all posts";
+            topics.Insert(0, t_all);
+        }
 
         grid.DataSource = topics;
     }

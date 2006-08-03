@@ -339,6 +339,10 @@ namespace DBlog.Tools.Drawing
         public void AddCopyright(string text)
         {
             Bitmap bitmap = new Bitmap(new MemoryStream(mBitmap));
+
+            if (bitmap.Width < ThumbnailSize.Width && bitmap.Height < ThumbnailSize.Height)
+                return;
+
             Graphics g = Graphics.FromImage(bitmap);
             StringFormat Align = new StringFormat();
             Align.Alignment = StringAlignment.Center;

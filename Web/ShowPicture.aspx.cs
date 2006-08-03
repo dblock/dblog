@@ -40,8 +40,9 @@ public partial class ShowPicture : BlogPicturePage
     public override DBlog.Tools.Web.PicturePage.Picture GetPictureWithBitmap(int id)
     {
         Picture pic = new Picture();
-        TransitImage img = SessionManager.BlogService.GetImageWithBitmapById(
-            SessionManager.PostTicket, id);
+        
+        TransitImage img = SessionManager.GetCachedObject<TransitImage>(
+            "GetImageWithBitmapById", SessionManager.PostTicket, id);
 
         if (img.Data == null && !string.IsNullOrEmpty(img.Path))
         {
@@ -63,8 +64,16 @@ public partial class ShowPicture : BlogPicturePage
     public override DBlog.Tools.Web.PicturePage.Picture GetPictureWithBitmap(int id, DateTime ifModifiedSince)
     {
         Picture pic = new Picture();
-        TransitImage img = SessionManager.BlogService.GetImageWithBitmapByIdIfModifiedSince(
-            SessionManager.PostTicket, id, ifModifiedSince);
+
+        string key = string.Format("{0}:{1}:{2}",
+            SessionManager.PostTicket.GetHashCode(), "GetImageWithBitmapByIdIfModifiedSince", id);
+        TransitImage img = (TransitImage) Cache[key];
+        if (img == null || SessionManager.IsAdministrator)
+        {
+            img = (TransitImage) SessionManager.BlogService.GetImageWithBitmapByIdIfModifiedSince(
+                SessionManager.PostTicket, id, ifModifiedSince);
+            Cache.Insert(key, img, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+        }
 
         if (img == null)
         {
@@ -91,7 +100,9 @@ public partial class ShowPicture : BlogPicturePage
     public override DBlog.Tools.Web.PicturePage.Picture GetPictureWithThumbnail(int id)
     {
         Picture pic = new Picture();
-        TransitImage img = SessionManager.BlogService.GetImageWithThumbnailById(SessionManager.PostTicket, id);
+
+        TransitImage img = SessionManager.GetCachedObject<TransitImage>(
+            "GetImageWithThumbnailById", SessionManager.PostTicket, id);
 
         pic.Bitmap = img.Thumbnail;
         pic.Created = pic.Modified = img.Modified;
@@ -104,8 +115,16 @@ public partial class ShowPicture : BlogPicturePage
     public override DBlog.Tools.Web.PicturePage.Picture GetPictureWithThumbnail(int id, DateTime ifModifiedSince)
     {
         Picture pic = new Picture();
-        TransitImage img = SessionManager.BlogService.GetImageWithThumbnailByIdIfModifiedSince(
-            SessionManager.PostTicket, id, ifModifiedSince);
+
+        string key = string.Format("{0}:{1}:{2}",
+            SessionManager.PostTicket.GetHashCode(), "GetImageWithThumbnailByIdIfModifiedSince", id);
+        TransitImage img = (TransitImage)Cache[key];
+        if (img == null || SessionManager.IsAdministrator)
+        {
+            img = (TransitImage)SessionManager.BlogService.GetImageWithThumbnailByIdIfModifiedSince(
+                SessionManager.PostTicket, id, ifModifiedSince);
+            Cache.Insert(key, img, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+        }
 
         if (img == null)
         {
@@ -122,10 +141,10 @@ public partial class ShowPicture : BlogPicturePage
 
     public void IncrementCounter()
     {
-        if (!IsPostBack && !ShowThumbnail)
+        object ic = Request.QueryString["IncrementCounter"];
+        if (!IsPostBack && !ShowThumbnail && (ic == null || bool.Parse(ic.ToString()) == true))
         {
-            SessionManager.BlogService.IncrementImageCounter(
-                SessionManager.Ticket, RequestId);
+            CounterCache.IncrementImageCounter(RequestId, Cache, SessionManager);
         }
     }
 
