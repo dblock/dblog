@@ -18,16 +18,23 @@ public partial class ShowBlog : BlogPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        DBlogMaster master = (DBlogMaster) this.Master;
-        master.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
-
-        grid.OnGetDataSource += new EventHandler(grid_OnGetDataSource);
-
-        if (!IsPostBack)
+        try
         {
-            TopicId = RequestId;
-            GetData(sender, e);
-        }        
+            DBlogMaster master = (DBlogMaster)this.Master;
+            master.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
+
+            grid.OnGetDataSource += new EventHandler(grid_OnGetDataSource);
+
+            if (!IsPostBack)
+            {
+                TopicId = RequestId;
+                GetData(sender, e);
+            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
     }
 
     private int mTopicId = 0;

@@ -31,16 +31,23 @@ public partial class EditReference : BlogAdminPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            SetDefaultButton(save);
-
-            if (RequestId > 0)
+            if (!IsPostBack)
             {
-                inputWord.Text = Reference.Word;
-                inputUrl.Text = Reference.Url;
-                inputResult.Text = Reference.Result;
+                SetDefaultButton(save);
+
+                if (RequestId > 0)
+                {
+                    inputWord.Text = Reference.Word;
+                    inputUrl.Text = Reference.Url;
+                    inputResult.Text = Reference.Result;
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 

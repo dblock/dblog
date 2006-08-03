@@ -17,6 +17,14 @@ public class BlogPage : DBlog.Tools.Web.Page
 {
     private HtmlMeta mMetaDescription = null;
     protected SessionManager mSessionManager = null;
+    
+    protected virtual bool AutomaticTitle
+    {
+        get
+        {
+            return true;
+        }
+    }
 
     protected override void OnLoad(EventArgs e)
     {
@@ -27,8 +35,11 @@ public class BlogPage : DBlog.Tools.Web.Page
 
         if (!IsPostBack)
         {
-            Page.Title = string.Format("{0} - {1}", SessionManager.GetSetting(
-                "title", "Blog"), Page.Title);
+            if (AutomaticTitle)
+            {
+                Page.Title = string.Format("{0} - {1}", SessionManager.GetSetting(
+                    "title", "Blog"), Page.Title);
+            }
 
             CounterCache.Increment(Request, Cache, SessionManager);
         }

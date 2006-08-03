@@ -36,9 +36,9 @@ public partial class UploadControl : BlogControl
         public byte[] Data = null;
 
         public HttpPostedFile(System.Web.HttpPostedFile value)
-            : this(value.FileName, 
-                value.ContentLength, 
-                value.ContentType, 
+            : this(value.FileName,
+                value.ContentLength,
+                value.ContentType,
                 new BinaryReader(value.InputStream).ReadBytes(value.ContentLength))
         {
 
@@ -102,7 +102,7 @@ public partial class UploadControl : BlogControl
         }
     }
 
-    
+
     public bool HasData
     {
         get
@@ -113,9 +113,16 @@ public partial class UploadControl : BlogControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (IsPostBack && inputUpload.HasFile)
+        try
         {
-            upload_Click(sender, e);
+            if (IsPostBack && inputUpload.HasFile)
+            {
+                upload_Click(sender, e);
+            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 
@@ -146,8 +153,8 @@ public partial class UploadControl : BlogControl
 
     protected override void OnPreRender(EventArgs e)
     {
-        labelData.Text = HasData ? string.Format("{0}{1}", Path.GetFileName(PostedFile.FileName), 
-            PostedFile.ContentLength > 0 ? string.Format(" ({0} bytes)", PostedFile.ContentLength) : string.Empty) 
+        labelData.Text = HasData ? string.Format("{0}{1}", Path.GetFileName(PostedFile.FileName),
+            PostedFile.ContentLength > 0 ? string.Format(" ({0} bytes)", PostedFile.ContentLength) : string.Empty)
             : string.Empty;
         base.OnPreRender(e);
     }

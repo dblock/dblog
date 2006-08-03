@@ -48,17 +48,24 @@ public partial class EditHighlight : BlogAdminPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            SetDefaultButton(save);
-
-            if (RequestId > 0)
+            if (!IsPostBack)
             {
-                inputTitle.Text = Highlight.Title;
-                inputUrl.Text = Highlight.Url;
-                inputDescription.Text = Highlight.Description;
-                inputImage.PostedFile = new UploadControl.HttpPostedFile(HighlightImage.Name);
+                SetDefaultButton(save);
+
+                if (RequestId > 0)
+                {
+                    inputTitle.Text = Highlight.Title;
+                    inputUrl.Text = Highlight.Url;
+                    inputDescription.Text = Highlight.Description;
+                    inputImage.PostedFile = new UploadControl.HttpPostedFile(HighlightImage.Name);
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 
@@ -66,7 +73,7 @@ public partial class EditHighlight : BlogAdminPage
     {
         try
         {
-            if (! inputImage.HasData)
+            if (!inputImage.HasData)
             {
                 throw new ArgumentException("Missing Image");
             }

@@ -33,48 +33,62 @@ public partial class DBlogMaster : MasterPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        topics.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
-
-        if (!IsPostBack)
+        try
         {
-            panelAdmin.Visible = SessionManager.IsAdministrator;
+            topics.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
 
-            if (SessionManager.LoginRecord != null)
+            if (!IsPostBack)
             {
-                labelUsername.Text = string.Format("logged in as {0}", Renderer.Render(
-                    string.IsNullOrEmpty(SessionManager.LoginRecord.Name)
-                        ? SessionManager.LoginRecord.Username
-                        : SessionManager.LoginRecord.Name)); 
+                panelAdmin.Visible = SessionManager.IsAdministrator;
+
+                if (SessionManager.LoginRecord != null)
+                {
+                    labelUsername.Text = string.Format("logged in as {0}", Renderer.Render(
+                        string.IsNullOrEmpty(SessionManager.LoginRecord.Name)
+                            ? SessionManager.LoginRecord.Username
+                            : SessionManager.LoginRecord.Name));
+                }
+
+                if (SessionManager.PostLoginRecord != null)
+                {
+                    labelPostUsername.Text = string.Format("post access as {0}", Renderer.Render(
+                        string.IsNullOrEmpty(SessionManager.PostLoginRecord.Name)
+                            ? SessionManager.PostLoginRecord.Username
+                            : SessionManager.PostLoginRecord.Name));
+                }
+
+                imageMain.ImageUrl = SessionManager.GetSetting("image", imageMain.ImageUrl);
+                imageMain.Width = int.Parse(SessionManager.GetSetting("imagewidth", imageMain.Width.ToString()));
+                imageMain.Height = int.Parse(SessionManager.GetSetting("imageheight", imageMain.Height.ToString()));
+
+                TransitCounter c = Counter;
+                labelCounter.Text = string.Format("{0} click{1} since {2}",
+                    c.Count, c.Count != 1 ? "s" : string.Empty, c.Created.ToString("d"));
             }
-
-            if (SessionManager.PostLoginRecord != null)
-            {
-                labelPostUsername.Text = string.Format("post access as {0}", Renderer.Render(
-                    string.IsNullOrEmpty(SessionManager.PostLoginRecord.Name)
-                        ? SessionManager.PostLoginRecord.Username
-                        : SessionManager.PostLoginRecord.Name));
-            }
-
-            imageMain.ImageUrl = SessionManager.GetSetting("image", imageMain.ImageUrl);
-            imageMain.Width = int.Parse(SessionManager.GetSetting("imagewidth", imageMain.Width.ToString()));
-            imageMain.Height = int.Parse(SessionManager.GetSetting("imageheight", imageMain.Height.ToString()));
-
-            TransitCounter c = Counter;
-            labelCounter.Text = string.Format("{0} click{1} since {2}",
-                c.Count, c.Count != 1 ? "s" : string.Empty, c.Created.ToString("d"));
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 
     public void topics_TopicChanged(object sender, ViewTopicsControl.TopicChangedEventArgs e)
     {
-        if (TopicChanged != null)
+        try
         {
-            TopicChanged(sender, e);
+            if (TopicChanged != null)
+            {
+                TopicChanged(sender, e);
+            }
+            else
+            {
+                Response.Redirect(string.Format("ShowBlog.aspx?id={0}", e.TopicId));
+                panelTopics.Update();
+            }
         }
-        else
+        catch (Exception ex)
         {
-            Response.Redirect(string.Format("ShowBlog.aspx?id={0}", e.TopicId));
-            panelTopics.Update();
+            ReportException(ex);
         }
     }
 

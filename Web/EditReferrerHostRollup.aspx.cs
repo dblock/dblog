@@ -31,15 +31,22 @@ public partial class EditReferrerHostRollup : BlogAdminPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            SetDefaultButton(save);
-
-            if (RequestId > 0)
+            if (!IsPostBack)
             {
-                inputName.Text = ReferrerHostRollup.Name;
-                inputRollup.Text = ReferrerHostRollup.Rollup;
+                SetDefaultButton(save);
+
+                if (RequestId > 0)
+                {
+                    inputName.Text = ReferrerHostRollup.Name;
+                    inputRollup.Text = ReferrerHostRollup.Rollup;
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 

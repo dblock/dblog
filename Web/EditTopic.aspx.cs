@@ -31,14 +31,21 @@ public partial class EditTopic : BlogAdminPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            SetDefaultButton(save);
-
-            if (RequestId > 0)
+            if (!IsPostBack)
             {
-                inputName.Text = Topic.Name;
+                SetDefaultButton(save);
+
+                if (RequestId > 0)
+                {
+                    inputName.Text = Topic.Name;
+                }
             }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 

@@ -32,22 +32,29 @@ public partial class EditImage : BlogAdminPage
 
     protected void Page_Load(object sender, EventArgs e)
     {
-        inputImage.FilePosted += new UploadControl.FilePostedEventHandler(inputImage_FilePosted);
-        if (!IsPostBack)
+        try
         {
-            SetDefaultButton(save);
+            inputImage.FilePosted += new UploadControl.FilePostedEventHandler(inputImage_FilePosted);
+            if (!IsPostBack)
+            {
+                SetDefaultButton(save);
 
-            if (RequestId > 0)
-            {
-                inputFileName.Text = Image.Name;
-                inputDescription.Text = Image.Description;
-                inputImage.PostedFile = new UploadControl.HttpPostedFile(Image.Name);
-                image.ImageUrl = string.Format("ShowPicture.aspx?id={0}", RequestId);
+                if (RequestId > 0)
+                {
+                    inputFileName.Text = Image.Name;
+                    inputDescription.Text = Image.Description;
+                    inputImage.PostedFile = new UploadControl.HttpPostedFile(Image.Name);
+                    image.ImageUrl = string.Format("ShowPicture.aspx?id={0}", RequestId);
+                }
+                else
+                {
+                    image.Visible = false;
+                }
             }
-            else
-            {
-                image.Visible = false;
-            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 
@@ -60,7 +67,7 @@ public partial class EditImage : BlogAdminPage
     {
         try
         {
-            if (! inputImage.HasData)
+            if (!inputImage.HasData)
             {
                 throw new ArgumentException("Missing Image");
             }

@@ -15,16 +15,32 @@ using System.Text;
 
 public partial class AtomBlog : BlogPage
 {
+    protected override bool AutomaticTitle
+    {
+        get
+        {
+            return false;
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            SessionManager.BlogService.IncrementNamedCounter(
-                SessionManager.Ticket, "Atom", 1);
+            if (!IsPostBack)
+            {
+                SessionManager.BlogService.IncrementNamedCounter(
+                    SessionManager.Ticket, "Atom", 1);
 
-            repeater.DataSource = SessionManager.BlogService.GetPosts(
-                SessionManager.Ticket, new TransitPostQueryOptions(25, 0));
-            repeater.DataBind();
+                repeater.DataSource = SessionManager.GetCachedCollection<TransitPost>(
+                    "GetPosts", SessionManager.PostTicket, new TransitPostQueryOptions(25, 0));
+                repeater.DataBind();
+            }
+        }
+        catch (Exception ex)
+        {
+            Response.StatusCode = 400;
+            Response.Status = ex.Message;
         }
     }
 

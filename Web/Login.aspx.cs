@@ -15,9 +15,17 @@ public partial class BlogLogin : BlogPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
-        if (!IsPostBack)
+        try
         {
-            linkNewUser.NavigateUrl = string.Format("EditLogin.aspx?r={0}", Renderer.UrlEncode(ReturnUrl));
+            if (!IsPostBack)
+            {
+                linkNewUser.NavigateUrl = string.Format("EditLogin.aspx?r={0}", Renderer.UrlEncode(ReturnUrl));
+            }
+
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 
