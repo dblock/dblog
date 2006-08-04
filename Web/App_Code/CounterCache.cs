@@ -10,13 +10,14 @@ using System.Web.UI.HtmlControls;
 using System.Web.Caching;
 using System.Collections.Generic;
 using DBlog.TransitData;
+using System.Diagnostics;
 
 public class CounterCache
 {
-    static TimeSpan CounterFlushSpan = new TimeSpan(0, 5, 0);
+    static TimeSpan CounterFlushSpan = new TimeSpan(0, 1, 0);
     static string CounterCacheKey = "__countercache";
 
-    private DateTime mLastFlush;
+    private DateTime mLastFlush = DateTime.UtcNow;
     private List<HttpRequest> mRequests = new List<HttpRequest>();
     private List<int> mPostCounters = new List<int>();
     private List<int> mImageCounters = new List<int>();
@@ -35,7 +36,7 @@ public class CounterCache
 
     public CounterCache()
     {
-        mLastFlush = DateTime.UtcNow;
+
     }
 
     public bool Expired
@@ -87,15 +88,41 @@ public class CounterCache
             }
         }
 
-        manager.BlogService.CreateOrUpdateStats(
-            manager.Ticket, browsers.ToArray(), rhs.ToArray(), rsqs.ToArray());
-        
+        try
+        {
+            manager.BlogService.CreateOrUpdateStats(
+                manager.Ticket, browsers.ToArray(), rhs.ToArray(), rsqs.ToArray());
+        }
+        catch (Exception ex)
+        {
+            manager.BlogService.EventLog.WriteEntry(string.Format("CreateOrUpdateStats failed. {0}",
+                ex.Message, EventLogEntryType.Error));            
+        }
+
         mRequests.Clear();
 
-        manager.BlogService.IncrementPostCounters(manager.Ticket, mPostCounters.ToArray());
+        try
+        {
+            manager.BlogService.IncrementPostCounters(manager.Ticket, mPostCounters.ToArray());
+        }
+        catch (Exception ex)
+        {
+            manager.BlogService.EventLog.WriteEntry(string.Format("IncrementPostCounters failed. {0}",
+                ex.Message, EventLogEntryType.Error));
+        }
+
         mPostCounters.Clear();
 
-        manager.BlogService.IncrementImageCounters(manager.Ticket, mImageCounters.ToArray());
+        try
+        {
+            manager.BlogService.IncrementImageCounters(manager.Ticket, mImageCounters.ToArray());
+        }
+        catch (Exception ex)
+        {
+            manager.BlogService.EventLog.WriteEntry(string.Format("IncrementImageCounters failed. {0}",
+                ex.Message, EventLogEntryType.Error));
+        }
+
         mImageCounters.Clear();
 
         LastFlush = DateTime.UtcNow;

@@ -93,8 +93,8 @@ public partial class ShowPost : BlogPage
 
         linkComment.NavigateUrl = string.Format("EditPostComment.aspx?sid={0}", post.Id);
 
-        posttitle.Text = post.Title;
-        postbody.Text = post.Body;
+        posttitle.Text = Renderer.RenderEx(post.Title);
+        postbody.Text = Renderer.RenderEx(post.Body);
         postcreated.Text = post.Created.ToString("d");
         postcounter.Text = string.Format("{0} Click{1}", post.Counter.Count,
             post.Counter.Count != 1 ? "s" : string.Empty);
