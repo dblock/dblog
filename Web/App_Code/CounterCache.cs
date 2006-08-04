@@ -14,13 +14,14 @@ using System.Diagnostics;
 
 public class CounterCache
 {
-    static TimeSpan CounterFlushSpan = new TimeSpan(0, 1, 0);
-    static string CounterCacheKey = "__countercache";
+    static TimeSpan CounterFlushSpan = new TimeSpan(0, 0, 60);
 
     private DateTime mLastFlush = DateTime.UtcNow;
     private List<HttpRequest> mRequests = new List<HttpRequest>();
     private List<int> mPostCounters = new List<int>();
     private List<int> mImageCounters = new List<int>();
+
+    private static CounterCache s_CounterCache = new CounterCache();
 
     public DateTime LastFlush
     {
@@ -148,26 +149,18 @@ public class CounterCache
 
     public static CounterCache GetCounterCache(Cache cache, SessionManager manager)
     {
-        CounterCache cc = (CounterCache)cache[CounterCacheKey];
-
-        if (cc == null)
+        if (s_CounterCache.Expired)
         {
-            cc = new CounterCache();
-            cache.Insert(CounterCacheKey, cc);
-        }
-
-        if (cc.Expired)
-        {
-            lock (cc)
+            lock (s_CounterCache)
             {
-                if (cc.Expired)
+                if (s_CounterCache.Expired)
                 {
-                    cc.Flush(manager);
+                    s_CounterCache.Flush(manager);
                 }
             }
         }
 
-        return cc;
+        return s_CounterCache;
     }
 
     public static int Increment(HttpRequest request, Cache cache, SessionManager manager)
