@@ -3,10 +3,11 @@
 
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
+<%@ Register TagPrefix="TransitData" Namespace="DBlog.TransitData" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <table class="table_post">
   <tr>
-   <td valign="top" class="table_post_tr_td_left" width="100%">
+   <td valign="top" class="table_post_tr_td_left">
     <div class="post_title">
      <asp:Label ID="posttitle" runat="server" />
     </div>
@@ -43,7 +44,13 @@
      </a>
      <div class="link_small">
       <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>&index=<%# Eval("Index") %>'>
-       <%# GetImageLink((string) Eval("Image.Name"), (int) Eval("Image.CommentsCount")) %>
+       <div>
+        <%# Renderer.Render(Eval("Image.Name")) %>
+        <%# GetCounter((TransitImage) Eval("Image")) %>
+       </div>
+       <div>
+        <%# GetComments((TransitImage) Eval("Image")) %>
+       </div>
       </a>
      </div>
     </ItemTemplate>

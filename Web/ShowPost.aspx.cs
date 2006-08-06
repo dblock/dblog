@@ -49,7 +49,7 @@ public partial class ShowPost : BlogPage
                     SessionManager.PostTicket, RequestId);
                 Cache.Insert(key, result, null, DateTime.Now.AddHours(1), TimeSpan.Zero);
             }
-            return (bool) result;
+            return (bool)result;
         }
     }
 
@@ -62,7 +62,7 @@ public partial class ShowPost : BlogPage
 
             if (!IsPostBack)
             {
-                if (! HasAccess)
+                if (!HasAccess)
                 {
                     Response.Redirect(string.Format("Login.aspx?r={0}&cookie={1}",
                         Renderer.UrlEncode(Request.Url.PathAndQuery), SessionManager.sDBlogPostCookieName));
@@ -83,7 +83,7 @@ public partial class ShowPost : BlogPage
     {
         comments.DataSource = SessionManager.GetCachedCollection<TransitPostComment>(
             "GetPostComments", SessionManager.PostTicket, new TransitPostCommentQueryOptions(
-                Post.Id, comments.AllowPaging ? comments.PageSize : 0, 
+                Post.Id, comments.AllowPaging ? comments.PageSize : 0,
                 comments.AllowPaging ? comments.CurrentPageIndex : 0));
     }
 
@@ -123,16 +123,20 @@ public partial class ShowPost : BlogPage
             "GetPostImages", SessionManager.PostTicket, new TransitPostImageQueryOptions(Post.Id, images.PageSize, images.CurrentPageIndex));
     }
 
-    public string GetImageLink(string name, int comments_count)
+    public string GetComments(TransitImage image)
     {
-        StringBuilder result = new StringBuilder(name);
+        if (image.CommentsCount == 0)
+            return string.Empty;
 
-        if (comments_count > 0)
-        {
-            result.AppendFormat(" | {0} Comment{1}", comments_count,
-                comments_count != 1 ? "s" : string.Empty);
-        }
+        return string.Format("{0} Comment{1}", image.CommentsCount,
+            image.CommentsCount != 1 ? "s" : string.Empty);
+    }
 
-        return result.ToString();
+    public string GetCounter(TransitImage image)
+    {
+        if (image.Counter.Count == 0)
+            return string.Empty;
+
+        return string.Format("[{0}]", image.Counter.Count);
     }
 }
