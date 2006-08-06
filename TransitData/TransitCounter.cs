@@ -42,6 +42,13 @@ namespace DBlog.TransitData
 
         }
 
+        public TransitCounter(DateTime ts, long count)
+        {
+            Created = ts;
+            Count = count;
+        }
+
+
         public TransitCounter(DBlog.Data.Counter o)
             : base(o.Id)
         {

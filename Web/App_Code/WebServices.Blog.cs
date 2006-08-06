@@ -628,7 +628,7 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get referrer search queries count.")]
-        public int GetReferrerSearchQueriesCount(string ticket)
+        public int GetReferrerSearchQueriesCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
@@ -644,7 +644,8 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
 
-                ICriteria cr = session.CreateCriteria(typeof(ReferrerSearchQuery));
+                ICriteria cr = session.CreateCriteria(typeof(ReferrerSearchQuery))
+                    .AddOrder(Order.Desc("RequestCount"));
 
                 if (options != null)
                 {
@@ -939,6 +940,36 @@ namespace DBlog.WebServices
 
                 session.Flush();
                 return Math.Max(t_browsers.Length, t_rhs.Length);
+            }
+        }
+
+        [WebMethod(Description = "Get stats summary.")]
+        public List<TransitCounter> GetStatsSummary(string ticket, TransitStatsQueryOptions options)
+        {
+
+            if (options == null)
+            {
+                throw new ArgumentException("Missing Options");
+            }
+
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                switch (options.Type)
+                {
+                    case TransitStats.Type.Daily:
+                        return TransitStats.GetSummaryDaily(session);
+                    case TransitStats.Type.Hourly:
+                        return TransitStats.GetSummaryHourly(session);
+                    case TransitStats.Type.Monthly:
+                        return TransitStats.GetSummaryMonthly(session);
+                    case TransitStats.Type.Weekly:
+                        return TransitStats.GetSummaryWeekly(session);
+                    case TransitStats.Type.Yearly:
+                        return TransitStats.GetSummaryYearly(session);
+                }
+
+                throw new ArgumentException("Invalid Summary Type");
             }
         }
 
@@ -1973,7 +2004,7 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get referrer hosts count.")]
-        public int GetReferrerHostsCount(string ticket)
+        public int GetReferrerHostsCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
@@ -1989,7 +2020,8 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
 
-                ICriteria cr = session.CreateCriteria(typeof(ReferrerHost));
+                ICriteria cr = session.CreateCriteria(typeof(ReferrerHost))
+                    .AddOrder(Order.Desc("RequestCount"));
 
                 if (options != null)
                 {
