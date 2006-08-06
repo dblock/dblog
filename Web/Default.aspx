@@ -6,7 +6,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
  <link rel="stylesheet" href="Style.css" type="text/css">
- <meta http-equiv="refresh" content="0;url=ShowBlog.aspx">
+ <meta http-equiv="refresh" content="2;url=ShowBlog.aspx">
 </head>
 <body bgcolor="#FFFFFF">
  <center>
