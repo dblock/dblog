@@ -149,10 +149,13 @@ public partial class ShowImage : BlogPage
         }
         else
         {
-            TransitPostImage image = SessionManager.BlogService.GetPostImageById(SessionManager.PostTicket,
-                RequestId);
+            TransitImage image = SessionManager.BlogService.GetImageById(
+                SessionManager.PostTicket, RequestId);
+            TransitPostImage postimage = new TransitPostImage();
+            postimage.Image = image;
+            postimage.Post = null;
             list = new List<TransitPostImage>();
-            list.Add(image);
+            list.Add(postimage);
 
             linkBack.NavigateUrl = "ShowBlog.aspx";
         }
