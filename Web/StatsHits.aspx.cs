@@ -11,60 +11,65 @@ using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 using DBlog.WebServices;
 
-public partial class StatsHits: BlogPage
+public partial class StatsHits : BlogPage
 {
-    public enum ChartType
-    {
-        Hourly,
-        Daily,
-        DailyUnique,
-        Weekly,
-        Monthly,
-        Yearly
-    }
-
     public void Page_Load()
     {
-        if (!IsPostBack)
+        try
         {
-            SetChartType(ChartType.Daily);
+            if (!IsPostBack)
+            {
+                object type = Request.Params["type"];
+                SetChartType(type == null ? TransitStats.Type.Daily : (TransitStats.Type)Enum.Parse(typeof(TransitStats.Type), type.ToString()));
+            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 
-    void SetChartType(ChartType type)
+    void SetChartType(TransitStats.Type type)
     {
-        imageStats.Src = string.Format("StatsChart.aspx?type={0}", type);
-        labelChartType.Text = type.ToString();
+        try
+        {
+            imageStats.Src = string.Format("StatsChart.aspx?type={0}", type);
+            labelChartType.Text = type.ToString();
 
-        linkDaily.Enabled = (type != ChartType.Daily);
-        linkHourly.Enabled = (type != ChartType.Hourly);
-        linkMonthly.Enabled = (type != ChartType.Monthly);
-        linkYearly.Enabled = (type != ChartType.Yearly);
-        linkWeekly.Enabled = (type != ChartType.Weekly);
+            linkDaily.Enabled = (type != TransitStats.Type.Daily);
+            linkHourly.Enabled = (type != TransitStats.Type.Hourly);
+            linkMonthly.Enabled = (type != TransitStats.Type.Monthly);
+            linkYearly.Enabled = (type != TransitStats.Type.Yearly);
+            linkWeekly.Enabled = (type != TransitStats.Type.Weekly);
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
     }
 
     public void linkYearly_Click(object sender, EventArgs e)
     {
-        SetChartType(ChartType.Yearly);
+        SetChartType(TransitStats.Type.Yearly);
     }
 
     public void linkHourly_Click(object sender, EventArgs e)
     {
-        SetChartType(ChartType.Hourly);
+        SetChartType(TransitStats.Type.Hourly);
     }
 
     public void linkMonthly_Click(object sender, EventArgs e)
     {
-        SetChartType(ChartType.Monthly);
+        SetChartType(TransitStats.Type.Monthly);
     }
 
     public void linkWeekly_Click(object sender, EventArgs e)
     {
-        SetChartType(ChartType.Weekly);
+        SetChartType(TransitStats.Type.Weekly);
     }
 
     public void linkDaily_Click(object sender, EventArgs e)
     {
-        SetChartType(ChartType.Daily);
+        SetChartType(TransitStats.Type.Daily);
     }
 }

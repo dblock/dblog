@@ -32,6 +32,76 @@ namespace DBlog.TransitData
 
     public class TransitStats : TransitObject
     {
+        private int mPostsCount = 0;
+
+        public int PostsCount
+        {
+            get
+            {
+                return mPostsCount;
+            }
+            set
+            {
+                mPostsCount = value;
+            }
+        }
+
+        private int mImagesCount = 0;
+
+        public int ImagesCount
+        {
+            get
+            {
+                return mImagesCount;
+            }
+            set
+            {
+                mImagesCount = value;
+            }
+        }
+
+        private int mCommentsCount = 0;
+
+        public int CommentsCount
+        {
+            get
+            {
+                return mCommentsCount;
+            }
+            set
+            {
+                mCommentsCount = value;
+            }
+        }
+
+        private TransitCounter mRssCount = null;
+
+        public TransitCounter RssCount
+        {
+            get
+            {
+                return mRssCount;
+            }
+            set
+            {
+                mRssCount = value;
+            }
+        }
+
+        private TransitCounter mAtomCount = null;
+
+        public TransitCounter AtomCount
+        {
+            get
+            {
+                return mAtomCount;
+            }
+            set
+            {
+                mAtomCount = value;
+            }
+        }
+
         public enum Type
         {
             Hourly = 0,
@@ -138,6 +208,15 @@ namespace DBlog.TransitData
             }
 
             return result;
+        }
+
+        public TransitStats(ISession session)
+        {
+            ImagesCount = (int)session.CreateQuery("SELECT COUNT(i) FROM Image i").UniqueResult();
+            PostsCount = (int)session.CreateQuery("SELECT COUNT(p) FROM Post p").UniqueResult();
+            CommentsCount = (int)session.CreateQuery("SELECT COUNT(c) FROM Comment c").UniqueResult();
+            AtomCount = TransitCounter.GetNamedCounter(session, "Atom");
+            RssCount = TransitCounter.GetNamedCounter(session, "Rss");
         }
     }
 }

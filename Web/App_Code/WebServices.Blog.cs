@@ -944,6 +944,16 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get stats summary.")]
+        public TransitStats GetStats(string ticket, int reserved)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new TransitStats(session);
+            }            
+        }
+
+        [WebMethod(Description = "Get stats summary counters.")]
         public List<TransitCounter> GetStatsSummary(string ticket, TransitStatsQueryOptions options)
         {
 

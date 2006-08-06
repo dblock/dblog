@@ -105,7 +105,7 @@
      <asp:Panel ID="panelCommands" runat="server">
       <div>
        <a href="Login.aspx"><font face="Symbol">p</font></a>
-       | <a href="StatsHits.aspx">s</a>
+       | <a href="StatsSummary.aspx">s</a>
       </div>
       <div class="counter">
        <asp:Label ID="labelCounter" runat="server" />

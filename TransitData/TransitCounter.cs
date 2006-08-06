@@ -220,5 +220,19 @@ namespace DBlog.TransitData
             IncrementMonthlyCounter(session, count);
             IncrementYearlyCounter(session, count);
         }
+
+        public static TransitCounter GetNamedCounter(ISession session, string name)
+        {
+            NamedCounter nc = (NamedCounter) session.CreateCriteria(typeof(NamedCounter))
+                .Add(Expression.Eq("Name", name))
+                .UniqueResult();
+
+            if (nc == null)
+            {
+                return new TransitCounter(DateTime.UtcNow, 0);
+            }
+
+            return new TransitCounter(nc.Counter);
+        }
     }
 }

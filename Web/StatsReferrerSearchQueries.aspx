@@ -8,13 +8,14 @@
   Referrer Search Queries
  </div>
  <div class="link" style="margin-bottom: 20px;">
-  <a href="StatsHits.aspx?type=Hourly">Hourly</a>
-  |  <a href="StatsHits.aspx?type=Daily">Daily</a>
-  |  <a href="StatsHits.aspx?type=Weekly">Weekly</a>
-  |  <a href="StatsHits.aspx?type=Monthly">Monthly</a>
-  |  <a href="StatsHits.aspx?type=Yearly">Yearly</a>
-  |  <a href="StatsReferrerHosts.aspx">Referrer Hosts</a>
-  |  <a href="StatsReferrerSearchQueries.aspx" disabled="disabled">Search Queries</a>
+  <a href="StatsSummary.aspx">Summary</a>
+  | <a href="StatsHits.aspx?type=Hourly">Hourly</a>
+  | <a href="StatsHits.aspx?type=Daily">Daily</a>
+  | <a href="StatsHits.aspx?type=Weekly">Weekly</a>
+  | <a href="StatsHits.aspx?type=Monthly">Monthly</a>
+  | <a href="StatsHits.aspx?type=Yearly">Yearly</a>
+  | <a href="StatsReferrerHosts.aspx">Referrer Hosts</a>
+  | <a href="StatsReferrerSearchQueries.aspx" disabled="disabled">Search Queries</a>
  </div>
  <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
   <ContentTemplate>

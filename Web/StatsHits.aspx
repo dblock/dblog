@@ -8,7 +8,8 @@
     <asp:Label ID="labelChartType" runat="server" Text="Daily" />
    </div>
    <div class="link">
-    <asp:LinkButton OnClick="linkHourly_Click" ID="linkHourly" runat="server" Text="Hourly" />
+    <a href="StatsSummary.aspx">Summary</a>
+    | <asp:LinkButton OnClick="linkHourly_Click" ID="linkHourly" runat="server" Text="Hourly" />
     | <asp:LinkButton OnClick="linkDaily_Click" ID="linkDaily" runat="server" Text="Daily" />
     | <asp:LinkButton OnClick="linkWeekly_Click" ID="linkWeekly" runat="server" Text="Weekly" />
     | <asp:LinkButton OnClick="linkMonthly_Click" ID="linkMonthly" runat="server" Text="Monthly" />
