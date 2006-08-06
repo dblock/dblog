@@ -17,11 +17,11 @@
     <pagerstyle cssclass="table_pager" position="TopAndBottom" nextpagetext="Next" prevpagetext="Prev"
      horizontalalign="Center" />
     <ItemTemplate>
-     <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>'>
+     <a href='ShowPost.aspx?id=<%# Eval("Post.Id") %>'>
       <img border="0" alt='<%# Renderer.Render(Eval("Image.Description")) %>' src='ShowPicture.aspx?id=<%# Eval("Image.Id") %>' />
      </a>
      <div class="link_small">
-      <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>'>
+      <a href='ShowPost.aspx?id=<%# Eval("Post.Id") %>'>
        <div>
         <%# Renderer.Render(Eval("Image.Name")) %>
         <%# GetCounter((TransitImage) Eval("Image")) %>
