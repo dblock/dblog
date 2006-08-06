@@ -329,7 +329,7 @@ public class SessionManager
         string invoke, string ticket, WebServiceQueryOptions options)
     {
         string key = string.Format("{0}:{1}:{2}", 
-            ticket.GetHashCode(), options == null ? "null" : options.GetSignature(),
+            ticket.GetHashCode(), options == null ? 0 : options.GetHashCode(),
             invoke);
         List<TransitType> result = (List<TransitType>) Cache[key];
         if (result == null || IsAdministrator)
@@ -345,7 +345,7 @@ public class SessionManager
         string invoke, string ticket, WebServiceQueryOptions options)
     {
         string key = string.Format("{0}:{1}:{2}", 
-            ticket.GetHashCode(), options == null ? "null" : options.GetSignature(),
+            ticket.GetHashCode(), options == null ? 0 : options.GetHashCode(),
             invoke);
         object count = Cache[key];
         if (count == null || IsAdministrator)

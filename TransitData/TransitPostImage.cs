@@ -67,6 +67,20 @@ namespace DBlog.TransitData
 
     public class TransitPostImage : TransitObject
     {
+        private int mIndex = 0;
+
+        public int Index
+        {
+            get
+            {
+                return mIndex;
+            }
+            set
+            {
+                mIndex = value;
+            }
+        }
+
         private TransitImage mImage = null;
 
         public TransitImage Image

@@ -62,27 +62,13 @@ public partial class ShowImage : BlogPage
     {
         images.CurrentPageIndex = 0;
         int pid = GetId("pid");
+        int index = GetId("index");
 
         if (RequestId > 0 && ! IsPostBack)
         {
             if (pid > 0)
             {
-                // HACK: navigate images to find the one we're looking for
-                List<TransitPostImage> list = SessionManager.BlogService.GetPostImages(SessionManager.PostTicket,
-                    new TransitPostImageQueryOptions(pid));
-
-                int index = 0;
-                foreach (TransitPostImage img in list)
-                {
-                    if (img.Image.Id == RequestId)
-                    {
-                        images.CurrentPageIndex = index;
-                        break;
-                    }
-
-                    index++;
-                }
-
+                images.CurrentPageIndex = index;
                 images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
                     SessionManager.PostTicket, new TransitPostImageQueryOptions(pid));
             }

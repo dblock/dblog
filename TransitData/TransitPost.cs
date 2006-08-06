@@ -71,11 +71,6 @@ namespace DBlog.TransitData
 
             base.Apply(query);
         }
-
-        public override string GetSignature()
-        {
-            return string.Format("{0}:{1}", TopicId, base.GetSignature());
-        }
     }
 
     public class TransitPost : TransitObject

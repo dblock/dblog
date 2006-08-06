@@ -2,13 +2,38 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using NHibernate;
+using System.Reflection;
 
 namespace DBlog.Data.Hibernate
 {
     public class WebServiceQueryOptions
     {
-        public int PageSize = -1;
-        public int PageNumber = 0;
+        private int mPageSize = -1;
+        private int mPageNumber = 0;
+
+        public int PageSize
+        {
+            get
+            {
+                return mPageSize;
+            }
+            set
+            {
+                mPageSize = value;
+            }
+        }
+
+        public int PageNumber
+        {
+            get
+            {
+                return mPageNumber;
+            }
+            set
+            {
+                mPageNumber = value;
+            }
+        }
 
         public int FirstResult
         {
@@ -42,10 +67,22 @@ namespace DBlog.Data.Hibernate
 
         }
 
-        public virtual string GetSignature()
+        public override int GetHashCode()
         {
-            return string.Format("{0}:{1}:{2}", 
-                PageSize, PageNumber, GetType().Name);
+            return GetHashCode(this);
+        }
+
+        public static int GetHashCode(object o)
+        {
+            StringBuilder hash = new StringBuilder();
+            PropertyInfo[] properties = o.GetType().GetProperties();
+            foreach (PropertyInfo property in properties)
+            {
+                object propertyvalue = property.GetValue(o, null);
+                hash.AppendLine(propertyvalue == null ? string.Empty : propertyvalue.ToString());
+            }
+
+            return hash.ToString().GetHashCode();
         }
     };
 }

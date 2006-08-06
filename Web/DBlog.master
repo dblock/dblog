@@ -13,7 +13,7 @@
   <atlas:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true" />
   <table class="table_main" cellpadding="0" cellspacing="0">
    <tr>
-    <td valign="top" class="table_main_tr_td_right">
+    <td valign="top" class="table_main_tr_td_left">
      <atlas:UpdateProgress ID="menuProgress" runat="server">
       <ProgressTemplate>
        <div style="text-align: center; vertical-align: top;">
@@ -39,7 +39,7 @@
      <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
      </asp:ContentPlaceHolder>
     </td>
-    <td valign="top" align="center" class="table_main_tr_td_left">
+    <td valign="top" align="center" class="table_main_tr_td_right">
      <div>
       <a href="ShowBlog.aspx">
        <asp:Image runat="server" ID="imageMain" ImageUrl="images/blog/blog.gif" />

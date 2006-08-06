@@ -1033,9 +1033,13 @@ namespace DBlog.WebServices
 
                 List<TransitPostImage> result = new List<TransitPostImage>(list.Count);
 
+                int index = (options != null) ? options.FirstResult : 0;
                 foreach (PostImage obj in list)
                 {
-                    result.Add(new TransitPostImage(session, obj, ticket));
+                    TransitPostImage tpi = new TransitPostImage(session, obj, ticket);
+                    tpi.Index = index;
+                    index++;
+                    result.Add(tpi);
                 }
 
                 return result;

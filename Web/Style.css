@@ -8,14 +8,17 @@ a { font-family: Arial; text-decoration: none; }
 .table_notice_tr_td { margin: 10px; font-family: Arial; }
 .table { margin: 2px 10px 2px 10px; text-align: left; font-family: Arial; width: 700px; border: solid 1px black; }
 .table_pager { padding: 2px; font-family: Verdana; font-weight: bold; }
-.table_post { margin: 2px 10px 2px 10px; text-align: left; font-family: Arial; width: 700px; }
+.table_post { margin: 2px 10px 2px 10px; text-align: left; font-family: Arial; width: 1000px; }
+.table_post_tr_td_left { text-align: left; padding: 2px; font-family: Arial; width: 800px; }
+.table_post_tr_td_right { width: 200px; text-align: center; padding: 2px; font-family: Arial; }
+.table_post_tr_th { text-align: left; font-family: Arial; background: black; padding: 2px; font-family: Arial; color: white; font-weight: bold;  }
 .table_tr_td { padding: 2px; font-family: Arial; }
 .table_tr_td_alt { background: #EEEEEE; padding: 2px; font-family: Arial; }
 .table_tr_th { font-family: Arial; background: black; padding: 2px; font-family: Arial; font-size: 0.9em; font-weight: bold; color: white; }
 .table_tr_td_sel { padding: 2px; background: #DDDDDD; font-family: Arial; }
 .table_main { width: 90%; }
-.table_main_tr_td_left { width: 180px; }
-.table_main_tr_td_right { width: 800px; }
+.table_main_tr_td_left { width: 800px; }
+.table_main_tr_td_right { width: 180px; }
 .table_topics { font-family: Arial; width: 150px; border: solid 1px black; }
 .table_topics_tr_td { padding: 2px; font-family: Arial; font-weight: bold; }
 .table_topics_tr_td_alt { background: #EEEEEE; padding: 2px; font-family: Arial; font-weight: bold; }
@@ -25,9 +28,6 @@ a { font-family: Arial; text-decoration: none; }
 .table_highlights_tr_td { padding: 2px; font-family: Arial; font-weight: bold; }
 .table_highlights_tr_td_alt { background: #EEEEEE; padding: 2px; font-family: Arial; font-weight: bold; }
 .table_highlights_tr_th { font-family: Arial; background: black; padding: 2px; font-family: Arial; color: white; font-weight: bold;  }
-.table_post_tr_td_left { text-align: left; padding: 2px; font-family: Arial; }
-.table_post_tr_td_right { width: 200px; text-align: center; padding: 2px; font-family: Arial; }
-.table_post_tr_th { text-align: left; font-family: Arial; background: black; padding: 2px; font-family: Arial; color: white; font-weight: bold;  }
 .table_tr_td_label { text-align: right; font-family: Arial; }
 .table_tr_td_value { text-align: left; font-family: Arial; }
 .textbox { font-family: Arial; width: 400px; }
