@@ -13,6 +13,7 @@ using System.Text.RegularExpressions;
 using DBlog.TransitData;
 using DBlog.Tools.Web;
 using System.Text;
+using DBlog.Data.Hibernate;
 
 public partial class ShowBlog : BlogPage
 {
@@ -62,16 +63,32 @@ public partial class ShowBlog : BlogPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
+        string sortexpression = Request.Params["SortExpression"];
+        string sortdirection = Request.Params["SortDirection"];
+
+        TransitPostQueryOptions options = new TransitPostQueryOptions(TopicId, grid.PageSize, grid.CurrentPageIndex);
+        options.SortDirection = string.IsNullOrEmpty(sortdirection) 
+            ? WebServiceQuerySortDirection.Descending
+            : (WebServiceQuerySortDirection)Enum.Parse(typeof(WebServiceQuerySortDirection), sortdirection);
+
+        options.SortExpression = string.IsNullOrEmpty(sortexpression) 
+            ? "Modified" 
+            : sortexpression;
+
         grid.DataSource = SessionManager.GetCachedCollection<TransitPost>(
-            "GetPosts", SessionManager.PostTicket, new TransitPostQueryOptions(
-                TopicId, grid.PageSize, grid.CurrentPageIndex));
+            (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPosts" : "GetPostsEx",
+            SessionManager.PostTicket, options);
     }
 
     public void GetData(object sender, EventArgs e)
     {
+        string sortexpression = Request.Params["SortExpression"];
+        string sortdirection = Request.Params["SortDirection"];
+
         grid.CurrentPageIndex = 0;
         grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
-            "GetPostsCount", SessionManager.PostTicket, new TransitPostQueryOptions(TopicId));
+            (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPostsCount" : "GetPostsCountEx",
+            SessionManager.PostTicket, new TransitPostQueryOptions(TopicId));
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }

@@ -32,7 +32,7 @@ namespace DBlog.TransitData
         public TransitPostQueryOptions(
             int topicid)
         {
-            mTopicId = topicid;
+            mTopicId = topicid;            
         }
 
         public TransitPostQueryOptions(

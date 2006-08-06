@@ -12,6 +12,8 @@ using DBlog.Data.Hibernate;
 using System.Collections.Generic;
 using System.Reflection;
 using DBlog.TransitData.References;
+using System.Text;
+using DBlog.Tools.Web;
 
 namespace DBlog.WebServices
 {
@@ -821,8 +823,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                ICriteria cr = session.CreateCriteria(typeof(Post))
-                    .AddOrder(Order.Desc("Modified"));
+                ICriteria cr = session.CreateCriteria(typeof(Post));
 
                 if (options != null)
                 {
@@ -841,6 +842,67 @@ namespace DBlog.WebServices
                 return result;
             }
         }
+
+        [WebMethod(Description = "Get posts count with joined tables.")]
+        public int GetPostsCountEx(string ticket, TransitPostQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                StringBuilder q = new StringBuilder();
+                q.AppendLine("SELECT COUNT(p) FROM Post p, PostCounter pc, Counter c");
+                q.AppendLine("WHERE p.Id = pc.Post.Id AND c.Id = pc.Counter.Id");
+
+                IQuery query = session.CreateQuery(q.ToString());
+
+                if (options != null)
+                {
+                    options.Apply(query);
+                }
+
+                return (int) query.UniqueResult();
+            }
+        }
+
+
+        [WebMethod(Description = "Get posts with joined tables.")]
+        public List<TransitPost> GetPostsEx(string ticket, TransitPostQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                StringBuilder q = new StringBuilder();
+                q.AppendLine("SELECT {Post.*} FROM Post {Post}, PostCounter, Counter");
+                q.AppendLine("WHERE {Post}.Post_Id = PostCounter.Post_Id AND Counter.Counter_Id = PostCounter.Counter_Id");
+                if (options != null && !string.IsNullOrEmpty(options.SortExpression))
+                {
+                    q.AppendLine(string.Format("ORDER BY {0} {1}",
+                        Renderer.SqlEncode(options.SortExpression),
+                        options.SortDirection == WebServiceQuerySortDirection.Ascending ? string.Empty : "DESC"));
+                }
+
+                IQuery query = session.CreateSQLQuery(q.ToString(), "Post", typeof(Post));
+
+                if (options != null)
+                {
+                    options.Apply(query);
+                }
+
+                IList list = query.List();
+
+                List<TransitPost> result = new List<TransitPost>(list.Count);
+
+                foreach (Post obj in list)
+                {
+                    result.Add(new TransitPost(session, obj, ticket));
+                }
+
+                return result;
+            }
+        }
+
 
         [WebMethod(Description = "Delete a post.")]
         public void DeletePost(string ticket, int id)
@@ -1081,6 +1143,79 @@ namespace DBlog.WebServices
                     tpi.Index = index;
                     index++;
                     result.Add(tpi);
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Get post images count with joined tables.")]
+        public int GetPostImagesCountEx(string ticket, TransitPostImageQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                StringBuilder q = new StringBuilder();
+                q.AppendLine("SELECT COUNT(i) FROM Post p, PostImage pi, Image i, ImageCounter ic, Counter c");
+                q.AppendLine("WHERE p.Id = pi.Post.Id AND pi.Image.Id = i.Id AND i.Id = ic.Image.Id AND ic.Counter.Id = c.Id");
+
+                if (options != null && options.PostId > 0)
+                {
+                    q.AppendLine(string.Format("AND p.Id = {0}", options.PostId));
+                }
+
+                IQuery query = session.CreateQuery(q.ToString());
+
+                if (options != null)
+                {
+                    options.Apply(query);
+                }
+
+                return (int)query.UniqueResult();
+            }
+        }
+
+
+        [WebMethod(Description = "Get post images with joined tables.")]
+        public List<TransitPostImage> GetPostImagesEx(string ticket, TransitPostImageQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                StringBuilder q = new StringBuilder();
+
+                q.AppendLine("SELECT {PostImage.*} FROM Post, PostImage {PostImage}, Image, ImageCounter, Counter");
+                q.AppendLine("WHERE Post.Post_Id = {PostImage}.Post_Id AND {PostImage}.Image_Id = Image.Image_Id");
+                q.AppendLine("AND Image.Image_Id = ImageCounter.Image_Id AND ImageCounter.Counter_Id = Counter.Counter_Id");
+
+                if (options != null && options.PostId > 0)
+                {
+                    q.AppendLine(string.Format("AND Post.Id = {0}", options.PostId));
+                }
+
+                if (options != null && !string.IsNullOrEmpty(options.SortExpression))
+                {
+                    q.AppendLine(string.Format("ORDER BY {0} {1}",
+                        Renderer.SqlEncode(options.SortExpression),
+                        options.SortDirection == WebServiceQuerySortDirection.Ascending ? string.Empty : "DESC"));
+                }
+
+                IQuery query = session.CreateSQLQuery(q.ToString(), "PostImage", typeof(PostImage));
+
+                if (options != null)
+                {
+                    options.Apply(query);
+                }
+
+                IList list = query.List();
+
+                List<TransitPostImage> result = new List<TransitPostImage>(list.Count);
+
+                foreach (PostImage obj in list)
+                {
+                    result.Add(new TransitPostImage(session, obj, ticket));
                 }
 
                 return result;

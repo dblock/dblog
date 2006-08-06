@@ -3,13 +3,46 @@ using System.Collections.Generic;
 using System.Text;
 using NHibernate;
 using System.Reflection;
+using NHibernate.Expression;
 
 namespace DBlog.Data.Hibernate
 {
+    public enum WebServiceQuerySortDirection
+    {
+        Ascending = 0,
+        Descending = 1
+    }
+
     public class WebServiceQueryOptions
     {
         private int mPageSize = -1;
         private int mPageNumber = 0;
+        private WebServiceQuerySortDirection mSortDirection = WebServiceQuerySortDirection.Ascending;
+        private string mSortExpression = string.Empty;
+
+        public string SortExpression
+        {
+            get
+            {
+                return mSortExpression;
+            }
+            set
+            {
+                mSortExpression = value;
+            }
+        }
+
+        public WebServiceQuerySortDirection SortDirection
+        {
+            get
+            {
+                return mSortDirection;
+            }
+            set
+            {
+                mSortDirection = value;
+            }
+        }
 
         public int PageSize
         {
@@ -53,12 +86,28 @@ namespace DBlog.Data.Hibernate
             PageNumber = pagenumber;
         }
 
+        public virtual void Apply(IQuery query)
+        {
+            if (PageSize > 0)
+            {
+                query.SetMaxResults(PageSize);
+                query.SetFirstResult(FirstResult);
+            }
+        }
+
         public virtual void Apply(ICriteria criteria)
         {
             if (PageSize > 0)
             {
                 criteria.SetMaxResults(PageSize);
                 criteria.SetFirstResult(FirstResult);
+            }
+
+            if (! string.IsNullOrEmpty(SortExpression))
+            {
+                criteria.AddOrder((SortDirection == WebServiceQuerySortDirection.Ascending)
+                    ? Order.Asc(SortExpression)
+                    : Order.Desc(SortExpression));
             }
         }
 

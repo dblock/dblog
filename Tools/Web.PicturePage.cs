@@ -120,7 +120,7 @@ namespace DBlog.Tools.Web
 
                 if (p.Bitmap == null)
                 {
-                    Response.StatusCode = 403;
+                    Response.Redirect("images/site/access.gif", true);
                     return;
                 }
 

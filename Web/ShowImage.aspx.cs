@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 using System.Text;
 using System.Collections.Generic;
+using DBlog.Tools.Web;
 
 public partial class ShowImage : BlogPage
 {
@@ -28,10 +29,37 @@ public partial class ShowImage : BlogPage
         }
     }
 
+    public bool HasAccess
+    {
+        get
+        {
+            int pid = GetId("pid");
+            if (pid == 0)
+                return true;
+
+            string key = string.Format("{0}:{1}:PostAccess", SessionManager.PostTicket, pid);
+            object result = Cache[key];
+            if (result == null)
+            {
+                result = SessionManager.BlogService.HasAccessToPost(
+                    SessionManager.PostTicket, pid);
+                Cache.Insert(key, result, null, DateTime.Now.AddHours(1), TimeSpan.Zero);
+            }
+            return (bool)result;
+        }
+    }
+
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
+            if (!HasAccess)
+            {
+                Response.Redirect(string.Format("Login.aspx?r={0}&cookie={1}",
+                    Renderer.UrlEncode(Request.Url.PathAndQuery), SessionManager.sDBlogPostCookieName));
+            }
+
             comments.OnGetDataSource += new EventHandler(comments_OnGetDataSource);
             images.OnGetDataSource += new EventHandler(images_OnGetDataSource);
 

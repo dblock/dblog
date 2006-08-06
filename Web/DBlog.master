@@ -106,6 +106,8 @@
       <div>
        <a href="Login.aspx"><font face="Symbol">p</font></a>
        | <a href="StatsSummary.aspx">s</a>
+       | <a href="ShowBlog.aspx?SortDirection=Descending&SortExpression=Counter.Count">p</a>
+       | <a href="ShowImages.aspx">n</a>
       </div>
       <div class="counter">
        <asp:Label ID="labelCounter" runat="server" />
