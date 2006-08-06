@@ -59,6 +59,6 @@ a { font-family: Arial; text-decoration: none; }
 .table_feeditems { margin: 0px 0px 10px 0px; font-family: Arial; width: 150px; border: solid 1px black; }
 .table_feeditems_tr_td { padding: 2px; font-family: Arial; font-weight: bold; }
 .table_feeditems_tr_td_alt { background: #EEEEEE; padding: 2px; font-family: Arial; font-weight: bold; }
-#busylight{ background-color: black; color: white; position: fixed; z-index: 3; top: 1px; left: 330px; width: 18em; margin: 1em; padding: 5px 5px 5px 5px; font: 10px/1.0em "Verdana"; text-align: left; border: 1px solid black; }
+#busylight{ background-color: black; color: white; position: fixed; z-index: 3; top: 1px; left: 330px; width: 18em; margin: 1em; padding: 5px 5px 5px 25px; font: 10px/1.0em "Verdana"; text-align: left; border: 1px solid black; }
 * html #busylight{ position: absolute; }
 #busylight[id]{ position: fixed; }
