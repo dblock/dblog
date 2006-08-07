@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 using DBlog.TransitData;
 using DBlog.Tools.Web;
 using System.Text;
+using DBlog.Data.Hibernate;
 
 public partial class AtomBlog : BlogPage
 {
@@ -32,8 +33,14 @@ public partial class AtomBlog : BlogPage
                 SessionManager.BlogService.IncrementNamedCounter(
                     SessionManager.Ticket, "Atom", 1);
 
+                TransitPostQueryOptions options = new TransitPostQueryOptions();
+                options.PageNumber = 0;
+                options.PageSize = 25;
+                options.SortDirection = WebServiceQuerySortDirection.Descending;
+                options.SortExpression = "Created";
+
                 repeater.DataSource = SessionManager.GetCachedCollection<TransitPost>(
-                    "GetPosts", SessionManager.PostTicket, new TransitPostQueryOptions(25, 0));
+                    "GetPosts", SessionManager.PostTicket, options);
                 repeater.DataBind();
             }
         }
