@@ -95,9 +95,12 @@ namespace DBlog.TransitData
                         post.Modified.ToString("d"));
                 }
 
-                content.Append("<div>");
-                content.Append(TransitPost.Render(session, post.Id, post.Body));
-                content.Append("</div>");
+                if (!string.IsNullOrEmpty(post.Body))
+                {
+                    content.Append("<div>");
+                    content.Append(TransitPost.Render(session, post.Id, post.Body));
+                    content.Append("</div>");
+                }
 
                 content.Append("<div>");
                 content.AppendFormat("<a href=\"{0}ShowPost.aspx?id={1}\">Read</a>", 
