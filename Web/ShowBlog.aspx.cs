@@ -72,7 +72,7 @@ public partial class ShowBlog : BlogPage
             : (WebServiceQuerySortDirection)Enum.Parse(typeof(WebServiceQuerySortDirection), sortdirection);
 
         options.SortExpression = string.IsNullOrEmpty(sortexpression) 
-            ? "Modified" 
+            ? "Created" 
             : sortexpression;
 
         grid.DataSource = SessionManager.GetCachedCollection<TransitPost>(
