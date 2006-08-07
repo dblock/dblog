@@ -161,6 +161,11 @@ public partial class EditPost : BlogAdminPage
                 GetDataImages(sender, e);
             }
 
+            if (! string.IsNullOrEmpty(inputLogin.Text))
+            {
+                loginAdd_Click(sender, e);
+            }
+
             ReportInfo("Item Saved");
         }
         catch (Exception ex)
@@ -220,6 +225,7 @@ public partial class EditPost : BlogAdminPage
         images.CurrentPageIndex = 0;
         images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
             SessionManager.Ticket, new TransitPostImageQueryOptions(PostId));
+        images.Visible = (images.VirtualItemCount > 0);
         images_OnGetDataSource(sender, e);
         images.DataBind();
     }
@@ -229,6 +235,7 @@ public partial class EditPost : BlogAdminPage
         logins.CurrentPageIndex = 0;
         logins.VirtualItemCount = SessionManager.BlogService.GetPostLoginsCount(
             SessionManager.Ticket, new TransitPostLoginQueryOptions(PostId));
+        logins.Visible = (logins.VirtualItemCount > 0);
         logins_OnGetDataSource(sender, e);
         logins.DataBind();
     }
