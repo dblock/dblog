@@ -175,8 +175,47 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
-                // TODO: check that not deleting last login
-                session.Delete((Login)session.Load(typeof(Login), id));
+                
+                // check deleting self - since self must be an admin we never delete the last admin either
+                int self_id = ManagedLogin.GetLoginId(ticket);
+                if (self_id == id)
+                {
+                    throw new InvalidOperationException("Cannot Delete Self");
+                }
+
+                Login login = (Login)session.Load(typeof(Login), id);
+
+                // delete post logins
+                if (login.PostLogins != null)
+                {
+                    foreach (PostLogin pl in login.PostLogins)
+                    {
+                        session.Delete(pl);
+                    }
+                }
+
+                // delete login counters
+                if (login.LoginCounters != null)
+                {
+                    foreach (LoginCounter c in login.LoginCounters)
+                    {
+                        session.Delete(c);
+                        session.Delete(c.Counter);
+                    }
+                }
+
+                // update post ownership created by this login to the current user
+                if (login.Posts != null)
+                {
+                    Login self = (Login) session.Load(typeof(Login), self_id);
+                    foreach (Post p in login.Posts)
+                    {
+                        p.Login = self;
+                        session.Save(p);
+                    }
+                }
+
+                session.Delete(login);
                 session.Flush();
             }
         }
