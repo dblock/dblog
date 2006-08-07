@@ -215,6 +215,15 @@ namespace DBlog.WebServices
                     }
                 }
 
+                if (login.Comments != null)
+                {
+                    foreach (Comment c in login.Comments)
+                    {
+                        c.OwnerLogin = null;
+                        session.Save(c);
+                    }
+                }
+
                 session.Delete(login);
                 session.Flush();
             }
