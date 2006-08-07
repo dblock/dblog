@@ -64,6 +64,14 @@ public partial class DBlogMaster : MasterPage
                 TransitCounter c = Counter;
                 labelCounter.Text = string.Format("{0} click{1} since {2}",
                     c.Count, c.Count != 1 ? "s" : string.Empty, c.Created.ToString("d"));
+
+                linkAtom.Attributes["title"] = string.Format("{0} {1}",
+                    SessionManager.GetSetting("title", "Untitled"),
+                    linkAtom.Attributes["title"]);
+
+                linkRss.Attributes["title"] = string.Format("{0} {1}",
+                    SessionManager.GetSetting("title", "Untitled"),
+                    linkRss.Attributes["title"]);
             }
         }
         catch (Exception ex)

@@ -18,12 +18,12 @@
     <asp:Repeater id="repeater" runat="server">
      <ItemTemplate>
       <item>
-       <title><%# Renderer.RenderEx(Eval("Title")) %></title>
-       <pubDate><%# Renderer.ToRfc822((DateTime) Eval("Modified")) %></pubDate>
+       <title><%# Renderer.Render(Eval("Title")) %></title>
+       <pubDate><%# Renderer.ToRfc822((DateTime) Eval("Created")) %></pubDate>
        <description>
          <![CDATA[
-          <link rel="stylesheet" href='<%# SessionManager.GetSetting("url", string.Empty) %>Style.css'>
-          <%# Renderer.RenderEx(Eval("Body")) %>
+          <link rel="stylesheet" href='<%# SessionManager.GetSetting("url", string.Empty) %>Style.css' />
+          <%# Eval("BodyXHTML") %>
          ]]>
        </description>
        <category><%# Renderer.Render(Eval("TopicName")) %></category>

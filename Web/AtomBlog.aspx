@@ -2,7 +2,7 @@
  Inherits="AtomBlog" Title="Atom Blog" %>
 
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
-<feed version="0.3" xml:lang="en-us" xmlns="http://purl.org/atom/ns#" >
+<feed xml:lang="en-us" xmlns="http://www.w3.org/2005/Atom" >
  <title><% Response.Write(SessionManager.GetSetting("title", "Untitled")); %></title>
  <modified></modified>
  <link rel="alternate" type="application/xhtml+xml" href="<% Response.Write(SessionManager.GetSetting("url", string.Empty)); %>" />
@@ -10,7 +10,7 @@
    <ItemTemplate>
     <entry>
      <id><%# SessionManager.GetSetting("url", string.Empty) %>Post/<%# Eval("Id") %></id>
-     <title><%# Renderer.RenderEx(Eval("Title")) %></title>
+     <title><%# Renderer.Render(Eval("Title")) %></title>
      <created><%# ((DateTime) Eval("Created")).ToString("s") %> GMT</created>
      <modified><%# ((DateTime) Eval("Modified")).ToString("s") %> GMT</modified>
      <issued><%# ((DateTime) Eval("Created")).ToString("s") %> GMT</issued>
@@ -20,8 +20,8 @@
      <content type="text/html" mode="xml">
       <body xmlns="http://www.w3.org/1999/xhtml">
        <![CDATA[
-        <link rel="stylesheet" href='<%# SessionManager.GetSetting("url", string.Empty) %>Style.css'>
-        <%# Renderer.RenderEx(Eval("Body")) %>
+        <link rel="stylesheet" href='<%# SessionManager.GetSetting("url", string.Empty) %>Style.css' />
+        <%# Eval("BodyXHTML") %>
        ]]>
       </body>
      </content>

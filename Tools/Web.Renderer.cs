@@ -251,7 +251,7 @@ namespace DBlog.Tools.Web
 
         public static string ToRfc822(DateTime value)
         {
-            return value.ToString("ddd, dd MMM yyyy HH:mm:ss UTC");
+            return value.ToString("ddd, dd MMM yyyy HH:mm:ss GMT");
         }
     }
 }

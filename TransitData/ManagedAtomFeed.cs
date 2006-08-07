@@ -87,51 +87,9 @@ namespace DBlog.TransitData
                 XmlNamespaceManager xmlnsmgr = new XmlNamespaceManager(xmlEntry.NameTable);
                 xmlnsmgr.AddNamespace("ns", AtomNamespace);
 
-                StringBuilder content = new StringBuilder();
-
-                if (post.Created != post.Modified)
-                {
-                    content.AppendFormat("<div><b>UPDATE: {0}</b></div>",
-                        post.Modified.ToString("d"));
-                }
-
-                if (!string.IsNullOrEmpty(post.Body))
-                {
-                    content.Append("<div>");
-                    content.Append(TransitPost.Render(session, post.Id, post.Body));
-                    content.Append("</div>");
-                }
-
-                content.Append("<div>");
-                content.AppendFormat("<a href=\"{0}ShowPost.aspx?id={1}\">Read</a>", 
-                    ConfigurationManager.AppSettings["url"], post.Id);
-                
-                if (post.PostImages != null && post.PostImages.Count > 1)
-                {
-                    content.AppendFormat(" | <a href=\"{0}ShowPost.aspx?id={1}\">{2} Images</a>",
-                        ConfigurationManager.AppSettings["url"], post.Id, post.PostImages.Count);
-                }
-
-                if (post.PostImages != null && post.PostImages.Count > 0)
-                {
-                    if (post.PostLogins == null || post.PostLogins.Count == 0)
-                    {
-                        content.Append("<div style=\"margin-top: 10px;\">");
-                        for (int i = 0; i < Math.Min(3, post.PostImages.Count); i++)
-                        {
-                            content.AppendFormat("<img src=\"{0}ShowPicture.aspx?id={1}\">",
-                                ConfigurationManager.AppSettings["url"], ((PostImage) post.PostImages[i]).Image.Id);
-                        }
-                        content.Append("</div>");
-                    }
-                }
-
-                content.Append("</div>");
-
-
                 xmlEntry.SelectSingleNode("//ns:title", xmlnsmgr).InnerText = Renderer.RenderEx(post.Title);
                 xmlEntry.SelectSingleNode("//ns:created", xmlnsmgr).InnerText = post.Modified.ToString("s");
-                xmlEntry.SelectSingleNode("//ns:content", xmlnsmgr).InnerText = content.ToString();
+                xmlEntry.SelectSingleNode("//ns:content", xmlnsmgr).InnerText = TransitPost.RenderXHTML(session, post);
 
                 HttpWebRequest FeedRequest = (HttpWebRequest)WebRequest.Create(urlServicePost);
                 if (! string.IsNullOrEmpty(mFeed.Username))
