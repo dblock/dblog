@@ -10,6 +10,11 @@ namespace DBlog.TransitData
 {
     public class TransitStatsQueryOptions : WebServiceQueryOptions
     {
+        public TransitStatsQueryOptions()
+        {
+
+        }
+
         private TransitStats.Type mType = TransitStats.Type.Hourly;
 
         public TransitStats.Type Type
@@ -33,6 +38,11 @@ namespace DBlog.TransitData
     public class TransitStats : TransitObject
     {
         private int mPostsCount = 0;
+
+        public TransitStats()
+        {
+
+        }
 
         public int PostsCount
         {
