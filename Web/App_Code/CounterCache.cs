@@ -100,7 +100,7 @@ public class CounterCache
                 ex.Message, EventLogEntryType.Error));            
         }
 
-        mRequests.Clear();
+        mRequests = new List<HttpRequest>();
 
         try
         {
@@ -112,7 +112,7 @@ public class CounterCache
                 ex.Message, EventLogEntryType.Error));
         }
 
-        mPostCounters.Clear();
+        mPostCounters = new List<int>();
 
         try
         {
@@ -124,7 +124,7 @@ public class CounterCache
                 ex.Message, EventLogEntryType.Error));
         }
 
-        mImageCounters.Clear();
+        mImageCounters = new List<int>();
 
         LastFlush = DateTime.UtcNow;
     }
