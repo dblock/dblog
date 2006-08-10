@@ -3,6 +3,8 @@
 
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
+<%@ Register TagPrefix="Web" TagName="SelectDate" Src="SelectDateControl.ascx" %>
+<%@ Register TagPrefix="Web" TagName="SelectTime" Src="SelectTimeControl.ascx" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <div class="title">
   Post
@@ -56,6 +58,15 @@
     <Controls:MultiFileUpload InputCssClass="upload" runat="server" ID="inputImages"
      OnFilesPosted="inputImages_FilesPosted" />
     <asp:HyperLink ID="addFile" runat="server" CssClass="sncore_form_label" NavigateUrl="#" Text="+" />
+   </td>
+  </tr>
+  <tr>
+   <td class="table_tr_td_label">
+    created:
+   </td>
+   <td class="sncore_form_value">
+    <Web:SelectDate ID="inputCreatedDate" runat="server" />
+    <Web:SelectTime ID="inputCreatedTime" runat="server" />
    </td>
   </tr>
   <tr>

@@ -327,6 +327,7 @@ namespace DBlog.TransitData
             Post post = (Id != 0) ? (Post)session.Load(typeof(Post), Id) : new Post();
             post.Title = Title;
             post.Body = Body;
+            post.Created = Created;
             post.Login = (LoginId > 0) ? (Login)session.Load(typeof(Login), LoginId) : null;
             post.Topic = (Topic)session.Load(typeof(Topic), TopicId);
             return post;

@@ -81,7 +81,7 @@
              <%# Renderer.Render(Eval("CommentLoginName")) %>
             </a>
             @
-            <%# ((DateTime) Eval("CommentCreated")).ToString("d") %>
+            <%# SessionManager.Region.UtcToUser((DateTime) Eval("CommentCreated")).ToString("f") %>
             <a href='EditPostComment.aspx?sid=<%# Eval("PostId") %>&pid=<%# Eval("CommentId") %>'>
              Reply
             </a>

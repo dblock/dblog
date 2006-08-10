@@ -14,6 +14,7 @@ using System.Collections.Generic;
 using DBlog.WebServices;
 using DBlog.TransitData;
 using DBlog.Data.Hibernate;
+using DBlog.Tools.Globalization;
 
 public class SessionManager
 {
@@ -31,6 +32,7 @@ public class SessionManager
     private Blog mBlogService = null;
     private TransitLogin mLoginRecord = null;
     private TransitLogin mPostLoginRecord = null;
+    private Region mRegion = null;
 
     public Cache Cache
     {
@@ -355,6 +357,18 @@ public class SessionManager
             Cache.Insert(key, count, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
         }
         return (int) count;
+    }
+
+    public Region Region
+    {
+        get
+        {
+            if (mRegion == null)
+            {
+                mRegion = new Region(ConfigurationManager.AppSettings["region"]);
+            }
+            return mRegion;
+        }
     }
 
 }

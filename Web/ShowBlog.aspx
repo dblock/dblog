@@ -31,7 +31,7 @@
             <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
              Read
             </a>
-            | <%# ((DateTime) Eval("Created")).ToString("d") %>
+            | <%# SessionManager.Region.UtcToUser((DateTime) Eval("Created")).ToString("f") %>
             <%# GetLink((int)Eval("CommentsCount"), (int)Eval("ImagesCount"))%>
             <a href='EditPostComment.aspx?sid=<%# Eval("Id") %>'>
              | New Comment

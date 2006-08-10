@@ -32,6 +32,7 @@ a { font-family: Arial; text-decoration: none; }
 .table_tr_td_value { text-align: left; font-family: Arial; }
 .textbox { font-family: Arial; width: 400px; }
 .dropdown { font-family: Arial; width: 400px; }
+.dropdown_small { font-family: Arial; }
 .checkbox { font-family: Arial; width: 400px; }
 .upload { font-family: Arial; width: 400px; border: #666666 1px solid; }
 .button { background-color: #dcdcdc; font-family: Arial; border-top: #cccccc 1px solid; border-bottom: #666666 1px solid; border-left: #cccccc 1px solid; border-right: #666666 1px solid; width: 100px; }
