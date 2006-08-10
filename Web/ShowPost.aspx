@@ -12,10 +12,15 @@
      <asp:Label ID="posttitle" runat="server" />
     </div>
     <div class="post_subtitle">
-     <a href="ShowBlog.aspx">Back</a> |
-     <asp:Label ID="postcreated" runat="server" /> |
-     <asp:Label ID="postcounter" runat="server" /> |
-     <asp:Hyperlink ID="linkComment" runat="server" Text="New Comment" />
+     <atlas:UpdatePanel runat="server" ID="panelButtons" Mode="Always" RenderMode="Inline">
+      <ContentTemplate>
+       <a href="ShowBlog.aspx">Back</a> |
+       <asp:Label ID="postcreated" runat="server" /> |
+       <asp:Label ID="postcounter" runat="server" /> |
+       <asp:Hyperlink ID="linkComment" runat="server" Text="New Comment" /> |
+       <asp:LinkButton ID="linkPreferred" OnClick="linkPreferred_Click" runat="server" Enabled="false" Text="Favorites" />
+      </ContentTemplate>
+     </atlas:UpdatePanel>
     </div>
     <div class="post_body">
      <asp:Label ID="postbody" runat="server" />

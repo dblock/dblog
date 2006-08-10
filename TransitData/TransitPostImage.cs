@@ -11,6 +11,19 @@ namespace DBlog.TransitData
     public class TransitPostImageQueryOptions : WebServiceQueryOptions
     {
         private int mPostId = 0;
+        private bool mPreferredOnly = false;
+
+        public bool PreferredOnly
+        {
+            get
+            {
+                return mPreferredOnly;
+            }
+            set
+            {
+                mPreferredOnly = value;
+            }
+        }
 
         public int PostId
         {
@@ -50,6 +63,11 @@ namespace DBlog.TransitData
                 criteria.Add(Expression.Eq("Post.Id", PostId));
             }
 
+            if (PreferredOnly)
+            {
+                throw new NotImplementedException();
+            }
+
             base.Apply(criteria);
         }
 
@@ -58,6 +76,11 @@ namespace DBlog.TransitData
             if (PostId != 0)
             {
                 query.Add(Expression.Eq("Post.Id", PostId));
+            }
+
+            if (PreferredOnly)
+            {
+                throw new NotImplementedException();
             }
 
             base.Apply(query);

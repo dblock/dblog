@@ -1230,6 +1230,11 @@ namespace DBlog.WebServices
                     q.AppendLine(string.Format("AND p.Id = {0}", options.PostId));
                 }
 
+                if (options != null && options.PreferredOnly)
+                {
+                    q.AppendLine("AND i.Preferred = 1");
+                }
+
                 IQuery query = session.CreateQuery(q.ToString());
 
                 if (options != null)
@@ -1257,7 +1262,12 @@ namespace DBlog.WebServices
 
                 if (options != null && options.PostId > 0)
                 {
-                    q.AppendLine(string.Format("AND Post.Id = {0}", options.PostId));
+                    q.AppendLine(string.Format("AND Post.Post_Id = {0}", options.PostId));
+                }
+
+                if (options != null && options.PreferredOnly)
+                {
+                    q.AppendLine("AND Image.Preferred = 1");
                 }
 
                 if (options != null && !string.IsNullOrEmpty(options.SortExpression))

@@ -11,10 +11,26 @@ using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 using System.Text;
 using DBlog.Tools.Web;
+using DBlog.Data.Hibernate;
 
 public partial class ShowPost : BlogPage
 {
     private TransitPost mPost = null;
+    private bool mPreferredOnly = false;
+
+    public bool PreferredOnly
+    {
+        get
+        {
+            return DBlog.Tools.Web.ViewState<bool>.GetViewStateValue(
+                ViewState, string.Format("{0}:Preferred", ID), mPreferredOnly);
+        }
+        set
+        {
+            DBlog.Tools.Web.ViewState<bool>.SetViewStateValue(
+                EnableViewState, ViewState, string.Format("{0}:Preferred", ID), value, ref mPreferredOnly);
+        }
+    }
 
     public TransitPost Post
     {
@@ -102,10 +118,12 @@ public partial class ShowPost : BlogPage
         postimage.ImageUrl = string.Format("ShowPicture.aspx?id={0}", post.ImageId);
         linkimage.HRef = string.Format("ShowImage.aspx?id={0}&pid={1}", post.ImageId, post.Id);
 
+        TransitPostImageQueryOptions imagesoptions = new TransitPostImageQueryOptions(Post.Id);
+        imagesoptions.PreferredOnly = PreferredOnly;
         images.Visible = (post.ImagesCount > 1);
         images.CurrentPageIndex = 0;
         images.VirtualItemCount = SessionManager.GetCachedCollectionCount(
-            "GetPostImagesCount", SessionManager.PostTicket, new TransitPostImageQueryOptions(Post.Id));
+            "GetPostImagesCountEx", SessionManager.PostTicket, imagesoptions);
         images_OnGetDataSource(sender, e);
         images.DataBind();
 
@@ -119,12 +137,31 @@ public partial class ShowPost : BlogPage
 
     void images_OnGetDataSource(object sender, EventArgs e)
     {
+        string sortexpression = Request.Params["SortExpression"];
+        string sortdirection = Request.Params["SortDirection"];
+
+        TransitPostImageQueryOptions options = new TransitPostImageQueryOptions(
+            Post.Id, images.PageSize, images.CurrentPageIndex);
+
+        options.SortDirection = string.IsNullOrEmpty(sortdirection)
+            ? WebServiceQuerySortDirection.Ascending
+            : (WebServiceQuerySortDirection)Enum.Parse(typeof(WebServiceQuerySortDirection), sortdirection);
+
+        options.SortExpression = string.IsNullOrEmpty(sortexpression)
+            ? "Image.Image_Id"
+            : sortexpression;
+
+        options.PreferredOnly = PreferredOnly;
+
         images.DataSource = SessionManager.GetCachedCollection<TransitPostImage>(
-            "GetPostImages", SessionManager.PostTicket, new TransitPostImageQueryOptions(Post.Id, images.PageSize, images.CurrentPageIndex));
+            "GetPostImagesEx", SessionManager.PostTicket, options);
     }
 
     public string GetComments(TransitImage image)
     {
+        if (image == null)
+            return string.Empty;
+
         if (image.CommentsCount == 0)
             return string.Empty;
 
@@ -134,9 +171,26 @@ public partial class ShowPost : BlogPage
 
     public string GetCounter(TransitImage image)
     {
+        if (image == null)
+            return String.Empty;
+
         if (image.Counter.Count == 0)
             return string.Empty;
 
         return string.Format("[{0}]", image.Counter.Count);
+    }
+
+    public void linkPreferred_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            PreferredOnly = ! PreferredOnly;
+            linkPreferred.Text = PreferredOnly ? "Show All" : "Favorites";
+            GetData(sender, e);
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
     }
 }
