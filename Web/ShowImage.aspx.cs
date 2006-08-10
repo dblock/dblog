@@ -14,10 +14,29 @@ using System.Collections.Generic;
 using DBlog.Tools.Web;
 using System.Text.RegularExpressions;
 using DBlog.Tools.Drawing.Exif;
+using DBlog.Tools.Drawing;
+using System.IO;
+using System.Drawing;
 
 public partial class ShowImage : BlogPage
 {
     private TransitPostImage mPostImage = null;
+    private int mImageId = 0;
+    private EXIFMetaData mEXIFMetaData = null;
+
+    public int ImageId
+    {
+        get
+        {
+            return DBlog.Tools.Web.ViewState<int>.GetViewStateValue(
+                ViewState, string.Format("{0}:ImageId", ID), mImageId);
+        }
+        set
+        {
+            DBlog.Tools.Web.ViewState<int>.SetViewStateValue(
+                EnableViewState, ViewState, string.Format("{0}:ImageId", ID), value, ref mImageId);
+        }
+    }
 
     public TransitPostImage PostImage
     {
@@ -28,6 +47,7 @@ public partial class ShowImage : BlogPage
         set
         {
             mPostImage = value;
+            ImageId = mPostImage.Image.Id;
         }
     }
 
@@ -136,6 +156,32 @@ public partial class ShowImage : BlogPage
         panelComments.Update();
     }
 
+    public EXIFMetaData ImageEXIFMetaData
+    {
+        get
+        {
+            if (mEXIFMetaData == null)
+            {
+                TransitImage image = SessionManager.BlogService.GetImageWithBitmapById(
+                    SessionManager.PostTicket, ImageId);
+
+                if (image.Data != null)
+                {
+                    mEXIFMetaData = new EXIFMetaData(new Bitmap(
+                        new MemoryStream(image.Data)).PropertyItems);
+                }
+                else if (image.Data == null && ! string.IsNullOrEmpty(image.Path))
+                {
+                    mEXIFMetaData = new EXIFMetaData(new Bitmap(Path.Combine(Path.Combine(
+                        SessionManager.GetSetting("Images", string.Empty),
+                        image.Path), image.Name)).PropertyItems);
+                }
+            }
+
+            return mEXIFMetaData;
+        }
+    }
+
     void images_OnGetDataSource(object sender, EventArgs e)
     {
         int pid = GetId("pid");
@@ -165,19 +211,11 @@ public partial class ShowImage : BlogPage
         {
             PostImage = list[0];
 
-            EXIFMetaData metadata = SessionManager.BlogService.GetImageEXIFMetaDataById(
-                SessionManager.Ticket, PostImage.Image.Id);
-
-            if (metadata != null)
-            {
-                exif.DataSource = metadata.EXIFPropertyItems;
-                exif.DataBind();
-            }
-
             linkComment.NavigateUrl = string.Format("EditImageComment.aspx?sid={0}&rid={1}",
                 PostImage.Image.Id, GetId("pid"));
         }
 
+        GetEXIFData(sender, e);
         GetDataComments(sender, e);
 
         images.DataSource = list;
@@ -208,12 +246,24 @@ public partial class ShowImage : BlogPage
         }
     }
 
+    public void GetEXIFData(object sender, EventArgs e)
+    {
+        if (exif.Visible)
+        {
+            EXIFMetaData metadata = ImageEXIFMetaData;
+            exif.DataSource = (metadata != null) ? metadata.EXIFPropertyItems : null;
+            exif.DataBind();
+        }
+
+        panelEXIF.Update();
+    }
+
     public void linkEXIF_Click(object sender, EventArgs e)
     {
         try
         {
             exif.Visible = !exif.Visible;
-            panelEXIF.Update();
+            GetEXIFData(sender, e);
         }
         catch (Exception ex)
         {
