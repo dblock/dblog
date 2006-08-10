@@ -13,6 +13,7 @@ using System.Text;
 using System.Collections.Generic;
 using DBlog.Tools.Web;
 using System.Text.RegularExpressions;
+using DBlog.Tools.Drawing.Exif;
 
 public partial class ShowImage : BlogPage
 {
@@ -164,9 +165,14 @@ public partial class ShowImage : BlogPage
         {
             PostImage = list[0];
 
-            exif.DataSource = SessionManager.BlogService.GetImageEXIFMetaDataById(
-                SessionManager.Ticket, PostImage.Id).EXIFPropertyItems;
-            exif.DataBind();
+            EXIFMetaData metadata = SessionManager.BlogService.GetImageEXIFMetaDataById(
+                SessionManager.Ticket, PostImage.Id);
+
+            if (metadata != null)
+            {
+                exif.DataSource = metadata.EXIFPropertyItems;
+                exif.DataBind();
+            }
 
             linkComment.NavigateUrl = string.Format("EditImageComment.aspx?sid={0}&rid={1}",
                 PostImage.Image.Id, GetId("pid"));

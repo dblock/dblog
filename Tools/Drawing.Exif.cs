@@ -750,11 +750,22 @@ namespace DBlog.Tools.Drawing.Exif
             this.id = prop.Id;
             this.len = prop.Len;
         }
+
+        public EXIFPropertyItem()
+        {
+            exifCode = 0;
+            exifType = EXIFPropertyTypes.ExifTypeUndefined;
+        }
     }
 
     public class EXIFMetaData
     {
         private EXIFPropertyItem[] mEXIFPropertyItems = null;
+
+        public EXIFMetaData()
+        {
+
+        }
 
         public EXIFMetaData(PropertyItem[] PropertyItems)
         {
