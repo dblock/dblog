@@ -166,7 +166,7 @@ public partial class ShowImage : BlogPage
             PostImage = list[0];
 
             EXIFMetaData metadata = SessionManager.BlogService.GetImageEXIFMetaDataById(
-                SessionManager.Ticket, PostImage.Id);
+                SessionManager.Ticket, PostImage.Image.Id);
 
             if (metadata != null)
             {
