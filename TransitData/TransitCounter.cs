@@ -154,7 +154,7 @@ namespace DBlog.TransitData
         public static void IncrementWeeklyCounter(ISession session, int count)
         {
             DateTime utcnow = DateTime.UtcNow.Date;
-            while (utcnow.DayOfWeek != DayOfWeek.Monday)
+            while (utcnow.DayOfWeek != DayOfWeek.Sunday)
                 utcnow = utcnow.AddDays(-1);
 
             WeeklyCounter counter = (WeeklyCounter)session.CreateCriteria(typeof(WeeklyCounter))
