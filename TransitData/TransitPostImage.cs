@@ -12,6 +12,19 @@ namespace DBlog.TransitData
     {
         private int mPostId = 0;
         private bool mPreferredOnly = false;
+        private bool mCounters = false;
+
+        public bool Counters
+        {
+            get
+            {
+                return mCounters;
+            }
+            set
+            {
+                mCounters = value;
+            }
+        }
 
         public bool PreferredOnly
         {

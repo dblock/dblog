@@ -261,18 +261,27 @@ namespace DBlog.TransitData
 
         public DBlog.Data.Image GetImage(ISession session)
         {
+            return GetImage(session, true);
+        }
+
+        public DBlog.Data.Image GetImage(ISession session, bool withdata)
+        {
             DBlog.Data.Image image = (Id != 0) ? (DBlog.Data.Image)session.Load(typeof(DBlog.Data.Image), Id) : new DBlog.Data.Image();
             image.Name = Name;
             image.Description = Description;
             image.Modified = DateTime.UtcNow;
             image.Path = Path;
             image.Preferred = Preferred;
-            image.Data = Data;
-            image.Thumbnail = Thumbnail;
-            
-            if (image.Thumbnail == null && image.Data != null)
+
+            if (withdata)
             {
-                image.Thumbnail = new ThumbnailBitmap(image.Data).Thumbnail;
+                image.Data = Data;
+                image.Thumbnail = Thumbnail;
+
+                if (image.Thumbnail == null && image.Data != null)
+                {
+                    image.Thumbnail = new ThumbnailBitmap(image.Data).Thumbnail;
+                }
             }
 
             return image;

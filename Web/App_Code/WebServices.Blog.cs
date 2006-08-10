@@ -326,6 +326,20 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Create or update an image.")]
+        public int CreateOrUpdateImageAttributes(string ticket, TransitImage t_image)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                Image image = t_image.GetImage(session, false);
+                session.SaveOrUpdate(image);
+                session.Flush();
+                return image.Id;
+            }
+        }
+
         [WebMethod(Description = "Get an image.")]
         public TransitImage GetImageById(string ticket, int id)
         {
@@ -1222,8 +1236,10 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
 
                 StringBuilder q = new StringBuilder();
-                q.AppendLine("SELECT COUNT(i) FROM Post p, PostImage pi, Image i, ImageCounter ic, Counter c");
-                q.AppendLine("WHERE p.Id = pi.Post.Id AND pi.Image.Id = i.Id AND i.Id = ic.Image.Id AND ic.Counter.Id = c.Id");
+                q.AppendLine("SELECT COUNT(i) FROM Post p, PostImage pi, Image i");
+                if (options.Counters) q.AppendLine(", ImageCounter ic, Counter c");
+                q.AppendLine("WHERE p.Id = pi.Post.Id AND pi.Image.Id = i.Id");
+                if (options.Counters) q.AppendLine("AND i.Id = ic.Image.Id AND ic.Counter.Id = c.Id");
 
                 if (options != null && options.PostId > 0)
                 {
@@ -1256,9 +1272,10 @@ namespace DBlog.WebServices
 
                 StringBuilder q = new StringBuilder();
 
-                q.AppendLine("SELECT {PostImage.*} FROM Post, PostImage {PostImage}, Image, ImageCounter, Counter");
+                q.AppendLine("SELECT {PostImage.*} FROM Post, PostImage {PostImage}, Image");
+                if (options.Counters) q.AppendLine(", ImageCounter, Counter");
                 q.AppendLine("WHERE Post.Post_Id = {PostImage}.Post_Id AND {PostImage}.Image_Id = Image.Image_Id");
-                q.AppendLine("AND Image.Image_Id = ImageCounter.Image_Id AND ImageCounter.Counter_Id = Counter.Counter_Id");
+                if (options.Counters) q.AppendLine("AND Image.Image_Id = ImageCounter.Image_Id AND ImageCounter.Counter_Id = Counter.Counter_Id");
 
                 if (options != null && options.PostId > 0)
                 {
@@ -1287,10 +1304,14 @@ namespace DBlog.WebServices
                 IList list = query.List();
 
                 List<TransitPostImage> result = new List<TransitPostImage>(list.Count);
+                int index = (options != null) ? options.FirstResult : 0;
 
                 foreach (PostImage obj in list)
                 {
-                    result.Add(new TransitPostImage(session, obj, ticket));
+                    TransitPostImage tpi = new TransitPostImage(session, obj, ticket);
+                    tpi.Index = index;
+                    index++;
+                    result.Add(tpi);
                 }
 
                 return result;

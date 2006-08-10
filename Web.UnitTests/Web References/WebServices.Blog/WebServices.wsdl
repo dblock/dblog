@@ -126,10 +126,18 @@
       </s:element>
       <s:complexType name="WebServiceQueryOptions">
         <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="SortExpression" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="SortDirection" type="tns:WebServiceQuerySortDirection" />
           <s:element minOccurs="1" maxOccurs="1" name="PageSize" type="s:int" />
           <s:element minOccurs="1" maxOccurs="1" name="PageNumber" type="s:int" />
         </s:sequence>
       </s:complexType>
+      <s:simpleType name="WebServiceQuerySortDirection">
+        <s:restriction base="s:string">
+          <s:enumeration value="Ascending" />
+          <s:enumeration value="Descending" />
+        </s:restriction>
+      </s:simpleType>
       <s:element name="GetLoginsResponse">
         <s:complexType>
           <s:sequence>
@@ -280,6 +288,21 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="CreateOrUpdateImageAttributes">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_image" type="tns:TransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="CreateOrUpdateImageAttributesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdateImageAttributesResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetImageById">
         <s:complexType>
           <s:sequence>
@@ -365,6 +388,26 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="IncrementImageCounters">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ids" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfInt">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="int" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="IncrementImageCountersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IncrementImageCountersResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetImageWithBitmapById">
         <s:complexType>
           <s:sequence>
@@ -380,6 +423,32 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetImageEXIFMetaDataById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageEXIFMetaDataByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageEXIFMetaDataByIdResult" type="tns:EXIFMetaData" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="EXIFMetaData">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="EXIFPropertyItems" type="tns:ArrayOfEXIFPropertyItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfEXIFPropertyItem">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="EXIFPropertyItem" nillable="true" type="tns:EXIFPropertyItem" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="EXIFPropertyItem" />
       <s:element name="GetImageWithBitmapByIdIfModifiedSince">
         <s:complexType>
           <s:sequence>
@@ -657,6 +726,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -808,6 +878,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="ImagesCount" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Title" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="BodyXHTML" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="Body" type="s:string" />
               <s:element minOccurs="0" maxOccurs="1" name="TopicName" type="s:string" />
               <s:element minOccurs="1" maxOccurs="1" name="TopicId" type="s:int" />
@@ -893,6 +964,36 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="TransitPost" nillable="true" type="tns:TransitPost" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetPostsCountEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitPostQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostsCountExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPostsCountExResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostsEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitPostQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostsExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostsExResult" type="tns:ArrayOfTransitPost" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="DeletePost">
         <s:complexType>
           <s:sequence>
@@ -916,6 +1017,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="IncrementPostCounterResult" type="s:long" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementPostCounters">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ids" type="tns:ArrayOfInt" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="IncrementPostCountersResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="IncrementPostCountersResult" type="s:long" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -969,6 +1085,72 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetStats">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="reserved" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetStatsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatsResult" type="tns:TransitStats" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitStats">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="PostsCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="ImagesCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="CommentsCount" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="RssCount" type="tns:TransitCounter" />
+              <s:element minOccurs="0" maxOccurs="1" name="AtomCount" type="tns:TransitCounter" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:element name="GetStatsSummary">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitStatsQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitStatsQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WebServiceQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Type" type="tns:Type" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:simpleType name="Type">
+        <s:restriction base="s:string">
+          <s:enumeration value="Hourly" />
+          <s:enumeration value="Daily" />
+          <s:enumeration value="Weekly" />
+          <s:enumeration value="Monthly" />
+          <s:enumeration value="Yearly" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetStatsSummaryResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetStatsSummaryResult" type="tns:ArrayOfTransitCounter" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitCounter">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitCounter" nillable="true" type="tns:TransitCounter" />
+        </s:sequence>
+      </s:complexType>
       <s:element name="CreateOrUpdatePostImage">
         <s:complexType>
           <s:sequence>
@@ -1004,6 +1186,7 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:TransitObject">
             <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Index" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Image" type="tns:TransitImage" />
               <s:element minOccurs="0" maxOccurs="1" name="Post" type="tns:TransitPost" />
             </s:sequence>
@@ -1033,6 +1216,8 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:WebServiceQueryOptions">
             <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Counters" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="PreferredOnly" type="s:boolean" />
               <s:element minOccurs="1" maxOccurs="1" name="PostId" type="s:int" />
             </s:sequence>
           </s:extension>
@@ -1065,6 +1250,36 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="TransitPostImage" nillable="true" type="tns:TransitPostImage" />
         </s:sequence>
       </s:complexType>
+      <s:element name="GetPostImagesCountEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitPostImageQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostImagesCountExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetPostImagesCountExResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostImagesEx">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitPostImageQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetPostImagesExResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetPostImagesExResult" type="tns:ArrayOfTransitPostImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPermalinkById">
         <s:complexType>
           <s:sequence>
@@ -1950,6 +2165,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2122,6 +2338,12 @@
   <wsdl:message name="CreateOrUpdateImageSoapOut">
     <wsdl:part name="parameters" element="tns:CreateOrUpdateImageResponse" />
   </wsdl:message>
+  <wsdl:message name="CreateOrUpdateImageAttributesSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateImageAttributes" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdateImageAttributesSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdateImageAttributesResponse" />
+  </wsdl:message>
   <wsdl:message name="GetImageByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetImageById" />
   </wsdl:message>
@@ -2152,11 +2374,23 @@
   <wsdl:message name="IncrementImageCounterSoapOut">
     <wsdl:part name="parameters" element="tns:IncrementImageCounterResponse" />
   </wsdl:message>
+  <wsdl:message name="IncrementImageCountersSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementImageCounters" />
+  </wsdl:message>
+  <wsdl:message name="IncrementImageCountersSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementImageCountersResponse" />
+  </wsdl:message>
   <wsdl:message name="GetImageWithBitmapByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetImageWithBitmapById" />
   </wsdl:message>
   <wsdl:message name="GetImageWithBitmapByIdSoapOut">
     <wsdl:part name="parameters" element="tns:GetImageWithBitmapByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetImageEXIFMetaDataByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageEXIFMetaDataById" />
+  </wsdl:message>
+  <wsdl:message name="GetImageEXIFMetaDataByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageEXIFMetaDataByIdResponse" />
   </wsdl:message>
   <wsdl:message name="GetImageWithBitmapByIdIfModifiedSinceSoapIn">
     <wsdl:part name="parameters" element="tns:GetImageWithBitmapByIdIfModifiedSince" />
@@ -2332,6 +2566,18 @@
   <wsdl:message name="GetPostsSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostsResponse" />
   </wsdl:message>
+  <wsdl:message name="GetPostsCountExSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostsCountEx" />
+  </wsdl:message>
+  <wsdl:message name="GetPostsCountExSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostsCountExResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostsExSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostsEx" />
+  </wsdl:message>
+  <wsdl:message name="GetPostsExSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostsExResponse" />
+  </wsdl:message>
   <wsdl:message name="DeletePostSoapIn">
     <wsdl:part name="parameters" element="tns:DeletePost" />
   </wsdl:message>
@@ -2344,11 +2590,29 @@
   <wsdl:message name="IncrementPostCounterSoapOut">
     <wsdl:part name="parameters" element="tns:IncrementPostCounterResponse" />
   </wsdl:message>
+  <wsdl:message name="IncrementPostCountersSoapIn">
+    <wsdl:part name="parameters" element="tns:IncrementPostCounters" />
+  </wsdl:message>
+  <wsdl:message name="IncrementPostCountersSoapOut">
+    <wsdl:part name="parameters" element="tns:IncrementPostCountersResponse" />
+  </wsdl:message>
   <wsdl:message name="CreateOrUpdateStatsSoapIn">
     <wsdl:part name="parameters" element="tns:CreateOrUpdateStats" />
   </wsdl:message>
   <wsdl:message name="CreateOrUpdateStatsSoapOut">
     <wsdl:part name="parameters" element="tns:CreateOrUpdateStatsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetStats" />
+  </wsdl:message>
+  <wsdl:message name="GetStatsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetStatsSummarySoapIn">
+    <wsdl:part name="parameters" element="tns:GetStatsSummary" />
+  </wsdl:message>
+  <wsdl:message name="GetStatsSummarySoapOut">
+    <wsdl:part name="parameters" element="tns:GetStatsSummaryResponse" />
   </wsdl:message>
   <wsdl:message name="CreateOrUpdatePostImageSoapIn">
     <wsdl:part name="parameters" element="tns:CreateOrUpdatePostImage" />
@@ -2379,6 +2643,18 @@
   </wsdl:message>
   <wsdl:message name="GetPostImagesSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostImagesResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostImagesCountExSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostImagesCountEx" />
+  </wsdl:message>
+  <wsdl:message name="GetPostImagesCountExSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostImagesCountExResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetPostImagesExSoapIn">
+    <wsdl:part name="parameters" element="tns:GetPostImagesEx" />
+  </wsdl:message>
+  <wsdl:message name="GetPostImagesExSoapOut">
+    <wsdl:part name="parameters" element="tns:GetPostImagesExResponse" />
   </wsdl:message>
   <wsdl:message name="GetPermalinkByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetPermalinkById" />
@@ -2787,6 +3063,11 @@
       <wsdl:input message="tns:CreateOrUpdateImageSoapIn" />
       <wsdl:output message="tns:CreateOrUpdateImageSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateImageAttributes">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update an image.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdateImageAttributesSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdateImageAttributesSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetImageById">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get an image.</wsdl:documentation>
       <wsdl:input message="tns:GetImageByIdSoapIn" />
@@ -2812,10 +3093,20 @@
       <wsdl:input message="tns:IncrementImageCounterSoapIn" />
       <wsdl:output message="tns:IncrementImageCounterSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="IncrementImageCounters">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment image counters.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementImageCountersSoapIn" />
+      <wsdl:output message="tns:IncrementImageCountersSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetImageWithBitmapById">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data.</wsdl:documentation>
       <wsdl:input message="tns:GetImageWithBitmapByIdSoapIn" />
       <wsdl:output message="tns:GetImageWithBitmapByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetImageEXIFMetaDataById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageEXIFMetaDataByIdSoapIn" />
+      <wsdl:output message="tns:GetImageEXIFMetaDataByIdSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetImageWithBitmapByIdIfModifiedSince">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data if modified since.</wsdl:documentation>
@@ -2962,20 +3253,45 @@
       <wsdl:input message="tns:GetPostsSoapIn" />
       <wsdl:output message="tns:GetPostsSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetPostsCountEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get posts count with joined tables.</wsdl:documentation>
+      <wsdl:input message="tns:GetPostsCountExSoapIn" />
+      <wsdl:output message="tns:GetPostsCountExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostsEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get posts with joined tables.</wsdl:documentation>
+      <wsdl:input message="tns:GetPostsExSoapIn" />
+      <wsdl:output message="tns:GetPostsExSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="DeletePost">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a post.</wsdl:documentation>
       <wsdl:input message="tns:DeletePostSoapIn" />
       <wsdl:output message="tns:DeletePostSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="IncrementPostCounter">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment an image counter.</wsdl:documentation>
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment a post counter.</wsdl:documentation>
       <wsdl:input message="tns:IncrementPostCounterSoapIn" />
       <wsdl:output message="tns:IncrementPostCounterSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="IncrementPostCounters">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment post counters.</wsdl:documentation>
+      <wsdl:input message="tns:IncrementPostCountersSoapIn" />
+      <wsdl:output message="tns:IncrementPostCountersSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CreateOrUpdateStats">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Update statistics for a series of requests.</wsdl:documentation>
       <wsdl:input message="tns:CreateOrUpdateStatsSoapIn" />
       <wsdl:output message="tns:CreateOrUpdateStatsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStats">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get stats summary.</wsdl:documentation>
+      <wsdl:input message="tns:GetStatsSoapIn" />
+      <wsdl:output message="tns:GetStatsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetStatsSummary">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get stats summary counters.</wsdl:documentation>
+      <wsdl:input message="tns:GetStatsSummarySoapIn" />
+      <wsdl:output message="tns:GetStatsSummarySoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CreateOrUpdatePostImage">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a post image.</wsdl:documentation>
@@ -3001,6 +3317,16 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get post images.</wsdl:documentation>
       <wsdl:input message="tns:GetPostImagesSoapIn" />
       <wsdl:output message="tns:GetPostImagesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostImagesCountEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get post images count with joined tables.</wsdl:documentation>
+      <wsdl:input message="tns:GetPostImagesCountExSoapIn" />
+      <wsdl:output message="tns:GetPostImagesCountExSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetPostImagesEx">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get post images with joined tables.</wsdl:documentation>
+      <wsdl:input message="tns:GetPostImagesExSoapIn" />
+      <wsdl:output message="tns:GetPostImagesExSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetPermalinkById">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a permalink.</wsdl:documentation>
@@ -3411,6 +3737,15 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateImageAttributes">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateImageAttributes" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetImageById">
       <soap:operation soapAction="http://dblock.org/ns/GetImageById" style="document" />
       <wsdl:input>
@@ -3456,8 +3791,26 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="IncrementImageCounters">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementImageCounters" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetImageWithBitmapById">
       <soap:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageEXIFMetaDataById">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageEXIFMetaDataById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3726,6 +4079,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPostsCountEx">
+      <soap:operation soapAction="http://dblock.org/ns/GetPostsCountEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostsEx">
+      <soap:operation soapAction="http://dblock.org/ns/GetPostsEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DeletePost">
       <soap:operation soapAction="http://dblock.org/ns/DeletePost" style="document" />
       <wsdl:input>
@@ -3744,8 +4115,35 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="IncrementPostCounters">
+      <soap:operation soapAction="http://dblock.org/ns/IncrementPostCounters" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateOrUpdateStats">
       <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdateStats" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStats">
+      <soap:operation soapAction="http://dblock.org/ns/GetStats" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatsSummary">
+      <soap:operation soapAction="http://dblock.org/ns/GetStatsSummary" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -3791,6 +4189,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostImages">
       <soap:operation soapAction="http://dblock.org/ns/GetPostImages" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostImagesCountEx">
+      <soap:operation soapAction="http://dblock.org/ns/GetPostImagesCountEx" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostImagesEx">
+      <soap:operation soapAction="http://dblock.org/ns/GetPostImagesEx" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4431,6 +4847,15 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="CreateOrUpdateImageAttributes">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateImageAttributes" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetImageById">
       <soap12:operation soapAction="http://dblock.org/ns/GetImageById" style="document" />
       <wsdl:input>
@@ -4476,8 +4901,26 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="IncrementImageCounters">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementImageCounters" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetImageWithBitmapById">
       <soap12:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetImageEXIFMetaDataById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageEXIFMetaDataById" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -4746,6 +5189,24 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetPostsCountEx">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPostsCountEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostsEx">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPostsEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="DeletePost">
       <soap12:operation soapAction="http://dblock.org/ns/DeletePost" style="document" />
       <wsdl:input>
@@ -4764,8 +5225,35 @@
         <soap12:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="IncrementPostCounters">
+      <soap12:operation soapAction="http://dblock.org/ns/IncrementPostCounters" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="CreateOrUpdateStats">
       <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdateStats" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStats">
+      <soap12:operation soapAction="http://dblock.org/ns/GetStats" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetStatsSummary">
+      <soap12:operation soapAction="http://dblock.org/ns/GetStatsSummary" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -4811,6 +5299,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostImages">
       <soap12:operation soapAction="http://dblock.org/ns/GetPostImages" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostImagesCountEx">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPostImagesCountEx" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetPostImagesEx">
+      <soap12:operation soapAction="http://dblock.org/ns/GetPostImagesEx" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -36,6 +36,7 @@ public partial class ShowImages : BlogPage
     {
         images.CurrentPageIndex = 0;
         TransitPostImageQueryOptions options = new TransitPostImageQueryOptions();
+        options.Counters = true;
         images.VirtualItemCount = SessionManager.GetCachedCollectionCount(
             "GetPostImagesCountEx", SessionManager.PostTicket, new TransitPostImageQueryOptions());
         images_OnGetDataSource(sender, e);
@@ -49,6 +50,7 @@ public partial class ShowImages : BlogPage
         options.PageSize = images.PageSize;
         options.SortExpression = "Counter.Count";
         options.SortDirection = WebServiceQuerySortDirection.Descending;
+        options.Counters = true;
         images.DataSource = SessionManager.GetCachedCollection<TransitPostImage>(
             "GetPostImagesEx", SessionManager.PostTicket, options);
     }

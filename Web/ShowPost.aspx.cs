@@ -32,6 +32,18 @@ public partial class ShowPost : BlogPage
         }
     }
 
+    public bool PreferredOnlyFromQueryString
+    {
+        get
+        {
+            object p = Request["PreferredOnly"];
+            if (p == null) return false;
+            bool pb = false;
+            bool.TryParse(p.ToString(), out pb);
+            return pb;
+        }
+    }
+
     public TransitPost Post
     {
         get
@@ -78,6 +90,8 @@ public partial class ShowPost : BlogPage
 
             if (!IsPostBack)
             {
+                PreferredOnly = PreferredOnlyFromQueryString;
+
                 if (!HasAccess)
                 {
                     Response.Redirect(string.Format("Login.aspx?r={0}&cookie={1}",
@@ -118,6 +132,26 @@ public partial class ShowPost : BlogPage
         postimage.ImageUrl = string.Format("ShowPicture.aspx?id={0}", post.ImageId);
         linkimage.HRef = string.Format("ShowImage.aspx?id={0}&pid={1}", post.ImageId, post.Id);
 
+        GetImagesData(sender, e);
+        GetCommentsData(sender, e);
+    }
+
+    void GetCommentsData(object sender, EventArgs e)
+    {
+        TransitPost post = Post;
+
+        comments.Visible = (post.CommentsCount > 0);
+        comments.CurrentPageIndex = 0;
+        comments.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+            "GetPostCommentsCount", SessionManager.PostTicket, new TransitPostCommentQueryOptions(Post.Id));
+        comments_OnGetDataSource(sender, e);
+        comments.DataBind();
+    }
+
+    void GetImagesData(object sender, EventArgs e)
+    {
+        TransitPost post = Post;
+
         TransitPostImageQueryOptions imagesoptions = new TransitPostImageQueryOptions(Post.Id);
         imagesoptions.PreferredOnly = PreferredOnly;
         images.Visible = (post.ImagesCount > 1);
@@ -126,13 +160,6 @@ public partial class ShowPost : BlogPage
             "GetPostImagesCountEx", SessionManager.PostTicket, imagesoptions);
         images_OnGetDataSource(sender, e);
         images.DataBind();
-
-        comments.Visible = (post.CommentsCount > 0);
-        comments.CurrentPageIndex = 0;
-        comments.VirtualItemCount = SessionManager.GetCachedCollectionCount(
-            "GetPostCommentsCount", SessionManager.PostTicket, new TransitPostCommentQueryOptions(Post.Id));
-        comments_OnGetDataSource(sender, e);
-        comments.DataBind();
     }
 
     void images_OnGetDataSource(object sender, EventArgs e)
@@ -185,8 +212,36 @@ public partial class ShowPost : BlogPage
         try
         {
             PreferredOnly = ! PreferredOnly;
-            linkPreferred.Text = PreferredOnly ? "Show All" : "Favorites";
-            GetData(sender, e);
+            GetImagesData(sender, e);
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
+    }
+
+    protected override void OnPreRender(EventArgs e)
+    {
+        linkPreferred.Text = PreferredOnly ? "Show All" : "Favorites";
+        base.OnPreRender(e);
+    }
+
+    public void images_OnItemCommand(object sender, DataListCommandEventArgs e)
+    {
+        try
+        {
+            switch (e.CommandName)
+            {
+                case "TogglePreferred":
+                    TransitImage image = SessionManager.BlogService.GetImageById(
+                        SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    image.Preferred = !image.Preferred;
+                    SessionManager.BlogService.CreateOrUpdateImageAttributes(
+                        SessionManager.Ticket, image);
+                    images_OnGetDataSource(sender, e);
+                    ((LinkButton)e.CommandSource).Text = image.Preferred ? "P" : "p";
+                    break;
+            }
         }
         catch (Exception ex)
         {

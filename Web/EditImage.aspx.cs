@@ -13,6 +13,16 @@ using System.IO;
 
 public partial class EditImage : BlogAdminPage
 {
+    public string ReturnUrl
+    {
+        get
+        {
+            string result = Request.QueryString["r"];
+            if (string.IsNullOrEmpty(result)) return "ManageImages.aspx";
+            return result;
+        }
+    }
+
     private TransitImage mImage = null;
 
     public TransitImage Image
@@ -79,8 +89,19 @@ public partial class EditImage : BlogAdminPage
 
             Image.Name = CheckInput("FileName", inputFileName.Text);
             Image.Description = inputDescription.Text;
-            SessionManager.BlogService.CreateOrUpdateImage(SessionManager.Ticket, Image);
-            Response.Redirect("ManageImages.aspx");
+
+            if (inputImage.HasNewData)
+            {
+                SessionManager.BlogService.CreateOrUpdateImage(
+                    SessionManager.Ticket, Image);
+            }
+            else
+            {
+                SessionManager.BlogService.CreateOrUpdateImageAttributes(
+                    SessionManager.Ticket, Image);
+            }
+
+            Response.Redirect(ReturnUrl);
         }
         catch (Exception ex)
         {

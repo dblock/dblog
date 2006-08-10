@@ -18,7 +18,7 @@
        <asp:Label ID="postcreated" runat="server" /> |
        <asp:Label ID="postcounter" runat="server" /> |
        <asp:Hyperlink ID="linkComment" runat="server" Text="New Comment" /> |
-       <asp:LinkButton ID="linkPreferred" OnClick="linkPreferred_Click" runat="server" Enabled="false" Text="Favorites" />
+       <asp:LinkButton ID="linkPreferred" OnClick="linkPreferred_Click" runat="server" Enabled="true" Text="Favorites" />
       </ContentTemplate>
      </atlas:UpdatePanel>
     </div>
@@ -35,20 +35,21 @@
    </td>
   </tr>
  </table>
- <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always" RenderMode="Inline">
+ <atlas:UpdatePanel runat="server" ID="panelImages" Mode="Always" RenderMode="Inline">
   <ContentTemplate>
    <Controls:PagedList runat="server" ID="images" CssClass="table" AllowCustomPaging="true"
-    RepeatColumns="4" RepeatRows="3" CellPadding="2" ShowHeader="true" Font-Bold="true">
+    RepeatColumns="4" RepeatRows="3" CellPadding="2" ShowHeader="true" Font-Bold="true"
+    OnItemCommand="images_OnItemCommand">
     <HeaderStyle CssClass="table_tr_th" HorizontalAlign="Center" />
     <ItemStyle HorizontalAlign="Center" CssClass="table_tr_td" />
     <pagerstyle cssclass="table_pager" position="TopAndBottom" nextpagetext="Next" prevpagetext="Prev"
      horizontalalign="Center" />
     <ItemTemplate>
-     <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>&index=<%# Eval("Index") %>'>
+     <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>&index=<%# Eval("Index") %>&PreferredOnly=<%# PreferredOnly %>'>
       <img border="0" alt='<%# Renderer.Render(Eval("Image.Description")) %>' src='ShowPicture.aspx?id=<%# Eval("Image.Id") %>' />
      </a>
      <div class="link_small">
-      <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>&index=<%# Eval("Index") %>'>
+      <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>&index=<%# Eval("Index") %>&PreferredOnly=<%# PreferredOnly %>'>
        <div>
         <%# Renderer.Render(Eval("Image.Name")) %>
         <%# GetCounter((TransitImage) Eval("Image")) %>
@@ -57,6 +58,11 @@
         <%# GetComments((TransitImage) Eval("Image")) %>
        </div>
       </a>
+      <div style='<%# SessionManager.IsAdministrator ? string.Empty : "display: none;" %>'>
+       <asp:LinkButton runat="server" ID="togglePreferred" CommandArgument='<%# Eval("Image.Id") %>' 
+        CommandName="TogglePreferred" Text='<%# ((bool) Eval("Image.Preferred")) ? "P" : "p" %>' />
+       | <a href='EditImage.aspx?id=<%# Eval("Image.Id") %>&r=ShowPost.aspx?id=<%# Eval("Post.Id") %>'>edit</a>
+      </div>
      </div>
     </ItemTemplate>
    </Controls:PagedList>

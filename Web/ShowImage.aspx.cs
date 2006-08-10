@@ -51,6 +51,18 @@ public partial class ShowImage : BlogPage
         }
     }
 
+    public bool PreferredOnly
+    {
+        get
+        {
+            object p = Request["PreferredOnly"];
+            if (p == null) return false;
+            bool pb = false;
+            bool.TryParse(p.ToString(), out pb);
+            return pb;
+        }
+    }
+
     public bool HasAccess
     {
         get
@@ -118,9 +130,11 @@ public partial class ShowImage : BlogPage
         {
             if (pid > 0)
             {
+                TransitPostImageQueryOptions options = new TransitPostImageQueryOptions(pid);
+                options.PreferredOnly = PreferredOnly;
                 images.CurrentPageIndex = index;
-                images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
-                    SessionManager.PostTicket, new TransitPostImageQueryOptions(pid));
+                images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCountEx(
+                    SessionManager.PostTicket, options);
             }
             else
             {
@@ -189,9 +203,11 @@ public partial class ShowImage : BlogPage
         List<TransitPostImage> list = null;
         if (pid > 0)
         {
-            list = SessionManager.BlogService.GetPostImages(
-                SessionManager.PostTicket, new TransitPostImageQueryOptions(
-                    pid, images.PageSize, images.CurrentPageIndex));
+            TransitPostImageQueryOptions options = new TransitPostImageQueryOptions(
+                    pid, images.PageSize, images.CurrentPageIndex);
+            options.PreferredOnly = PreferredOnly;
+            list = SessionManager.BlogService.GetPostImagesEx(
+                SessionManager.PostTicket, options);
         }
         else
         {
@@ -240,7 +256,7 @@ public partial class ShowImage : BlogPage
         {
             string result = Request.QueryString["r"];
             int pid = GetId("pid");
-            if (string.IsNullOrEmpty(result) && (pid > 0)) return string.Format("ShowPost.aspx?id={0}", pid);
+            if (string.IsNullOrEmpty(result) && (pid > 0)) return string.Format("ShowPost.aspx?id={0}&PreferredOnly={1}", pid, PreferredOnly);
             if (string.IsNullOrEmpty(result)) return "ShowBlog.aspx";
             return result;
         }

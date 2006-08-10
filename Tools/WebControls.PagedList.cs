@@ -379,7 +379,7 @@ namespace DBlog.Tools.WebControls
                     VirtualItemCount = PagedDataSource.DataSourceCount;
                 }
             }
-            else
+            else if (PagedDataSource.DataSource == null)
             {
                 PagedDataSource.DataSource = new DummyDataSource(VirtualItemCount);                
             }
