@@ -12,6 +12,7 @@ using DBlog.TransitData;
 using System.Text;
 using System.Collections.Generic;
 using DBlog.Tools.Web;
+using System.Text.RegularExpressions;
 
 public partial class ShowImage : BlogPage
 {
@@ -152,6 +153,7 @@ public partial class ShowImage : BlogPage
             TransitPostImage postimage = new TransitPostImage();
             postimage.Image = image;
             postimage.Post = null;
+            postimage.Id = RequestId;
             list = new List<TransitPostImage>();
             list.Add(postimage);
         }
@@ -161,6 +163,10 @@ public partial class ShowImage : BlogPage
         if (list.Count > 0)
         {
             PostImage = list[0];
+
+            exif.DataSource = SessionManager.BlogService.GetImageEXIFMetaDataById(
+                SessionManager.Ticket, PostImage.Id).EXIFPropertyItems;
+            exif.DataBind();
 
             linkComment.NavigateUrl = string.Format("EditImageComment.aspx?sid={0}&rid={1}",
                 PostImage.Image.Id, GetId("pid"));
@@ -193,6 +199,19 @@ public partial class ShowImage : BlogPage
             if (string.IsNullOrEmpty(result) && (pid > 0)) return string.Format("ShowPost.aspx?id={0}", pid);
             if (string.IsNullOrEmpty(result)) return "ShowBlog.aspx";
             return result;
+        }
+    }
+
+    public void linkEXIF_Click(object sender, EventArgs e)
+    {
+        try
+        {
+            exif.Visible = !exif.Visible;
+            panelEXIF.Update();
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
         }
     }
 }

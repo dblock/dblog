@@ -590,6 +590,22 @@ namespace DBlog.Tools.Drawing.Exif
         private int len;
         private byte[] data;
 
+        public string Code
+        {
+            get
+            {
+                return exifCode.ToString();
+            }
+        }
+
+        public string Data
+        {
+            get
+            {
+                return ToString();
+            }
+        }
+
         public override string ToString()
         {
             switch (EXIFType)

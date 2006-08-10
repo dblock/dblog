@@ -13,7 +13,9 @@ using System.Collections.Generic;
 using System.Reflection;
 using DBlog.TransitData.References;
 using System.Text;
+using DBlog.Tools.Drawing.Exif;
 using DBlog.Tools.Web;
+using System.IO;
 
 namespace DBlog.WebServices
 {
@@ -432,6 +434,21 @@ namespace DBlog.WebServices
                 return new TransitImage(session, image, false, true, ticket);
             }
         }
+
+        [WebMethod(Description = "Get image data.")]
+        public EXIFMetaData GetImageEXIFMetaDataById(string ticket, int id)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                DBlog.Data.Image image = (DBlog.Data.Image)session.Load(typeof(DBlog.Data.Image), id);
+                TransitImage t_image = new TransitImage(session, image, false, true, ticket);
+                EXIFMetaData exif_metadata = (t_image.Data != null) ? new EXIFMetaData(
+                    new System.Drawing.Bitmap(new MemoryStream(t_image.Data)).PropertyItems) : null;
+                return exif_metadata;
+            }
+        }
+
 
         [WebMethod(Description = "Get image data if modified since.", BufferResponse = true)]
         public TransitImage GetImageWithBitmapByIdIfModifiedSince(string ticket, int id, DateTime ifModifiedSince)

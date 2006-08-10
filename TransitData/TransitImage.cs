@@ -7,6 +7,7 @@ using System.Drawing;
 using DBlog.Tools.Drawing;
 using NHibernate.Expression;
 using DBlog.Data.Hibernate;
+using DBlog.Tools.Drawing.Exif;
 
 namespace DBlog.TransitData
 {

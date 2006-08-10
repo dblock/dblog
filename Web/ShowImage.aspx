@@ -12,8 +12,21 @@
    <div class="subtitle">
     <asp:HyperLink ID="linkBack" runat="server" text="Back" />
     | <asp:HyperLink ID="linkComment" runat="server" text="New Comment" />
-    | <asp:Label ID="labelCount" runat="server" />    
+    | <asp:Label ID="labelCount" runat="server" />
+    | <asp:LinkButton ID="linkEXIF" runat="server" OnClick="linkEXIF_Click" Text="EXIF" />
    </div>
+  </ContentTemplate>
+ </atlas:UpdatePanel>
+ <atlas:UpdatePanel runat="server" ID="panelEXIF" Mode="Conditional">
+  <ContentTemplate>
+   <Controls:PagedList Visible="false" runat="server" ID="exif" CssClass="table" AutoGenerateColumns="false"
+    AllowCustomPaging="false"  RepeatRows="100" CellPadding="2" ShowHeader="true" RepeatColumns="2">
+    <ItemStyle HorizontalAlign="Center" CssClass="table_tr_td" />
+    <ItemTemplate>
+      <%# Renderer.Render(Eval("Code")) %>:
+      <b><%# Renderer.Render(Eval("Data")) %></b>   
+    </ItemTemplate>
+   </Controls:PagedList>
   </ContentTemplate>
  </atlas:UpdatePanel>
  <atlas:UpdatePanel runat="server" ID="panelImages" Mode="Conditional" RenderMode="Inline">
