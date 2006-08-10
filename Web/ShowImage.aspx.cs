@@ -144,8 +144,6 @@ public partial class ShowImage : BlogPage
             list = SessionManager.BlogService.GetPostImages(
                 SessionManager.PostTicket, new TransitPostImageQueryOptions(
                     pid, images.PageSize, images.CurrentPageIndex));
-
-            linkBack.NavigateUrl = string.Format("ShowPost.aspx?id={0}", GetId("pid"));
         }
         else
         {
@@ -156,9 +154,9 @@ public partial class ShowImage : BlogPage
             postimage.Post = null;
             list = new List<TransitPostImage>();
             list.Add(postimage);
-
-            linkBack.NavigateUrl = "ShowBlog.aspx";
         }
+
+        linkBack.NavigateUrl = ReturnUrl;
 
         if (list.Count > 0)
         {
@@ -184,5 +182,17 @@ public partial class ShowImage : BlogPage
         }
 
         return result.ToString();
+    }
+
+    public string ReturnUrl
+    {
+        get
+        {
+            string result = Request.QueryString["r"];
+            int pid = GetId("pid");
+            if (string.IsNullOrEmpty(result) && (pid > 0)) return string.Format("ShowPost.aspx?id={0}", pid);
+            if (string.IsNullOrEmpty(result)) return "ShowBlog.aspx";
+            return result;
+        }
     }
 }

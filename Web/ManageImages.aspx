@@ -8,7 +8,7 @@
   Images
  </div>
  <div class="link">
-  <a href="EditImage.aspx">&#187; Upload New</a>
+  <a href="EditImage.aspx">Upload New</a>
  </div>
  <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
   <ContentTemplate>
@@ -20,8 +20,10 @@
     <PagerStyle CssClass="table_pager" Position="TopAndBottom" NextPageText="Next" PrevPageText="Prev"
      HorizontalAlign="Center" />
     <ItemTemplate>
-     <img src='ShowPicture.aspx?id=<%# Eval("Id") %>' 
-      alt='<%# Renderer.Render(Eval("Description")) %>' />
+     <a href='ShowImage.aspx?id=<%# Eval("Id") %>&r=ManageImages.aspx'>
+      <img border="0" src='ShowPicture.aspx?id=<%# Eval("Id") %>' 
+       alt='<%# Renderer.Render(Eval("Description")) %>' />
+     </a>
      <div>
       <asp:LinkButton ID="linkDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
        runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />
