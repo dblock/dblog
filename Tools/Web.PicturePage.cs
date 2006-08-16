@@ -50,22 +50,32 @@ namespace DBlog.Tools.Web
             }
         }
 
+        public Nullable<DateTime> IfModifiedSince
+        {
+            get
+            {
+                Nullable<DateTime> result = new Nullable<DateTime>();
+                object o = Request.Headers["If-Modified-Since"];
+                if (o == null) return result;
+                string s = o.ToString().Split(';')[0];
+                DateTime dt;
+                if (DateTime.TryParse(s, out dt)) result = dt;
+                return result;
+            }
+        }
+
         protected void Page_Load(object sender, EventArgs e)
         {
             try
             {
-                object ifmodifiedsince = Request.Headers["If-Modified-Since"];
+                Nullable<DateTime> ims = IfModifiedSince;
 
-                if (ifmodifiedsince != null && CacheDuration > 0)
+                if (ims.HasValue)
                 {
-                    DateTime ifmodifiedsincedt;
-                    if (DateTime.TryParse(ifmodifiedsince.ToString(), out ifmodifiedsincedt))
+                    if (ims.Value.ToUniversalTime().AddSeconds(CacheDuration) > DateTime.UtcNow)
                     {
-                        if (ifmodifiedsincedt.ToUniversalTime().AddSeconds(CacheDuration) > DateTime.UtcNow)
-                        {
-                            Response.StatusCode = 304;
-                            return;
-                        }
+                        Response.StatusCode = 304;
+                        return;
                     }
                 }
 
@@ -90,24 +100,24 @@ namespace DBlog.Tools.Web
                         }
                         else
                         {
-                            p = (ifmodifiedsince != null) ?
-                                GetPictureWithThumbnail(RequestId, DateTime.Parse(ifmodifiedsince.ToString())) :
-                                GetPictureWithThumbnail(RequestId);
+                            p = ims.HasValue ?
+                                    GetPictureWithThumbnail(RequestId, ims.Value) :
+                                    GetPictureWithThumbnail(RequestId);
                         }
 
                         break;
                     case PicturePageType.Bitmap:
 
-                        p = (ifmodifiedsince != null) ?
-                            GetPictureWithBitmap(RequestId, DateTime.Parse(ifmodifiedsince.ToString())) :
-                            GetPictureWithBitmap(RequestId);
+                        p = ims.HasValue ?
+                                GetPictureWithBitmap(RequestId, ims.Value) :
+                                GetPictureWithBitmap(RequestId);
 
                         break;
                 }
 
                 if (p == null)
                 {
-                    if (ifmodifiedsince != null)
+                    if (ims.HasValue)
                     {
                         Response.StatusCode = 304;
                         return;
