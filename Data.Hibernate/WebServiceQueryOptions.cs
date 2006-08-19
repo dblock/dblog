@@ -111,6 +111,14 @@ namespace DBlog.Data.Hibernate
             }
         }
 
+        public virtual void Apply(StringCriteria criteria)
+        {
+            if (!string.IsNullOrEmpty(SortExpression))
+            {
+                criteria.AddOrder(SortExpression, SortDirection);
+            }
+        }
+
         public virtual void Apply(CountQuery query)
         {
 

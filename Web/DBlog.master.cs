@@ -15,6 +15,7 @@ using System.Text;
 public partial class DBlogMaster : MasterPage
 {
     public event ViewTopicsControl.TopicChangedHandler TopicChanged;
+    public event SearchControl.SearchHandler Search;
 
     private TransitCounter Counter
     {
@@ -36,6 +37,7 @@ public partial class DBlogMaster : MasterPage
         try
         {
             topics.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
+            search.Search += new SearchControl.SearchHandler(search_Search);
 
             if (!IsPostBack)
             {
@@ -78,6 +80,27 @@ public partial class DBlogMaster : MasterPage
         {
             ReportException(ex);
         }
+    }
+
+    void search_Search(object sender, SearchControl.SearchEventArgs e)
+    {
+        try
+        {
+            if (Search != null)
+            {
+                Search(sender, e);
+            }
+            else
+            {
+                Response.Redirect(string.Format("ShowBlog.aspx?q={0}", Renderer.UrlEncode(e.Query)));
+                panelSearch.Update();
+            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
+        
     }
 
     public void topics_TopicChanged(object sender, ViewTopicsControl.TopicChangedEventArgs e)

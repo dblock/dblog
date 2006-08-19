@@ -23,12 +23,14 @@ public partial class ShowBlog : BlogPage
         {
             DBlogMaster master = (DBlogMaster)this.Master;
             master.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
+            master.Search += new SearchControl.SearchHandler(search_Search);
 
             grid.OnGetDataSource += new EventHandler(grid_OnGetDataSource);
 
             if (!IsPostBack)
             {
                 TopicId = RequestId;
+                Query = Request.Params["q"];
                 GetData(sender, e);
             }
         }
@@ -39,6 +41,7 @@ public partial class ShowBlog : BlogPage
     }
 
     private int mTopicId = 0;
+    private string mQuery = string.Empty;
 
     public int TopicId
     {
@@ -54,11 +57,46 @@ public partial class ShowBlog : BlogPage
         }
     }
 
+    public string Query
+    {
+        get
+        {
+            return DBlog.Tools.Web.ViewState<string>.GetViewStateValue(
+                EnableViewState, ViewState, "Query", mQuery);
+        }
+        set
+        {
+            DBlog.Tools.Web.ViewState<string>.SetViewStateValue(
+                EnableViewState, ViewState, "Query", value, ref mQuery);
+        }
+    }
+
+    public void search_Search(object sender, SearchControl.SearchEventArgs e)
+    {
+        try
+        {
+            Query = e.Query;
+            GetData(sender, e);
+            panelPosts.Update();
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
+    }
+
     public void topics_TopicChanged(object sender, ViewTopicsControl.TopicChangedEventArgs e)
     {
-        TopicId = e.TopicId;
-        GetData(sender, e);
-        panelPosts.Update();
+        try
+        {
+            TopicId = e.TopicId;
+            GetData(sender, e);
+            panelPosts.Update();
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
     }
 
     void grid_OnGetDataSource(object sender, EventArgs e)
@@ -66,7 +104,7 @@ public partial class ShowBlog : BlogPage
         string sortexpression = Request.Params["SortExpression"];
         string sortdirection = Request.Params["SortDirection"];
 
-        TransitPostQueryOptions options = new TransitPostQueryOptions(TopicId, grid.PageSize, grid.CurrentPageIndex);
+        TransitPostQueryOptions options = new TransitPostQueryOptions(TopicId, Query, grid.PageSize, grid.CurrentPageIndex);
         options.SortDirection = string.IsNullOrEmpty(sortdirection) 
             ? WebServiceQuerySortDirection.Descending
             : (WebServiceQuerySortDirection)Enum.Parse(typeof(WebServiceQuerySortDirection), sortdirection);
@@ -88,7 +126,7 @@ public partial class ShowBlog : BlogPage
         grid.CurrentPageIndex = 0;
         grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
             (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPostsCount" : "GetPostsCountEx",
-            SessionManager.PostTicket, new TransitPostQueryOptions(TopicId));
+            SessionManager.PostTicket, new TransitPostQueryOptions(TopicId, Query));
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }

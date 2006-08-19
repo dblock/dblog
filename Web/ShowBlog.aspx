@@ -2,6 +2,7 @@
  Inherits="ShowBlog" Title="Blog" %>
 
 <%@ Register TagPrefix="Controls" TagName="Topics" Src="ViewTopicsControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="Search" Src="SearchControl.ascx" %>
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 

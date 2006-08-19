@@ -3,6 +3,7 @@
 <%@ Register TagPrefix="Controls" TagName="Topics" Src="ViewTopicsControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="Highlights" Src="ViewHighlightsControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="Feeds" Src="ViewFeedsControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="Search" Src="SearchControl.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -119,6 +120,13 @@
         <img src="images/site/rss.gif" border="0" alt="rss xml"></a> <a href="AtomBlog.aspx">
          <img src="images/site/atom.gif" border="0" alt="atom xml"></a>
       </div>
+      <atlas:UpdatePanel Mode="Conditional" runat="server" ID="panelSearch" RenderMode="Inline">
+       <ContentTemplate>
+        <div class="search">
+         <Controls:Search runat="server" ID="search" />
+        </div>
+       </ContentTemplate>
+      </atlas:UpdatePanel>
       <div>
        <asp:Label ID="labelUsername" CssClass="description" runat="server" />
       </div>

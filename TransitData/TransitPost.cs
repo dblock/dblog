@@ -7,12 +7,14 @@ using NHibernate.Expression;
 using DBlog.Data.Hibernate;
 using DBlog.TransitData.References;
 using System.Configuration;
+using DBlog.Tools.Web;
 
 namespace DBlog.TransitData
 {
     public class TransitPostQueryOptions : WebServiceQueryOptions
     {
         private int mTopicId = 0;
+        private string mQuery = string.Empty;
 
         public int TopicId
         {
@@ -26,23 +28,38 @@ namespace DBlog.TransitData
             }
         }
 
+        public string Query
+        {
+            get
+            {
+                return mQuery;
+            }
+            set
+            {
+                mQuery = value;
+            }
+        }
+
         public TransitPostQueryOptions()
         {
         }
 
         public TransitPostQueryOptions(
-            int topicid)
+            int topicid, string query)
         {
-            mTopicId = topicid;            
+            mTopicId = topicid;
+            mQuery = query;
         }
 
         public TransitPostQueryOptions(
             int topicid,
+            string query,
             int pagesize,
             int pagenumber)
             : base(pagesize, pagenumber)
         {
             mTopicId = topicid;
+            mQuery = query;
         }
 
         public TransitPostQueryOptions(
@@ -51,6 +68,22 @@ namespace DBlog.TransitData
             : base(pagesize, pagenumber)
         {
 
+        }
+
+        public override void Apply(StringCriteria criteria)
+        {
+            if (TopicId != 0)
+            {
+                criteria.Add(string.Format("Post.Topic_Id = {0}", TopicId));
+            }
+
+            if (! string.IsNullOrEmpty(Query))
+            {
+                criteria.Add(string.Format("( FREETEXT (Post.Title, '{0}') OR FREETEXT (Post.Body, '{0}') )",
+                    Renderer.SqlEncode(Query)));
+            }
+
+            base.Apply(criteria);
         }
 
         public override void Apply(ICriteria criteria)

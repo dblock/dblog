@@ -885,14 +885,17 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                CountQuery q = new CountQuery(session, typeof(DBlog.Data.Post), "Post");
+
+                StringCriteria criteria = new StringCriteria(session, "Post", typeof(Post));
 
                 if (options != null)
                 {
-                    options.Apply(q);
+                    options.Apply(criteria);
                 }
 
-                return q.Execute();
+                IQuery sqlquery = criteria.CreateQuery();
+
+                return (int)sqlquery.List().Count;
             }
         }
 
@@ -902,14 +905,21 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                ICriteria cr = session.CreateCriteria(typeof(Post));
+                StringCriteria criteria = new StringCriteria(session, "Post", typeof(Post));
 
                 if (options != null)
                 {
-                    options.Apply(cr);
+                    options.Apply(criteria);
                 }
 
-                IList list = cr.List();
+                IQuery sqlquery = criteria.CreateQuery();
+
+                if (options != null)
+                {
+                    options.Apply(sqlquery);
+                }
+
+                IList list = sqlquery.List();
 
                 List<TransitPost> result = new List<TransitPost>(list.Count);
 
@@ -929,21 +939,26 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
 
-                StringBuilder q = new StringBuilder();
-                q.AppendLine("SELECT COUNT(p) FROM Post p, PostCounter pc, Counter c");
-                q.AppendLine("WHERE p.Id = pc.Post.Id AND c.Id = pc.Counter.Id");
+                string[] tables = { "PostCounter", "Counter" };
+                StringCriteria criteria = new StringCriteria(session, "Post", typeof(Post), tables);
+                criteria.Add("{Post}.Post_Id = PostCounter.Post_Id");
+                criteria.Add("Counter.Counter_Id = PostCounter.Counter_Id");
 
-                IQuery query = session.CreateQuery(q.ToString());
+                if (options != null)
+                {
+                    options.Apply(criteria);
+                }
+
+                IQuery query = criteria.CreateQuery();
 
                 if (options != null)
                 {
                     options.Apply(query);
                 }
 
-                return (int) query.UniqueResult();
+                return (int) query.List().Count;
             }
         }
-
 
         [WebMethod(Description = "Get posts with joined tables.")]
         public List<TransitPost> GetPostsEx(string ticket, TransitPostQueryOptions options)
@@ -952,17 +967,17 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
 
-                StringBuilder q = new StringBuilder();
-                q.AppendLine("SELECT {Post.*} FROM Post {Post}, PostCounter, Counter");
-                q.AppendLine("WHERE {Post}.Post_Id = PostCounter.Post_Id AND Counter.Counter_Id = PostCounter.Counter_Id");
-                if (options != null && !string.IsNullOrEmpty(options.SortExpression))
+                string[] tables = { "PostCounter", "Counter" };
+                StringCriteria criteria = new StringCriteria(session, "Post", typeof(Post), tables);
+                criteria.Add("{Post}.Post_Id = PostCounter.Post_Id");
+                criteria.Add("Counter.Counter_Id = PostCounter.Counter_Id");
+
+                if (options != null)
                 {
-                    q.AppendLine(string.Format("ORDER BY {0} {1}",
-                        Renderer.SqlEncode(options.SortExpression),
-                        options.SortDirection == WebServiceQuerySortDirection.Ascending ? string.Empty : "DESC"));
+                    options.Apply(criteria);
                 }
 
-                IQuery query = session.CreateSQLQuery(q.ToString(), "Post", typeof(Post));
+                IQuery query = criteria.CreateQuery();
 
                 if (options != null)
                 {
