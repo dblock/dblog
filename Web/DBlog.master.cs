@@ -37,7 +37,7 @@ public partial class DBlogMaster : MasterPage
         try
         {
             topics.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
-            search.Search += new SearchControl.SearchHandler(search_Search);
+            searchBox.Search += new SearchControl.SearchHandler(searchBox_Search);
 
             if (!IsPostBack)
             {
@@ -82,7 +82,7 @@ public partial class DBlogMaster : MasterPage
         }
     }
 
-    void search_Search(object sender, SearchControl.SearchEventArgs e)
+    void searchBox_Search(object sender, SearchControl.SearchEventArgs e)
     {
         try
         {

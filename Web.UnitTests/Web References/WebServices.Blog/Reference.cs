@@ -4966,6 +4966,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private int topicIdField;
         
+        private string queryField;
+        
         /// <remarks/>
         public int TopicId {
             get {
@@ -4973,6 +4975,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.topicIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Query {
+            get {
+                return this.queryField;
+            }
+            set {
+                this.queryField = value;
             }
         }
     }

@@ -123,7 +123,7 @@
       <atlas:UpdatePanel Mode="Conditional" runat="server" ID="panelSearch" RenderMode="Inline">
        <ContentTemplate>
         <div class="search">
-         <Controls:Search runat="server" ID="search" />
+         <Controls:Search runat="server" ID="searchBox" />
         </div>
        </ContentTemplate>
       </atlas:UpdatePanel>

@@ -135,6 +135,11 @@ public class SessionManager
     {
         get
         {
+            if (string.IsNullOrEmpty(mTicket))
+            {
+                return string.Empty;
+            }
+
             return mTicket;
         }
     }
