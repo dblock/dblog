@@ -12,52 +12,44 @@
      AutoGenerateColumns="false" AllowPaging="true" AllowCustomPaging="true" 
      PageSize="7" ShowHeader="false" OnItemCommand="grid_ItemCommand" 
      BorderWidth="0" BorderColor="White">
-     <ItemStyle HorizontalAlign="Center" CssClass="table_tr_td" />
+     <ItemStyle CssClass="table_tr_td" />
      <PagerStyle CssClass="table_pager" Position="TopAndBottom" NextPageText="Next"
       PrevPageText="Prev" HorizontalAlign="Center" />
      <Columns>
       <asp:BoundColumn DataField="Id" Visible="false" />
       <asp:TemplateColumn>
        <itemtemplate>
-        <table class="table_post">
-         <tr>
-          <td valign="top" class="table_post_tr_td_left">
-           <div class="post_title">
-            <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
-             <%# Renderer.RenderEx(Eval("Title")) %>
-            </a>
-           </div>
-           <div class="post_subtitle">
-            <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
-             Read
-            </a>
-            | <%# SessionManager.Region.UtcToUser((DateTime) Eval("Created")).ToString("f") %>
-            <%# GetLink((int)Eval("CommentsCount"), (int)Eval("ImagesCount"))%>
-            <a href='EditPostComment.aspx?sid=<%# Eval("Id") %>'>
-             | New Comment
-            </a>
-            | <%# GetCounter((long) Eval("Counter.Count")) %>
-            <span id="Span1" runat="server" style='<%# (bool) SessionManager.IsAdministrator ? String.Empty : "display: none;" %>'>
-             | <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
-              Edit
-             </a>
-             | <asp:LinkButton ID="linkDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
-              runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />
-            </span>
-           </div>
-           <div class="post_body">
-            <%# Renderer.RenderEx(Eval("Body")) %>
-           </div>
-          </td>
-          <td class="table_post_tr_td_right">
-           <asp:Panel Width="100%" id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 %>'>
-            <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
-             <img border="0" src='ShowPicture.aspx?Id=<%# Eval("ImageId") %>' />
-            </a>
-           </asp:Panel>
-          </td>
-         </tr>
-        </table>
+        <div class="post_title">
+         <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
+          <%# Renderer.RenderEx(Eval("Title")) %>
+         </a>
+        </div>
+        <div class="post_subtitle">
+         <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
+          Read
+         </a>
+         | <%# SessionManager.Region.UtcToUser((DateTime) Eval("Created")).ToString("f") %>
+         <%# GetLink((int)Eval("CommentsCount"), (int)Eval("ImagesCount"))%>
+         <a href='EditPostComment.aspx?sid=<%# Eval("Id") %>'>
+          | New Comment
+         </a>
+         | <%# GetCounter((long) Eval("Counter.Count")) %>
+         <span id="Span1" runat="server" style='<%# (bool) SessionManager.IsAdministrator ? String.Empty : "display: none;" %>'>
+          | <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
+           Edit
+          </a>
+          | <asp:LinkButton ID="linkDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
+           runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />
+         </span>
+        </div>
+        <div class="post_body">
+         <%# Renderer.RenderEx(Eval("Body")) %>
+        </div>
+        <asp:Panel CssClass="post_image" Width="100%" id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 %>'>
+         <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
+          <img border="0" src='ShowPicture.aspx?Id=<%# Eval("ImageId") %>' />
+         </a>
+        </asp:Panel>
        </itemtemplate>
       </asp:TemplateColumn>
      </Columns>
