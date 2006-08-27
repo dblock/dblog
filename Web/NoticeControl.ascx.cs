@@ -89,13 +89,9 @@ public partial class NoticeControl : BlogControl
         set
         {
             Kind = NoticeKind.Error;
-#if DEBUG
-            string message = value.Message + "<br>" + value.StackTrace.ToString();
-#else
             string message = value.Message.Split('\n')[0];
             int colon = message.IndexOf(':');
             if (colon >= 0) message = message.Substring(colon + 1);
-#endif
             string reportbugurl = string.Format("mailto:{0}?subject={1}&body={2}",
                        SessionManager.GetSetting(
                             "email", "admin@localhost.com"),

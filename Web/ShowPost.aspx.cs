@@ -251,4 +251,15 @@ public partial class ShowPost : BlogPage
             ReportException(ex);
         }
     }
+
+    public string GetImageUri(TransitPostImage ti)
+    {
+        StringBuilder result = new StringBuilder();
+        result.AppendFormat("ShowImage.aspx?id={0}&pid={1}&index={2}",
+            ti.Image.Id, ti.Post.Id, ti.Index);
+        if (PreferredOnly) result.Append("&PreferredOnly=true");
+        if (!string.IsNullOrEmpty(Request.Params["SortExpression"])) result.AppendFormat("&SortExpression={0}", Request.Params["SortExpression"]);
+        if (!string.IsNullOrEmpty(Request.Params["SortDirection"])) result.AppendFormat("&SortDirection={0}", Request.Params["SortDirection"]);
+        return result.ToString();
+    }
 }

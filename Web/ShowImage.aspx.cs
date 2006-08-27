@@ -17,6 +17,7 @@ using DBlog.Tools.Drawing.Exif;
 using DBlog.Tools.Drawing;
 using System.IO;
 using System.Drawing;
+using DBlog.Data.Hibernate;
 
 public partial class ShowImage : BlogPage
 {
@@ -206,6 +207,14 @@ public partial class ShowImage : BlogPage
             TransitPostImageQueryOptions options = new TransitPostImageQueryOptions(
                     pid, images.PageSize, images.CurrentPageIndex);
             options.PreferredOnly = PreferredOnly;
+
+            string sortexpression = Request.Params["SortExpression"];
+            string sortdirection = Request.Params["SortDirection"];
+
+            if (!string.IsNullOrEmpty(sortexpression)) options.SortExpression = sortexpression;
+            if (!string.IsNullOrEmpty(sortdirection)) options.SortDirection = (WebServiceQuerySortDirection)Enum.Parse(
+                typeof(WebServiceQuerySortDirection), sortdirection);
+
             list = SessionManager.BlogService.GetPostImagesEx(
                 SessionManager.PostTicket, options);
         }

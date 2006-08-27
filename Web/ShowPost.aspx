@@ -48,11 +48,11 @@
     <pagerstyle cssclass="table_pager" position="TopAndBottom" nextpagetext="Next" prevpagetext="Prev"
      horizontalalign="Center" />
     <ItemTemplate>
-     <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>&index=<%# Eval("Index") %>&PreferredOnly=<%# PreferredOnly %>'>
+     <a href='<%# GetImageUri((DBlog.TransitData.TransitPostImage) Container.DataItem) %>'>
       <img border="0" alt='<%# Renderer.Render(Eval("Image.Description")) %>' src='ShowPicture.aspx?id=<%# Eval("Image.Id") %>' />
      </a>
      <div class="link_small">
-      <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>&pid=<%# Eval("Post.Id") %>&index=<%# Eval("Index") %>&PreferredOnly=<%# PreferredOnly %>'>
+      <a href='<%# GetImageUri((DBlog.TransitData.TransitPostImage) Container.DataItem) %>'>
        <div>
         <%# Renderer.Render(Eval("Image.Name")) %>
         <%# GetCounter((TransitImage) Eval("Image")) %>
