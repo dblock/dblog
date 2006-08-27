@@ -39,8 +39,8 @@ public class SystemFeedUpdateService : DBlog.Data.Hibernate.HibernateService
             catch (Exception ex)
             {
                 EventLog.WriteEntry(
-                    string.Format("Exception in FeedUpdateService with feed {0}: {1}",
-                        feed.Id, ex.Message), EventLogEntryType.Error);
+                    string.Format("Exception in FeedUpdateService with feed {0}: {1}\n{2}",
+                        feed.Id, ex.Message, feed.Url), EventLogEntryType.Error);
             }
         }
     }

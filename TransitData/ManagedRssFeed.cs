@@ -34,10 +34,9 @@ namespace DBlog.TransitData
                 StringBuilder TransformedString = new StringBuilder();
                 XslCompiledTransform FeedXsl = new XslCompiledTransform();
                 FeedXsl.Load(new XmlTextReader(new StringReader(mFeed.Xsl)), null, null);
-                XPathDocument XPathNavigator = new XPathDocument(new StringReader(XmlFeed.OuterXml));
                 StringWriter StringWriter = new StringWriter(TransformedString);
                 XmlTextWriter TextWriter = new XmlTextWriter(StringWriter);
-                FeedXsl.Transform(XPathNavigator, TextWriter);
+                FeedXsl.Transform(new XmlNodeReader(XmlFeed.DocumentElement), TextWriter);
                 XmlFeed.LoadXml(TransformedString.ToString());
             }
 
