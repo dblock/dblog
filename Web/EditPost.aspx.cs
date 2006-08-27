@@ -172,7 +172,7 @@ public partial class EditPost : BlogAdminPage
                 loginAdd_Click(sender, e);
             }
 
-            Response.Redirect(string.Format("ShowPost.aspx?id={0}", PostId));
+            ReportInfo("Post Saved");
         }
         catch (Exception ex)
         {
