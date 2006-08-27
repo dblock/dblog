@@ -127,6 +127,17 @@ public partial class ShowBlog : BlogPage
         grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
             (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPostsCount" : "GetPostsCountEx",
             SessionManager.PostTicket, new TransitPostQueryOptions(TopicId, Query));
+
+        if (grid.VirtualItemCount == 0)
+        {
+            labelPosts.Text = "No Posts";
+            labelPosts.Visible = true;
+        }
+        else
+        {
+            labelPosts.Visible = false;
+        }
+
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }
