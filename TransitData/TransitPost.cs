@@ -77,7 +77,7 @@ namespace DBlog.TransitData
                 criteria.Add(string.Format("Post.Topic_Id = {0}", TopicId));
             }
 
-            if (! string.IsNullOrEmpty(Query))
+            if (!string.IsNullOrEmpty(Query))
             {
                 criteria.Add(string.Format("( FREETEXT (Post.Title, '{0}') OR FREETEXT (Post.Body, '{0}') )",
                     Renderer.SqlEncode(Query)));
@@ -176,6 +176,16 @@ namespace DBlog.TransitData
             set
             {
                 mBodyXHTML = value;
+            }
+        }
+
+        private string mRawBody;
+
+        public string RawBody
+        {
+            get
+            {
+                return mRawBody;
             }
         }
 
@@ -318,6 +328,7 @@ namespace DBlog.TransitData
 
             if (hasaccess)
             {
+                mRawBody = o.Body;
                 Body = Render(session, o.Id, o.Body);
                 BodyXHTML = RenderXHTML(session, o);
             }

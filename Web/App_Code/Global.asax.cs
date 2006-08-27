@@ -11,6 +11,7 @@ using DBlog.Data;
 using DBlog.Data.Hibernate;
 using DBlog.WebServices;
 using DBlog.TransitData;
+using System.Configuration;
 
 public class Global : DBlog.Tools.Web.HostedApplication
 {
@@ -19,6 +20,23 @@ public class Global : DBlog.Tools.Web.HostedApplication
     public Global()
     {
 
+    }
+
+    public bool ServicesEnabled
+    {
+        get
+        {
+            bool b_result = true;
+            
+            object result = ConfigurationManager.AppSettings["Services.Enabled"];
+
+            if (result != null)
+            {
+                bool.TryParse(result.ToString(), out b_result);
+            }
+
+            return b_result;
+        }
     }
 
     protected override void Application_Start(Object sender, EventArgs e)
@@ -35,7 +53,10 @@ public class Global : DBlog.Tools.Web.HostedApplication
         DBlog.WebServices.Blog blog = new DBlog.WebServices.Blog();
         EventLog.WriteEntry(string.Format("Running with back-end web services {0}.", blog.GetVersion()), EventLogEntryType.Information);
 
-        mFeedUpdateService.Start();
+        if (ServicesEnabled)
+        {
+            mFeedUpdateService.Start();
+        }
     }
 
     protected void Session_Start(Object sender, EventArgs e)
@@ -65,7 +86,11 @@ public class Global : DBlog.Tools.Web.HostedApplication
 
     protected override void Application_End(Object sender, EventArgs e)
     {
-        mFeedUpdateService.Stop();
+        if (ServicesEnabled)
+        {
+            mFeedUpdateService.Stop();
+        }
+
         base.Application_End(sender, e);
     }
 
