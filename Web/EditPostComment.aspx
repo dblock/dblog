@@ -1,6 +1,7 @@
 <%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="EditPostComment.aspx.cs"
  Inherits="EditPostComment" Title="Edit Post Comment" %>
 
+<%@ Register TagPrefix="FTB" Namespace="FreeTextBoxControls" Assembly="FreeTextBox" %>
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
@@ -16,7 +17,7 @@
     comment:
    </td>
    <td valign="top" class="table_tr_td_value">
-    <asp:TextBox runat="server" CssClass="textbox" Rows="10" TextMode="MultiLine" ID="inputText" />
+    <FTB:FreeTextBox id="inputText" runat="Server" />
    </td>
   </tr>
   <tr>

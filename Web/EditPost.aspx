@@ -5,6 +5,7 @@
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Web" TagName="SelectDate" Src="SelectDateControl.ascx" %>
 <%@ Register TagPrefix="Web" TagName="SelectTime" Src="SelectTimeControl.ascx" %>
+<%@ Register TagPrefix="FTB" Namespace="FreeTextBoxControls" Assembly="FreeTextBox" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <div class="title">
   Post
@@ -27,7 +28,7 @@
     text:
    </td>
    <td valign="top" class="table_tr_td_value">
-    <asp:TextBox runat="server" CssClass="textbox" Rows="10" TextMode="MultiLine" ID="inputBody" />
+    <FTB:FreeTextBox id="inputBody" runat="Server" />
    </td>
   </tr>
   <tr>
