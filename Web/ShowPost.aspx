@@ -18,6 +18,9 @@
        <asp:Label ID="postcreated" runat="server" /> |
        <asp:Label ID="postcounter" runat="server" /> |
        <asp:Hyperlink ID="linkComment" runat="server" Text="New Comment" /> |
+       <span id="spanAdmin" runat="server">
+        <asp:Hyperlink ID="linkEdit" runat="server" Text="Edit" /> |
+       </span>
        <asp:LinkButton ID="linkPreferred" OnClick="linkPreferred_Click" runat="server" Enabled="true" Text="Favorites" />
       </ContentTemplate>
      </atlas:UpdatePanel>

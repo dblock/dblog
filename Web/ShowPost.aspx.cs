@@ -101,6 +101,9 @@ public partial class ShowPost : BlogPage
                 CounterCache.IncrementPostCounter(RequestId, Cache, SessionManager);
 
                 GetData(sender, e);
+
+                spanAdmin.Visible = SessionManager.IsAdministrator;
+                linkEdit.NavigateUrl = string.Format("EditPost.aspx?id={0}", RequestId);
             }
         }
         catch (Exception ex)

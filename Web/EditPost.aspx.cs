@@ -72,7 +72,7 @@ public partial class EditPost : BlogAdminPage
                     GetDataImages(sender, e);
                     GetDataLogins(sender, e);
                     inputTitle.Text = Post.Title;
-                    inputBody.Text = Post.Body;
+                    inputBody.Text = Post.RawBody;
                     inputTopic.Items.FindByValue(Post.TopicId.ToString()).Selected = true;
                     inputCreatedDate.SelectedDate = SessionManager.Region.UtcToUser(Post.Created).Date;
                     inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(Post.Created).TimeOfDay;
@@ -172,7 +172,7 @@ public partial class EditPost : BlogAdminPage
                 loginAdd_Click(sender, e);
             }
 
-            ReportInfo("Item Saved");
+            Response.Redirect(string.Format("ShowPost.aspx?id={0}", PostId));
         }
         catch (Exception ex)
         {
