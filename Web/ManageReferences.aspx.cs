@@ -50,8 +50,11 @@ public partial class admin_ManageReferences : BlogAdminPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
+        WebServiceQueryOptions options = new WebServiceQueryOptions(grid.PageSize, grid.CurrentPageIndex);
+        options.SortExpression = "Id";
+        options.SortDirection = WebServiceQuerySortDirection.Descending;
         grid.DataSource = SessionManager.BlogService.GetReferences(
-            SessionManager.Ticket, new WebServiceQueryOptions(grid.PageSize, grid.CurrentPageIndex));
+            SessionManager.Ticket, options);
     }
 
     public void GetData(object sender, EventArgs e)
