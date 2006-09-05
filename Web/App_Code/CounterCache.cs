@@ -50,6 +50,9 @@ public class CounterCache
 
     public void Flush(SessionManager manager)
     {
+        if (mRequests == null)
+            return;
+
         List<TransitBrowser> browsers = new List<TransitBrowser>();
         List<TransitReferrerHost> rhs = new List<TransitReferrerHost>();
         List<TransitReferrerSearchQuery> rsqs = new List<TransitReferrerSearchQuery>();
@@ -58,34 +61,45 @@ public class CounterCache
 
         foreach(HttpRequest request in mRequests)
         {
-            TransitBrowser browser = new TransitBrowser();
-            browser.Name = request.Browser.Browser;
-            browser.Platform = request.Browser.Platform;
-            browser.Version = request.Browser.Version;
-            browsers.Add(browser);
-
-            // don't track navigation between pages
-            if (request.UrlReferrer != null && request.UrlReferrer.Host != request.Url.Host)
+            try
             {
-                TransitReferrerHost rh = new TransitReferrerHost();
-                rh.Name = request.UrlReferrer.Host;
-                rh.LastSource = request.UrlReferrer.ToString();
-                rh.LastUrl = request.Url.ToString();
-                rh.RequestCount = 1;
-                rhs.Add(rh);
-
-                string q = request.QueryString["q"];
-                if (string.IsNullOrEmpty(q)) q = request.QueryString["s"];
-                if (string.IsNullOrEmpty(q)) q = request.QueryString["search"];
-                if (string.IsNullOrEmpty(q)) q = request.QueryString["query"];
-
-                if (!string.IsNullOrEmpty(q))
+                if (request.Browser != null)
                 {
-                    TransitReferrerSearchQuery trsq = new TransitReferrerSearchQuery();
-                    trsq.RequestCount = 1;
-                    trsq.SearchQuery = q;
-                    rsqs.Add(trsq);
-                }                    
+                    TransitBrowser browser = new TransitBrowser();
+                    browser.Name = request.Browser.Browser;
+                    browser.Platform = request.Browser.Platform;
+                    browser.Version = request.Browser.Version;
+                    browsers.Add(browser);
+                }
+
+                // don't track navigation between pages
+                if (request.UrlReferrer != null && request.UrlReferrer.Host != request.Url.Host)
+                {
+                    TransitReferrerHost rh = new TransitReferrerHost();
+                    rh.Name = request.UrlReferrer.Host;
+                    rh.LastSource = request.UrlReferrer.ToString();
+                    rh.LastUrl = request.Url.ToString();
+                    rh.RequestCount = 1;
+                    rhs.Add(rh);
+
+                    string q = request.QueryString["q"];
+                    if (string.IsNullOrEmpty(q)) q = request.QueryString["s"];
+                    if (string.IsNullOrEmpty(q)) q = request.QueryString["search"];
+                    if (string.IsNullOrEmpty(q)) q = request.QueryString["query"];
+
+                    if (!string.IsNullOrEmpty(q))
+                    {
+                        TransitReferrerSearchQuery trsq = new TransitReferrerSearchQuery();
+                        trsq.RequestCount = 1;
+                        trsq.SearchQuery = q;
+                        rsqs.Add(trsq);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                manager.BlogService.EventLog.WriteEntry(string.Format("CreateOrUpdateStats for a single request failed. {0}",
+                    ex.Message, EventLogEntryType.Warning));
             }
         }
 
@@ -97,7 +111,7 @@ public class CounterCache
         catch (Exception ex)
         {
             manager.BlogService.EventLog.WriteEntry(string.Format("CreateOrUpdateStats failed. {0}",
-                ex.Message, EventLogEntryType.Error));            
+                ex.Message, EventLogEntryType.Error));
         }
 
         mRequests = new List<HttpRequest>();
@@ -149,15 +163,25 @@ public class CounterCache
 
     public static CounterCache GetCounterCache(Cache cache, SessionManager manager)
     {
-        if (s_CounterCache.Expired)
+        try
         {
-            lock (s_CounterCache)
+            if (s_CounterCache.Expired)
             {
-                if (s_CounterCache.Expired)
+                lock (s_CounterCache)
                 {
-                    s_CounterCache.Flush(manager);
+                    if (s_CounterCache.Expired)
+                    {
+                        s_CounterCache.Flush(manager);
+                    }
                 }
             }
+        }
+        catch(Exception ex)
+        {
+            manager.BlogService.EventLog.WriteEntry(string.Format("GetCounterCache failed to flush the cache. {0}",
+                ex.Message, EventLogEntryType.Error));
+            
+            s_CounterCache = new CounterCache();
         }
 
         return s_CounterCache;
