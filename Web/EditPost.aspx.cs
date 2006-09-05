@@ -150,17 +150,39 @@ public partial class EditPost : BlogAdminPage
                 filenames.AddRange(Directory.GetFiles(fullpath, "*.jpg"));
                 filenames.AddRange(Directory.GetFiles(fullpath, "*.gif"));
 
+                List<TransitPostImage> deleted = SessionManager.BlogService.GetPostImages(
+                    SessionManager.Ticket, new TransitPostImageQueryOptions(Post.Id));
+
+                List<TransitPostImage> updated = new List<TransitPostImage>();
+
                 foreach (string filename in filenames)
                 {
-                    ThumbnailBitmap bitmap = new ThumbnailBitmap(filename);
 
                     TransitImage image = new TransitImage();
-                    image.Thumbnail = bitmap.Thumbnail;
                     image.Name = Path.GetFileName(filename);
                     image.Path = inputServerPath.Text;
+
+                    for (int i = 0; i < deleted.Count; i++)
+                    {
+                        if (deleted[i].Image.Name == image.Name)
+                        {
+                            image = deleted[i].Image;                           
+                            deleted.RemoveAt(i);
+                            break;
+                        }
+                    }
+
+                    ThumbnailBitmap bitmap = new ThumbnailBitmap(filename);
+                    image.Thumbnail = bitmap.Thumbnail;
                     
                     SessionManager.BlogService.CreateOrUpdatePostImage(
                         SessionManager.Ticket, PostId, image);
+                }
+
+                foreach (TransitPostImage dimage in deleted)
+                {
+                    SessionManager.BlogService.DeletePostImage(
+                        SessionManager.Ticket, dimage.Id);
                 }
 
                 images.Visible = true;
@@ -221,9 +243,16 @@ public partial class EditPost : BlogAdminPage
 
     void images_OnGetDataSource(object sender, EventArgs e)
     {
-        images.DataSource = SessionManager.BlogService.GetPostImages(
+        List<TransitPostImage> tp_images = SessionManager.BlogService.GetPostImages(
             SessionManager.Ticket, new TransitPostImageQueryOptions(
                 PostId, images.PageSize, images.CurrentPageIndex));
+
+        images.DataSource = tp_images;
+
+        if (!IsPostBack && tp_images != null)
+        {
+            inputServerPath.Text = tp_images[0].Image.Path;
+        }
     }
 
     public void GetDataImages(object sender, EventArgs e)
