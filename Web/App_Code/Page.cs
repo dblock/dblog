@@ -128,4 +128,14 @@ public class BlogPage : DBlog.Tools.Web.Page
 
         return value;
     }
+
+    protected override void OnPreInit(EventArgs e)
+    {
+        if (Master != null && Master is MasterPage)
+        {
+            ((MasterPage)Master).OnPagePreInit(e);
+        }
+
+        base.OnPreInit(e);
+    }
 }

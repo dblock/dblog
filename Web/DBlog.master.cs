@@ -135,4 +135,14 @@ public partial class DBlogMaster : MasterPage
             ReportException(ex);
         }
     }
+
+    public override void OnPagePreInit(EventArgs e)
+    {
+        switch (Request.Browser.Browser)
+        {
+            case "AppleMAC-Safari":
+                ScriptManager1.EnablePartialRendering = false;
+                break;
+        }
+    }
 }
