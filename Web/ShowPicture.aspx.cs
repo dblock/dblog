@@ -44,6 +44,9 @@ public partial class ShowPicture : BlogPicturePage
         TransitImage img = SessionManager.GetCachedObject<TransitImage>(
             "GetImageWithBitmapById", SessionManager.PostTicket, id);
 
+        if (img == null)
+            return null;
+
         if (img.Data == null && !string.IsNullOrEmpty(img.Path))
         {
             img.Data = new ThumbnailBitmap(Path.Combine(Path.Combine(
@@ -66,8 +69,11 @@ public partial class ShowPicture : BlogPicturePage
         Picture pic = new Picture();
 
         string key = string.Format("{0}:{1}:{2}",
-            SessionManager.PostTicket.GetHashCode(), "GetImageWithBitmapByIdIfModifiedSince", id);
+            string.IsNullOrEmpty(SessionManager.PostTicket) ? 0 : SessionManager.PostTicket.GetHashCode(), 
+            "GetImageWithBitmapByIdIfModifiedSince", id);
+        
         TransitImage img = (TransitImage) Cache[key];
+        
         if (img == null || SessionManager.IsAdministrator)
         {
             img = (TransitImage) SessionManager.BlogService.GetImageWithBitmapByIdIfModifiedSince(
@@ -117,8 +123,11 @@ public partial class ShowPicture : BlogPicturePage
         Picture pic = new Picture();
 
         string key = string.Format("{0}:{1}:{2}",
-            SessionManager.PostTicket.GetHashCode(), "GetImageWithThumbnailByIdIfModifiedSince", id);
+            string.IsNullOrEmpty(SessionManager.PostTicket) ? 0 : SessionManager.PostTicket.GetHashCode(), 
+            "GetImageWithThumbnailByIdIfModifiedSince", id);
+        
         TransitImage img = (TransitImage)Cache[key];
+        
         if (img == null || SessionManager.IsAdministrator)
         {
             img = (TransitImage)SessionManager.BlogService.GetImageWithThumbnailByIdIfModifiedSince(

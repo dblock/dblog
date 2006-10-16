@@ -20,7 +20,7 @@ public class SessionManager
 {
     public const string sDBlogAuthCookieName = "DBlog.authcookie";
     public const string sDBlogPostCookieName = "DBlog.postcookie";
-    
+
     const string sDBlogImpersonateCookieName = "DBlog.impersonatecookie";
     const string sDBlogRememberLogin = "DBlog.rememberlogin";
 
@@ -69,7 +69,7 @@ public class SessionManager
     public string GetSetting(string name, string defaultvalue)
     {
         object result = ConfigurationManager.AppSettings[name];
-        
+
         if (result == null)
         {
             result = defaultvalue;
@@ -120,7 +120,7 @@ public class SessionManager
                 {
                     ManagedLogin.GetLoginId(authcookie.Value);
                     ticket = authcookie.Value;
-                    Cache.Insert(key, ticket, null, 
+                    Cache.Insert(key, ticket, null,
                         DateTime.Now.AddHours(1), TimeSpan.Zero);
                 }
             }
@@ -185,7 +185,7 @@ public class SessionManager
     public TransitLogin GetLoginRecord(string ticket)
     {
         TransitLogin result = null;
-        
+
         if (!string.IsNullOrEmpty(ticket))
         {
             try
@@ -210,7 +210,7 @@ public class SessionManager
     public TransitLogin LoginRecord
     {
         get
-        {            
+        {
             if (mLoginRecord == null)
             {
                 mLoginRecord = GetLoginRecord(Ticket);
@@ -243,7 +243,7 @@ public class SessionManager
     {
         get
         {
-            if (! IsLoggedIn)
+            if (!IsLoggedIn)
                 return false;
 
             TransitLogin t_login = LoginRecord;
@@ -320,48 +320,81 @@ public class SessionManager
 
     public TransitType GetCachedObject<TransitType>(string invoke, string ticket, int id)
     {
-        string key = string.Format("{0}:{1}:{2}",
-            ticket.GetHashCode(), invoke, id);
-        TransitType result = (TransitType) Cache[key];
-        if (result == null || IsAdministrator)
+        try
         {
-            object[] args = { ticket, id };
-            result = (TransitType) BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
-            Cache.Insert(key, result, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+            string key = string.Format("{0}:{1}:{2}",
+                string.IsNullOrEmpty(ticket) ? 0 : ticket.GetHashCode(),
+                invoke, id);
+
+            TransitType result = (TransitType)Cache[key];
+            
+            if (result == null || IsAdministrator)
+            {
+                object[] args = { ticket, id };
+                result = (TransitType)BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
+                Cache.Insert(key, result, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+            }
+
+            return result;
         }
-        return result;
+        catch (Exception ex)
+        {
+            throw new Exception(string.Format("{0}: {1}", invoke, ex.Message), ex);
+        }
     }
 
     public List<TransitType> GetCachedCollection<TransitType>(
         string invoke, string ticket, WebServiceQueryOptions options)
     {
-        string key = string.Format("{0}:{1}:{2}", 
-            ticket.GetHashCode(), options == null ? 0 : options.GetHashCode(),
-            invoke);
-        List<TransitType> result = (List<TransitType>) Cache[key];
-        if (result == null || IsAdministrator)
+        try
         {
-            object[] args = { ticket, options };
-            result = (List<TransitType>) BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
-            Cache.Insert(key, result, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+            string key = string.Format("{0}:{1}:{2}",
+                string.IsNullOrEmpty(ticket) ? 0 : ticket.GetHashCode(),
+                options == null ? 0 : options.GetHashCode(),
+                invoke);
+
+            List<TransitType> result = (List<TransitType>)Cache[key];
+
+            if (result == null || IsAdministrator)
+            {
+                object[] args = { ticket, options };
+                result = (List<TransitType>)BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
+                Cache.Insert(key, result, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+            }
+
+            return result;
         }
-        return result;
+        catch (Exception ex)
+        {
+            throw new Exception(string.Format("{0}: {1}", invoke, ex.Message), ex);
+        }
     }
 
     public int GetCachedCollectionCount(
         string invoke, string ticket, WebServiceQueryOptions options)
     {
-        string key = string.Format("{0}:{1}:{2}", 
-            ticket.GetHashCode(), options == null ? 0 : options.GetHashCode(),
-            invoke);
-        object count = Cache[key];
-        if (count == null || IsAdministrator)
+        try
         {
-            object[] args = { ticket, options };
-            count = BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
-            Cache.Insert(key, count, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+            string key = string.Format("{0}:{1}:{2}",
+                string.IsNullOrEmpty(ticket) ? 0 : ticket.GetHashCode(),
+                options == null ? 0 : options.GetHashCode(),
+                invoke);
+
+            object count = Cache[key];
+
+            if (count == null || IsAdministrator)
+            {
+                object[] args = { ticket, options };
+                count = BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
+                Cache.Insert(key, count, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+            }
+
+            return (int)count;
         }
-        return (int) count;
+        catch (Exception ex)
+        {
+            throw new Exception(string.Format("{0}: {1}", invoke, ex.Message), ex);
+        }
     }
 
     public Region Region

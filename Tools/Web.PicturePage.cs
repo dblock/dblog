@@ -117,15 +117,8 @@ namespace DBlog.Tools.Web
 
                 if (p == null)
                 {
-                    if (ims.HasValue)
-                    {
-                        Response.StatusCode = 304;
-                        return;
-                    }
-                    else
-                    {
-                        throw new Exception("Invalid picture id.");
-                    }
+                    Response.StatusCode = (ims.HasValue ? 304 : 404);
+                    return;
                 }
 
                 if (p.Bitmap == null)
