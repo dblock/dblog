@@ -13,7 +13,7 @@
  <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
   <ContentTemplate>
    <Controls:PagedGrid runat="server" ID="grid" CssClass="table" AutoGenerateColumns="false"
-    AllowPaging="true" AllowCustomPaging="true" PageSize="10" CellPadding="2"
+    AllowPaging="true" AllowCustomPaging="true" PageSize="20" CellPadding="2"
     OnItemCommand="grid_ItemCommand" ShowHeader="true">
     <HeaderStyle CssClass="table_tr_th" HorizontalAlign="Center" />
     <ItemStyle HorizontalAlign="Center" Font-Bold="True" CssClass="table_tr_td" />

@@ -39,5 +39,47 @@ namespace DBlog.Web.UnitTests.WebServices
                 return "ReferrerHostRollup";
             }
         }
+
+        [Test]
+        public void ExistingReferrerHostRollupTest()
+        {
+            int count = 10;
+            // create hosts
+            TransitReferrerHost host = new TransitReferrerHost();
+            host.LastSource = host.LastUrl = "http://localhost";
+            host.RequestCount = 1;
+
+            string root = Guid.NewGuid().ToString();
+            for (int i = 0; i < count; i++)
+            {
+                host.Name = string.Format("http://www.{0}.{1}", root, i);
+                Blog.CreateOrUpdateReferrerHost(Ticket, host);
+                Console.WriteLine("Created {0}", host.Name);
+            }
+
+            // create a rollup, should merge hosts
+            TransitReferrerHostRollup rollup = new TransitReferrerHostRollup();
+            rollup.Name = string.Format("http://www.{0}.%", root);
+            rollup.Rollup = string.Format("http://www.{0}.target", root);
+            rollup.Id = Blog.CreateOrUpdateReferrerHostRollup(Ticket, rollup);
+
+            // get the rollup host
+            TransitReferrerHost[] hosts = Blog.GetReferrerHosts(Ticket, null);
+
+            bool found = false;
+            foreach (TransitReferrerHost rh in hosts)
+            {
+                if (rh.Name == rollup.Rollup)
+                {
+                    Console.WriteLine("Found {0} with {1} hits", rh.Name, rh.RequestCount);
+                    Assert.AreEqual(rh.RequestCount, count);
+                    found = true;
+                    Blog.DeleteReferrerHost(Ticket, rh.Id);
+                }
+            }
+
+            Assert.IsTrue(found);
+            Blog.DeleteReferrerHostRollup(Ticket, rollup.Id);
+        }
     }
 }

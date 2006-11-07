@@ -55,6 +55,7 @@
   <ItemGroup>
     <Compile Include="ManagedAtomFeed.cs" />
     <Compile Include="ManagedFeed.cs" />
+    <Compile Include="ManagedReferrerHostRollup.cs" />
     <Compile Include="ManagedRssFeed.cs" />
     <Compile Include="References.ExternalRenderer.cs" />
     <Compile Include="References.LiveJournalRenderer.cs" />

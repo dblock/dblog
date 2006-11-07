@@ -627,6 +627,8 @@ namespace DBlog.WebServices
                 ReferrerHostRollup referrerhostrollup = t_referrerhostrollup.GetReferrerHostRollup(session);
                 session.SaveOrUpdate(referrerhostrollup);
                 session.Flush();
+                ManagedReferrerHostRollup mrhr = new ManagedReferrerHostRollup(referrerhostrollup);
+                mrhr.RollupExistingReferrerHosts(session);
                 return referrerhostrollup.Id;
             }
         }
