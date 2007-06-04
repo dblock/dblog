@@ -249,7 +249,7 @@ public partial class EditPost : BlogAdminPage
 
         images.DataSource = tp_images;
 
-        if (!IsPostBack && tp_images != null)
+        if (!IsPostBack && tp_images != null && tp_images.Count > 0)
         {
             inputServerPath.Text = tp_images[0].Image.Path;
         }
