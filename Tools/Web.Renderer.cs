@@ -31,7 +31,10 @@ namespace DBlog.Tools.Web
         {
             if (message == null) return string.Empty;
             string result = HttpUtility.HtmlEncode(message);
-            result = result.Replace("\n", "<br/>\n");
+            if (result.IndexOf("<P>", StringComparison.InvariantCultureIgnoreCase) < 0)
+            {
+                result = result.Replace("\n", "<br/>\n");
+            }
             return result;
         }
 
@@ -44,7 +47,10 @@ namespace DBlog.Tools.Web
         public static string RenderEx(string message)
         {
             string result = CleanHtml(message);
-            result = result.Replace("\n", "<br/>\n");
+            if (result.IndexOf("<P>", StringComparison.InvariantCultureIgnoreCase) < 0)
+            {
+                result = result.Replace("\n", "<br/>\n");
+            }
             result = RenderMarkups(result);
             result = RenderHref(result);
             return result;
