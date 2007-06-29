@@ -9,7 +9,7 @@
  <div class="link">
   <a href="ManageReferrerHostRollups.aspx">Cancel</a>
  </div>
- <atlas:UpdatePanel runat="server" ID="panelReferrerHostRollup" Mode="Always">
+ <asp:UpdatePanel runat="server" ID="panelReferrerHostRollup" UpdateMode="Always">
   <ContentTemplate>
    <table class="table">
     <tr>
@@ -38,5 +38,5 @@
     </tr>
    </table>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
 </asp:Content>

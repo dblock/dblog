@@ -78,7 +78,7 @@
    </td>
   </tr>
  </table> 
- <atlas:UpdatePanel runat="server" ID="panelImages" Mode="Always" RenderMode="Inline">
+ <asp:UpdatePanel runat="server" ID="panelImages" UpdateMode="Always" RenderMode="Inline">
   <ContentTemplate>
    <Controls:PagedList runat="server" ID="images" CssClass="table" AllowCustomPaging="true"
     RepeatColumns="4" RepeatRows="2" CellPadding="2" OnItemCommand="images_ItemCommand"
@@ -99,11 +99,11 @@
     </ItemTemplate>
    </Controls:PagedList>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
  <div class="title">
   Logins
  </div>
- <atlas:UpdatePanel runat="server" ID="panelLogins" Mode="Always" RenderMode="Inline">
+ <asp:UpdatePanel runat="server" ID="panelLogins" UpdateMode="Always" RenderMode="Inline">
   <ContentTemplate>
    <table class="table" cellpadding="2">
     <tr>
@@ -152,5 +152,5 @@
     </Columns>
    </Controls:PagedGrid>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
 </asp:Content>

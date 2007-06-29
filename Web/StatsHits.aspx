@@ -2,7 +2,7 @@
  Inherits="StatsHits" Title="Statistics - Hits" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
- <atlas:UpdatePanel runat="server" ID="panelChart" Mode="Always">
+ <asp:UpdatePanel runat="server" ID="panelChart" UpdateMode="Always">
   <ContentTemplate>
    <div class="title">
     <asp:Label ID="labelChartType" runat="server" Text="Daily" />
@@ -25,7 +25,7 @@
     </tr>
    </table>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
  <table class="table">
   <tr>
    <td class="description">

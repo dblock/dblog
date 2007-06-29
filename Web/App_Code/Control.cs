@@ -8,7 +8,6 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.WebServices;
-using Microsoft.Web.UI;
 
 public class BlogControl : System.Web.UI.UserControl
 {

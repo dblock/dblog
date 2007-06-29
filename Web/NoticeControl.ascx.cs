@@ -11,6 +11,7 @@ using System.Web.UI.HtmlControls;
 using System.Web.Services.Protocols;
 using DBlog.Tools.Web;
 using System.Diagnostics;
+using System.Text;
 
 public partial class NoticeControl : BlogControl
 {
@@ -44,7 +45,7 @@ public partial class NoticeControl : BlogControl
 
     protected void Page_Load(object sender, EventArgs e)
     {
-
+        linkCollapseExpand.Attributes["onclick"] = string.Format("CollapseExpandDetail('{0}')", divDetail.ClientID);
     }
 
     public string Style
@@ -78,8 +79,6 @@ public partial class NoticeControl : BlogControl
     protected override void OnPreRender(EventArgs e)
     {
         tableNotice.Attributes["class"] = string.Format("{0}_{1}", CssClass, Kind.ToString().ToLower());
-        labelMessage.Text = HtmlEncode ? Renderer.Render(Message) : Message;
-        panelNotice.Visible = ! string.IsNullOrEmpty(Message);
         imageMessage.ImageUrl = string.Format("images/site/{0}.gif", Kind.ToString().ToLower());
         base.OnPreRender(e);
     }
@@ -89,10 +88,17 @@ public partial class NoticeControl : BlogControl
         set
         {
             Kind = NoticeKind.Error;
+            HtmlEncode = false;
 
+            string detail = value.Message;
             string message = value.Message.Split('\n')[0];
-            int colon = message.IndexOf(':');
-            if (colon >= 0) message = message.Substring(colon + 1);
+
+            Exception ex_detail = value.InnerException;
+            while (ex_detail != null)
+            {
+                detail = detail + "\n" + ex_detail.Message;
+                ex_detail = ex_detail.InnerException;
+            }
             
             string reportbugurl = string.Format("mailto:{0}?subject={1}&body={2}",
                        SessionManager.GetSetting(
@@ -100,10 +106,28 @@ public partial class NoticeControl : BlogControl
                             Renderer.UrlEncode(Request.Url.PathAndQuery),
                             Renderer.UrlEncode(message));
 
-            Message = string.Format("{0}<br>This may be a bug. If you believe you should not be getting this error, " +
-                "<a href={1}>click here</a> to report it.", message, reportbugurl);
+            Message = string.Format("{0}<br><small>This may be a bug. If you believe you should not be getting this error, " +
+                "please <a href={1}>click here</a> to report it.</small>", message, reportbugurl);
 
-            HtmlEncode = false;
+            Detail = detail;
+
+            StringBuilder s = new StringBuilder();
+            s.AppendFormat("User-raised exception from {0}: {1}\n{2}", value.Source, value.Message, value.StackTrace);
+            if (Request != null && !string.IsNullOrEmpty(Request.RawUrl)) s.AppendFormat("\nUrl: {0}", Request.RawUrl);
+            if (Request != null && Request.UrlReferrer != null) s.AppendFormat("\nReferrer: {0}", Request.UrlReferrer);
+            if (Request != null && !string.IsNullOrEmpty(Request.UserAgent)) s.AppendFormat("\nUser-agent: {0}", Request.UserAgent);
+
+            SessionManager.EventLog.WriteEntry(s.ToString(), EventLogEntryType.Warning);
+
+            Exception ex_eventlog = value.InnerException;
+            while (ex_eventlog != null)
+            {
+                SessionManager.EventLog.WriteEntry(string.Format("User-raised inner-exception from {0}: {1}\n{2}",
+                    ex_eventlog.Source, ex_eventlog.Message, ex_eventlog.StackTrace),
+                    EventLogEntryType.Warning);
+
+                ex_eventlog = ex_eventlog.InnerException;
+            }
         }
     }
 
@@ -120,6 +144,24 @@ public partial class NoticeControl : BlogControl
                 EnableViewState, ViewState, "Message", value, ref mMessage);
 
             panelNotice.Visible = ! string.IsNullOrEmpty(value);
+            labelMessage.Text = HtmlEncode ? Renderer.Render(Message) : Message;
+        }
+    }
+
+    protected string Detail
+    {
+        get
+        {
+            return DBlog.Tools.Web.ViewState<string>.GetViewStateValue(
+                EnableViewState, ViewState, "Detail", mMessage);
+        }
+        set
+        {
+            DBlog.Tools.Web.ViewState<string>.SetViewStateValue(
+                EnableViewState, ViewState, "Detail", value, ref mMessage);
+
+            panelNotice.Visible = !string.IsNullOrEmpty(value);
+            labelDetail.Text = HtmlEncode ? Renderer.Render(Detail) : Detail;
         }
     }
 
@@ -134,6 +176,9 @@ public partial class NoticeControl : BlogControl
         {
             DBlog.Tools.Web.ViewState<NoticeKind>.SetViewStateValue(
                 EnableViewState, ViewState, "NoticeKind", value, ref mNoticeKind);
+
+            panelNotice.CssClass = string.Format("{0}_{1}", CssClass, value.ToString().ToLower());
+            imageMessage.ImageUrl = string.Format("images/site/{0}.gif", value.ToString().ToLower());
         }
     }
 

@@ -9,7 +9,7 @@
  <div class="subtitle">
   <asp:HyperLink ID="linkCancel" runat="server" Text="Cancel" />
  </div>
- <atlas:UpdatePanel runat="server" ID="panelLogin" Mode="Always">
+ <asp:UpdatePanel runat="server" ID="panelLogin" UpdateMode="Always">
   <ContentTemplate>
    <asp:Panel ID="panelAdmin" runat="server">
     <table class="table">
@@ -79,5 +79,5 @@
     </tr>
    </table>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
 </asp:Content>

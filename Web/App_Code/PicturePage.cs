@@ -11,7 +11,6 @@ using DBlog.Tools.Web;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using DBlog.WebServices;
-using Microsoft.Web.UI;
 
 public abstract class BlogPicturePage : DBlog.Tools.Web.PicturePage
 {

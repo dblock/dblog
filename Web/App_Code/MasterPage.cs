@@ -9,7 +9,6 @@ using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Tools.Web;
 using DBlog.WebServices;
-using Microsoft.Web.UI;
 
 public class MasterPage : System.Web.UI.MasterPage
 {

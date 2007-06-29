@@ -9,7 +9,7 @@
  <div class="link">
   <a href="ManageReferences.aspx">Cancel</a>
  </div>
- <atlas:UpdatePanel runat="server" ID="panelReference" Mode="Always">
+ <asp:UpdatePanel runat="server" ID="panelReference" UpdateMode="Always">
   <ContentTemplate>
    <table class="table">
     <tr>
@@ -46,5 +46,5 @@
     </tr>
    </table>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
 </asp:Content>

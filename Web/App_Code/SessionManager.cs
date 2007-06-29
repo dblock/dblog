@@ -15,6 +15,7 @@ using DBlog.WebServices;
 using DBlog.TransitData;
 using DBlog.Data.Hibernate;
 using DBlog.Tools.Globalization;
+using System.Diagnostics;
 
 public class SessionManager
 {
@@ -24,6 +25,7 @@ public class SessionManager
     const string sDBlogImpersonateCookieName = "DBlog.impersonatecookie";
     const string sDBlogRememberLogin = "DBlog.rememberlogin";
 
+    private EventLog mEventLog = null;
     private Cache mCache = null;
     private HttpRequest mRequest = null;
     private HttpResponse mResponse = null;
@@ -409,4 +411,15 @@ public class SessionManager
         }
     }
 
+    public EventLog EventLog
+    {
+        get
+        {
+            if (mEventLog == null)
+            {
+                mEventLog = HostedApplication.CreateEventLog();
+            }
+            return mEventLog;
+        }
+    }
 }

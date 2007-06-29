@@ -2,7 +2,7 @@
  Inherits="ViewFeedItemsControl" %>
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
-<atlas:UpdatePanel ID="panelItems" runat="server" Mode="Conditional">
+<asp:UpdatePanel ID="panelItems" runat="server" UpdateMode="Conditional">
  <ContentTemplate>
   <Controls:PagedGrid runat="server" ID="grid" CssClass="table_feeditems" AutoGenerateColumns="false"
    AllowPaging="true" AllowCustomPaging="true" ShowHeader="false" PageSize="5">
@@ -22,4 +22,4 @@
    </Columns>
   </Controls:PagedGrid>
  </ContentTemplate>
-</atlas:UpdatePanel>
+</asp:UpdatePanel>

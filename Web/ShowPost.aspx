@@ -12,7 +12,7 @@
      <asp:Label ID="posttitle" runat="server" />
     </div>
     <div class="post_subtitle">
-     <atlas:UpdatePanel runat="server" ID="panelButtons" Mode="Always" RenderMode="Inline">
+     <asp:UpdatePanel runat="server" ID="panelButtons" UpdateMode="Always" RenderMode="Inline">
       <ContentTemplate>
        <a href="ShowBlog.aspx">Back</a> |
        <asp:Label ID="postcreated" runat="server" /> |
@@ -23,7 +23,7 @@
        </span>
        <asp:LinkButton ID="linkPreferred" OnClick="linkPreferred_Click" runat="server" Enabled="true" Text="Favorites" />
       </ContentTemplate>
-     </atlas:UpdatePanel>
+     </asp:UpdatePanel>
     </div>
     <div class="post_body">
      <asp:Label ID="postbody" runat="server" />
@@ -38,7 +38,7 @@
    </td>
   </tr>
  </table>
- <atlas:UpdatePanel runat="server" ID="panelImages" Mode="Always" RenderMode="Inline">
+ <asp:UpdatePanel runat="server" ID="panelImages" UpdateMode="Always" RenderMode="Inline">
   <ContentTemplate>
    <Controls:PagedList runat="server" ID="images" CssClass="table" AllowCustomPaging="true"
     RepeatColumns="4" RepeatRows="3" CellPadding="2" ShowHeader="true" Font-Bold="true"
@@ -70,8 +70,8 @@
     </ItemTemplate>
    </Controls:PagedList>
   </ContentTemplate>
- </atlas:UpdatePanel>
- <atlas:UpdatePanel runat="server" ID="panelComments" Mode="Always" RenderMode="Inline">
+ </asp:UpdatePanel>
+ <asp:UpdatePanel runat="server" ID="panelComments" UpdateMode="Always" RenderMode="Inline">
   <ContentTemplate>
    <Controls:PagedGrid runat="server" ID="comments" BorderWidth="0" CssClass="table" 
     AllowPaging="false" AllowCustomPaging="false" CellPadding="2" ShowHeader="false" 
@@ -109,5 +109,5 @@
     </Columns>
    </Controls:PagedGrid>
   </ContentTemplate>
- </atlas:UpdatePanel> 
+ </asp:UpdatePanel> 
 </asp:Content>

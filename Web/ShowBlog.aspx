@@ -7,7 +7,7 @@
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
-  <atlas:UpdatePanel Mode="Conditional" runat="server" ID="panelPosts" RenderMode="Inline">
+  <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelPosts" RenderMode="Inline">
    <ContentTemplate>
     <asp:Label ID="labelPosts" CssClass="title" runat="server" Visible="false" />
     <Controls:PagedGrid runat="server" ID="grid" CssClass="table" 
@@ -57,5 +57,5 @@
      </Columns>
     </Controls:PagedGrid>
    </ContentTemplate>
-  </atlas:UpdatePanel>
+  </asp:UpdatePanel>
 </asp:Content>

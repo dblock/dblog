@@ -8,7 +8,7 @@
  <div class="title">
   Popular Images
  </div>
- <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always" RenderMode="Inline">
+ <asp:UpdatePanel runat="server" ID="panelGrid" UpdateMode="Always" RenderMode="Inline">
   <ContentTemplate>
    <Controls:PagedList runat="server" ID="images" CssClass="table" AllowCustomPaging="true"
     RepeatColumns="4" RepeatRows="3" CellPadding="2" ShowHeader="true" Font-Bold="true">
@@ -34,5 +34,5 @@
     </ItemTemplate>
    </Controls:PagedList>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
 </asp:Content>

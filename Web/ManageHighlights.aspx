@@ -10,7 +10,7 @@
  <div class="link">
   <a href="EditHighlight.aspx">&#187; Create New</a>
  </div>
- <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
+ <asp:UpdatePanel runat="server" ID="panelGrid" UpdateMode="Always">
   <ContentTemplate>
    <Controls:PagedGrid runat="server" ID="grid" CssClass="table" AutoGenerateColumns="false"
     AllowPaging="true" AllowCustomPaging="true" PageSize="20" CellPadding="2"
@@ -56,5 +56,5 @@
     </Columns>
    </Controls:PagedGrid>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
 </asp:Content>

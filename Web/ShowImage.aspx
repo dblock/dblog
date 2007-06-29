@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
- <atlas:UpdatePanel ID="panelPicture" runat="server" Mode="Conditional">
+ <asp:UpdatePanel ID="panelPicture" runat="server" UpdateMode="Conditional">
   <ContentTemplate>
    <div class="title">
     <asp:Label ID="labelName" runat="server" />
@@ -16,8 +16,8 @@
     | <asp:LinkButton ID="linkEXIF" runat="server" OnClick="linkEXIF_Click" Text="EXIF" />
    </div>
   </ContentTemplate>
- </atlas:UpdatePanel>
- <atlas:UpdatePanel runat="server" ID="panelEXIF" Mode="Conditional">
+ </asp:UpdatePanel>
+ <asp:UpdatePanel runat="server" ID="panelEXIF" UpdateMode="Conditional">
   <ContentTemplate>
    <Controls:PagedList Visible="false" runat="server" ID="exif" CssClass="table" AutoGenerateColumns="false"
     AllowCustomPaging="false"  RepeatRows="100" CellPadding="2" ShowHeader="true" RepeatColumns="2">
@@ -28,8 +28,8 @@
     </ItemTemplate>
    </Controls:PagedList>
   </ContentTemplate>
- </atlas:UpdatePanel>
- <atlas:UpdatePanel runat="server" ID="panelImages" Mode="Conditional" RenderMode="Inline">
+ </asp:UpdatePanel>
+ <asp:UpdatePanel runat="server" ID="panelImages" UpdateMode="Conditional" RenderMode="Inline">
   <ContentTemplate>
    <Controls:PagedList runat="server" ID="images" CssClass="table" AllowCustomPaging="true"
     RepeatColumns="1" RepeatRows="1" CellPadding="2" ShowHeader="true" Font-Bold="true">
@@ -44,8 +44,8 @@
     </ItemTemplate>
    </Controls:PagedList>
   </ContentTemplate>
- </atlas:UpdatePanel>
- <atlas:UpdatePanel runat="server" ID="panelComments" Mode="Conditional" RenderMode="Inline">
+ </asp:UpdatePanel>
+ <asp:UpdatePanel runat="server" ID="panelComments" UpdateMode="Conditional" RenderMode="Inline">
   <ContentTemplate>   
    <Controls:PagedGrid runat="server" ID="comments" BorderWidth="0" CssClass="table" 
     AllowPaging="false" AllowCustomPaging="false" CellPadding="2" ShowHeader="false" 
@@ -83,5 +83,5 @@
     </Columns>
    </Controls:PagedGrid>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
 </asp:Content>

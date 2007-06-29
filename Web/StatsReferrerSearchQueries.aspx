@@ -17,7 +17,7 @@
   | <a href="StatsReferrerHosts.aspx">Referrer Hosts</a>
   | <a href="StatsReferrerSearchQueries.aspx" disabled="disabled">Search Queries</a>
  </div>
- <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
+ <asp:UpdatePanel runat="server" ID="panelGrid" UpdateMode="Always">
   <ContentTemplate>
    <Controls:PagedGrid runat="server" ID="grid" CssClass="table" AutoGenerateColumns="false"
     AllowPaging="true" AllowCustomPaging="true" PageSize="20" CellPadding="2" ShowHeader="true">
@@ -45,5 +45,5 @@
     </Columns>
    </Controls:PagedGrid>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
 </asp:Content>

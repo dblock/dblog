@@ -10,7 +10,7 @@
  <div class="link">
   <a href="EditImage.aspx">Upload New</a>
  </div>
- <atlas:UpdatePanel runat="server" ID="panelGrid" Mode="Always">
+ <asp:UpdatePanel runat="server" ID="panelGrid" UpdateMode="Always">
   <ContentTemplate>
    <Controls:PagedList runat="server" ID="grid" CssClass="table" AutoGenerateColumns="false"
     AllowCustomPaging="true" RepeatColumns="4" RepeatRows="3" CellPadding="2" OnItemCommand="grid_ItemCommand" 
@@ -34,5 +34,5 @@
      </ItemTemplate>
    </Controls:PagedList>
   </ContentTemplate>
- </atlas:UpdatePanel>
+ </asp:UpdatePanel>
 </asp:Content>

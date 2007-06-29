@@ -1,7 +1,7 @@
 <%@ Control Language="C#" AutoEventWireup="true" CodeFile="SelectDateControl.ascx.cs"
  Inherits="SelectDateControl" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
-<atlas:UpdatePanel ID="updatePanelCalendar" RenderMode="Inline" Mode="Conditional" runat="Server">
+<asp:UpdatePanel ID="updatePanelCalendar" RenderMode="Inline" UpdateMode="Conditional" runat="Server">
  <ContentTemplate>
   <asp:DropDownList ID="selectdateYear" runat="server" CssClass="dropdown_small"
    OnSelectedIndexChanged="selectionChanged" AutoPostBack="true" />
@@ -27,4 +27,4 @@
    </asp:Calendar>
   </asp:Panel>
  </ContentTemplate>
-</atlas:UpdatePanel>
+</asp:UpdatePanel>
