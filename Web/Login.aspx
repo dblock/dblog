@@ -7,7 +7,7 @@
   Login
  </div>
  <div class="subtitle">
-  <asp:HyperLink ID="linkNewUser" runat="server" Text="New User" />
+  <asp:HyperLink ID="linkNewUser" runat="server" Text="I don't have a login &#187; Register" />
  </div>
  <asp:UpdatePanel runat="server" ID="panelLogin" UpdateMode="Always">
   <ContentTemplate>

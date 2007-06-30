@@ -17,7 +17,7 @@
        <a href="ShowBlog.aspx">Back</a> |
        <asp:Label ID="postcreated" runat="server" /> |
        <asp:Label ID="postcounter" runat="server" /> |
-       <asp:Hyperlink ID="linkComment" runat="server" Text="New Comment" /> |
+       <asp:Hyperlink ID="linkComment" runat="server" Text="Post Comment" /> |
        <span id="spanAdmin" runat="server">
         <asp:Hyperlink ID="linkEdit" runat="server" Text="Edit" /> |
        </span>

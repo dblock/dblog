@@ -591,6 +591,46 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Search references.")]
+        public List<TransitReference> SearchReferences(string ticket, string query, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+
+                ICriteria cr = session.CreateCriteria(typeof(Reference))
+                    .Add(Expression.Like("Word", string.Format("%{0}%", query)));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                IList list = cr.List();
+
+                List<TransitReference> result = new List<TransitReference>(list.Count);
+
+                foreach (Reference obj in list)
+                {
+                    result.Add(new TransitReference(obj));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Search references count.")]
+        public int SearchReferencesCount(string ticket, string query)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return new CountQuery(session, typeof(DBlog.Data.Reference), "Reference")
+                    .Add(Expression.Like("Word", string.Format("%{0}%", query)))
+                    .Execute();
+            }
+        }
+
         [WebMethod(Description = "Delete a reference.")]
         public void DeleteReference(string ticket, int id)
         {

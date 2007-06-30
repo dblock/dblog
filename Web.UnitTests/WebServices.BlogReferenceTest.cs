@@ -40,5 +40,19 @@ namespace DBlog.Web.UnitTests.WebServices
                 return "Reference";
             }
         }
+
+        [Test]
+        public void TestSearchReferences()
+        {
+            int id = Create();
+            Console.WriteLine("Reference: {0}", id);
+            int count = Blog.SearchReferencesCount(Ticket, mReference.Word);
+            Console.WriteLine("Count: {0}", count);
+            Assert.IsTrue(count > 0, "Invalid count, no references returned.");
+            TransitReference[] refs = Blog.SearchReferences(Ticket, mReference.Word, null);
+            Assert.IsNotNull(refs, "Invalid references returned.");
+            Assert.AreEqual(refs.Length, count);
+            Delete();
+        }
     }
 }

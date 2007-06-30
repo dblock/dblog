@@ -12,9 +12,27 @@
  </div>
  <asp:UpdatePanel runat="server" ID="panelGrid" UpdateMode="Always">
   <ContentTemplate>
+   <table class="table">
+    <tr>
+     <td class="table_tr_td_label">
+      search:
+     </td>
+     <td class="table_tr_td_value">
+      <asp:TextBox ID="inputSearch" runat="server" CssClass="textbox" />
+     </td>
+    </tr>
+    <tr>
+     <td class="table_tr_td_label">
+     </td>
+     <td valign="top" class="table_tr_td_value">
+      <Controls:WorkingButton runat="server" ID="search" Text="Search" CssClass="button"
+       OnClick="search_Click" />
+     </td>
+    </tr>
+   </table>
    <Controls:PagedGrid runat="server" ID="grid" CssClass="table" AutoGenerateColumns="false"
-    AllowPaging="true" AllowCustomPaging="true" PageSize="20" CellPadding="2"
-    OnItemCommand="grid_ItemCommand" ShowHeader="true">
+    AllowPaging="true" AllowCustomPaging="true" PageSize="20" CellPadding="2" OnItemCommand="grid_ItemCommand"
+    ShowHeader="true">
     <HeaderStyle CssClass="table_tr_th" HorizontalAlign="Center" />
     <ItemStyle HorizontalAlign="Center" Font-Bold="True" CssClass="table_tr_td" />
     <PagerStyle CssClass="table_pager" Position="TopAndBottom" NextPageText="Next" PrevPageText="Prev"

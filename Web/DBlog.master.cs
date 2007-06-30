@@ -42,6 +42,7 @@ public partial class DBlogMaster : MasterPage
             if (!IsPostBack)
             {
                 panelAdmin.Visible = SessionManager.IsAdministrator;
+                linkLogout2.Visible = SessionManager.IsLoggedIn;
 
                 if (SessionManager.LoginRecord != null)
                 {
@@ -133,16 +134,6 @@ public partial class DBlogMaster : MasterPage
         catch (Exception ex)
         {
             ReportException(ex);
-        }
-    }
-
-    public override void OnPagePreInit(EventArgs e)
-    {
-        switch (Request.Browser.Browser)
-        {
-            case "AppleMAC-Safari":
-                ScriptManager1.EnablePartialRendering = false;
-                break;
         }
     }
 }

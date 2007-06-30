@@ -134,6 +134,9 @@
       <div>
        <asp:Label ID="labelPostUsername" CssClass="description" runat="server" />
       </div>
+      <div>
+       <asp:LinkButton ID="linkLogout2" CssClass="description" runat="server" Text="logout" OnClick="linkLogout_Click" />
+      </div>
      </asp:Panel>
      <div class="div_top">
      </div>

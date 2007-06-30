@@ -33,7 +33,7 @@ public partial class admin_ManageReferences : BlogAdminPage
     {
         try
         {
-            switch(e.CommandName)
+            switch (e.CommandName)
             {
                 case "Delete":
                     SessionManager.BlogService.DeleteReference(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
@@ -42,7 +42,7 @@ public partial class admin_ManageReferences : BlogAdminPage
                     break;
             }
         }
-        catch(Exception ex)
+        catch (Exception ex)
         {
             ReportException(ex);
         }
@@ -53,15 +53,35 @@ public partial class admin_ManageReferences : BlogAdminPage
         WebServiceQueryOptions options = new WebServiceQueryOptions(grid.PageSize, grid.CurrentPageIndex);
         options.SortExpression = "Id";
         options.SortDirection = WebServiceQuerySortDirection.Descending;
-        grid.DataSource = SessionManager.BlogService.GetReferences(
-            SessionManager.Ticket, options);
+        if (!string.IsNullOrEmpty(inputSearch.Text))
+        {
+            grid.DataSource = SessionManager.BlogService.SearchReferences(
+                SessionManager.Ticket, inputSearch.Text, options);
+        }
+        else
+        {
+            grid.DataSource = SessionManager.BlogService.GetReferences(
+                SessionManager.Ticket, options);
+        }
     }
 
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetReferencesCount(SessionManager.Ticket);
+        if (!string.IsNullOrEmpty(inputSearch.Text))
+        {
+            SessionManager.BlogService.SearchReferencesCount(SessionManager.Ticket, inputSearch.Text);
+        }
+        else
+        {
+            grid.VirtualItemCount = SessionManager.BlogService.GetReferencesCount(SessionManager.Ticket);
+        }
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
+    }
+
+    public void search_Click(object sender, EventArgs e)
+    {
+        GetData(sender, e);
     }
 }

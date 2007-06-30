@@ -35,7 +35,7 @@ namespace DBlog.Tools.Drawing
 
     public class ThumbnailBitmap
     {
-        public static Size ThumbnailSize = new Size(100, 150);
+        public static Size ThumbnailSize = new Size(150, 200);
 
         byte[] mThumbnail = null;
         byte[] mBitmap = null;

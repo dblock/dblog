@@ -400,7 +400,7 @@ namespace DBlog.TransitData
 
             if (post.Created != post.Modified)
             {
-                content.AppendFormat("| Updated {0}",
+                content.AppendFormat(" | Updated {0}",
                     post.Modified.ToString("d"));
             }
 

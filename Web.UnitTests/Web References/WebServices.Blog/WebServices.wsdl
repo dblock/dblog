@@ -586,6 +586,37 @@
           <s:element minOccurs="0" maxOccurs="unbounded" name="TransitReference" nillable="true" type="tns:TransitReference" />
         </s:sequence>
       </s:complexType>
+      <s:element name="SearchReferences">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="query" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchReferencesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="SearchReferencesResult" type="tns:ArrayOfTransitReference" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchReferencesCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="query" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="SearchReferencesCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="SearchReferencesCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="DeleteReference">
         <s:complexType>
           <s:sequence>
@@ -2441,6 +2472,18 @@
   <wsdl:message name="GetReferencesSoapOut">
     <wsdl:part name="parameters" element="tns:GetReferencesResponse" />
   </wsdl:message>
+  <wsdl:message name="SearchReferencesSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchReferences" />
+  </wsdl:message>
+  <wsdl:message name="SearchReferencesSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchReferencesResponse" />
+  </wsdl:message>
+  <wsdl:message name="SearchReferencesCountSoapIn">
+    <wsdl:part name="parameters" element="tns:SearchReferencesCount" />
+  </wsdl:message>
+  <wsdl:message name="SearchReferencesCountSoapOut">
+    <wsdl:part name="parameters" element="tns:SearchReferencesCountResponse" />
+  </wsdl:message>
   <wsdl:message name="DeleteReferenceSoapIn">
     <wsdl:part name="parameters" element="tns:DeleteReference" />
   </wsdl:message>
@@ -3148,6 +3191,16 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get references.</wsdl:documentation>
       <wsdl:input message="tns:GetReferencesSoapIn" />
       <wsdl:output message="tns:GetReferencesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchReferences">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search references.</wsdl:documentation>
+      <wsdl:input message="tns:SearchReferencesSoapIn" />
+      <wsdl:output message="tns:SearchReferencesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="SearchReferencesCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Search references count.</wsdl:documentation>
+      <wsdl:input message="tns:SearchReferencesCountSoapIn" />
+      <wsdl:output message="tns:SearchReferencesCountSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="DeleteReference">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Delete a reference.</wsdl:documentation>
@@ -3884,6 +3937,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetReferences">
       <soap:operation soapAction="http://dblock.org/ns/GetReferences" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchReferences">
+      <soap:operation soapAction="http://dblock.org/ns/SearchReferences" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchReferencesCount">
+      <soap:operation soapAction="http://dblock.org/ns/SearchReferencesCount" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4994,6 +5065,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetReferences">
       <soap12:operation soapAction="http://dblock.org/ns/GetReferences" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchReferences">
+      <soap12:operation soapAction="http://dblock.org/ns/SearchReferences" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SearchReferencesCount">
+      <soap12:operation soapAction="http://dblock.org/ns/SearchReferencesCount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

@@ -33,7 +33,7 @@
          | <%# SessionManager.Region.UtcToUser((DateTime) Eval("Created")).ToString("f") %>
          <%# GetLink((int)Eval("CommentsCount"), (int)Eval("ImagesCount"))%>
          <a href='EditPostComment.aspx?sid=<%# Eval("Id") %>'>
-          | New Comment
+          | Post Comment
          </a>
          | <%# GetCounter((long) Eval("Counter.Count")) %>
          <span id="Span1" runat="server" style='<%# (bool) SessionManager.IsAdministrator ? String.Empty : "display: none;" %>'>
