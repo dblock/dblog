@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <rss version="2.0">
   <channel>
-    <title><% Response.Write(SessionManager.GetSetting("title", "Untitled")); %></title>
+    <title><% Response.Write(GetRssTitle()); %></title>
     <description><% Response.Write(SessionManager.GetSetting("description", string.Empty)); %></description>
     <link><% Response.Write(SessionManager.GetSetting("url", string.Empty)); %></link>
     <language>en-us</language>

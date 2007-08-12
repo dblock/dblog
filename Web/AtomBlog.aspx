@@ -3,7 +3,7 @@
 
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <feed xml:lang="en-us" version="0.3" xmlns="http://purl.org/atom/ns#">
- <title><% Response.Write(SessionManager.GetSetting("title", "Untitled")); %></title>
+ <title><% Response.Write(GetRssTitle()); %></title>
  <link rel="alternate" type="application/xhtml+xml" href="<% Response.Write(SessionManager.GetSetting("url", string.Empty)); %>" />
   <asp:Repeater id="repeater" runat="server">
    <ItemTemplate>

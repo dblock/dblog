@@ -9,7 +9,7 @@
 <head runat="server">
  <link rel="stylesheet" type="text/css" href="~/Style.css" />
  <link id="linkRss" runat="server" rel="alternate" type="application/rss+xml" title="(RSS)" href="RssBlog.aspx" /> 
- <link id="linkAtom" runat="server" rel="alternate" type="application/atom+xml" title="(Atom)" href="RssBlog.aspx" /> 
+ <link id="linkAtom" runat="server" rel="alternate" type="application/atom+xml" title="(Atom)" href="AtomBlog.aspx" /> 
 </head>
 <body>
  <form id="form1" runat="server">

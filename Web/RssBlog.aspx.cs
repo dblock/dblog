@@ -24,6 +24,23 @@ public partial class RssBlog : BlogPage
         }
     }
 
+    public string GetRssTitle()
+    {
+        int topic_id = GetId("topicid");
+
+        string title = SessionManager.GetSetting("title", "Untitled");
+
+        if (topic_id > 0)
+        {
+            TransitTopic topic = SessionManager.GetCachedObject<TransitTopic>(
+                "GetTopicById", SessionManager.Ticket, topic_id);
+
+            title = string.Format("{0}: {1}", title, Renderer.Render(topic.Name));
+        }
+
+        return title;
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try
@@ -33,7 +50,8 @@ public partial class RssBlog : BlogPage
                 SessionManager.BlogService.IncrementNamedCounter(
                     SessionManager.Ticket, "Rss", 1);
 
-                TransitPostQueryOptions options = new TransitPostQueryOptions();
+                TransitPostQueryOptions options = new TransitPostQueryOptions(
+                    GetId("topicid"), string.Empty);
                 options.PageNumber = 0;
                 options.PageSize = 25;
                 options.SortDirection = WebServiceQuerySortDirection.Descending;
@@ -47,7 +65,7 @@ public partial class RssBlog : BlogPage
         catch (Exception ex)
         {
             Response.StatusCode = 400;
-            Response.Status = ex.Message;            
+            Response.Status = ex.Message;
         }
     }
 
