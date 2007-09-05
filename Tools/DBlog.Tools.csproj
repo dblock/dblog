@@ -43,8 +43,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection.AssemblyInfo.cs" />
     <Compile Include="Web.HostedApplication.cs" />
+    <Compile Include="Web.Html.HtmlGenericExtractor.cs" />
     <Compile Include="Web.Html.HtmlImageExtractor.cs" />
     <Compile Include="Web.Html.HtmlReaderWriter.cs" />
+    <Compile Include="Web.Html.HtmlUriExtractor.cs" />
+    <Compile Include="Web.Html.UrlBasedExtractor.cs" />
     <Compile Include="Web.Page.cs">
       <SubType>ASPXCodeBehind</SubType>
     </Compile>

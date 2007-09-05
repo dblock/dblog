@@ -39,23 +39,6 @@ namespace DBlog.Tools.Web.Html
             base.DocType = "HTML";
             base.WhitespaceHandling = WhitespaceHandling.All;
         }
-
-        public override bool Read()
-        {
-            bool status = base.Read();
-            if (status)
-            {
-                if (base.NodeType == XmlNodeType.Element)
-                {
-                    // Got a node with prefix. This must be one of those "<o:p>" or something else.
-                    // Skip this node entirely. We want prefix less nodes so that the resultant XML 
-                    // requires not namespace.
-                    if (base.Name.IndexOf(':') > 0)
-                        base.Skip();
-                }
-            }
-            return status;
-        }
     }
 
     /// <summary>
@@ -81,7 +64,7 @@ namespace DBlog.Tools.Web.Html
         /// </summary>
         public string[] AllowedTags = new string[] { "p", "b", "i", "u", "em", "big", "small", "strike",
 			        "div", "img", "span", "blockquote", "code", "pre", "br", "hr", "table", "tr", "td", "th", "h1", "h2", "h3",
-			        "ul", "ol", "li", "del", "ins", "strong", "a", "font", "dd", "dt", "object", "param", "embed"};
+			        "ul", "ol", "li", "del", "ins", "strong", "a", "font", "dd", "dt", "object", "param", "embed", "link" };
 
         /// <summary>
         /// New lines \r\n are replaced with space which saves space and makes the
@@ -91,13 +74,16 @@ namespace DBlog.Tools.Web.Html
         /// <summary>
         /// Specify which attributes are allowed. Any other attribute will be discarded
         /// </summary>
-        public string[] AllowedAttributes = new string[] { "href", "target", 
-        			"border", "src", "align", "width", "height", "color", "size", "class", "style", "type", "name", "value" };
+        public string[] AllowedAttributes = new string[] { "href", "target", "border", "src", "valign", "align", "width", 
+            "height", "color", "size", "class", "style", "type", "name", "value", "rel" };
 
         /// <summary>
         /// Base href to adjust images and links
         /// </summary>
         public Uri BaseHref = null;
+        public Uri RewriteImgSrc = null;
+
+        private string LastStartElement = string.Empty;
 
         public HtmlWriter(TextWriter writer)
             : base(writer)
@@ -110,6 +96,11 @@ namespace DBlog.Tools.Web.Html
         public HtmlWriter(Stream stream, Encoding enc)
             : base(stream, enc)
         {
+        }
+
+        public override void WriteProcessingInstruction(string name, string text)
+        {
+
         }
 
         /// <summary>
@@ -175,6 +166,7 @@ namespace DBlog.Tools.Web.Html
                 }
             }
 
+            LastStartElement = localName.ToLower();
             base.WriteStartElement(prefix, localName, ns);
         }
 
@@ -212,7 +204,17 @@ namespace DBlog.Tools.Web.Html
                             string attributename = reader.LocalName.ToLower();
 
                             // Check if the attribute is allowed 
-                            bool canWrite = (Array.IndexOf(AllowedAttributes, attributename) >= 0);
+                            bool canWrite = false;
+
+                            switch (LastStartElement)
+                            {
+                                case "embed":
+                                    canWrite = true;
+                                    break;
+                                default:
+                                    canWrite = (Array.IndexOf(AllowedAttributes, attributename) >= 0);
+                                    break;
+                            }
 
                             // If allowed, write the attribute
                             if (canWrite)
@@ -231,14 +233,37 @@ namespace DBlog.Tools.Web.Html
                                 {
                                     string value = reader.Value;
 
-                                    // adjust any src or href attribute 
-                                    if (BaseHref != null)
+                                    if (BaseHref != null
+                                        && LastStartElement == "a"
+                                        && attributename == "href")
                                     {
-                                        switch (attributename)
+                                        value = HtmlUriExtractor.TryCreate(
+                                            BaseHref, reader.Value, value);
+                                    }
+
+                                    if (BaseHref != null
+                                        && (LastStartElement == "img" || LastStartElement == "embed")
+                                        && attributename == "src")
+                                    {
+                                        value = HtmlUriExtractor.TryCreate(
+                                            BaseHref, reader.Value, value);
+                                    }
+
+                                    if (RewriteImgSrc != null
+                                        && LastStartElement == "img"
+                                        && attributename == "src")
+                                    {
+                                        value = RewriteImgSrc.ToString().Replace("{url}",
+                                            Renderer.UrlEncode(value));
+                                    }
+
+                                    if (LastStartElement == "link"
+                                        && attributename == "rel")
+                                    {
+                                        switch (value.ToLower())
                                         {
-                                            case "src":
-                                            case "href":
-                                                value = new Uri(BaseHref, reader.Value).ToString();
+                                            case "stylesheet":
+                                                value = "stylesheet-stripped";
                                                 break;
                                         }
                                     }

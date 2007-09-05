@@ -694,6 +694,17 @@ namespace Sgml {
             }
         }
 
+        public string GetAttributeName(int i)
+        {
+            if (this.state != State.Attr && this.state != State.AttrValue)
+            {
+                Attribute a = this.node.GetAttribute(i);
+                if (a != null)
+                    return a.Name;
+            }
+            throw new IndexOutOfRangeException();
+        }
+
         public override string GetAttribute(string name) {
             if (this.state != State.Attr && this.state != State.AttrValue) {
                 int i = this.node.GetAttribute(name);
@@ -1456,8 +1467,15 @@ namespace Sgml {
             char ch = this.current.ReadChar();
             if (ch == '#') {
                 string charent = this.current.ExpandCharEntity();
-                sb.Append(charent);
-                ch = this.current.ReadChar();
+                if (charent.Length != 0)
+                {
+                    sb.Append(charent);
+                    ch = this.current.ReadChar();
+                }
+                else
+                {
+                    sb.Append(ch);
+                }
             } 
             else {
                 this.name.Length = 0;
