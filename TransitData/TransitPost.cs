@@ -389,13 +389,13 @@ namespace DBlog.TransitData
             }
 
             content.Append("<div>");
-            content.AppendFormat("<a href=\"{0}ShowPost.aspx?id={1}\">Read</a>",
-                ConfigurationManager.AppSettings["url"], post.Id);
+            content.AppendFormat("<a href=\"ShowPost.aspx?id={0}\">Read</a>",
+                post.Id);
 
             if (post.PostImages != null && post.PostImages.Count > 1)
             {
-                content.AppendFormat(" | <a href=\"{0}ShowPost.aspx?id={1}\">{2} Images</a>",
-                    ConfigurationManager.AppSettings["url"], post.Id, post.PostImages.Count);
+                content.AppendFormat(" | <a href=\"ShowPost.aspx?id={0}\">{1} Image{2}</a>",
+                    post.Id, post.PostImages.Count, post.PostImages.Count != 1 ? "s" : string.Empty);
             }
 
             if (post.Created != post.Modified)
@@ -411,15 +411,25 @@ namespace DBlog.TransitData
                     content.Append("<div style=\"margin-top: 10px;\">");
                     for (int i = 0; i < Math.Min(3, post.PostImages.Count); i++)
                     {
-                        content.AppendFormat("<img src=\"{0}ShowPicture.aspx?id={1}\">",
-                            ConfigurationManager.AppSettings["url"], ((PostImage)post.PostImages[i]).Image.Id);
+                        content.AppendFormat("<img src=\"ShowPicture.aspx?id={0}\">",
+                            ((PostImage)post.PostImages[i]).Image.Id);
                     }
                     content.Append("</div>");
                 }
             }
 
             content.Append("</div>");
-            return content.ToString();
+
+            Uri root;
+            if (Uri.TryCreate(ConfigurationManager.AppSettings["url"], UriKind.Absolute, out root))
+            {
+                return Tools.Web.Html.HtmlAbsoluteLinksWriter.Rewrite(
+                    content.ToString(), root);
+            }
+            else
+            {
+                return content.ToString();
+            }
         }
     }
 }
