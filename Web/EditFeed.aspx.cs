@@ -101,6 +101,8 @@ public partial class EditFeed : BlogAdminPage
             Feed.Url = CheckInput("Url", inputUrl.Text);
             Feed.Description = inputDescription.Text;
             Feed.Type = (TransitFeedType) Enum.Parse(typeof(TransitFeedType), inputType.SelectedValue);
+            Feed.Username = inputUsername.Text;
+            Feed.Password = inputPassword.Text;
 
             SessionManager.BlogService.CreateOrUpdateFeed(SessionManager.Ticket, Feed);
             Response.Redirect("ManageFeeds.aspx");

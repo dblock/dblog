@@ -51,6 +51,11 @@
          <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
           <img border="0" src='ShowPicture.aspx?Id=<%# Eval("ImageId") %>' />
          </a>
+         <div class="link">
+          <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
+           <%# GetImagesLink((int) Eval("ImagesCount")) %>
+          </a>
+         </div>
         </asp:Panel>
        </itemtemplate>
       </asp:TemplateColumn>

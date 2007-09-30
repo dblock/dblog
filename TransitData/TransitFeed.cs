@@ -12,7 +12,8 @@ namespace DBlog.TransitData
     {
         Unknown = 0,
         Rss = 1,
-        Atom = 2
+        Atom = 2,
+        AtomPost = 3
     }
 
     public class TransitFeedQueryOptions : WebServiceQueryOptions

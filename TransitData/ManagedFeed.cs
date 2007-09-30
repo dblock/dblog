@@ -54,7 +54,15 @@ namespace DBlog.TransitData
                     }
 
                     mXmlFeed = new XmlDocument();
-                    mXmlFeed.Load(new StreamReader(request.GetResponse().GetResponseStream()));
+                    try
+                    {
+                        mXmlFeed.Load(new StreamReader(request.GetResponse().GetResponseStream()));
+                    }
+                    catch (Exception ex)
+                    {
+                        throw new Exception(string.Format("Error loading {0}: {1}",
+                            mFeed.Url, ex.Message), ex);
+                    }
                 }
 
                 return mXmlFeed;
@@ -100,6 +108,13 @@ namespace DBlog.TransitData
                     if (!checktimestamp || m_atom_feed.NeedsUpdate)
                     {
                         result = m_atom_feed.Update(session);
+                    }
+                    break;
+                case TransitFeedType.AtomPost:
+                    ManagedAtomPostFeed m_atom_post_feed = new ManagedAtomPostFeed(feed);
+                    if (!checktimestamp || m_atom_post_feed.NeedsUpdate)
+                    {
+                        result = m_atom_post_feed.Update(session);
                     }
                     break;
                 default:

@@ -167,6 +167,17 @@ public partial class ShowBlog : BlogPage
             count != 1 ? "s" : string.Empty);
     }
 
+    public string GetImagesLink(int images_count)
+    {
+        if (images_count > 1)
+        {
+            return string.Format("&#187; {0} more image{1} after the cut ...", images_count
+                , images_count == 1 ? string.Empty : "s");
+        }
+
+        return string.Empty;
+    }
+
     public string GetLink(int comments_count, int images_count)
     {
         StringBuilder result = new StringBuilder();
