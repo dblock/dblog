@@ -196,4 +196,16 @@ public partial class ShowBlog : BlogPage
 
         return result.ToString();
     }
+
+    public string GetPostLink(int images_count, int id, int image_id)
+    {
+        if (images_count == 1 && image_id > 0)
+        {
+            return string.Format("ShowImage.aspx?id={0}&pid={1}", image_id, id);
+        }
+        else
+        {
+            return string.Format("ShowPost.aspx?id={0}", id);
+        }
+    }
 }

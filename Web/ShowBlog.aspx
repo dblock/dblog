@@ -48,7 +48,7 @@
          <%# Renderer.RenderEx(Eval("Body")) %>
         </div>
         <asp:Panel CssClass="post_image" Width="100%" id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 %>'>
-         <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
+         <a href='<%# GetPostLink((int) Eval("ImagesCount"), (int) Eval("Id"), (int) Eval("ImageId")) %>'>
           <img border="0" src='ShowPicture.aspx?Id=<%# Eval("ImageId") %>' />
          </a>
          <div class="link">
