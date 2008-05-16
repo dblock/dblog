@@ -3,7 +3,7 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{C6E8220C-5AD2-445A-9EF2-079D6547AEAD}</ProjectGuid>
+    <ProjectGuid>{89404491-35c1-4457-9c8c-c02192efcf36}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -158,6 +158,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Reference.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Referrer.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="ReferrerHost.cs">

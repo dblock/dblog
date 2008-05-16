@@ -72,13 +72,23 @@ public class CounterCache
                     browsers.Add(browser);
                 }
 
+                string host = string.Empty;
+                try
+                {
+                    host = request.Url.Host;
+                }
+                catch (ArgumentException)
+                {
+                    // host isn't available on localhost
+                }
+
                 // don't track navigation between pages
-                if (request.UrlReferrer != null && request.UrlReferrer.Host != request.Url.Host)
+                if (request.UrlReferrer != null && request.UrlReferrer.Host != host)
                 {
                     TransitReferrerHost rh = new TransitReferrerHost();
                     rh.Name = request.UrlReferrer.Host;
                     rh.LastSource = request.UrlReferrer.ToString();
-                    rh.LastUrl = request.Url.ToString();
+                    rh.LastUrl = request.RawUrl;
                     rh.RequestCount = 1;
                     rhs.Add(rh);
 

@@ -5,9 +5,68 @@ using DBlog.Data;
 using NHibernate;
 using DBlog.Tools.Web;
 using NHibernate.Expression;
+using DBlog.Data.Hibernate;
 
 namespace DBlog.TransitData
 {
+    public class TransitReferrerHostQueryOptions : WebServiceQueryOptions
+    {
+        private DateTime mDateStart = DateTime.MinValue;
+
+        public DateTime DateStart
+        {
+            get
+            {
+                return mDateStart;
+            }
+            set
+            {
+                mDateStart = value;
+            }
+        }
+
+        public TransitReferrerHostQueryOptions()
+        {
+
+        }
+
+        public TransitReferrerHostQueryOptions(int pagesize, int pagenumber)
+            : base(pagesize, pagenumber)
+        {
+
+        }
+
+        public override void Apply(StringCriteria criteria)
+        {
+            if (DateStart != DateTime.MinValue)
+            {
+                criteria.Add(string.Format("Created >= '{0}'", DateStart));
+            }
+
+            base.Apply(criteria);
+        }
+
+        public override void Apply(ICriteria criteria)
+        {
+            if (DateStart != DateTime.MinValue)
+            {
+                criteria.Add(Expression.Ge("Created", DateStart));
+            }
+
+            base.Apply(criteria);
+        }
+
+        public override void Apply(CountQuery query)
+        {
+            if (DateStart != DateTime.MinValue)
+            {
+                query.Add(Expression.Ge("Created", DateStart));
+            }
+
+            base.Apply(query);
+        }
+    }
+
     public class TransitReferrerHost : TransitObject
     {
         private string mLastUrl;
@@ -128,6 +187,8 @@ namespace DBlog.TransitData
             rh.LastUrl = LastUrl;
             rh.LastSource = LastSource;
             rh.Name = Name;
+            rh.Updated = DateTime.UtcNow;
+            if (rh.Id == 0) rh.Created = rh.Updated;
 
             return rh;
         }

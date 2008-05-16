@@ -2302,17 +2302,23 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get referrer hosts count.")]
-        public int GetReferrerHostsCount(string ticket, WebServiceQueryOptions options)
+        public int GetReferrerHostsCount(string ticket, TransitReferrerHostQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.ReferrerHost), "ReferrerHost").Execute();
+                StringCriteria criteria = new StringCriteria(session, "ReferrerHost", typeof(ReferrerHost));
+                if (options != null)
+                {
+                    options.Apply(criteria);
+                }
+                IQuery sqlquery = criteria.CreateQuery();
+                return (int)sqlquery.List().Count;
             }
         }
 
         [WebMethod(Description = "Get referrer hosts.")]
-        public List<TransitReferrerHost> GetReferrerHosts(string ticket, WebServiceQueryOptions options)
+        public List<TransitReferrerHost> GetReferrerHosts(string ticket, TransitReferrerHostQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {

@@ -24,6 +24,7 @@ public partial class ShowBlog : BlogPage
             DBlogMaster master = (DBlogMaster)this.Master;
             master.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
             master.Search += new SearchControl.SearchHandler(search_Search);
+            master.DateRangeChanged += new DateRangeControl.DateRangeHandler(master_DateRangeChanged);
 
             grid.OnGetDataSource += new EventHandler(grid_OnGetDataSource);
 
@@ -40,8 +41,53 @@ public partial class ShowBlog : BlogPage
         }
     }
 
+    void master_DateRangeChanged(object sender, DateRangeControl.DateRangeEventArgs e)
+    {
+        try
+        {
+            DateStart = e.DateStart;
+            DateEnd = e.DateEnd;
+            GetData(sender, e);
+            panelPosts.Update();
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
+    }
+
     private int mTopicId = 0;
     private string mQuery = string.Empty;
+    private DateTime mDateStart = DateTime.MinValue;
+    private DateTime mDateEnd = DateTime.MaxValue;
+
+    public DateTime DateStart
+    {
+        get
+        {
+            return DBlog.Tools.Web.ViewState<DateTime>.GetViewStateValue(
+                EnableViewState, ViewState, "DateStart", mDateStart);
+        }
+        set
+        {
+            DBlog.Tools.Web.ViewState<DateTime>.SetViewStateValue(
+                EnableViewState, ViewState, "DateStart", value, ref mDateStart);
+        }
+    }
+
+    public DateTime DateEnd
+    {
+        get
+        {
+            return DBlog.Tools.Web.ViewState<DateTime>.GetViewStateValue(
+                EnableViewState, ViewState, "DateEnd", mDateEnd);
+        }
+        set
+        {
+            DBlog.Tools.Web.ViewState<DateTime>.SetViewStateValue(
+                EnableViewState, ViewState, "DateEnd", value, ref mDateEnd);
+        }
+    }
 
     public int TopicId
     {
@@ -101,21 +147,35 @@ public partial class ShowBlog : BlogPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
+        TransitPostQueryOptions options = GetOptions();
+
         string sortexpression = Request.Params["SortExpression"];
         string sortdirection = Request.Params["SortDirection"];
-
-        TransitPostQueryOptions options = new TransitPostQueryOptions(TopicId, Query, grid.PageSize, grid.CurrentPageIndex);
-        options.SortDirection = string.IsNullOrEmpty(sortdirection) 
-            ? WebServiceQuerySortDirection.Descending
-            : (WebServiceQuerySortDirection)Enum.Parse(typeof(WebServiceQuerySortDirection), sortdirection);
-
-        options.SortExpression = string.IsNullOrEmpty(sortexpression) 
-            ? "Created" 
-            : sortexpression;
 
         grid.DataSource = SessionManager.GetCachedCollection<TransitPost>(
             (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPosts" : "GetPostsEx",
             SessionManager.PostTicket, options);
+    }
+
+    private TransitPostQueryOptions GetOptions()
+    {
+        string sortexpression = Request.Params["SortExpression"];
+        string sortdirection = Request.Params["SortDirection"];
+
+        TransitPostQueryOptions options = new TransitPostQueryOptions(TopicId, Query, grid.PageSize, grid.CurrentPageIndex);
+        
+        options.DateStart = DateStart;
+        options.DateEnd = DateEnd;
+
+        options.SortDirection = string.IsNullOrEmpty(sortdirection)
+            ? WebServiceQuerySortDirection.Descending
+            : (WebServiceQuerySortDirection)Enum.Parse(typeof(WebServiceQuerySortDirection), sortdirection);
+
+        options.SortExpression = string.IsNullOrEmpty(sortexpression)
+            ? "Created"
+            : sortexpression;
+
+        return options;
     }
 
     public void GetData(object sender, EventArgs e)
@@ -126,7 +186,7 @@ public partial class ShowBlog : BlogPage
         grid.CurrentPageIndex = 0;
         grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
             (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPostsCount" : "GetPostsCountEx",
-            SessionManager.PostTicket, new TransitPostQueryOptions(TopicId, Query));
+            SessionManager.PostTicket, GetOptions());
 
         if (grid.VirtualItemCount == 0)
         {

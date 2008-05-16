@@ -16,6 +16,7 @@ public partial class DBlogMaster : MasterPage
 {
     public event ViewTopicsControl.TopicChangedHandler TopicChanged;
     public event SearchControl.SearchHandler Search;
+    public event DateRangeControl.DateRangeHandler DateRangeChanged;
 
     private TransitCounter Counter
     {
@@ -38,6 +39,7 @@ public partial class DBlogMaster : MasterPage
         {
             topics.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
             searchBox.Search += new SearchControl.SearchHandler(searchBox_Search);
+            dates.DateRangeChanged += new DateRangeControl.DateRangeHandler(dates_DateRangeChanged);
 
             if (!IsPostBack)
             {
@@ -83,6 +85,31 @@ public partial class DBlogMaster : MasterPage
         }
     }
 
+    void dates_DateRangeChanged(object sender, DateRangeControl.DateRangeEventArgs e)
+    {
+        try
+        {
+            if (DateRangeChanged != null)
+            {
+                DateRangeChanged(sender, e);
+            }
+            else if (e.DateEnd != DateTime.MaxValue && e.DateStart != DateTime.MinValue)
+            {
+                Response.Redirect(string.Format("ShowBlog.aspx?start={0}&end={1}", Renderer.UrlEncode(e.DateStart), Renderer.UrlEncode(e.DateEnd)));
+                panelDates.Update();
+            }
+            else
+            {
+                Response.Redirect("ShowBlog.aspx");
+                panelDates.Update();
+            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }        
+    }
+
     void searchBox_Search(object sender, SearchControl.SearchEventArgs e)
     {
         try
@@ -100,8 +127,7 @@ public partial class DBlogMaster : MasterPage
         catch (Exception ex)
         {
             ReportException(ex);
-        }
-        
+        }        
     }
 
     public void topics_TopicChanged(object sender, ViewTopicsControl.TopicChangedEventArgs e)

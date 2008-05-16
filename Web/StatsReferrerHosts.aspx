@@ -19,6 +19,16 @@
  </div>
  <asp:UpdatePanel runat="server" ID="panelGrid" UpdateMode="Always">
   <ContentTemplate>
+   <table>
+    <tr>
+     <td class="table_tr_td_label">
+     </td>
+     <td valign="top" class="table_tr_td_value">
+      <asp:CheckBox runat="server" CssClass="checkbox" ID="inputNewOnly" AutoPostBack="true"
+       OnCheckedChanged="inputNewOnly_CheckedChanged" Text="Show new only" />
+     </td>
+    </tr>
+   </table>
    <Controls:PagedGrid runat="server" ID="grid" CssClass="table" AutoGenerateColumns="false"
     AllowPaging="true" AllowCustomPaging="true" PageSize="20" CellPadding="2" ShowHeader="true">
     <HeaderStyle CssClass="table_tr_th" HorizontalAlign="Center" />

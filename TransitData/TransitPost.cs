@@ -15,6 +15,8 @@ namespace DBlog.TransitData
     {
         private int mTopicId = 0;
         private string mQuery = string.Empty;
+        private DateTime mDateStart = DateTime.MinValue;
+        private DateTime mDateEnd = DateTime.MaxValue;
 
         public int TopicId
         {
@@ -37,6 +39,30 @@ namespace DBlog.TransitData
             set
             {
                 mQuery = value;
+            }
+        }
+
+        public DateTime DateStart
+        {
+            get
+            {
+                return mDateStart;
+            }
+            set
+            {
+                mDateStart = value;
+            }
+        }
+
+        public DateTime DateEnd
+        {
+            get
+            {
+                return mDateEnd;
+            }
+            set
+            {
+                mDateEnd = value;
             }
         }
 
@@ -83,6 +109,16 @@ namespace DBlog.TransitData
                     Renderer.SqlEncode(Query)));
             }
 
+            if (DateStart != DateTime.MinValue)
+            {
+                criteria.Add(string.Format("Created >= '{0}'", DateStart));
+            }
+
+            if (DateEnd != DateTime.MaxValue)
+            {
+                criteria.Add(string.Format("Created <= '{0}'", DateEnd));
+            }
+
             base.Apply(criteria);
         }
 
@@ -93,6 +129,16 @@ namespace DBlog.TransitData
                 criteria.Add(Expression.Eq("Topic.Id", TopicId));
             }
 
+            if (DateStart != DateTime.MinValue)
+            {
+                criteria.Add(Expression.Ge("Created", DateStart));
+            }
+
+            if (DateEnd != DateTime.MaxValue)
+            {
+                criteria.Add(Expression.Le("Created", DateEnd));
+            }
+
             base.Apply(criteria);
         }
 
@@ -101,6 +147,16 @@ namespace DBlog.TransitData
             if (TopicId != 0)
             {
                 query.Add(Expression.Eq("Topic.Id", TopicId));
+            }
+
+            if (DateStart != DateTime.MinValue)
+            {
+                query.Add(Expression.Ge("Created", DateStart));
+            }
+
+            if (DateEnd != DateTime.MaxValue)
+            {
+                query.Add(Expression.Le("Created", DateEnd));
             }
 
             base.Apply(query);

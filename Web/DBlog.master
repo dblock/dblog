@@ -4,6 +4,7 @@
 <%@ Register TagPrefix="Controls" TagName="Highlights" Src="ViewHighlightsControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="Feeds" Src="ViewFeedsControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="Search" Src="SearchControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="DateRange" Src="DateRangeControl.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -112,6 +113,7 @@
        | <a href="ShowBlog.aspx?SortDirection=Descending&SortExpression=Counter.Count">pop</a>
        | <a href="ShowImages.aspx">pics</a>
        | <a href="About.aspx">me</a>
+       | <a href="ListBlog.aspx">h</a>
       </div>
       <div class="counter">
        <asp:Label ID="labelCounter" runat="server" />
@@ -137,6 +139,13 @@
       <div>
        <asp:LinkButton ID="linkLogout2" CssClass="description" runat="server" Text="logout" OnClick="linkLogout_Click" />
       </div>
+      <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelDates" RenderMode="Inline">
+       <ContentTemplate>
+        <div class="dates">
+         <Controls:DateRange runat="server" ID="dates" />
+        </div>
+       </ContentTemplate>
+      </asp:UpdatePanel>
      </asp:Panel>
      <div class="div_top">
      </div>

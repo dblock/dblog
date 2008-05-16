@@ -22,20 +22,79 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "http://localhost/DBlog/", "
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data", "Data\DBlog.Data.csproj", "{C6E8220C-5AD2-445A-9EF2-079D6547AEAD}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.Hibernate", "Data.Hibernate\DBlog.Data.Hibernate.csproj", "{437F9693-8C20-49BD-A4FD-68A88E9A92C0}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Tools", "Tools\DBlog.Tools.csproj", "{75FB606F-0483-49CA-AF2F-8E57DB9864AB}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SgmlReaderDll8", "SgmlReader\sgmlreaderdll\SgmlReaderDll8.csproj", "{499527FF-AE52-450F-B3E3-4AD53E1712AD}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.UnitTests", "Data.UnitTests\DBlog.Data.UnitTests.csproj", "{2426AC0A-A493-4CC8-A323-C7E775DEC8E4}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.TransitData", "TransitData\DBlog.TransitData.csproj", "{07B2FB5A-1FB0-4955-A218-12229318ECBE}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Web.UnitTests", "Web.UnitTests\DBlog.Web.UnitTests.csproj", "{EA8183AF-FB41-4F28-9B07-5AB96A37A277}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
 EndProject
 Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "DBlog.Web.Deploy", "Web.Deploy\DBlog.Web.Deploy.wdproj", "{6DACA3AC-FE40-4DAF-8722-D991A351EF24}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.Script", "Data.Script\DBlog.Data.Script.csproj", "{AF50F70B-06AD-41D1-BA82-8C6339C4A271}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{8D0A77A7-8475-455A-8CED-5939295C9042}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Database\DBlog.sql = Database\DBlog.sql
+		Database\Upgrade.sql = Database\Upgrade.sql
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0", "1.0", "{53BD427E-EC87-4EC1-9732-50E907A2B745}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		Database\DBlog-Cleanup-1.0-2.0.sql = Database\DBlog-Cleanup-1.0-2.0.sql
+		Database\DBlog-Finalize-1.0-2.0.sql = Database\DBlog-Finalize-1.0-2.0.sql
+		Database\DBlog-Migrate-1.0-2.0.sql = Database\DBlog-Migrate-1.0-2.0.sql
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -137,8 +196,21 @@ Global
 		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{6DACA3AC-FE40-4DAF-8722-D991A351EF24}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Release|.NET.ActiveCfg = Release|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{53BD427E-EC87-4EC1-9732-50E907A2B745} = {8D0A77A7-8475-455A-8CED-5939295C9042}
 	EndGlobalSection
 EndGlobal

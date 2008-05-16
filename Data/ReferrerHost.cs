@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 namespace DBlog.Data
 {
 
@@ -23,6 +23,8 @@ namespace DBlog.Data
         private System.String m_LastUrl;
         private System.String m_Name;
         private System.Int64 m_RequestCount;
+        private System.DateTime m_Created;
+        private System.DateTime m_Updated;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -145,6 +147,56 @@ namespace DBlog.Data
             set
             {
                 m_RequestCount = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.DateTime'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Created' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Created' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.DateTime Created
+        {
+            get
+            {
+                return m_Created;
+            }
+            set
+            {
+                m_Created = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.DateTime'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Updated' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Updated' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.DateTime Updated
+        {
+            get
+            {
+                return m_Updated;
+            }
+            set
+            {
+                m_Updated = value;
             }
         }
 
