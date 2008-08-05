@@ -4,6 +4,7 @@ using System.Text;
 using NHibernate;
 using System.Reflection;
 using NHibernate.Expression;
+using DBlog.Tools.Web;
 
 namespace DBlog.Data.Hibernate
 {
@@ -106,8 +107,8 @@ namespace DBlog.Data.Hibernate
             if (! string.IsNullOrEmpty(SortExpression))
             {
                 criteria.AddOrder((SortDirection == WebServiceQuerySortDirection.Ascending)
-                    ? Order.Asc(SortExpression)
-                    : Order.Desc(SortExpression));
+                    ? Order.Asc(Renderer.SqlEncode(SortExpression))
+                    : Order.Desc(Renderer.SqlEncode(SortExpression)));
             }
         }
 
@@ -115,7 +116,7 @@ namespace DBlog.Data.Hibernate
         {
             if (!string.IsNullOrEmpty(SortExpression))
             {
-                criteria.AddOrder(SortExpression, SortDirection);
+                criteria.AddOrder(Renderer.SqlEncode(SortExpression), SortDirection);
             }
         }
 

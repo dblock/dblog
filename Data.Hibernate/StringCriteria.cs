@@ -5,6 +5,7 @@ using NHibernate;
 using NHibernate.Expression;
 using NHibernate.Engine;
 using NHibernate.SqlCommand;
+using DBlog.Tools.Web;
 
 namespace DBlog.Data.Hibernate
 {
@@ -39,7 +40,15 @@ namespace DBlog.Data.Hibernate
 
         public void AddOrder(string orderby, WebServiceQuerySortDirection direction)
         {
-            mOrderBy = string.Format("ORDER BY {0} {1}", orderby.Replace("'", "''"), 
+            foreach (char c in orderby)
+            {
+                if (!Char.IsLetterOrDigit(c) && c != '.')
+                {
+                    throw new Exception("Invalid character in order");
+                }
+            }
+
+            mOrderBy = string.Format("ORDER BY {0} {1}", Renderer.SqlEncode(orderby), 
                 direction == WebServiceQuerySortDirection.Ascending ? "ASC" : "DESC");
         }
 
