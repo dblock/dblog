@@ -91,7 +91,6 @@ namespace DBlog.Tools.Web
                 Html.HtmlReader r = new Html.HtmlReader(html);
                 StringWriter sw = new StringWriter();
                 Html.HtmlWriter w = new Html.HtmlWriter(sw);
-                w.BaseHref = basehref;
                 while (! r.EOF)
                 {
                     w.WriteNode(r, true);
@@ -203,6 +202,8 @@ namespace DBlog.Tools.Web
                 Add("[/image]", "\"/>");
                 Add("[center]", "<div style=\"text-align: center;\">");
                 Add("[/center]", "</div>");
+                Add("[code]", "<div class=code><pre>");
+                Add("[/code]", "</pre></div>");
             }
         };
 
