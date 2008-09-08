@@ -53,6 +53,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Version\GlobalAssemblyInfo.cs">
+      <Link>Properties\GlobalAssemblyInfo.cs</Link>
+    </Compile>
     <Compile Include="ManagedAtomFeed.cs" />
     <Compile Include="ManagedAtomPostFeed.cs" />
     <Compile Include="ManagedFeed.cs" />

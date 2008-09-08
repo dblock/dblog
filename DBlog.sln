@@ -96,6 +96,16 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1.0", "1.0", "{53BD427E-EC8
 		Database\DBlog-Migrate-1.0-2.0.sql = Database\DBlog-Migrate-1.0-2.0.sql
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{9D3D33E1-4277-43A8-9940-D3CA88B1070D}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.Debug = "False"
+	EndProjectSection
+	ProjectSection(SolutionItems) = preProject
+		build.cmd = build.cmd
+		DBlog.proj = DBlog.proj
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
