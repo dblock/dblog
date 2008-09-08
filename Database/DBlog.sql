@@ -636,6 +636,7 @@ CREATE TABLE [dbo].[Post](
 	[Body] [ntext] COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Created] [datetime] NOT NULL,
 	[Modified] [datetime] NOT NULL,
+	[Publish] [bit] NOT NULL DEFAULT ((1)),
  CONSTRAINT [PK_Post] PRIMARY KEY CLUSTERED 
 (
 	[Post_Id] ASC

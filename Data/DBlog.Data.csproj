@@ -3,7 +3,7 @@
     <ProjectType>Local</ProjectType>
     <ProductVersion>8.0.50727</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{89404491-35c1-4457-9c8c-c02192efcf36}</ProjectGuid>
+    <ProjectGuid>{da4f5d33-a9ef-4a10-b037-d355897fab8f}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ApplicationIcon>
@@ -185,12 +185,6 @@
       <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Include="DBlog.Data.hbm.xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Tools\DBlog.Tools.csproj">
-      <Project>{75FB606F-0483-49CA-AF2F-8E57DB9864AB}</Project>
-      <Name>DBlog.Tools</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

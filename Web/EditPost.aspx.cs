@@ -76,6 +76,7 @@ public partial class EditPost : BlogAdminPage
                     inputTopic.Items.FindByValue(Post.TopicId.ToString()).Selected = true;
                     inputCreatedDate.SelectedDate = SessionManager.Region.UtcToUser(Post.Created).Date;
                     inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(Post.Created).TimeOfDay;
+                    inputPublish.Checked = Post.Publish;
                 }
                 else
                 {
@@ -85,6 +86,7 @@ public partial class EditPost : BlogAdminPage
                     inputCreatedDate.SelectedDate = SessionManager.Region.UtcToUser(utcnow).Date;
                     inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(utcnow).TimeOfDay;
                     inputTopic.Items.Insert(0, new ListItem(string.Empty, "0"));
+                    inputPublish.Checked = true;
                 }
             }
         }
@@ -136,6 +138,7 @@ public partial class EditPost : BlogAdminPage
             Post.Title = CheckInput("Title", inputTitle.Text);
             Post.TopicId = CheckInput("Topic", int.Parse(inputTopic.SelectedValue));
             Post.Body = inputBody.Text;
+            Post.Publish = inputPublish.Checked;
             Post.Created = SessionManager.Region.UserToUtc(inputCreatedDate.SelectedDate.Add(inputCreatedTime.SelectedTime));
             Post.Id = PostId = SessionManager.BlogService.CreateOrUpdatePost(
                 SessionManager.Ticket, Post);

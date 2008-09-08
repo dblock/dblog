@@ -12,6 +12,11 @@
       <b><%# Renderer.RenderEx(Eval("Title")) %></b>
      </a>
      &#187; <%# SessionManager.Region.UtcToUser((DateTime) Eval("Created")).ToString("f") %>
+     <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">
+      <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
+       &#187; edit draft
+      </a>
+     </span>
     </li>
    </ItemTemplate>
   </asp:Repeater>

@@ -56,6 +56,7 @@ public partial class AtomBlog : BlogPage
                 options.PageSize = 25;
                 options.SortDirection = WebServiceQuerySortDirection.Descending;
                 options.SortExpression = "Created";
+                options.PublishedOnly = true;
 
                 repeater.DataSource = SessionManager.GetCachedCollection<TransitPost>(
                     "GetPosts", SessionManager.PostTicket, options);

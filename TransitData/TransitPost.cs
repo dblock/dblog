@@ -14,6 +14,7 @@ namespace DBlog.TransitData
     public class TransitPostQueryOptions : WebServiceQueryOptions
     {
         private int mTopicId = 0;
+        private bool mPublishedOnly = true;
         private string mQuery = string.Empty;
         private DateTime mDateStart = DateTime.MinValue;
         private DateTime mDateEnd = DateTime.MaxValue;
@@ -63,6 +64,18 @@ namespace DBlog.TransitData
             set
             {
                 mDateEnd = value;
+            }
+        }
+
+        public bool PublishedOnly
+        {
+            get
+            {
+                return mPublishedOnly;
+            }
+            set
+            {
+                mPublishedOnly = value;
             }
         }
 
@@ -119,6 +132,11 @@ namespace DBlog.TransitData
                 criteria.Add(string.Format("Created <= '{0}'", DateEnd));
             }
 
+            if (PublishedOnly)
+            {
+                criteria.Add("Publish = 1");
+            }
+
             base.Apply(criteria);
         }
 
@@ -139,6 +157,11 @@ namespace DBlog.TransitData
                 criteria.Add(Expression.Le("Created", DateEnd));
             }
 
+            if (PublishedOnly)
+            {
+                criteria.Add(Expression.Eq("Publish", true));
+            }
+
             base.Apply(criteria);
         }
 
@@ -157,6 +180,11 @@ namespace DBlog.TransitData
             if (DateEnd != DateTime.MaxValue)
             {
                 query.Add(Expression.Le("Created", DateEnd));
+            }
+
+            if (PublishedOnly)
+            {
+                query.Add(Expression.Eq("Publish", true));
             }
 
             base.Apply(query);
@@ -343,6 +371,20 @@ namespace DBlog.TransitData
             }
         }
 
+        private bool mPublish = true;
+
+        public bool Publish
+        {
+            get
+            {
+                return mPublish;
+            }
+            set
+            {
+                mPublish = value;
+            }
+        }
+
         public TransitPost()
         {
 
@@ -412,6 +454,8 @@ namespace DBlog.TransitData
 
             Counter = TransitCounter.GetAssociatedCounter<Post, PostCounter>(
                 session, o.Id);
+
+            Publish = o.Publish;
         }
 
         public static string Render(ISession session, int id, string value)
@@ -430,6 +474,7 @@ namespace DBlog.TransitData
             post.Created = Created;
             post.Login = (LoginId > 0) ? (Login)session.Load(typeof(Login), LoginId) : null;
             post.Topic = (Topic)session.Load(typeof(Topic), TopicId);
+            post.Publish = Publish;
             return post;
         }
 

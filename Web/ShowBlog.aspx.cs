@@ -167,6 +167,8 @@ public partial class ShowBlog : BlogPage
         options.DateStart = DateStart;
         options.DateEnd = DateEnd;
 
+        options.PublishedOnly = ! SessionManager.IsAdministrator;
+
         options.SortDirection = string.IsNullOrEmpty(sortdirection)
             ? WebServiceQuerySortDirection.Descending
             : (WebServiceQuerySortDirection)Enum.Parse(typeof(WebServiceQuerySortDirection), sortdirection);

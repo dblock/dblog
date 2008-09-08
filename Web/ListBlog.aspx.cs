@@ -71,6 +71,7 @@ public partial class ListBlog : BlogPage
         TransitPostQueryOptions options = new TransitPostQueryOptions(PageSize, CurrentPageIndex);
         options.SortDirection = WebServiceQuerySortDirection.Descending;
         options.SortExpression = "Created";
+        options.PublishedOnly = ! SessionManager.IsAdministrator;
         grid.DataSource = SessionManager.GetCachedCollection<TransitPost>(
             "GetPosts", SessionManager.PostTicket, options);
         grid.DataBind();

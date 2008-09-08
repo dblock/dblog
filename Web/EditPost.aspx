@@ -74,6 +74,16 @@
    <td class="table_tr_td_label">
    </td>
    <td valign="top" class="table_tr_td_value">
+    <asp:CheckBox ID="inputPublish" runat="server" Text="Publish" CssClass="checkbox" />
+    <div class="description">
+     uncheck to save as draft
+    </div>
+   </td>
+  </tr>
+  <tr>
+   <td class="table_tr_td_label">
+   </td>
+   <td valign="top" class="table_tr_td_value">
     <Controls:WorkingButton runat="server" ID="save" Text="Save" CssClass="button" OnClick="save_Click" />
    </td>
   </tr>

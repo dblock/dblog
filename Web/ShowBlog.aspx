@@ -26,6 +26,11 @@
          <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
           <%# Renderer.RenderEx(Eval("Title")) %>
          </a>
+         <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">
+          <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
+           <img src="images/site/item.gif" alt="Draft" border="0" />
+          </a>
+         </span>
         </div>
         <div class="post_subtitle">
          <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>

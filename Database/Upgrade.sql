@@ -11,3 +11,7 @@ GO
 UPDATE dbo.ReferrerHost SET Updated = DATEADD(week, -2, getutcdate()) WHERE Updated IS NULL
 ALTER TABLE dbo.ReferrerHost ALTER COLUMN [Updated] datetime NOT NULL
 GO
+-- 09/07/2008: add publish (vs. draft) to posts
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Publish')
+ALTER TABLE dbo.Post ADD [Publish] bit NOT NULL DEFAULT 1
+GO
