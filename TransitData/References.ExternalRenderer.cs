@@ -18,28 +18,19 @@ namespace DBlog.TransitData.References
 {
     public abstract class ExternalRenderer
     {
-        protected int mId = 0;
-        protected string mType = null;
-        protected string mRootUrl = null;
         protected ISession mSession = null;
 
-        public ExternalRenderer(ISession session, int id, string type)
+        public ExternalRenderer(ISession session)
         {
             mSession = session;
-            mId = id;
-            mType = type;
         }
 
         public abstract string Render(string value);
 
         protected string ReferUrl(string url, string content)
         {
-            return string.Format("<a target='_blank' href='{0}ShowUrl.aspx?ObjectId={1}&amp;ObjectType={2}&amp;Url={3}'>{4}</a>",
-                ConfigurationManager.AppSettings["url"],
-                mId,
-                mType,
-                Renderer.UrlEncode(url),
-                content);
+            return string.Format("<a target='_blank' href='{0}'>{1}</a>",
+                url, content);
         }
     }
 }

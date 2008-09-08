@@ -18,8 +18,8 @@ namespace DBlog.TransitData.References
 {
     public class MsnSpacesRenderer : ExternalRenderer
     {
-        public MsnSpacesRenderer(ISession session, int id, string type)
-            : base(session, id, type)
+        public MsnSpacesRenderer(ISession session)
+            : base(session)
         {
 
         }

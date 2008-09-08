@@ -38,21 +38,19 @@ namespace DBlog.Tools.Web
             return result;
         }
 
-        public static string RenderEx(object message)
+        public static string RenderEx(object message, string basehref, string rewritehref)
         {
             if (message == null) return string.Empty;
-            return RenderEx(message.ToString());
+            return RenderEx(message.ToString(), basehref, rewritehref);
         }
 
-        public static string RenderEx(string message)
+        public static string RenderEx(string message, string basehref, string rewritehref)
         {
-            string result = CleanHtml(message);
+            string result = CleanHtml(message, basehref, rewritehref);
             if (result.IndexOf("<P>", StringComparison.InvariantCultureIgnoreCase) < 0)
             {
                 result = result.Replace("\n", "<br/>\n");
             }
-            result = RenderMarkups(result);
-            result = RenderHref(result);
             return result;
         }
 
@@ -81,16 +79,18 @@ namespace DBlog.Tools.Web
 
         public static string CleanHtml(string html)
         {
-            return CleanHtml(html, null);
+            return CleanHtml(html, null, null);
         }
 
-        public static string CleanHtml(string html, Uri basehref)
+        public static string CleanHtml(string html, string basehref, string rewritehref)
         {
             try
             {
                 Html.HtmlReader r = new Html.HtmlReader(html);
                 StringWriter sw = new StringWriter();
                 Html.HtmlWriter w = new Html.HtmlWriter(sw);
+                if (!string.IsNullOrEmpty(basehref)) w.Options.BaseHref = new Uri(basehref);
+                if (!string.IsNullOrEmpty(rewritehref)) w.Options.RewriteHref = new Uri(rewritehref);
                 while (! r.EOF)
                 {
                     w.WriteNode(r, true);

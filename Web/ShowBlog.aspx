@@ -24,7 +24,7 @@
        <itemtemplate>
         <div class="post_title">
          <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
-          <%# Renderer.RenderEx(Eval("Title")) %>
+          <%# RenderEx((string) Eval("Title"), (int) Eval("Id")) %>
          </a>
          <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">
           <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
@@ -51,7 +51,7 @@
          </span>
         </div>
         <div class="post_body">
-         <%# Renderer.RenderEx(Eval("Body")) %>
+         <%# RenderEx((string) Eval("Body"), (int) Eval("Id")) %>
         </div>
         <asp:Panel CssClass="post_image" Width="100%" id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 %>'>
          <a href='<%# GetPostLink((int) Eval("ImagesCount"), (int) Eval("Id"), (int) Eval("ImageId")) %>'>

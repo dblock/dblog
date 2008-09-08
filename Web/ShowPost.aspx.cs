@@ -12,6 +12,7 @@ using DBlog.TransitData;
 using System.Text;
 using DBlog.Tools.Web;
 using DBlog.Data.Hibernate;
+using DBlog.TransitData.References;
 
 public partial class ShowPost : BlogPage
 {
@@ -126,8 +127,8 @@ public partial class ShowPost : BlogPage
 
         linkComment.NavigateUrl = string.Format("EditPostComment.aspx?sid={0}", post.Id);
 
-        posttitle.Text = Renderer.RenderEx(post.Title);
-        postbody.Text = Renderer.RenderEx(post.Body);
+        posttitle.Text = RenderEx(post.Title, post.Id);
+        postbody.Text = RenderEx(post.Body, post.Id);
         postcreated.Text = post.Created.ToString("d");
         postcounter.Text = string.Format("{0} Click{1}", post.Counter.Count,
             post.Counter.Count != 1 ? "s" : string.Empty);

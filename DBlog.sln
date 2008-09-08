@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "http://localhost/DBlog/", "http://localhost/DBlog", "{8CE895ED-CDC6-41F0-AE93-2ED257DEC9FB}"
 	ProjectSection(WebsiteProperties) = preProject
-		ProjectReferences = "{437F9693-8C20-49BD-A4FD-68A88E9A92C0}|DBlog.Data.Hibernate.dll;{75FB606F-0483-49CA-AF2F-8E57DB9864AB}|DBlog.Tools.dll;{C6E8220C-5AD2-445A-9EF2-079D6547AEAD}|DBlog.Data.dll;{07B2FB5A-1FB0-4955-A218-12229318ECBE}|DBlog.TransitData.dll;"
+		ProjectReferences = "{437F9693-8C20-49BD-A4FD-68A88E9A92C0}|DBlog.Data.Hibernate.dll;{75FB606F-0483-49CA-AF2F-8E57DB9864AB}|DBlog.Tools.dll;{07B2FB5A-1FB0-4955-A218-12229318ECBE}|DBlog.TransitData.dll;{89404491-35C1-4457-9C8C-C02192EFCF36}|DBlog.Data.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/DBlog"
 		Debug.AspNetCompiler.PhysicalPath = "Web\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\DBlog\"

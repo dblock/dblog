@@ -104,6 +104,11 @@ namespace DBlog.Tools.Web.Html
         public Uri BaseHref = null;
 
         /// <summary>
+        /// Rewrite href to redirect links
+        /// </summary>
+        public Uri RewriteHref = null;
+
+        /// <summary>
         /// Base href to adjust images
         /// </summary>
         public Uri RewriteImgSrc = null;
@@ -334,12 +339,15 @@ namespace DBlog.Tools.Web.Html
                                 {
                                     string value = reader.Value;
 
-                                    if (Options.BaseHref != null
-                                        && LastStartElement == "a"
-                                        && attributename == "href")
+                                    if (Options.BaseHref != null && LastStartElement == "a" && attributename == "href")
                                     {
-                                        value = HtmlUriExtractor.TryCreate(
-                                            Options.BaseHref, reader.Value, value);
+                                        value = HtmlUriExtractor.TryCreate(Options.BaseHref, reader.Value, value);
+                                    }
+
+                                    if (Options.RewriteHref != null && LastStartElement == "a" && attributename == "href")
+                                    {
+                                        value = string.Format("{0}&amp;Url={1}", Options.RewriteHref.OriginalString, 
+                                            Renderer.UrlEncode(value));
                                     }
 
                                     if (Options.BaseHref != null

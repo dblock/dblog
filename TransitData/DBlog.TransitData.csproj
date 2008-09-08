@@ -61,6 +61,7 @@
     <Compile Include="References.ExternalRenderer.cs" />
     <Compile Include="References.LiveJournalRenderer.cs" />
     <Compile Include="References.MsnSpacesRenderer.cs" />
+    <Compile Include="References.Redirector.cs" />
     <Compile Include="References.Renderer.cs" />
     <Compile Include="TransitBrowser.cs" />
     <Compile Include="TransitCounter.cs" />

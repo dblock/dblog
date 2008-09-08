@@ -11,6 +11,7 @@ using DBlog.Tools.Web;
 using System.Reflection;
 using System.Text.RegularExpressions;
 using DBlog.WebServices;
+using DBlog.TransitData.References;
 
 public class BlogPage : DBlog.Tools.Web.Page
 {
@@ -136,5 +137,11 @@ public class BlogPage : DBlog.Tools.Web.Page
         }
 
         base.OnPreInit(e);
+    }
+
+    public string RenderEx(string text, int id)
+    {
+        ReferencesRedirector redirector = new ReferencesRedirector(id, "Post");
+        return Renderer.RenderEx(text, ConfigurationManager.AppSettings["url"], redirector.ReferUri);
     }
 }

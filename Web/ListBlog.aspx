@@ -9,7 +9,7 @@
    <ItemTemplate>
     <li>
      <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
-      <b><%# Renderer.RenderEx(Eval("Title")) %></b>
+      <b><%# RenderEx((string) Eval("Title"), (int) Eval("Id")) %></b>
      </a>
      &#187; <%# SessionManager.Region.UtcToUser((DateTime) Eval("Created")).ToString("f") %>
      <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">

@@ -14,6 +14,7 @@ using DBlog.TransitData;
 using DBlog.Tools.Web;
 using System.Text;
 using DBlog.Data.Hibernate;
+using DBlog.TransitData.References;
 
 public partial class ShowBlog : BlogPage
 {

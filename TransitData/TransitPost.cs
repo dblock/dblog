@@ -427,7 +427,7 @@ namespace DBlog.TransitData
             if (hasaccess)
             {
                 mRawBody = o.Body;
-                Body = Render(session, o.Id, o.Body);
+                Body = Render(session, o.Body);
                 BodyXHTML = RenderXHTML(session, o);
             }
 
@@ -458,11 +458,12 @@ namespace DBlog.TransitData
             Publish = o.Publish;
         }
 
-        public static string Render(ISession session, int id, string value)
+        public static string Render(ISession session, string value)
         {
-            value = new ReferencesRenderer(session, id, "Post").Render(value);
-            value = new LiveJournalRenderer(session, id, "Post").Render(value);
-            value = new MsnSpacesRenderer(session, id, "Post").Render(value);
+            value = new ReferencesRenderer(session).Render(value);
+            value = new LiveJournalRenderer(session).Render(value);
+            value = new MsnSpacesRenderer(session).Render(value);
+            value = Renderer.RenderMarkups(value);
             return value;
         }
 
@@ -485,7 +486,10 @@ namespace DBlog.TransitData
             if (!string.IsNullOrEmpty(post.Body))
             {
                 content.Append("<div>");
-                content.Append(TransitPost.Render(session, post.Id, post.Body));
+                string body = Render(session, post.Body);
+                body = Renderer.RenderEx(body, ConfigurationManager.AppSettings["url"], null);
+                body = body.Replace("&", "&amp;");
+                content.Append(body);
                 content.Append("</div>");
             }
 

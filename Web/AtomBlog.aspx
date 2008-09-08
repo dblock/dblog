@@ -16,7 +16,7 @@
      <author>
       <name><%# SessionManager.GetSetting("author", string.Empty) %></name>
      </author>
-     <content type="text/html" mode="xml">
+     <content type="text/html" mode="xhtml">
       <body xmlns="http://www.w3.org/1999/xhtml">
        <![CDATA[
         <link rel="stylesheet" href='<%# SessionManager.GetSetting("url", string.Empty) %>Style.css' />

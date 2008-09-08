@@ -20,8 +20,8 @@ namespace DBlog.TransitData.References
 {
     public class ReferencesRenderer : ExternalRenderer
     {
-        public ReferencesRenderer(ISession session, int id, string type)
-            : base(session, id, type)
+        public ReferencesRenderer(ISession session)
+            : base(session)
         {
 
         }

@@ -18,8 +18,8 @@ namespace DBlog.TransitData.References
 {
     public class LiveJournalRenderer : ExternalRenderer
     {
-        public LiveJournalRenderer(ISession session, int id, string type)
-            : base(session, id, type)
+        public LiveJournalRenderer(ISession session)
+            : base(session)
         {
 
         }
