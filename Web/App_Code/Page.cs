@@ -141,6 +141,9 @@ public class BlogPage : DBlog.Tools.Web.Page
 
     public string RenderEx(string text, int id)
     {
+        if (string.IsNullOrEmpty(text))
+            return string.Empty;
+
         ReferencesRedirector redirector = new ReferencesRedirector(id, "Post");
         return Renderer.RenderEx(text, ConfigurationManager.AppSettings["url"], redirector.ReferUri);
     }
