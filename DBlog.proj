@@ -56,6 +56,7 @@
   </Target>
   <Target Name="package" DependsOnTargets="version">
     <MakeDir Directories="Target\$(Configuration)" />
+    <RemoveDir Directories="Web.Deploy\Target\$(Configuration)" />
     <MakeDir Directories="Web.Deploy\Target\$(Configuration)" />
     <Exec WorkingDirectory="Web.Deploy\Target\$(Configuration)"
     Command="xcopy /EXCLUDE:..\..\XCopy.exclude /s /i ..\..\..\Web.Deploy\$(Configuration)\*.* $(ProjectName)" />
