@@ -18,10 +18,17 @@ using DBlog.TransitData.References;
 
 public partial class ShowBlog : BlogPage
 {
+    private HtmlMeta mMetaDescription = null;
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try
         {
+            if (Header != null)
+            {
+                Header.Controls.Add(MetaDescription);
+            }
+
             DBlogMaster master = (DBlogMaster)this.Master;
             master.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
             master.Search += new SearchControl.SearchHandler(search_Search);
@@ -269,6 +276,21 @@ public partial class ShowBlog : BlogPage
         else
         {
             return string.Format("ShowPost.aspx?id={0}", id);
+        }
+    }
+
+    public HtmlMeta MetaDescription
+    {
+        get
+        {
+            if (mMetaDescription == null)
+            {
+                mMetaDescription = new HtmlMeta();
+                mMetaDescription.Name = "description";
+                mMetaDescription.Content = SessionManager.GetSetting(
+                    "description", string.Empty);
+            }
+            return mMetaDescription;
         }
     }
 }

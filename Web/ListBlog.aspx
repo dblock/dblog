@@ -5,6 +5,9 @@
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <ul>
+  <li><a href="SiteMapBlog.aspx">Google Site Map</a></li>
+ </ul>
+ <ul>
   <asp:Repeater ID="grid" runat="server">
    <ItemTemplate>
     <li>

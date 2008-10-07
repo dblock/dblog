@@ -10,7 +10,7 @@ setlocal ENABLEEXTENSIONS ENABLEDELAYEDEXPANSION
 
 set ProjectName=DBlog
 
-set VisualStudioCmd=%ProgramFiles%\Microsoft Visual Studio 8\VC\vcvarsall.bat
+set VisualStudioCmd=%ProgramFiles%\Microsoft Visual Studio 9.0\VC\vcvarsall.bat
 
 if EXIST "%VisualStudioCmd%" ( 
  call "%VisualStudioCmd%"

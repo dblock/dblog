@@ -15,7 +15,6 @@ using DBlog.TransitData.References;
 
 public class BlogPage : DBlog.Tools.Web.Page
 {
-    private HtmlMeta mMetaDescription = null;
     protected SessionManager mSessionManager = null;
     
     protected virtual bool AutomaticTitle
@@ -26,11 +25,22 @@ public class BlogPage : DBlog.Tools.Web.Page
         }
     }
 
+    protected virtual bool Index
+    {
+        get
+        {
+            return true;
+        }
+    }
+
     protected override void OnLoad(EventArgs e)
     {
-        if (Header != null)
+        if (! Index && Header != null)
         {
-            Header.Controls.Add(MetaDescription);
+            HtmlMeta noindex = new HtmlMeta();
+            noindex.Name = "robots";
+            noindex.Content = "noindex";
+            Header.Controls.Add(noindex);
         }
 
         if (!IsPostBack)
@@ -79,21 +89,6 @@ public class BlogPage : DBlog.Tools.Web.Page
         if (notice == null) throw new Exception(message);
         notice.GetType().GetProperty("Info").SetValue(notice, message, null);
         notice.GetType().GetProperty("HtmlEncode").SetValue(notice, htmlencode, null);
-    }
-
-    public HtmlMeta MetaDescription
-    {
-        get
-        {
-            if (mMetaDescription == null)
-            {
-                mMetaDescription = new HtmlMeta();
-                mMetaDescription.Name = "description";
-                mMetaDescription.Content = SessionManager.GetSetting(
-                    "description", string.Empty);
-            }
-            return mMetaDescription;
-        }
     }
 
     public void ReportInfo(string message)

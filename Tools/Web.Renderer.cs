@@ -258,7 +258,8 @@ namespace DBlog.Tools.Web
 
         public static string ToRfc822(DateTime value)
         {
-            return value.ToString("ddd, dd MMM yyyy HH:mm:ss GMT");
+            return string.Format("{0} GMT",
+                value.ToString("ddd, dd MMM yyyy HH:mm:ss"));
         }
     }
 }

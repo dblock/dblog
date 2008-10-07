@@ -29,4 +29,12 @@ public class BlogAdminPage : BlogPage
 
         base.OnLoad(e);
     }
+
+    protected override bool Index
+    {
+        get
+        {
+            return false;
+        }
+    }
 }

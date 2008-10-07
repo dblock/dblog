@@ -73,4 +73,12 @@ public partial class EditImageComment : BlogUserPage
             ReportException(ex);
         }
     }
+
+    protected override bool Index
+    {
+        get
+        {
+            return false;
+        }
+    }
 }

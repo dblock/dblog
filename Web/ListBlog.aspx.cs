@@ -26,7 +26,7 @@ public partial class ListBlog : BlogPage
         {
             HtmlMeta noindex = new HtmlMeta();
             noindex.Name = "robots";
-            noindex.Content = "noindex";
+            noindex.Content = "noindex, follow";
             Header.Controls.Add(noindex);
         }
 

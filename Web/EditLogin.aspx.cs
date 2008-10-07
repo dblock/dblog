@@ -106,4 +106,12 @@ public partial class EditLogin : BlogPage
             ReportException(ex);
         }
     }
+
+    protected override bool Index
+    {
+        get
+        {
+            return false;
+        }
+    }
 }
