@@ -193,6 +193,20 @@ namespace DBlog.TransitData
 
     public class TransitPost : TransitObject
     {
+        private bool mHasAccess = true;
+
+        public bool HasAccess
+        {
+            get
+            {
+                return mHasAccess;
+            }
+            set
+            {
+                mHasAccess = value;
+            }
+        }
+
         private TransitCounter mCounter;
 
         public TransitCounter Counter
@@ -391,12 +405,12 @@ namespace DBlog.TransitData
         }
 
         public TransitPost(ISession session, DBlog.Data.Post o, string ticket)
-            : this(session, o, HasAccess(session, o, ticket))
+            : this(session, o, GetAccess(session, o, ticket))
         {
 
         }
 
-        public static bool HasAccess(ISession session, Post post, string ticket)
+        public static bool GetAccess(ISession session, Post post, string ticket)
         {
             if (post.PostLogins == null || post.PostLogins.Count == 0)
                 return true;
@@ -423,6 +437,7 @@ namespace DBlog.TransitData
             : base(o.Id)
         {
             Title = o.Title;
+            HasAccess = hasaccess;
 
             if (hasaccess)
             {

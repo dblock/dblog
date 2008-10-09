@@ -215,7 +215,7 @@ namespace DBlog.TransitData
 
             foreach (PostImage pi in image.PostImages)
             {
-                if (TransitPost.HasAccess(session, pi.Post, ticket))
+                if (TransitPost.GetAccess(session, pi.Post, ticket))
                     return true;
             }
 

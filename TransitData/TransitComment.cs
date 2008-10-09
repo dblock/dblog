@@ -138,7 +138,7 @@ namespace DBlog.TransitData
 
             foreach (PostComment pi in comment.PostComments)
             {
-                if (TransitPost.HasAccess(session, pi.Post, ticket))
+                if (TransitPost.GetAccess(session, pi.Post, ticket))
                     return true;
             }
 

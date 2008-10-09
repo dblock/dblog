@@ -125,6 +125,18 @@ namespace DBlog.WebServices
                     }
                 }
 
+                // find an existing login, if any
+                DBlog.Data.Login existingLogin = (DBlog.Data.Login) session.CreateCriteria(typeof(DBlog.Data.Login))
+                        .Add(Expression.Eq("Username", login.Username))
+                        .Add(Expression.Not(Expression.Eq("Id", login.Id)))
+                        .UniqueResult();
+
+                if (existingLogin != null)
+                {
+                    throw new Exception(string.Format("A user registered with e-mail {0} already exists. Please choose a different one.",
+                        login.Email));
+                }
+
                 session.SaveOrUpdate(login);
                 session.Flush();
                 return login.Id;
@@ -900,7 +912,7 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 Post post = (Post)session.Load(typeof(Post), id);
-                return TransitPost.HasAccess(session, post, ticket);
+                return TransitPost.GetAccess(session, post, ticket);
             }
         }
 

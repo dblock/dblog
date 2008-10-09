@@ -12,7 +12,7 @@ using DBlog.TransitData;
 using DBlog.WebServices;
 using System.Collections.Specialized;
 
-public partial class StatsSummary : BlogPage
+public partial class StatsSummary : BlogAdminPage
 {
     private TransitStats mTransitStats;
 

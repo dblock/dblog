@@ -91,7 +91,7 @@ public partial class ShowImage : BlogPage
         {
             if (!HasAccess)
             {
-                Response.Redirect(string.Format("Login.aspx?r={0}&cookie={1}",
+                Response.Redirect(string.Format("Login.aspx?r={0}&cookie={1}&access=denied",
                     Renderer.UrlEncode(Request.Url.PathAndQuery), SessionManager.sDBlogPostCookieName));
             }
 
