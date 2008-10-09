@@ -9,7 +9,6 @@
     <loc><%# SessionManager.GetSetting("url", string.Empty) %>ShowPost.aspx?Id=<%# Eval("Id") %></loc>
     <lastmod><%# ((DateTime) Eval("Modified")).ToString("s") %>+00:00</lastmod>
     <changefreq>never</changefreq>
-    <priority>0.9</priority>
    </url>
   </ItemTemplate>
  </asp:Repeater>    
