@@ -370,6 +370,9 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
+                session.Delete(string.Format("FROM ImageComment WHERE Image_Id = {0}", id));
+                session.Delete(string.Format("FROM ImageCounter WHERE Image_Id = {0}", id));
+                session.Delete(string.Format("FROM PostImage WHERE Image_Id = {0}", id));
                 session.Delete(session.Load(typeof(DBlog.Data.Image), id));
                 session.Flush();
             }

@@ -62,7 +62,7 @@
          <td width="*">
           <div class="table_comments">
            <div class="table_comments_body">
-            <%# RenderEx((string) Eval("CommentText"), (int) Eval("PostId")) %>
+            <%# RenderEx((string) Eval("CommentText"), (int) Eval("ImageId")) %>
            </div>
            <div class="table_comments_note">
             <a href='<%# Renderer.Render(Eval("CommentLoginWebsite")) %>'>

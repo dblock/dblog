@@ -111,6 +111,51 @@ namespace DBlog.Web.UnitTests.WebServices
         }
 
         [Test]
+        public void CreatePostWithImageAndCommentTest()
+        {
+            // topic
+            TransitTopic t_topic = new TransitTopic();
+            t_topic.Name = Guid.NewGuid().ToString();
+            t_topic.Id = Blog.CreateOrUpdateTopic(Ticket, t_topic);
+
+            // post
+            TransitPost t_post = new TransitPost();
+            t_post.Body = Guid.NewGuid().ToString();
+            t_post.Title = Guid.NewGuid().ToString();
+            t_post.TopicId = t_topic.Id;
+            t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
+            Assert.Greater(t_post.Id, 0);
+
+            // image
+            TransitImage t_image = new TransitImage();
+            t_image.Name = Guid.NewGuid().ToString();
+
+            Bitmap b = new Bitmap(480, 480);
+            Graphics g = Graphics.FromImage(b);
+            g.FillEllipse(Brushes.Red, 0, 0, 480, 480);
+            ThumbnailBitmap tb = new ThumbnailBitmap(b);
+
+            t_image.Data = tb.Bitmap;
+            t_image.Thumbnail = tb.Thumbnail;
+
+            t_image.Id = Blog.CreateOrUpdatePostImage(Ticket, t_post.Id, t_image);
+            Assert.Greater(t_image.Id, 0);
+
+            // comment
+            TransitComment t_comment = new TransitComment();
+            t_comment.IpAddress = "127.0.0.1";
+            t_comment.LoginId = Blog.GetLogin(Ticket).Id;
+            t_comment.Text = Guid.NewGuid().ToString();
+
+            t_comment.Id = Blog.CreateOrUpdateImageComment(Ticket, t_image.Id, t_comment);
+            Assert.Greater(t_comment.Id, 0);
+
+            Blog.DeleteImage(Ticket, t_image.Id);
+            Blog.DeletePost(Ticket, t_post.Id);
+            Blog.DeleteTopic(Ticket, t_topic.Id);
+        }
+
+        [Test]
         public void CreatePostWithCommentTest()
         {
             TransitTopic t_topic = new TransitTopic();
