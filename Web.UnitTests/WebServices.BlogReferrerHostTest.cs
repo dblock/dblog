@@ -17,8 +17,8 @@ namespace DBlog.Web.UnitTests.WebServices
         {
             mReferrerHost = new TransitReferrerHost();
             mReferrerHost.Name = Guid.NewGuid().ToString();
-            mReferrerHost.LastSource = Guid.NewGuid().ToString();
-            mReferrerHost.LastUrl = Guid.NewGuid().ToString();
+            mReferrerHost.LastSource = string.Format("http://{0}", Guid.NewGuid().ToString());
+            mReferrerHost.LastUrl = string.Format("http://{0}", Guid.NewGuid().ToString());
             mReferrerHost.RequestCount = 1;
         }
 
@@ -54,8 +54,8 @@ namespace DBlog.Web.UnitTests.WebServices
         public void CreateOrUpdateDupTest()
         {
             TransitReferrerHost host = new TransitReferrerHost();
-            host.LastSource = Guid.NewGuid().ToString();
-            host.LastUrl = Guid.NewGuid().ToString();
+            host.LastSource = string.Format("http://{0}", Guid.NewGuid().ToString());
+            host.LastUrl = string.Format("http://{0}", Guid.NewGuid().ToString());
             host.Name = Guid.NewGuid().ToString();
             host.RequestCount = 1;
             host.Id = Blog.CreateOrUpdateReferrerHost(Ticket, host);
@@ -66,7 +66,7 @@ namespace DBlog.Web.UnitTests.WebServices
             rollup.Id = Blog.CreateOrUpdateReferrerHostRollup(Ticket, rollup);
 
             TransitReferrerHost host2 = new TransitReferrerHost();
-            host2.LastSource = host2.LastUrl = Guid.NewGuid().ToString();
+            host2.LastSource = host2.LastUrl = string.Format("http://{0}", Guid.NewGuid().ToString());
             host2.Name = rollup.Name;
             host2.RequestCount = 1;
             host2.Id = Blog.CreateOrUpdateReferrerHost(Ticket, host2);
@@ -81,8 +81,8 @@ namespace DBlog.Web.UnitTests.WebServices
         public void CreateOrUpdateDupExTest()
         {
             TransitReferrerHost host = new TransitReferrerHost();
-            host.LastSource = Guid.NewGuid().ToString();
-            host.LastUrl = Guid.NewGuid().ToString();
+            host.LastSource = string.Format("http://{0}", Guid.NewGuid().ToString());
+            host.LastUrl = string.Format("http://{0}", Guid.NewGuid().ToString());
             host.Name = Guid.NewGuid().ToString();
             host.RequestCount = 1;
             host.Id = Blog.CreateOrUpdateReferrerHost(Ticket, host);
@@ -95,7 +95,7 @@ namespace DBlog.Web.UnitTests.WebServices
             rollup.Id = Blog.CreateOrUpdateReferrerHostRollup(Ticket, rollup);
 
             TransitReferrerHost host2 = new TransitReferrerHost();
-            host2.LastSource = host2.LastUrl = Guid.NewGuid().ToString();
+            host2.LastSource = host2.LastUrl = string.Format("http://{0}", Guid.NewGuid().ToString());
             host2.Name = string.Format("www.{0}", rollupname);
             host2.RequestCount = 1;
             host2.Id = Blog.CreateOrUpdateReferrerHost(Ticket, host2);

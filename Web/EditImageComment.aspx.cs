@@ -39,8 +39,7 @@ public partial class EditImageComment : BlogUserPage
             if (!IsPostBack)
             {
                 SetDefaultButton(save);
-                linkCancel.NavigateUrl = string.Format("ShowImage.aspx?id={0}&pid={1}", 
-                    GetId("sid"), GetId("rid"));
+                linkCancel.NavigateUrl = ReturnUrl;
 
                 if (RequestId > 0)
                 {
@@ -51,6 +50,19 @@ public partial class EditImageComment : BlogUserPage
         catch (Exception ex)
         {
             ReportException(ex);
+        }
+    }
+
+    public string ReturnUrl
+    {
+        get
+        {
+            string result = Request.QueryString["r"];
+            if (string.IsNullOrEmpty(result))
+            {
+                return string.Format("ShowImage.aspx?id={0}", GetId("sid"));
+            }
+            return result;
         }
     }
 
@@ -65,8 +77,7 @@ public partial class EditImageComment : BlogUserPage
             t_comment.ParentCommentId = GetId("pid");
             ImageComment.Id = SessionManager.BlogService.CreateOrUpdateImageComment(
                 SessionManager.Ticket, GetId("sid"), t_comment);
-            Response.Redirect(string.Format("ShowImage.aspx?id={0}&pid={1}", 
-                GetId("sid"), GetId("rid")));
+            Response.Redirect(ReturnUrl);
         }
         catch (Exception ex)
         {

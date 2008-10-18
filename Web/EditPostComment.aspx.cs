@@ -39,7 +39,7 @@ public partial class EditPostComment : BlogUserPage
             if (!IsPostBack)
             {
                 SetDefaultButton(save);
-                linkCancel.NavigateUrl = string.Format("ShowPost.aspx?id={0}", GetId("sid"));
+                linkCancel.NavigateUrl = ReturnUrl;
 
                 if (RequestId > 0)
                 {
@@ -50,6 +50,19 @@ public partial class EditPostComment : BlogUserPage
         catch (Exception ex)
         {
             ReportException(ex);
+        }
+    }
+
+    public string ReturnUrl
+    {
+        get
+        {
+            string result = Request.QueryString["r"];
+            if (string.IsNullOrEmpty(result))
+            {
+                return string.Format("ShowPost.aspx?id={0}", GetId("sid"));
+            }
+            return result;
         }
     }
 
