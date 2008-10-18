@@ -30,6 +30,7 @@ namespace DBlog.Web.UnitTests.WebServices
             mPost = new TransitPost();
             mPost.Title = Guid.NewGuid().ToString();
             mPost.Body = Guid.NewGuid().ToString();
+            mPost.Created = mPost.Modified = DateTime.UtcNow;
 
             mTopicTest = new BlogTopicTest();
             AddDependent(mTopicTest);

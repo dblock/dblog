@@ -37,6 +37,7 @@ namespace DBlog.TransitData
                 targethost.Name = mReferrerHostRollup.Rollup;
                 targethost.RequestCount = 0;
                 targethost.LastSource = targethost.LastUrl = "http://localhost/";
+                targethost.Created = targethost.Updated = DateTime.UtcNow;
                 session.Save(targethost);
             }
 

@@ -4305,7 +4305,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerHostsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetReferrerHostsCount(string ticket, WebServiceQueryOptions options) {
+        public int GetReferrerHostsCount(string ticket, TransitReferrerHostQueryOptions options) {
             object[] results = this.Invoke("GetReferrerHostsCount", new object[] {
                         ticket,
                         options});
@@ -4313,12 +4313,12 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
-        public void GetReferrerHostsCountAsync(string ticket, WebServiceQueryOptions options) {
+        public void GetReferrerHostsCountAsync(string ticket, TransitReferrerHostQueryOptions options) {
             this.GetReferrerHostsCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetReferrerHostsCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
+        public void GetReferrerHostsCountAsync(string ticket, TransitReferrerHostQueryOptions options, object userState) {
             if ((this.GetReferrerHostsCountOperationCompleted == null)) {
                 this.GetReferrerHostsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerHostsCountOperationCompleted);
             }
@@ -4336,7 +4336,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerHosts", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransitReferrerHost[] GetReferrerHosts(string ticket, WebServiceQueryOptions options) {
+        public TransitReferrerHost[] GetReferrerHosts(string ticket, TransitReferrerHostQueryOptions options) {
             object[] results = this.Invoke("GetReferrerHosts", new object[] {
                         ticket,
                         options});
@@ -4344,12 +4344,12 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
-        public void GetReferrerHostsAsync(string ticket, WebServiceQueryOptions options) {
+        public void GetReferrerHostsAsync(string ticket, TransitReferrerHostQueryOptions options) {
             this.GetReferrerHostsAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetReferrerHostsAsync(string ticket, WebServiceQueryOptions options, object userState) {
+        public void GetReferrerHostsAsync(string ticket, TransitReferrerHostQueryOptions options, object userState) {
             if ((this.GetReferrerHostsOperationCompleted == null)) {
                 this.GetReferrerHostsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerHostsOperationCompleted);
             }
@@ -4719,6 +4719,7 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     }
     
     /// <remarks/>
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHostQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostLoginQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeedItemQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitFeedQueryOptions))]
@@ -4804,6 +4805,27 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitReferrerHostQueryOptions : WebServiceQueryOptions {
+        
+        private System.DateTime dateStartField;
+        
+        /// <remarks/>
+        public System.DateTime DateStart {
+            get {
+                return this.dateStartField;
+            }
+            set {
+                this.dateStartField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitPostLoginQueryOptions : WebServiceQueryOptions {
         
         private int postIdField;
@@ -4875,6 +4897,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         Atom,
+        
+        /// <remarks/>
+        AtomPost,
     }
     
     /// <remarks/>
@@ -5042,6 +5067,12 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private string queryField;
         
+        private System.DateTime dateStartField;
+        
+        private System.DateTime dateEndField;
+        
+        private bool publishedOnlyField;
+        
         /// <remarks/>
         public int TopicId {
             get {
@@ -5059,6 +5090,36 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.queryField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime DateStart {
+            get {
+                return this.dateStartField;
+            }
+            set {
+                this.dateStartField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime DateEnd {
+            get {
+                return this.dateEndField;
+            }
+            set {
+                this.dateEndField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool PublishedOnly {
+            get {
+                return this.publishedOnlyField;
+            }
+            set {
+                this.publishedOnlyField = value;
             }
         }
     }
@@ -5125,6 +5186,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitPost : TransitObject {
         
+        private bool hasAccessField;
+        
         private TransitCounter counterField;
         
         private int imageIdField;
@@ -5148,6 +5211,18 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private System.DateTime modifiedField;
         
         private int commentsCountField;
+        
+        private bool publishField;
+        
+        /// <remarks/>
+        public bool HasAccess {
+            get {
+                return this.hasAccessField;
+            }
+            set {
+                this.hasAccessField = value;
+            }
+        }
         
         /// <remarks/>
         public TransitCounter Counter {
@@ -5266,6 +5341,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.commentsCountField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool Publish {
+            get {
+                return this.publishField;
+            }
+            set {
+                this.publishField = value;
             }
         }
     }

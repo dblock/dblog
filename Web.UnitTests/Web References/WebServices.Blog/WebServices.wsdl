@@ -905,6 +905,7 @@
         <s:complexContent mixed="false">
           <s:extension base="tns:TransitObject">
             <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="HasAccess" type="s:boolean" />
               <s:element minOccurs="0" maxOccurs="1" name="Counter" type="tns:TransitCounter" />
               <s:element minOccurs="1" maxOccurs="1" name="ImageId" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="ImagesCount" type="s:int" />
@@ -917,6 +918,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="CommentsCount" type="s:int" />
+              <s:element minOccurs="1" maxOccurs="1" name="Publish" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -965,6 +967,9 @@
             <s:sequence>
               <s:element minOccurs="1" maxOccurs="1" name="TopicId" type="s:int" />
               <s:element minOccurs="0" maxOccurs="1" name="Query" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="DateStart" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="DateEnd" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="PublishedOnly" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -1798,6 +1803,7 @@
           <s:enumeration value="Unknown" />
           <s:enumeration value="Rss" />
           <s:enumeration value="Atom" />
+          <s:enumeration value="AtomPost" />
         </s:restriction>
       </s:simpleType>
       <s:element name="CreateOrUpdateFeed">
@@ -2197,10 +2203,19 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitReferrerHostQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="TransitReferrerHostQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WebServiceQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="DateStart" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="GetReferrerHostsCountResponse">
         <s:complexType>
           <s:sequence>
@@ -2212,7 +2227,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitReferrerHostQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>

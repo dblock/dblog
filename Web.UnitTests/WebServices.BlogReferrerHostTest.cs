@@ -22,6 +22,14 @@ namespace DBlog.Web.UnitTests.WebServices
             mReferrerHost.RequestCount = 1;
         }
 
+        public override bool IsServiceCount
+        {
+            get
+            {
+                return true;
+            }
+        }
+
         public override TransitObject TransitInstance
         {
             get
