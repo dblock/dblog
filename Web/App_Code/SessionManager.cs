@@ -36,7 +36,7 @@ public class SessionManager
     private TransitLogin mPostLoginRecord = null;
     private Region mRegion = null;
 
-    private class TypeCacheDependency<TransitType> : CacheDependency
+    public class TypeCacheDependency<TransitType> : CacheDependency
     {
         public TypeCacheDependency()
             : base(null, new string[] { GetTypeCacheKey() }, null)
@@ -50,8 +50,7 @@ public class SessionManager
         }
     }
 
-
-    private TypeCacheDependency<TransitType> GetTransitTypeCacheDependency<TransitType>()
+    public TypeCacheDependency<TransitType> GetTransitTypeCacheDependency<TransitType>()
     {
         string key = TypeCacheDependency<TransitType>.GetTypeCacheKey();
         if (Cache[key] == null)
