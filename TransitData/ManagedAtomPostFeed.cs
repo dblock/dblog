@@ -62,6 +62,7 @@ namespace DBlog.TransitData
 
             IList posts = session.CreateCriteria(typeof(Post))
                 .Add(Expression.Ge("Modified", mFeed.Saved))
+                .Add(Expression.Eq("Publish", 1))
                 .AddOrder(Order.Desc("Modified"))
                 .List();
 
