@@ -17,14 +17,6 @@ namespace DBlog.Web.UnitTests.WebServices
         private TransitPost mPost = null;
         private BlogTopicTest mTopicTest = null;
 
-        public override bool IsServiceCount
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public BlogPostTest()
         {
             mPost = new TransitPost();

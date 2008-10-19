@@ -13,14 +13,6 @@ namespace DBlog.Web.UnitTests.WebServices
     {
         private TransitImage mImage = null;
 
-        public override bool IsServiceCount
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public BlogImageTest()
         {
             mImage = new TransitImage();

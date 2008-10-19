@@ -14,14 +14,6 @@ namespace DBlog.Web.UnitTests.WebServices
         private TransitFeedItem mFeedItem = null;
         private BlogFeedTest mFeedTest = null;
 
-        public override bool IsServiceCount
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public BlogFeedItemTest()
         {
             mFeedItem = new TransitFeedItem();

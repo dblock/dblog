@@ -13,14 +13,6 @@ namespace DBlog.Web.UnitTests.WebServices
     {
         private TransitFeed mFeed = null;
 
-        public override bool IsServiceCount
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public BlogFeedTest()
         {
             mFeed = new TransitFeed();

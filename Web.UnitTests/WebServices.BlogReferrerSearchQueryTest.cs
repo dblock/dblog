@@ -20,14 +20,6 @@ namespace DBlog.Web.UnitTests.WebServices
             mReferrerSearchQuery.RequestCount = 1;
         }
 
-        public override bool IsServiceCount
-        {
-            get
-            {
-                return true;
-            }
-        }
-
         public override TransitObject TransitInstance
         {
             get
