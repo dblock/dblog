@@ -106,20 +106,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetLoginsCountResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="GetLoginsCountResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetLogins">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
             <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
@@ -138,6 +124,21 @@
           <s:enumeration value="Descending" />
         </s:restriction>
       </s:simpleType>
+      <s:element name="GetLoginsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetLoginsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetLogins">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetLoginsResponse">
         <s:complexType>
           <s:sequence>
@@ -205,6 +206,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -556,6 +558,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -590,11 +593,19 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="query" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitReferenceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="TransitReferenceQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WebServiceQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="SearchQuery" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="SearchReferencesResponse">
         <s:complexType>
           <s:sequence>
@@ -606,7 +617,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="0" maxOccurs="1" name="query" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitReferenceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -672,6 +683,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -845,6 +857,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1348,11 +1361,20 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="source_id" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="source_type" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:TransitPermalinkQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:complexType name="TransitPermalinkQueryOptions">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:WebServiceQueryOptions">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="SourceId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="SourceType" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="GetPermalinkBySourceResponse">
         <s:complexType>
           <s:sequence>
@@ -1379,6 +1401,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1470,6 +1493,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2133,6 +2157,7 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
           </s:sequence>
         </s:complexType>
       </s:element>

@@ -37,7 +37,7 @@ public partial class ShowImages : BlogPage
         images.CurrentPageIndex = 0;
         TransitPostImageQueryOptions options = new TransitPostImageQueryOptions();
         options.Counters = true;
-        images.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+        images.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitPostImage>(
             "GetPostImagesCountEx", SessionManager.PostTicket, new TransitPostImageQueryOptions());
         images_OnGetDataSource(sender, e);
         images.DataBind();

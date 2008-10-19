@@ -38,6 +38,7 @@ public partial class admin_ManageImages : BlogAdminPage
             {
                 case "Delete":
                     SessionManager.BlogService.DeleteImage(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitImage>();
                     ReportInfo("Item Deleted");
                     GetData(source, e);
                     break;
@@ -51,14 +52,15 @@ public partial class admin_ManageImages : BlogAdminPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetImages(
-            SessionManager.Ticket,  new TransitImageQueryOptions(true, grid.PageSize, grid.CurrentPageIndex));
+        grid.DataSource = SessionManager.GetCachedCollection<TransitImage>(
+            "GetImages", SessionManager.Ticket,  new TransitImageQueryOptions(true, grid.PageSize, grid.CurrentPageIndex));
     }
 
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetImagesCount(SessionManager.Ticket, new TransitImageQueryOptions(true));
+        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitImage>(
+            "GetImagesCount", SessionManager.Ticket, new TransitImageQueryOptions(true));
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }

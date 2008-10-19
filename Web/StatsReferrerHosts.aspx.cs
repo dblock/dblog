@@ -50,7 +50,7 @@ public partial class StatsReferrerHosts : BlogPage
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitReferrerHost>(
             "GetReferrerHostsCount", SessionManager.Ticket, GetOptions());
         grid_OnGetDataSource(sender, e);
         grid.DataBind();

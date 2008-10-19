@@ -24,7 +24,7 @@ public partial class EditPostComment : BlogUserPage
             if (mPostComment == null)
             {
                 mPostComment = (RequestId > 0)
-                    ? SessionManager.BlogService.GetPostCommentById(SessionManager.Ticket, RequestId)
+                    ? SessionManager.GetCachedObject<TransitPostComment>("GetPostCommentById", SessionManager.Ticket, RequestId)
                     : new TransitPostComment();
             }
 
@@ -77,6 +77,8 @@ public partial class EditPostComment : BlogUserPage
             t_comment.ParentCommentId = GetId("pid");
             PostComment.Id = SessionManager.BlogService.CreateOrUpdatePostComment(
                 SessionManager.Ticket, GetId("sid"), t_comment);
+            SessionManager.Invalidate<TransitPost>();
+            SessionManager.Invalidate<TransitPostComment>();
             Response.Redirect(string.Format("ShowPost.aspx?id={0}", GetId("sid")));
         }
         catch (Exception ex)

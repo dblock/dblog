@@ -194,7 +194,7 @@ public partial class ShowBlog : BlogPage
         string sortdirection = Request.Params["SortDirection"];
 
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitPost>(
             (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPostsCount" : "GetPostsCountEx",
             SessionManager.PostTicket, GetOptions());
 
@@ -220,6 +220,7 @@ public partial class ShowBlog : BlogPage
             {
                 case "Delete":
                     SessionManager.BlogService.DeletePost(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitPost>();
                     ReportInfo("Item Deleted");
                     GetData(source, e);
                     break;

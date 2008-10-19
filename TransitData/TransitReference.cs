@@ -3,9 +3,65 @@ using System.Collections.Generic;
 using System.Text;
 using DBlog.Data;
 using NHibernate;
+using NHibernate.Expression;
+using DBlog.Data.Hibernate;
 
 namespace DBlog.TransitData
 {
+    public class TransitReferenceQueryOptions : WebServiceQueryOptions
+    {
+        private string mSearchQuery = string.Empty;
+
+        public string SearchQuery
+        {
+            get
+            {
+                return mSearchQuery;
+            }
+            set
+            {
+                mSearchQuery = value;
+            }
+        }
+
+        public TransitReferenceQueryOptions()
+        {
+        }
+
+        public TransitReferenceQueryOptions(
+            string query)
+        {
+            mSearchQuery = query;
+        }
+
+        public TransitReferenceQueryOptions(
+            string query, int pagesize, int pagenumber)
+            : base(pagesize, pagenumber)
+        {
+            mSearchQuery = query;
+        }
+
+        public override void Apply(ICriteria criteria)
+        {
+            if (!string.IsNullOrEmpty(SearchQuery)) 
+            {
+                criteria.Add(Expression.Like("Word", string.Format("%{0}%", SearchQuery)));
+            }
+
+            base.Apply(criteria);
+        }
+
+        public override void Apply(CountQuery query)
+        {
+            if (!string.IsNullOrEmpty(SearchQuery)) 
+            {
+                query.Add(Expression.Like("Word", string.Format("%{0}%", SearchQuery)));
+            }
+
+            base.Apply(query);
+        }
+    }
+
     public class TransitReference : TransitObject
     {
         private string mWord;

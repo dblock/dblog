@@ -58,7 +58,7 @@ public partial class ViewFeedItemsControl : BlogControl
     private void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitFeedItem>(
             "GetFeedItemsCount", SessionManager.Ticket, new TransitFeedItemQueryOptions(FeedId));
         grid_OnGetDataSource(sender, e);
         grid.DataBind();

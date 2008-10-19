@@ -24,7 +24,7 @@ public partial class EditImageComment : BlogUserPage
             if (mImageComment == null)
             {
                 mImageComment = (RequestId > 0)
-                    ? SessionManager.BlogService.GetImageCommentById(SessionManager.Ticket, RequestId)
+                    ? SessionManager.GetCachedObject<TransitImageComment>("GetImageCommentById", SessionManager.Ticket, RequestId)
                     : new TransitImageComment();
             }
 
@@ -77,6 +77,8 @@ public partial class EditImageComment : BlogUserPage
             t_comment.ParentCommentId = GetId("pid");
             ImageComment.Id = SessionManager.BlogService.CreateOrUpdateImageComment(
                 SessionManager.Ticket, GetId("sid"), t_comment);
+            SessionManager.Invalidate<TransitImage>();
+            SessionManager.Invalidate<TransitImageComment>();
             Response.Redirect(ReturnUrl);
         }
         catch (Exception ex)

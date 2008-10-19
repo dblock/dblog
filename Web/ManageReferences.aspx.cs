@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Data.Hibernate;
+using DBlog.TransitData;
 
 public partial class admin_ManageReferences : BlogAdminPage
 {
@@ -37,6 +38,7 @@ public partial class admin_ManageReferences : BlogAdminPage
             {
                 case "Delete":
                     SessionManager.BlogService.DeleteReference(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitReference>();
                     ReportInfo("Item Deleted");
                     GetData(source, e);
                     break;
@@ -50,18 +52,18 @@ public partial class admin_ManageReferences : BlogAdminPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        WebServiceQueryOptions options = new WebServiceQueryOptions(grid.PageSize, grid.CurrentPageIndex);
+        TransitReferenceQueryOptions options = new TransitReferenceQueryOptions(inputSearch.Text, grid.PageSize, grid.CurrentPageIndex);
         options.SortExpression = "Id";
         options.SortDirection = WebServiceQuerySortDirection.Descending;
         if (!string.IsNullOrEmpty(inputSearch.Text))
         {
-            grid.DataSource = SessionManager.BlogService.SearchReferences(
-                SessionManager.Ticket, inputSearch.Text, options);
+            grid.DataSource = SessionManager.GetCachedCollection<TransitReference>(
+                "SearchReferences", SessionManager.Ticket, options);
         }
         else
         {
-            grid.DataSource = SessionManager.BlogService.GetReferences(
-                SessionManager.Ticket, options);
+            grid.DataSource = SessionManager.GetCachedCollection<TransitReference>(
+                "GetReferences", SessionManager.Ticket, options);
         }
     }
 
@@ -70,11 +72,13 @@ public partial class admin_ManageReferences : BlogAdminPage
         grid.CurrentPageIndex = 0;
         if (!string.IsNullOrEmpty(inputSearch.Text))
         {
-            SessionManager.BlogService.SearchReferencesCount(SessionManager.Ticket, inputSearch.Text);
+            grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitReference>(
+                "SearchReferencesCount", SessionManager.Ticket, new TransitReferenceQueryOptions(inputSearch.Text));
         }
         else
         {
-            grid.VirtualItemCount = SessionManager.BlogService.GetReferencesCount(SessionManager.Ticket);
+            grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitReference>(
+                "GetReferencesCount", SessionManager.Ticket, null);
         }
         grid_OnGetDataSource(sender, e);
         grid.DataBind();

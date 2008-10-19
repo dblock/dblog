@@ -46,10 +46,12 @@ namespace DBlog.Web.UnitTests.WebServices
         {
             int id = Create();
             Console.WriteLine("Reference: {0}", id);
-            int count = Blog.SearchReferencesCount(Ticket, mReference.Word);
+            TransitReferenceQueryOptions options = new TransitReferenceQueryOptions();
+            options.SearchQuery = mReference.Word;
+            int count = Blog.SearchReferencesCount(Ticket, options);
             Console.WriteLine("Count: {0}", count);
             Assert.IsTrue(count > 0, "Invalid count, no references returned.");
-            TransitReference[] refs = Blog.SearchReferences(Ticket, mReference.Word, null);
+            TransitReference[] refs = Blog.SearchReferences(Ticket, options);
             Assert.IsNotNull(refs, "Invalid references returned.");
             Assert.AreEqual(refs.Length, count);
             Delete();

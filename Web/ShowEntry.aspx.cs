@@ -18,8 +18,8 @@ public partial class ShowEntry : BlogPage
         {
             if (!IsPostBack)
             {
-                TransitPermalink permalink = SessionManager.BlogService.GetPermalinkBySource(
-                    SessionManager.Ticket, RequestId, "Entry");
+                TransitPermalink permalink = SessionManager.GetCachedObject<TransitPermalink>(
+                    "GetPermalinkBySource", SessionManager.Ticket, new TransitPermalinkQueryOptions(RequestId, "Entry"));
 
                 linkRedirect.NavigateUrl = string.Format(
                     "Show{0}.aspx?id={1}", permalink.TargetType, permalink.TargetId);

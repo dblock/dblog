@@ -39,7 +39,7 @@ public partial class StatsReferrerSearchQueries : BlogPage
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitReferrerSearchQuery>(
             "GetReferrerSearchQueriesCount", SessionManager.Ticket, null);
         grid_OnGetDataSource(sender, e);
         grid.DataBind();

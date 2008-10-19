@@ -32,7 +32,7 @@ public partial class EditImage : BlogAdminPage
             if (mImage == null)
             {
                 mImage = (RequestId > 0)
-                    ? SessionManager.BlogService.GetImageById(SessionManager.Ticket, RequestId)
+                    ? SessionManager.GetCachedObject<TransitImage>("GetImageById", SessionManager.Ticket, RequestId)
                     : new TransitImage();
             }
 
@@ -101,6 +101,7 @@ public partial class EditImage : BlogAdminPage
                     SessionManager.Ticket, Image);
             }
 
+            SessionManager.Invalidate<TransitImage>();
             Response.Redirect(ReturnUrl);
         }
         catch (Exception ex)

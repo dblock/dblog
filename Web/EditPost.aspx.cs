@@ -41,7 +41,7 @@ public partial class EditPost : BlogAdminPage
             if (mPost == null)
             {
                 mPost = (PostId > 0)
-                    ? SessionManager.BlogService.GetPostById(SessionManager.Ticket, PostId)
+                    ? SessionManager.GetCachedObject<TransitPost>("GetPostById", SessionManager.Ticket, PostId)
                     : new TransitPost();
             }
 
@@ -64,7 +64,8 @@ public partial class EditPost : BlogAdminPage
                 SetDefaultButton(save);
                 PageManager.SetDefaultButton(loginAdd, panelLogins.Controls);
 
-                inputTopic.DataSource = SessionManager.BlogService.GetTopics(SessionManager.Ticket, null);
+                inputTopic.DataSource = SessionManager.GetCachedCollection<TransitTopic>(
+                    "GetTopics", SessionManager.Ticket, null);
                 inputTopic.DataBind();
 
                 if (PostId > 0)
@@ -98,8 +99,8 @@ public partial class EditPost : BlogAdminPage
 
     void logins_OnGetDataSource(object sender, EventArgs e)
     {
-        logins.DataSource = SessionManager.BlogService.GetPostLogins(
-            SessionManager.Ticket, new TransitPostLoginQueryOptions(
+        logins.DataSource = SessionManager.GetCachedCollection<TransitPostLogin>(
+            "GetPostLogins", SessionManager.Ticket, new TransitPostLoginQueryOptions(
                 PostId, images.PageSize, images.CurrentPageIndex));
     }
 
@@ -125,6 +126,8 @@ public partial class EditPost : BlogAdminPage
 
             if (e.PostedFiles.Count > 0)
             {
+                SessionManager.Invalidate<TransitPostImage>();
+                SessionManager.Invalidate<TransitPost>();
                 images.Visible = true;
                 GetDataImages(sender, e);
             }
@@ -153,8 +156,8 @@ public partial class EditPost : BlogAdminPage
                 filenames.AddRange(Directory.GetFiles(fullpath, "*.jpg"));
                 filenames.AddRange(Directory.GetFiles(fullpath, "*.gif"));
 
-                List<TransitPostImage> deleted = SessionManager.BlogService.GetPostImages(
-                    SessionManager.Ticket, new TransitPostImageQueryOptions(Post.Id));
+                List<TransitPostImage> deleted = SessionManager.GetCachedCollection<TransitPostImage>(
+                    "GetPostImages", SessionManager.Ticket, new TransitPostImageQueryOptions(Post.Id));
 
                 List<TransitPostImage> updated = new List<TransitPostImage>();
 
@@ -188,6 +191,9 @@ public partial class EditPost : BlogAdminPage
                         SessionManager.Ticket, dimage.Id);
                 }
 
+                SessionManager.Invalidate<TransitPostImage>();
+                SessionManager.Invalidate<TransitPost>();
+
                 images.Visible = true;
                 GetDataImages(sender, e);
             }
@@ -213,6 +219,8 @@ public partial class EditPost : BlogAdminPage
             {
                 case "Delete":
                     SessionManager.BlogService.DeletePostImage(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitPost>();
+                    SessionManager.Invalidate<TransitPostImage>();
                     ReportInfo("Item Deleted");
                     GetDataImages(source, e);
                     break;
@@ -232,6 +240,7 @@ public partial class EditPost : BlogAdminPage
             {
                 case "Remove":
                     SessionManager.BlogService.DeletePostLogin(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitLogin>();
                     ReportInfo("Login Removed");
                     GetDataLogins(source, e);
                     break;
@@ -246,8 +255,8 @@ public partial class EditPost : BlogAdminPage
 
     void images_OnGetDataSource(object sender, EventArgs e)
     {
-        List<TransitPostImage> tp_images = SessionManager.BlogService.GetPostImages(
-            SessionManager.Ticket, new TransitPostImageQueryOptions(
+        List<TransitPostImage> tp_images = SessionManager.GetCachedCollection<TransitPostImage>(
+            "GetPostImages", SessionManager.Ticket, new TransitPostImageQueryOptions(
                 PostId, images.PageSize, images.CurrentPageIndex));
 
         images.DataSource = tp_images;
@@ -261,8 +270,8 @@ public partial class EditPost : BlogAdminPage
     public void GetDataImages(object sender, EventArgs e)
     {
         images.CurrentPageIndex = 0;
-        images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCount(
-            SessionManager.Ticket, new TransitPostImageQueryOptions(PostId));
+        images.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitPostImage>(
+            "GetPostImagesCount", SessionManager.Ticket, new TransitPostImageQueryOptions(PostId));
         images.Visible = (images.VirtualItemCount > 0);
         images_OnGetDataSource(sender, e);
         images.DataBind();
@@ -271,8 +280,8 @@ public partial class EditPost : BlogAdminPage
     public void GetDataLogins(object sender, EventArgs e)
     {
         logins.CurrentPageIndex = 0;
-        logins.VirtualItemCount = SessionManager.BlogService.GetPostLoginsCount(
-            SessionManager.Ticket, new TransitPostLoginQueryOptions(PostId));
+        logins.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitPostLogin>(
+            "GetPostLoginsCount", SessionManager.Ticket, new TransitPostLoginQueryOptions(PostId));
         logins.Visible = (logins.VirtualItemCount > 0);
         logins_OnGetDataSource(sender, e);
         logins.DataBind();
@@ -286,6 +295,7 @@ public partial class EditPost : BlogAdminPage
                 SessionManager.Ticket, inputLogin.Text);
             SessionManager.BlogService.CreateOrUpdatePostLogin(
                 SessionManager.Ticket, PostId, t_login);
+            SessionManager.Invalidate<TransitPostLogin>();
             GetDataLogins(sender, e);
             ReportInfo(string.Format("Added {0}", inputLogin.Text));
         }

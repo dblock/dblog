@@ -76,7 +76,7 @@ public partial class ShowPicture : BlogPicturePage
         
         if (img == null || SessionManager.IsAdministrator)
         {
-            img = (TransitImage) SessionManager.BlogService.GetImageWithBitmapByIdIfModifiedSince(
+            img = SessionManager.BlogService.GetImageWithBitmapByIdIfModifiedSince(
                 SessionManager.PostTicket, id, ifModifiedSince);
             Cache.Insert(key, img, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
         }
@@ -130,7 +130,7 @@ public partial class ShowPicture : BlogPicturePage
         
         if (img == null || SessionManager.IsAdministrator)
         {
-            img = (TransitImage)SessionManager.BlogService.GetImageWithThumbnailByIdIfModifiedSince(
+            img = SessionManager.BlogService.GetImageWithThumbnailByIdIfModifiedSince(
                 SessionManager.PostTicket, id, ifModifiedSince);
             Cache.Insert(key, img, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
         }

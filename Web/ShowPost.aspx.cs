@@ -146,7 +146,7 @@ public partial class ShowPost : BlogPage
 
         comments.Visible = (post.CommentsCount > 0);
         comments.CurrentPageIndex = 0;
-        comments.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+        comments.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitPostComment>(
             "GetPostCommentsCount", SessionManager.PostTicket, new TransitPostCommentQueryOptions(Post.Id));
         comments_OnGetDataSource(sender, e);
         comments.DataBind();
@@ -160,7 +160,7 @@ public partial class ShowPost : BlogPage
         imagesoptions.PreferredOnly = PreferredOnly;
         images.Visible = (post.ImagesCount > 1);
         images.CurrentPageIndex = 0;
-        images.VirtualItemCount = SessionManager.GetCachedCollectionCount(
+        images.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitPostImage>(
             "GetPostImagesCountEx", SessionManager.PostTicket, imagesoptions);
         images_OnGetDataSource(sender, e);
         images.DataBind();
@@ -237,11 +237,11 @@ public partial class ShowPost : BlogPage
             switch (e.CommandName)
             {
                 case "TogglePreferred":
-                    TransitImage image = SessionManager.BlogService.GetImageById(
-                        SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    TransitImage image = SessionManager.GetCachedObject<TransitImage>(
+                        "GetImageById", SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
                     image.Preferred = !image.Preferred;
-                    SessionManager.BlogService.CreateOrUpdateImageAttributes(
-                        SessionManager.Ticket, image);
+                    SessionManager.BlogService.CreateOrUpdateImageAttributes(SessionManager.Ticket, image);
+                    SessionManager.Invalidate<TransitImage>();
                     images_OnGetDataSource(sender, e);
                     ((LinkButton)e.CommandSource).Text = image.Preferred ? "P" : "p";
                     break;

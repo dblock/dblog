@@ -31,7 +31,7 @@ public partial class EditLogin : BlogPage
             if (mLogin == null)
             {
                 mLogin = (RequestId > 0)
-                    ? SessionManager.BlogService.GetLoginById(SessionManager.Ticket, RequestId)
+                    ? SessionManager.GetCachedObject<TransitLogin>("GetLoginById", SessionManager.Ticket, RequestId)
                     : new TransitLogin();
             }
 
@@ -91,6 +91,7 @@ public partial class EditLogin : BlogPage
 
             Login.Role = inputAdministrator.Checked ? TransitLoginRole.Administrator : TransitLoginRole.Guest;
             SessionManager.BlogService.CreateOrUpdateLogin(SessionManager.Ticket, Login);
+            SessionManager.Invalidate<TransitLogin>();
 
             if (!SessionManager.IsLoggedIn)
             {

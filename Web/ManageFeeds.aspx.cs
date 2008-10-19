@@ -38,12 +38,14 @@ public partial class admin_ManageFeeds : BlogAdminPage
             {
                 case "Delete":
                     SessionManager.BlogService.DeleteFeed(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitFeed>();
                     ReportInfo("Item Deleted");
                     GetData(source, e);
                     break;
                 case "Update":
                     int count = SessionManager.BlogService.UpdateFeed(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
                     ReportInfo(string.Format("Feed Updated With {0} New Item(s)", count));
+                    SessionManager.Invalidate<TransitFeed>();
                     grid_OnGetDataSource(source, e);
                     grid.DataBind();                    
                     break;
@@ -57,15 +59,15 @@ public partial class admin_ManageFeeds : BlogAdminPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetFeeds(
-            SessionManager.Ticket, new TransitFeedQueryOptions(grid.PageSize, grid.CurrentPageIndex));
+        grid.DataSource = SessionManager.GetCachedCollection<TransitFeed>(
+            "GetFeeds", SessionManager.Ticket, new TransitFeedQueryOptions(grid.PageSize, grid.CurrentPageIndex));
     }
 
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetFeedsCount(
-            SessionManager.Ticket, null);
+        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitFeed>(
+            "GetFeedsCount", SessionManager.Ticket, null);
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }

@@ -21,7 +21,7 @@ public partial class EditReference : BlogAdminPage
             if (mReference == null)
             {
                 mReference = (RequestId > 0)
-                    ? SessionManager.BlogService.GetReferenceById(SessionManager.Ticket, RequestId)
+                    ? SessionManager.GetCachedObject<TransitReference>("GetReferenceById", SessionManager.Ticket, RequestId)
                     : new TransitReference();
             }
 
@@ -59,6 +59,7 @@ public partial class EditReference : BlogAdminPage
             Reference.Url = CheckInput("Url", inputUrl.Text);
             Reference.Result = CheckInput("Result", inputResult.Text);
             SessionManager.BlogService.CreateOrUpdateReference(SessionManager.Ticket, Reference);
+            SessionManager.Invalidate<TransitReference>();
             Response.Redirect("ManageReferences.aspx");
         }
         catch (Exception ex)

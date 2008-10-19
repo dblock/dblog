@@ -848,24 +848,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetLoginsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetLoginsCount(string ticket) {
+        public int GetLoginsCount(string ticket, WebServiceQueryOptions options) {
             object[] results = this.Invoke("GetLoginsCount", new object[] {
-                        ticket});
+                        ticket,
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetLoginsCountAsync(string ticket) {
-            this.GetLoginsCountAsync(ticket, null);
+        public void GetLoginsCountAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetLoginsCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetLoginsCountAsync(string ticket, object userState) {
+        public void GetLoginsCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
             if ((this.GetLoginsCountOperationCompleted == null)) {
                 this.GetLoginsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetLoginsCountOperationCompleted);
             }
             this.InvokeAsync("GetLoginsCount", new object[] {
-                        ticket}, this.GetLoginsCountOperationCompleted, userState);
+                        ticket,
+                        options}, this.GetLoginsCountOperationCompleted, userState);
         }
         
         private void OnGetLoginsCountOperationCompleted(object arg) {
@@ -1000,24 +1002,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetTopicsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetTopicsCount(string ticket) {
+        public int GetTopicsCount(string ticket, WebServiceQueryOptions options) {
             object[] results = this.Invoke("GetTopicsCount", new object[] {
-                        ticket});
+                        ticket,
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetTopicsCountAsync(string ticket) {
-            this.GetTopicsCountAsync(ticket, null);
+        public void GetTopicsCountAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetTopicsCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetTopicsCountAsync(string ticket, object userState) {
+        public void GetTopicsCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
             if ((this.GetTopicsCountOperationCompleted == null)) {
                 this.GetTopicsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetTopicsCountOperationCompleted);
             }
             this.InvokeAsync("GetTopicsCount", new object[] {
-                        ticket}, this.GetTopicsCountOperationCompleted, userState);
+                        ticket,
+                        options}, this.GetTopicsCountOperationCompleted, userState);
         }
         
         private void OnGetTopicsCountOperationCompleted(object arg) {
@@ -1589,24 +1593,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferencesCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetReferencesCount(string ticket) {
+        public int GetReferencesCount(string ticket, WebServiceQueryOptions options) {
             object[] results = this.Invoke("GetReferencesCount", new object[] {
-                        ticket});
+                        ticket,
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetReferencesCountAsync(string ticket) {
-            this.GetReferencesCountAsync(ticket, null);
+        public void GetReferencesCountAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetReferencesCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetReferencesCountAsync(string ticket, object userState) {
+        public void GetReferencesCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
             if ((this.GetReferencesCountOperationCompleted == null)) {
                 this.GetReferencesCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferencesCountOperationCompleted);
             }
             this.InvokeAsync("GetReferencesCount", new object[] {
-                        ticket}, this.GetReferencesCountOperationCompleted, userState);
+                        ticket,
+                        options}, this.GetReferencesCountOperationCompleted, userState);
         }
         
         private void OnGetReferencesCountOperationCompleted(object arg) {
@@ -1649,27 +1655,25 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/SearchReferences", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransitReference[] SearchReferences(string ticket, string query, WebServiceQueryOptions options) {
+        public TransitReference[] SearchReferences(string ticket, TransitReferenceQueryOptions options) {
             object[] results = this.Invoke("SearchReferences", new object[] {
                         ticket,
-                        query,
                         options});
             return ((TransitReference[])(results[0]));
         }
         
         /// <remarks/>
-        public void SearchReferencesAsync(string ticket, string query, WebServiceQueryOptions options) {
-            this.SearchReferencesAsync(ticket, query, options, null);
+        public void SearchReferencesAsync(string ticket, TransitReferenceQueryOptions options) {
+            this.SearchReferencesAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void SearchReferencesAsync(string ticket, string query, WebServiceQueryOptions options, object userState) {
+        public void SearchReferencesAsync(string ticket, TransitReferenceQueryOptions options, object userState) {
             if ((this.SearchReferencesOperationCompleted == null)) {
                 this.SearchReferencesOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSearchReferencesOperationCompleted);
             }
             this.InvokeAsync("SearchReferences", new object[] {
                         ticket,
-                        query,
                         options}, this.SearchReferencesOperationCompleted, userState);
         }
         
@@ -1682,26 +1686,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/SearchReferencesCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int SearchReferencesCount(string ticket, string query) {
+        public int SearchReferencesCount(string ticket, TransitReferenceQueryOptions options) {
             object[] results = this.Invoke("SearchReferencesCount", new object[] {
                         ticket,
-                        query});
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void SearchReferencesCountAsync(string ticket, string query) {
-            this.SearchReferencesCountAsync(ticket, query, null);
+        public void SearchReferencesCountAsync(string ticket, TransitReferenceQueryOptions options) {
+            this.SearchReferencesCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void SearchReferencesCountAsync(string ticket, string query, object userState) {
+        public void SearchReferencesCountAsync(string ticket, TransitReferenceQueryOptions options, object userState) {
             if ((this.SearchReferencesCountOperationCompleted == null)) {
                 this.SearchReferencesCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnSearchReferencesCountOperationCompleted);
             }
             this.InvokeAsync("SearchReferencesCount", new object[] {
                         ticket,
-                        query}, this.SearchReferencesCountOperationCompleted, userState);
+                        options}, this.SearchReferencesCountOperationCompleted, userState);
         }
         
         private void OnSearchReferencesCountOperationCompleted(object arg) {
@@ -1805,24 +1809,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetReferrerHostRollupsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetReferrerHostRollupsCount(string ticket) {
+        public int GetReferrerHostRollupsCount(string ticket, WebServiceQueryOptions options) {
             object[] results = this.Invoke("GetReferrerHostRollupsCount", new object[] {
-                        ticket});
+                        ticket,
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetReferrerHostRollupsCountAsync(string ticket) {
-            this.GetReferrerHostRollupsCountAsync(ticket, null);
+        public void GetReferrerHostRollupsCountAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetReferrerHostRollupsCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetReferrerHostRollupsCountAsync(string ticket, object userState) {
+        public void GetReferrerHostRollupsCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
             if ((this.GetReferrerHostRollupsCountOperationCompleted == null)) {
                 this.GetReferrerHostRollupsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetReferrerHostRollupsCountOperationCompleted);
             }
             this.InvokeAsync("GetReferrerHostRollupsCount", new object[] {
-                        ticket}, this.GetReferrerHostRollupsCountOperationCompleted, userState);
+                        ticket,
+                        options}, this.GetReferrerHostRollupsCountOperationCompleted, userState);
         }
         
         private void OnGetReferrerHostRollupsCountOperationCompleted(object arg) {
@@ -2111,24 +2117,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetHighlightsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetHighlightsCount(string ticket) {
+        public int GetHighlightsCount(string ticket, WebServiceQueryOptions options) {
             object[] results = this.Invoke("GetHighlightsCount", new object[] {
-                        ticket});
+                        ticket,
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetHighlightsCountAsync(string ticket) {
-            this.GetHighlightsCountAsync(ticket, null);
+        public void GetHighlightsCountAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetHighlightsCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetHighlightsCountAsync(string ticket, object userState) {
+        public void GetHighlightsCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
             if ((this.GetHighlightsCountOperationCompleted == null)) {
                 this.GetHighlightsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetHighlightsCountOperationCompleted);
             }
             this.InvokeAsync("GetHighlightsCount", new object[] {
-                        ticket}, this.GetHighlightsCountOperationCompleted, userState);
+                        ticket,
+                        options}, this.GetHighlightsCountOperationCompleted, userState);
         }
         
         private void OnGetHighlightsCountOperationCompleted(object arg) {
@@ -2856,28 +2864,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPermalinkBySource", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransitPermalink GetPermalinkBySource(string ticket, int source_id, string source_type) {
+        public TransitPermalink GetPermalinkBySource(string ticket, TransitPermalinkQueryOptions options) {
             object[] results = this.Invoke("GetPermalinkBySource", new object[] {
                         ticket,
-                        source_id,
-                        source_type});
+                        options});
             return ((TransitPermalink)(results[0]));
         }
         
         /// <remarks/>
-        public void GetPermalinkBySourceAsync(string ticket, int source_id, string source_type) {
-            this.GetPermalinkBySourceAsync(ticket, source_id, source_type, null);
+        public void GetPermalinkBySourceAsync(string ticket, TransitPermalinkQueryOptions options) {
+            this.GetPermalinkBySourceAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetPermalinkBySourceAsync(string ticket, int source_id, string source_type, object userState) {
+        public void GetPermalinkBySourceAsync(string ticket, TransitPermalinkQueryOptions options, object userState) {
             if ((this.GetPermalinkBySourceOperationCompleted == null)) {
                 this.GetPermalinkBySourceOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPermalinkBySourceOperationCompleted);
             }
             this.InvokeAsync("GetPermalinkBySource", new object[] {
                         ticket,
-                        source_id,
-                        source_type}, this.GetPermalinkBySourceOperationCompleted, userState);
+                        options}, this.GetPermalinkBySourceOperationCompleted, userState);
         }
         
         private void OnGetPermalinkBySourceOperationCompleted(object arg) {
@@ -2920,24 +2926,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPermalinksCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetPermalinksCount(string ticket) {
+        public int GetPermalinksCount(string ticket, WebServiceQueryOptions options) {
             object[] results = this.Invoke("GetPermalinksCount", new object[] {
-                        ticket});
+                        ticket,
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetPermalinksCountAsync(string ticket) {
-            this.GetPermalinksCountAsync(ticket, null);
+        public void GetPermalinksCountAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetPermalinksCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetPermalinksCountAsync(string ticket, object userState) {
+        public void GetPermalinksCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
             if ((this.GetPermalinksCountOperationCompleted == null)) {
                 this.GetPermalinksCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetPermalinksCountOperationCompleted);
             }
             this.InvokeAsync("GetPermalinksCount", new object[] {
-                        ticket}, this.GetPermalinksCountOperationCompleted, userState);
+                        ticket,
+                        options}, this.GetPermalinksCountOperationCompleted, userState);
         }
         
         private void OnGetPermalinksCountOperationCompleted(object arg) {
@@ -3072,24 +3080,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetCommentsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetCommentsCount(string ticket) {
+        public int GetCommentsCount(string ticket, WebServiceQueryOptions options) {
             object[] results = this.Invoke("GetCommentsCount", new object[] {
-                        ticket});
+                        ticket,
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetCommentsCountAsync(string ticket) {
-            this.GetCommentsCountAsync(ticket, null);
+        public void GetCommentsCountAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetCommentsCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetCommentsCountAsync(string ticket, object userState) {
+        public void GetCommentsCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
             if ((this.GetCommentsCountOperationCompleted == null)) {
                 this.GetCommentsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetCommentsCountOperationCompleted);
             }
             this.InvokeAsync("GetCommentsCount", new object[] {
-                        ticket}, this.GetCommentsCountOperationCompleted, userState);
+                        ticket,
+                        options}, this.GetCommentsCountOperationCompleted, userState);
         }
         
         private void OnGetCommentsCountOperationCompleted(object arg) {
@@ -4153,24 +4163,26 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetBrowsersCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public int GetBrowsersCount(string ticket) {
+        public int GetBrowsersCount(string ticket, WebServiceQueryOptions options) {
             object[] results = this.Invoke("GetBrowsersCount", new object[] {
-                        ticket});
+                        ticket,
+                        options});
             return ((int)(results[0]));
         }
         
         /// <remarks/>
-        public void GetBrowsersCountAsync(string ticket) {
-            this.GetBrowsersCountAsync(ticket, null);
+        public void GetBrowsersCountAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetBrowsersCountAsync(ticket, options, null);
         }
         
         /// <remarks/>
-        public void GetBrowsersCountAsync(string ticket, object userState) {
+        public void GetBrowsersCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
             if ((this.GetBrowsersCountOperationCompleted == null)) {
                 this.GetBrowsersCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetBrowsersCountOperationCompleted);
             }
             this.InvokeAsync("GetBrowsersCount", new object[] {
-                        ticket}, this.GetBrowsersCountOperationCompleted, userState);
+                        ticket,
+                        options}, this.GetBrowsersCountOperationCompleted, userState);
         }
         
         private void OnGetBrowsersCountOperationCompleted(object arg) {
@@ -4726,9 +4738,11 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitAssociatedCommentQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImageCommentQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostCommentQueryOptions))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPermalinkQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostImageQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitStatsQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitPostQueryOptions))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferenceQueryOptions))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImageQueryOptions))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
     [System.SerializableAttribute()]
@@ -4973,6 +4987,39 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitPermalinkQueryOptions : WebServiceQueryOptions {
+        
+        private int sourceIdField;
+        
+        private string sourceTypeField;
+        
+        /// <remarks/>
+        public int SourceId {
+            get {
+                return this.sourceIdField;
+            }
+            set {
+                this.sourceIdField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string SourceType {
+            get {
+                return this.sourceTypeField;
+            }
+            set {
+                this.sourceTypeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitPostImageQueryOptions : WebServiceQueryOptions {
         
         private bool countersField;
@@ -5120,6 +5167,27 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.publishedOnlyField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitReferenceQueryOptions : WebServiceQueryOptions {
+        
+        private string searchQueryField;
+        
+        /// <remarks/>
+        public string SearchQuery {
+            get {
+                return this.searchQueryField;
+            }
+            set {
+                this.searchQueryField = value;
             }
         }
     }

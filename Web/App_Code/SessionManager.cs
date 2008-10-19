@@ -36,6 +36,34 @@ public class SessionManager
     private TransitLogin mPostLoginRecord = null;
     private Region mRegion = null;
 
+    private class TypeCacheDependency<TransitType> : CacheDependency
+    {
+        public TypeCacheDependency()
+            : base(null, new string[] { GetTypeCacheKey() }, null)
+        {
+
+        }
+
+        public static string GetTypeCacheKey()
+        {
+            return string.Format("type:{0}", typeof(TransitType).Name);
+        }
+    }
+
+
+    private TypeCacheDependency<TransitType> GetTransitTypeCacheDependency<TransitType>()
+    {
+        string key = TypeCacheDependency<TransitType>.GetTypeCacheKey();
+        if (Cache[key] == null)
+        {
+            Cache[key] = DateTime.UtcNow;
+#if DEBUG
+                Debug.WriteLine(string.Format("Added cache dependency key: {0}", key));
+#endif
+        }
+        return new TypeCacheDependency<TransitType>();
+    }
+
     public Cache Cache
     {
         get
@@ -131,6 +159,15 @@ public class SessionManager
 
             }
         }
+    }
+
+    public void Invalidate<TransitType>()
+    {
+        string key = TypeCacheDependency<TransitType>.GetTypeCacheKey();
+        Cache[key] = DateTime.UtcNow;
+#if DEBUG
+            Debug.WriteLine(string.Format("Invalidated cache dependency: {0}", key));
+#endif
     }
 
     public string Ticket
@@ -334,7 +371,32 @@ public class SessionManager
             {
                 object[] args = { ticket, id };
                 result = (TransitType)BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
-                Cache.Insert(key, result, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+                Cache.Insert(key, result, GetTransitTypeCacheDependency<TransitType>(), DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+            }
+
+            return result;
+        }
+        catch (Exception ex)
+        {
+            throw new Exception(string.Format("{0}: {1}", invoke, ex.Message), ex);
+        }
+    }
+
+    public TransitType GetCachedObject<TransitType>(string invoke, string ticket, WebServiceQueryOptions options)
+    {
+        try
+        {
+            string key = string.Format("{0}:{1}:{2}",
+                string.IsNullOrEmpty(ticket) ? 0 : ticket.GetHashCode(),
+                invoke, options.GetHashCode());
+
+            TransitType result = (TransitType)Cache[key];
+
+            if (result == null || IsAdministrator)
+            {
+                object[] args = { ticket, options };
+                result = (TransitType)BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
+                Cache.Insert(key, result, GetTransitTypeCacheDependency<TransitType>(), DateTime.Now.AddMinutes(10), TimeSpan.Zero);
             }
 
             return result;
@@ -361,7 +423,7 @@ public class SessionManager
             {
                 object[] args = { ticket, options };
                 result = (List<TransitType>)BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
-                Cache.Insert(key, result, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+                Cache.Insert(key, result, GetTransitTypeCacheDependency<TransitType>(), DateTime.Now.AddMinutes(10), TimeSpan.Zero);
             }
 
             return result;
@@ -372,7 +434,7 @@ public class SessionManager
         }
     }
 
-    public int GetCachedCollectionCount(
+    public int GetCachedCollectionCount<TransitType>(
         string invoke, string ticket, WebServiceQueryOptions options)
     {
         try
@@ -388,7 +450,7 @@ public class SessionManager
             {
                 object[] args = { ticket, options };
                 count = BlogService.GetType().GetMethod(invoke).Invoke(BlogService, args);
-                Cache.Insert(key, count, null, DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+                Cache.Insert(key, count, GetTransitTypeCacheDependency<TransitType>(), DateTime.Now.AddMinutes(10), TimeSpan.Zero);
             }
 
             return (int)count;

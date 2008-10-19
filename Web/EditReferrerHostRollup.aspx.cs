@@ -57,6 +57,8 @@ public partial class EditReferrerHostRollup : BlogAdminPage
             ReferrerHostRollup.Name = CheckInput("Name", inputName.Text);
             ReferrerHostRollup.Rollup = inputRollup.Text;
             SessionManager.BlogService.CreateOrUpdateReferrerHostRollup(SessionManager.Ticket, ReferrerHostRollup);
+            SessionManager.Invalidate<TransitReferrerHost>();
+            SessionManager.Invalidate<TransitReferrerHostRollup>();
             Response.Redirect("ManageReferrerHostRollups.aspx");
         }
         catch (Exception ex)

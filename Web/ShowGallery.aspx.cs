@@ -18,8 +18,8 @@ public partial class ShowGallery : BlogPage
         {
             if (!IsPostBack)
             {
-                TransitPermalink permalink = SessionManager.BlogService.GetPermalinkBySource(
-                    SessionManager.Ticket, RequestId, "Gallery");
+                TransitPermalink permalink = SessionManager.GetCachedObject<TransitPermalink>(
+                    "GetPermalinkBySource", SessionManager.Ticket, new TransitPermalinkQueryOptions(RequestId, "Gallery"));
 
                 linkRedirect.NavigateUrl = string.Format(
                     "Show{0}.aspx?id={1}", permalink.TargetType, permalink.TargetId);

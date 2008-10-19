@@ -144,13 +144,15 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get logins count.")]
-        public int GetLoginsCount(string ticket)
+        public int GetLoginsCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
-                return new CountQuery(session, typeof(DBlog.Data.Login), "Login").Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Login), "Login");
+                if (options != null) options.Apply(query);
+                return query.Execute();
             }
         }
 
@@ -272,12 +274,14 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get topics count.")]
-        public int GetTopicsCount(string ticket)
+        public int GetTopicsCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.Topic), "Topic").Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Topic), "Topic");
+                if (options != null) options.Apply(query);
+                return query.Execute();
             }
         }
 
@@ -570,12 +574,14 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get references count.")]
-        public int GetReferencesCount(string ticket)
+        public int GetReferencesCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.Reference), "Reference").Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Reference), "Reference");
+                if (options != null) options.Apply(query);
+                return query.Execute();
             }
         }
 
@@ -607,14 +613,13 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Search references.")]
-        public List<TransitReference> SearchReferences(string ticket, string query, WebServiceQueryOptions options)
+        public List<TransitReference> SearchReferences(string ticket, TransitReferenceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
 
-                ICriteria cr = session.CreateCriteria(typeof(Reference))
-                    .Add(Expression.Like("Word", string.Format("%{0}%", query)));
+                ICriteria cr = session.CreateCriteria(typeof(Reference));
 
                 if (options != null)
                 {
@@ -635,14 +640,17 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Search references count.")]
-        public int SearchReferencesCount(string ticket, string query)
+        public int SearchReferencesCount(string ticket, TransitReferenceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.Reference), "Reference")
-                    .Add(Expression.Like("Word", string.Format("%{0}%", query)))
-                    .Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Reference), "Reference");
+                if (options != null)
+                {
+                    options.Apply(query);
+                }
+                return query.Execute();
             }
         }
 
@@ -689,12 +697,14 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get referrer host rollups count.")]
-        public int GetReferrerHostRollupsCount(string ticket)
+        public int GetReferrerHostRollupsCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.ReferrerHostRollup), "ReferrerHostRollup").Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.ReferrerHostRollup), "ReferrerHostRollup");
+                if (options != null) options.Apply(query);
+                return query.Execute();
             }
         }
 
@@ -844,12 +854,14 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get highlights count.")]
-        public int GetHighlightsCount(string ticket)
+        public int GetHighlightsCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.Highlight), "Highlight").Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Highlight), "Highlight");
+                if (options != null) options.Apply(query);
+                return query.Execute();
             }
         }
 
@@ -1405,16 +1417,19 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get a permalink by source id and type.")]
-        public TransitPermalink GetPermalinkBySource(string ticket, int source_id, string source_type)
+        public TransitPermalink GetPermalinkBySource(string ticket, TransitPermalinkQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new TransitPermalink(
-                    (Permalink) session.CreateCriteria(typeof(Permalink))
-                        .Add(Expression.Eq("SourceId", source_id))
-                        .Add(Expression.Eq("SourceType", source_type))
-                        .UniqueResult());
+                ICriteria cr = session.CreateCriteria(typeof(Permalink));
+
+                if (options != null)
+                {
+                    options.Apply(cr);
+                }
+
+                return new TransitPermalink((Permalink) cr.UniqueResult());
             }
         }
 
@@ -1433,12 +1448,14 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get permalinks count.")]
-        public int GetPermalinksCount(string ticket)
+        public int GetPermalinksCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.Permalink), "Permalink").Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Permalink), "Permalink");
+                if (options != null) options.Apply(query);
+                return query.Execute();
             }
         }
 
@@ -1511,12 +1528,14 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get comments count.")]
-        public int GetCommentsCount(string ticket)
+        public int GetCommentsCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.Comment), "Comment").Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Comment), "Comment");
+                if (options != null) options.Apply(query);
+                return query.Execute();
             }
         }
 
@@ -2240,12 +2259,14 @@ namespace DBlog.WebServices
         }
 
         [WebMethod(Description = "Get browsers count.")]
-        public int GetBrowsersCount(string ticket)
+        public int GetBrowsersCount(string ticket, WebServiceQueryOptions options)
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.Browser), "Browser").Execute();
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Browser), "Browser");
+                if (options != null) options.Apply(query);
+                return query.Execute();
             }
         }
 

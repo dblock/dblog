@@ -21,7 +21,7 @@ public partial class EditTopic : BlogAdminPage
             if (mTopic == null)
             {
                 mTopic = (RequestId > 0)
-                    ? SessionManager.BlogService.GetTopicById(SessionManager.Ticket, RequestId)
+                    ? SessionManager.GetCachedObject<TransitTopic>("GetTopicById", SessionManager.Ticket, RequestId)
                     : new TransitTopic();
             }
 
@@ -55,6 +55,7 @@ public partial class EditTopic : BlogAdminPage
         {
             Topic.Name = CheckInput("Name", inputName.Text);
             SessionManager.BlogService.CreateOrUpdateTopic(SessionManager.Ticket, Topic);
+            SessionManager.Invalidate<TransitTopic>();
             Response.Redirect("ManageTopics.aspx");
         }
         catch (Exception ex)

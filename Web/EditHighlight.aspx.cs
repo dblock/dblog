@@ -23,7 +23,7 @@ public partial class EditHighlight : BlogAdminPage
             if (mHighlight == null)
             {
                 mHighlight = (RequestId > 0)
-                    ? SessionManager.BlogService.GetHighlightById(SessionManager.Ticket, RequestId)
+                    ? SessionManager.GetCachedObject<TransitHighlight>("GetHighlightById", SessionManager.Ticket, RequestId)
                     : new TransitHighlight();
             }
 
@@ -83,12 +83,14 @@ public partial class EditHighlight : BlogAdminPage
                 HighlightImage.Data = inputImage.PostedFile.Data;
                 HighlightImage.Name = Path.GetFileName(inputImage.PostedFile.FileName);
                 Highlight.ImageId = SessionManager.BlogService.CreateOrUpdateImage(SessionManager.Ticket, HighlightImage);
+                SessionManager.Invalidate<TransitImage>();
             }
 
             Highlight.Title = CheckInput("Title", inputTitle.Text);
             Highlight.Url = CheckInput("Url", inputUrl.Text);
             Highlight.Description = inputDescription.Text;
             SessionManager.BlogService.CreateOrUpdateHighlight(SessionManager.Ticket, Highlight);
+            SessionManager.Invalidate<TransitHighlight>();
             Response.Redirect("ManageHighlights.aspx");
         }
         catch (Exception ex)

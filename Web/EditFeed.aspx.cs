@@ -105,6 +105,7 @@ public partial class EditFeed : BlogAdminPage
             Feed.Password = inputPassword.Text;
 
             SessionManager.BlogService.CreateOrUpdateFeed(SessionManager.Ticket, Feed);
+            SessionManager.Invalidate<TransitFeed>();
             Response.Redirect("ManageFeeds.aspx");
         }
         catch (Exception ex)

@@ -115,8 +115,8 @@ public partial class ShowImage : BlogPage
             return;
 
         panelComments.Update();
-        comments.DataSource = SessionManager.BlogService.GetImageComments(
-            SessionManager.PostTicket, new TransitImageCommentQueryOptions(
+        comments.DataSource = SessionManager.GetCachedCollection<TransitImageComment>(
+            "GetImageComments", SessionManager.PostTicket, new TransitImageCommentQueryOptions(
                 PostImage.Image.Id, comments.AllowPaging ? comments.PageSize : 0, 
                 comments.AllowPaging ? comments.CurrentPageIndex : 0));
     }
@@ -134,8 +134,8 @@ public partial class ShowImage : BlogPage
                 TransitPostImageQueryOptions options = new TransitPostImageQueryOptions(pid);
                 options.PreferredOnly = PreferredOnly;
                 images.CurrentPageIndex = index;
-                images.VirtualItemCount = SessionManager.BlogService.GetPostImagesCountEx(
-                    SessionManager.PostTicket, options);
+                images.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitImage>(
+                    "GetPostImagesCountEx", SessionManager.PostTicket, options);
             }
             else
             {
@@ -163,8 +163,8 @@ public partial class ShowImage : BlogPage
 
         comments.Visible = (PostImage.Image.CommentsCount > 0);
         comments.CurrentPageIndex = 0;
-        comments.VirtualItemCount = SessionManager.BlogService.GetImageCommentsCount(
-            SessionManager.PostTicket, new TransitImageCommentQueryOptions(PostImage.Image.Id));
+        comments.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitImageComment>(
+            "GetImageCommentsCount", SessionManager.PostTicket, new TransitImageCommentQueryOptions(PostImage.Image.Id));
         comments_OnGetDataSource(sender, e);
         comments.DataBind();
 
@@ -177,8 +177,8 @@ public partial class ShowImage : BlogPage
         {
             if (mEXIFMetaData == null)
             {
-                TransitImage image = SessionManager.BlogService.GetImageWithBitmapById(
-                    SessionManager.PostTicket, ImageId);
+                TransitImage image = SessionManager.GetCachedObject<TransitImage>(
+                    "GetImageWithBitmapById", SessionManager.PostTicket, ImageId);
 
                 if (image.Data != null)
                 {
@@ -215,13 +215,13 @@ public partial class ShowImage : BlogPage
             if (!string.IsNullOrEmpty(sortdirection)) options.SortDirection = (WebServiceQuerySortDirection)Enum.Parse(
                 typeof(WebServiceQuerySortDirection), sortdirection);
 
-            list = SessionManager.BlogService.GetPostImagesEx(
-                SessionManager.PostTicket, options);
+            list = SessionManager.GetCachedCollection<TransitPostImage>(
+                "GetPostImagesEx", SessionManager.PostTicket, options);
         }
         else
         {
-            TransitImage image = SessionManager.BlogService.GetImageById(
-                SessionManager.PostTicket, RequestId);
+            TransitImage image = SessionManager.GetCachedObject<TransitImage>(
+                "GetImageById", SessionManager.PostTicket, RequestId);
             TransitPostImage postimage = new TransitPostImage();
             postimage.Image = image;
             postimage.Post = null;

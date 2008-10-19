@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using DBlog.Data.Hibernate;
+using DBlog.TransitData;
 
 public partial class admin_ManageTopics : BlogAdminPage
 {
@@ -37,6 +38,7 @@ public partial class admin_ManageTopics : BlogAdminPage
             {
                 case "Delete":
                     SessionManager.BlogService.DeleteTopic(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitTopic>();
                     ReportInfo("Item Deleted");
                     GetData(source, e);
                     break;
@@ -50,14 +52,15 @@ public partial class admin_ManageTopics : BlogAdminPage
 
     void grid_OnGetDataSource(object sender, EventArgs e)
     {
-        grid.DataSource = SessionManager.BlogService.GetTopics(
-            SessionManager.Ticket, new WebServiceQueryOptions(grid.PageSize, grid.CurrentPageIndex));
+        grid.DataSource = SessionManager.GetCachedCollection<TransitTopic>(
+            "GetTopics", SessionManager.Ticket, new WebServiceQueryOptions(grid.PageSize, grid.CurrentPageIndex));
     }
 
     public void GetData(object sender, EventArgs e)
     {
         grid.CurrentPageIndex = 0;
-        grid.VirtualItemCount = SessionManager.BlogService.GetTopicsCount(SessionManager.Ticket);
+        grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitTopic>(
+            "GetTopicsCount", SessionManager.Ticket, null);
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
     }

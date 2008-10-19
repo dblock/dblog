@@ -51,7 +51,7 @@ public partial class ListBlog : BlogPage
     public void GetData(object sender, EventArgs e)
     {
         // total number of items
-        int total = SessionManager.GetCachedCollectionCount("GetPostsCount",
+        int total = SessionManager.GetCachedCollectionCount<TransitPost>("GetPostsCount",
             SessionManager.PostTicket, null);
         // number of items left
         int left = total - ((CurrentPageIndex + 1) * PageSize);
