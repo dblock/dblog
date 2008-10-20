@@ -5,7 +5,7 @@
   <Resources>
     <Resource>
       <FilePath>DataModel\DBlog.npersist</FilePath>
-      <HintPath>..\..\..\..\..\..\DataModel\DBlog.npersist</HintPath>
+      <HintPath>DataModel\DBlog.npersist</HintPath>
       <Name>DBlog.Data</Name>
       <ResourceType>XmlDomainMap</ResourceType>
       <Resources />

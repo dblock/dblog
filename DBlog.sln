@@ -59,6 +59,8 @@ Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "DBlog.Web.Deploy", "Web.Dep
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.Script", "Data.Script\DBlog.Data.Script.csproj", "{AF50F70B-06AD-41D1-BA82-8C6339C4A271}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.Mapping", "Data.Mapping\DBlog.Data.Mapping.csproj", "{06BC80C4-5F6E-4352-8307-CFA4C1252755}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|.NET = Debug|.NET
@@ -169,6 +171,16 @@ Global
 		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{AF50F70B-06AD-41D1-BA82-8C6339C4A271}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Release|.NET.ActiveCfg = Release|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{06BC80C4-5F6E-4352-8307-CFA4C1252755}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
