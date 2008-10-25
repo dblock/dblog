@@ -78,7 +78,7 @@
    OutputXmlFile="Target\$(Configuration)\Tests.xml" />
  </Target>
  <Target Name="sql">
-  <Exec WorkingDirectory="Data" Command="..\Data.Script\bin\$(Configuration)\DBlog.Data.Script.exe" />
+  <Exec WorkingDirectory="Database" Command="..\Data.Script\bin\$(Configuration)\DBlog.Data.Script.exe" />
  </Target>
  <Target Name="data">
   <Exec Command="Data.Mapping\bin\$(Configuration)\DBlog.Data.Mapping.exe Data\DBlog.Data.csproj" />
