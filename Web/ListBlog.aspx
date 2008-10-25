@@ -20,6 +20,11 @@
        &#187; edit draft
       </a>
      </span>
+     <span style="<%# (bool) Eval("Display") ? "display: none;" : "" %>">
+      <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
+       &#187 hidden
+      </a>
+     </span>
     </li>
    </ItemTemplate>
   </asp:Repeater>

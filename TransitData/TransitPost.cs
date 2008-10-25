@@ -15,6 +15,7 @@ namespace DBlog.TransitData
     {
         private int mTopicId = 0;
         private bool mPublishedOnly = true;
+        private bool mDisplayedOnly = true;
         private string mQuery = string.Empty;
         private DateTime mDateStart = DateTime.MinValue;
         private DateTime mDateEnd = DateTime.MaxValue;
@@ -79,6 +80,18 @@ namespace DBlog.TransitData
             }
         }
 
+        public bool DisplayedOnly
+        {
+            get
+            {
+                return mDisplayedOnly;
+            }
+            set
+            {
+                mDisplayedOnly = value;
+            }
+        }
+
         public TransitPostQueryOptions()
         {
         }
@@ -137,6 +150,11 @@ namespace DBlog.TransitData
                 criteria.Add("Publish = 1");
             }
 
+            if (DisplayedOnly)
+            {
+                criteria.Add("Display = 1");
+            }
+
             base.Apply(criteria);
         }
 
@@ -162,6 +180,11 @@ namespace DBlog.TransitData
                 criteria.Add(Expression.Eq("Publish", true));
             }
 
+            if (DisplayedOnly)
+            {
+                criteria.Add(Expression.Eq("Display", true));
+            }
+
             base.Apply(criteria);
         }
 
@@ -185,6 +208,11 @@ namespace DBlog.TransitData
             if (PublishedOnly)
             {
                 query.Add(Expression.Eq("Publish", true));
+            }
+
+            if (DisplayedOnly)
+            {
+                query.Add(Expression.Eq("Display", true));
             }
 
             base.Apply(query);
@@ -399,6 +427,20 @@ namespace DBlog.TransitData
             }
         }
 
+        private bool mDisplay = true;
+
+        public bool Display
+        {
+            get
+            {
+                return mDisplay;
+            }
+            set
+            {
+                mDisplay = value;
+            }
+        }
+
         public TransitPost()
         {
 
@@ -471,6 +513,7 @@ namespace DBlog.TransitData
                 session, o.Id);
 
             Publish = o.Publish;
+            Display = o.Display;
         }
 
         public static string Render(ISession session, string value)
@@ -491,6 +534,7 @@ namespace DBlog.TransitData
             post.Login = (LoginId > 0) ? (Login)session.Load(typeof(Login), LoginId) : null;
             post.Topic = (Topic)session.Load(typeof(Topic), TopicId);
             post.Publish = Publish;
+            post.Display = Display;
             return post;
         }
 

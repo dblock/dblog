@@ -39,6 +39,7 @@ public partial class SiteMapBlog : BlogPage
                 options.SortDirection = WebServiceQuerySortDirection.Descending;
                 options.SortExpression = "Created";
                 options.PublishedOnly = true;
+                options.DisplayedOnly = true;
 
                 repeater.DataSource = SessionManager.GetCachedCollection<TransitPost>(
                     "GetPosts", SessionManager.PostTicket, options);

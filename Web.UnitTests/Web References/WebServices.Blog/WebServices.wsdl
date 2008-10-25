@@ -932,6 +932,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="CommentsCount" type="s:int" />
               <s:element minOccurs="1" maxOccurs="1" name="Publish" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="Display" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>
@@ -983,6 +984,7 @@
               <s:element minOccurs="1" maxOccurs="1" name="DateStart" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="DateEnd" type="s:dateTime" />
               <s:element minOccurs="1" maxOccurs="1" name="PublishedOnly" type="s:boolean" />
+              <s:element minOccurs="1" maxOccurs="1" name="DisplayedOnly" type="s:boolean" />
             </s:sequence>
           </s:extension>
         </s:complexContent>

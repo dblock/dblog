@@ -256,6 +256,7 @@
       <one-to-many class="DBlog.Data.PostLogin, DBlog.Data" />
     </bag>
     <property name="Publish" column="Publish" type="Boolean" />
+    <property name="Display" column="Display" type="Boolean" />
   </class>
   <class name="DBlog.Data.PostComment, DBlog.Data" table="PostComment">
     <id name="Id" type="Int32" column="PostComment_Id" access="field.pascalcase-m-underscore">

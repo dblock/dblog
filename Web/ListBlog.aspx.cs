@@ -73,6 +73,7 @@ public partial class ListBlog : BlogPage
         options.SortDirection = WebServiceQuerySortDirection.Descending;
         options.SortExpression = "Created";
         options.PublishedOnly = ! SessionManager.IsAdministrator;
+        options.DisplayedOnly = !SessionManager.IsAdministrator;
         grid.DataSource = SessionManager.GetCachedCollection<TransitPost>(
             "GetPosts", SessionManager.PostTicket, options);
         grid.DataBind();

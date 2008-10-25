@@ -77,6 +77,9 @@
     Data.UnitTests\DBlog.Data.UnitTests.csproj"
    OutputXmlFile="Target\$(Configuration)\Tests.xml" />
  </Target>
+ <Target Name="sql">
+  <Exec WorkingDirectory="Data" Command="..\Data.Script\bin\$(Configuration)\DBlog.Data.Script.exe" />
+ </Target>
  <Target Name="data">
   <Exec Command="Data.Mapping\bin\$(Configuration)\DBlog.Data.Mapping.exe Data\DBlog.Data.csproj" />
   <Exec Command="svn revert Data\AssemblyInfo.cs" />

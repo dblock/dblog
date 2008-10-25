@@ -78,6 +78,7 @@ public partial class EditPost : BlogAdminPage
                     inputCreatedDate.SelectedDate = SessionManager.Region.UtcToUser(Post.Created).Date;
                     inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(Post.Created).TimeOfDay;
                     inputPublish.Checked = Post.Publish;
+                    inputDisplay.Checked = Post.Display;
                 }
                 else
                 {
@@ -88,6 +89,7 @@ public partial class EditPost : BlogAdminPage
                     inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(utcnow).TimeOfDay;
                     inputTopic.Items.Insert(0, new ListItem(string.Empty, "0"));
                     inputPublish.Checked = true;
+                    inputDisplay.Checked = true;
                 }
             }
         }
@@ -142,6 +144,7 @@ public partial class EditPost : BlogAdminPage
             Post.TopicId = CheckInput("Topic", int.Parse(inputTopic.SelectedValue));
             Post.Body = inputBody.Text;
             Post.Publish = inputPublish.Checked;
+            Post.Display = inputDisplay.Checked;
             Post.Created = SessionManager.Region.UserToUtc(inputCreatedDate.SelectedDate.Add(inputCreatedTime.SelectedTime));
             Post.Id = PostId = SessionManager.BlogService.CreateOrUpdatePost(
                 SessionManager.Ticket, Post);
@@ -192,7 +195,6 @@ public partial class EditPost : BlogAdminPage
                 }
 
                 SessionManager.Invalidate<TransitPostImage>();
-                SessionManager.Invalidate<TransitPost>();
 
                 images.Visible = true;
                 GetDataImages(sender, e);
@@ -203,6 +205,7 @@ public partial class EditPost : BlogAdminPage
                 loginAdd_Click(sender, e);
             }
 
+            SessionManager.Invalidate<TransitPost>();
             ReportInfo("Post Saved");
         }
         catch (Exception ex)

@@ -5120,6 +5120,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private bool publishedOnlyField;
         
+        private bool displayedOnlyField;
+        
         /// <remarks/>
         public int TopicId {
             get {
@@ -5167,6 +5169,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.publishedOnlyField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool DisplayedOnly {
+            get {
+                return this.displayedOnlyField;
+            }
+            set {
+                this.displayedOnlyField = value;
             }
         }
     }
@@ -5281,6 +5293,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private int commentsCountField;
         
         private bool publishField;
+        
+        private bool displayField;
         
         /// <remarks/>
         public bool HasAccess {
@@ -5419,6 +5433,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.publishField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool Display {
+            get {
+                return this.displayField;
+            }
+            set {
+                this.displayField = value;
             }
         }
     }

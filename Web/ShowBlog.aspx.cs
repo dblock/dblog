@@ -176,6 +176,7 @@ public partial class ShowBlog : BlogPage
         options.DateEnd = DateEnd;
 
         options.PublishedOnly = ! SessionManager.IsAdministrator;
+        options.DisplayedOnly = ! SessionManager.IsAdministrator;
 
         options.SortDirection = string.IsNullOrEmpty(sortdirection)
             ? WebServiceQuerySortDirection.Descending

@@ -28,8 +28,11 @@
          </a>
          <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">
           <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
-           <img src="images/site/item.gif" alt="Draft" border="0" />
+           <img src="images/site/draft.gif" alt="Draft" border="0" />
           </a>
+         </span>
+         <span style="<%# (bool) Eval("Display") ? "display: none;" : "" %>">
+          <img src="images/site/hidden.gif" alt="Hidden" border="0" />
          </span>
         </div>
         <div class="post_subtitle">

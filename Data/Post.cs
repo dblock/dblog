@@ -30,6 +30,7 @@ namespace DBlog.Data
         private Topic m_Topic;
         private System.Collections.IList m_PostLogins;
         private System.Boolean m_Publish;
+        private System.Boolean m_Display;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -355,6 +356,31 @@ namespace DBlog.Data
             set
             {
                 m_Publish = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.Boolean'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Display' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Display' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public  System.Boolean Display
+        {
+            get
+            {
+                return m_Display;
+            }
+            set
+            {
+                m_Display = value;
             }
         }
 

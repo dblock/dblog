@@ -37,6 +37,7 @@ namespace DBlog.Data.UnitTests
             mPost.Title = Guid.NewGuid().ToString();
             mPost.Topic = topic.Topic;
             mPost.Publish = true;
+            mPost.Display = true;
         }
 
         public override object Object

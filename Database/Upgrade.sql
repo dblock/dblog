@@ -15,3 +15,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Publish')
 ALTER TABLE dbo.Post ADD [Publish] bit NOT NULL DEFAULT 1
 GO
+-- 10/25/2008: add display (vs. hide) to posts
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Display')
+ALTER TABLE dbo.Post ADD [Display] bit NOT NULL DEFAULT 1
+GO
