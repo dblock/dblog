@@ -97,4 +97,12 @@ public partial class BlogLogin : BlogPage
             ReportException(ex);
         }
     }
+
+    protected override bool Index
+    {
+        get
+        {
+            return false;
+        }
+    }
 }
