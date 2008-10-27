@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using DBlog.TransitData;
 using DBlog.WebServices;
 
-public partial class StatsHits : BlogPage
+public partial class StatsHits : BlogAdminPage
 {
     public void Page_Load()
     {

@@ -101,6 +101,12 @@ public partial class ShowImage : BlogPage
             if (!IsPostBack)
             {
                 GetDataImages(sender, e);
+
+                if (PostImage != null)
+                {
+                    Page.Title = string.Format("{0} - {1}", SessionManager.GetSetting(
+                        "title", "Blog"), Renderer.Render(PostImage.Image.Name));
+                }
             }
         }
         catch (Exception ex)

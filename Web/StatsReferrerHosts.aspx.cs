@@ -11,7 +11,7 @@ using System.Web.UI.HtmlControls;
 using DBlog.Data.Hibernate;
 using DBlog.TransitData;
 
-public partial class StatsReferrerHosts : BlogPage
+public partial class StatsReferrerHosts : BlogAdminPage
 {
     protected void Page_Load(object sender, EventArgs e)
     {
