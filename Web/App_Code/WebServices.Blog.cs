@@ -1675,6 +1675,37 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Get all associated comments.")]
+        public List<TransitAssociatedComment> GetAssociatedComments(string ticket, WebServiceQueryOptions options)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                IQuery sqlquery = session.GetNamedQuery("GetAssociatedComments");
+
+                if (options != null)
+                {
+                    options.Apply(sqlquery);
+                }
+
+                IList list = sqlquery.List();
+
+                List<TransitAssociatedComment> result = new List<TransitAssociatedComment>(list.Count);
+                foreach (AssociatedComment obj in list)
+                {
+                    result.Add(new TransitAssociatedComment(session, obj, ticket));
+                }
+
+                return result;
+            }
+        }
+
+        [WebMethod(Description = "Get all associated comments count.")]
+        public int GetAssociatedCommentsCount(string ticket, WebServiceQueryOptions options)
+        {
+            return GetCommentsCount(ticket, options);
+        }
+
         [WebMethod(Description = "Get post comments.")]
         public List<TransitPostComment> GetPostComments(string ticket, TransitPostCommentQueryOptions options)
         {

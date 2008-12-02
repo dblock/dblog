@@ -211,6 +211,19 @@ namespace DBlog.TransitData
             }
         }
 
+        private string mAssociatedType = string.Empty;
+        public string AssociatedType
+        {
+            get
+            {
+                return mAssociatedType;
+            }
+            set
+            {
+                mAssociatedType = value;
+            }
+        }
+            
         public TransitAssociatedComment()
         {
 
@@ -219,6 +232,34 @@ namespace DBlog.TransitData
         public TransitAssociatedComment(ISession session, int id, DBlog.Data.Comment o)
             : this(session, id, o, true)
         {
+        }
+
+        public TransitAssociatedComment(ISession session, DBlog.Data.Hibernate.AssociatedComment o)
+            : this(session, o, true)
+        {
+
+        }
+
+        public TransitAssociatedComment(ISession session, DBlog.Data.Hibernate.AssociatedComment o, string ticket)
+            : this(session, o, ManagedLogin.IsAdministrator(session, ticket))
+        {
+
+        }
+
+        public TransitAssociatedComment(ISession session, DBlog.Data.Hibernate.AssociatedComment o, bool hasaccess)
+        {
+            CommentId = o.Id;
+            AssociatedId = o.AssociatedId;
+            AssociatedType = o.Type;
+
+            if (hasaccess)
+            {
+                CommentIpAddress = o.IpAddress;
+                CommentText = o.Text;
+                CommentCreated = o.Created;
+                CommentModified = o.Modified;
+                CommentLevel = 0;
+            }
         }
 
         public TransitAssociatedComment(ISession session, int id, DBlog.Data.Comment o, bool hasaccess)

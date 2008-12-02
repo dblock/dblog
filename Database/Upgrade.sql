@@ -19,3 +19,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Display')
 ALTER TABLE dbo.Post ADD [Display] bit NOT NULL DEFAULT 1
 GO
+-- 12/01/2008: delete unattached comments
+DELETE Comment
+WHERE NOT EXISTS ( SELECT * FROM ImageComment WHERE ImageComment.Comment_Id = Comment.Comment_Id )
+AND NOT EXISTS ( SELECT * FROM PostComment where PostComment.Comment_Id = Comment.Comment_Id )

@@ -112,6 +112,7 @@
        | <a href="StatsSummary.aspx">s</a>
        | <a href="ShowBlog.aspx?SortDirection=Descending&SortExpression=Counter.Count">pop</a>
        | <a href="ShowImages.aspx">pics</a>
+       | <a href="ShowComments.aspx">c</a>
        | <a href="About.aspx">me</a>
        | <a href="ListBlog.aspx">h</a>
       </div>

@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using DBlog.Data.Hibernate;
+using DBlog.Data.Hibernate.UnitTests;
 using NHibernate.Expression;
 using NUnit.Framework;
 

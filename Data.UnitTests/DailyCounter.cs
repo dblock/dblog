@@ -1,5 +1,6 @@
 ﻿using System;
 using DBlog.Data;
+using DBlog.Data.Hibernate.UnitTests;
 using NUnit.Framework;
 using NHibernate;
 using NHibernate.Cfg;

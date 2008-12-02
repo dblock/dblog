@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" schema="dbo">
+ <class name="DBlog.Data.Hibernate.AssociatedComment, DBlog.Data.Hibernate" mutable="false">
+  <id name="Id" type="Int32" access="field.pascalcase-m-underscore">
+   <generator class="assigned" />
+  </id>
+  <property name="AssociatedId" column="Associated_Id" type="Int32" />
+  <property name="Type" column="Type" type="String" />
+  <property name="IpAddress" column="IpAddress" type="String" />
+  <property name="Text" column="Text" type="String" />
+  <property name="Created" column="Created" type="DateTime" />
+  <property name="Modified" column="Modified" type="DateTime" />
+ </class>
+ <sql-query name="GetAssociatedComments">
+  <return alias="AssociatedComment" class="DBlog.Data.Hibernate.AssociatedComment, DBlog.Data.Hibernate" />
+  CREATE TABLE #AssociatedComment
+  (
+  [Comment_Id] [int] NOT NULL,
+  [Associated_Id] [int] NOT NULL,
+  [Type] [varchar] (12) NOT NULL,
+  [IpAddress] [varchar](24) NOT NULL,
+  [Text] [ntext] NULL,
+  [Created] [datetime] NOT NULL,
+  [Modified] [datetime] NOT NULL,
+  )
+
+  INSERT INTO #AssociatedComment
+  SELECT
+  Comment.Comment_Id,
+  PostComment.Post_Id,
+  'Post',
+  Comment.IpAddress,
+  Comment.Text,
+  Comment.Created,
+  Comment.Modified
+  FROM PostComment, Comment
+  WHERE PostComment.Comment_Id = Comment.Comment_Id
+
+  INSERT INTO #AssociatedComment
+  SELECT
+  Comment.Comment_Id,
+  ImageComment.Image_Id,
+  'Image',
+  Comment.IpAddress,
+  Comment.Text,
+  Comment.Created,
+  Comment.Modified
+  FROM ImageComment, Comment
+  WHERE ImageComment.Comment_Id = Comment.Comment_Id
+
+  SELECT [Comment_Id] AS 'Id0_'
+  , [Associated_Id] AS 'Associat2_0_'
+  , [Type] AS 'Type0_'
+  , [IpAddress] AS 'IpAddress0_'
+  , [Text] AS 'Text0_'
+  , [Created] AS 'Created0_'
+  , [Modified] AS 'Modified0_'
+  FROM #AssociatedComment
+  ORDER BY [Modified] DESC
+
+  DROP TABLE #AssociatedComment
+ </sql-query>
+</hibernate-mapping>

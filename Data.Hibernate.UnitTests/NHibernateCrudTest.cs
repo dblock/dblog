@@ -5,7 +5,7 @@ using NHibernate;
 using NHibernate.Cfg;
 using System.Collections;
 
-namespace DBlog.Data.UnitTests
+namespace DBlog.Data.Hibernate.UnitTests
 {
     public abstract class NHibernateCrudTest : NHibernateTest
     {

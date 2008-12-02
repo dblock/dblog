@@ -4,7 +4,7 @@ using DBlog.Data;
 using NHibernate;
 using NHibernate.Cfg;
 
-namespace DBlog.Data.UnitTests
+namespace DBlog.Data.Hibernate.UnitTests
 {
     /// <summary>
     /// NHibernate test foundation.
@@ -31,6 +31,7 @@ namespace DBlog.Data.UnitTests
                     cfg.Properties.Add("hibernate.connection.driver_class", "NHibernate.Driver.SqlClientDriver");
                     cfg.Properties.Add("hibernate.connection.connection_string", "Server=localhost;initial catalog=Blog;Integrated Security=SSPI");
                     cfg.AddAssembly("DBlog.Data");
+                    cfg.AddAssembly("DBlog.Data.Hibernate");
                     mFactory = cfg.BuildSessionFactory();
                 }
                 return mFactory;

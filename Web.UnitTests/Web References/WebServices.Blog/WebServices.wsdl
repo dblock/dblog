@@ -2,6 +2,53 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://dblock.org/ns/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://dblock.org/ns/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://dblock.org/ns/">
+      <s:element name="GetImageWithBitmapById">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetImageWithBitmapByIdResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetImageWithBitmapByIdResult" type="tns:TransitImage" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitImage">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Preferred" type="s:boolean" />
+              <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
+              <s:element minOccurs="0" maxOccurs="1" name="Thumbnail" type="s:base64Binary" />
+              <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="CommentsCount" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Counter" type="tns:TransitCounter" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TransitObject">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="TransitCounter">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:long" />
+              <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
       <s:element name="Login">
         <s:complexType>
           <s:sequence>
@@ -44,11 +91,6 @@
             </s:sequence>
           </s:extension>
         </s:complexContent>
-      </s:complexType>
-      <s:complexType name="TransitObject">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-        </s:sequence>
       </s:complexType>
       <s:simpleType name="TransitLoginRole">
         <s:restriction base="s:string">
@@ -256,33 +298,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="TransitImage">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:TransitObject">
-            <s:sequence>
-              <s:element minOccurs="0" maxOccurs="1" name="Name" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="Path" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="Description" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="Preferred" type="s:boolean" />
-              <s:element minOccurs="0" maxOccurs="1" name="Data" type="s:base64Binary" />
-              <s:element minOccurs="0" maxOccurs="1" name="Thumbnail" type="s:base64Binary" />
-              <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
-              <s:element minOccurs="1" maxOccurs="1" name="CommentsCount" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="Counter" type="tns:TransitCounter" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
-      <s:complexType name="TransitCounter">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:TransitObject">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="Count" type="s:long" />
-              <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
       <s:element name="CreateOrUpdateImageResponse">
         <s:complexType>
           <s:sequence>
@@ -407,21 +422,6 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="1" maxOccurs="1" name="IncrementImageCountersResult" type="s:long" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetImageWithBitmapById">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="id" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="GetImageWithBitmapByIdResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="GetImageWithBitmapByIdResult" type="tns:TransitImage" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -1638,6 +1638,41 @@
           </s:sequence>
         </s:complexType>
       </s:element>
+      <s:element name="GetAssociatedComments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAssociatedCommentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAssociatedCommentsResult" type="tns:ArrayOfTransitAssociatedComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfTransitAssociatedComment">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="TransitAssociatedComment" nillable="true" type="tns:TransitAssociatedComment" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetAssociatedCommentsCount">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="options" type="tns:WebServiceQueryOptions" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAssociatedCommentsCountResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="GetAssociatedCommentsCountResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPostComments">
         <s:complexType>
           <s:sequence>
@@ -2328,6 +2363,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="GetImageWithBitmapByIdSoapIn">
+    <wsdl:part name="parameters" element="tns:GetImageWithBitmapById" />
+  </wsdl:message>
+  <wsdl:message name="GetImageWithBitmapByIdSoapOut">
+    <wsdl:part name="parameters" element="tns:GetImageWithBitmapByIdResponse" />
+  </wsdl:message>
   <wsdl:message name="LoginSoapIn">
     <wsdl:part name="parameters" element="tns:Login" />
   </wsdl:message>
@@ -2453,12 +2494,6 @@
   </wsdl:message>
   <wsdl:message name="IncrementImageCountersSoapOut">
     <wsdl:part name="parameters" element="tns:IncrementImageCountersResponse" />
-  </wsdl:message>
-  <wsdl:message name="GetImageWithBitmapByIdSoapIn">
-    <wsdl:part name="parameters" element="tns:GetImageWithBitmapById" />
-  </wsdl:message>
-  <wsdl:message name="GetImageWithBitmapByIdSoapOut">
-    <wsdl:part name="parameters" element="tns:GetImageWithBitmapByIdResponse" />
   </wsdl:message>
   <wsdl:message name="GetImageEXIFMetaDataByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetImageEXIFMetaDataById" />
@@ -2832,6 +2867,18 @@
   <wsdl:message name="GetPostCommentsCountSoapOut">
     <wsdl:part name="parameters" element="tns:GetPostCommentsCountResponse" />
   </wsdl:message>
+  <wsdl:message name="GetAssociatedCommentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAssociatedComments" />
+  </wsdl:message>
+  <wsdl:message name="GetAssociatedCommentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAssociatedCommentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAssociatedCommentsCountSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAssociatedCommentsCount" />
+  </wsdl:message>
+  <wsdl:message name="GetAssociatedCommentsCountSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAssociatedCommentsCountResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPostCommentsSoapIn">
     <wsdl:part name="parameters" element="tns:GetPostComments" />
   </wsdl:message>
@@ -3079,6 +3126,11 @@
     <wsdl:part name="parameters" element="tns:GetUptimeResponse" />
   </wsdl:message>
   <wsdl:portType name="BlogSoap">
+    <wsdl:operation name="GetImageWithBitmapById">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data.</wsdl:documentation>
+      <wsdl:input message="tns:GetImageWithBitmapByIdSoapIn" />
+      <wsdl:output message="tns:GetImageWithBitmapByIdSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Login to an account.</wsdl:documentation>
       <wsdl:input message="tns:LoginSoapIn" />
@@ -3183,11 +3235,6 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Increment image counters.</wsdl:documentation>
       <wsdl:input message="tns:IncrementImageCountersSoapIn" />
       <wsdl:output message="tns:IncrementImageCountersSoapOut" />
-    </wsdl:operation>
-    <wsdl:operation name="GetImageWithBitmapById">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data.</wsdl:documentation>
-      <wsdl:input message="tns:GetImageWithBitmapByIdSoapIn" />
-      <wsdl:output message="tns:GetImageWithBitmapByIdSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="GetImageEXIFMetaDataById">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get image data.</wsdl:documentation>
@@ -3499,6 +3546,16 @@
       <wsdl:input message="tns:GetPostCommentsCountSoapIn" />
       <wsdl:output message="tns:GetPostCommentsCountSoapOut" />
     </wsdl:operation>
+    <wsdl:operation name="GetAssociatedComments">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all associated comments.</wsdl:documentation>
+      <wsdl:input message="tns:GetAssociatedCommentsSoapIn" />
+      <wsdl:output message="tns:GetAssociatedCommentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAssociatedCommentsCount">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get all associated comments count.</wsdl:documentation>
+      <wsdl:input message="tns:GetAssociatedCommentsCountSoapIn" />
+      <wsdl:output message="tns:GetAssociatedCommentsCountSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPostComments">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get post comments.</wsdl:documentation>
       <wsdl:input message="tns:GetPostCommentsSoapIn" />
@@ -3707,6 +3764,15 @@
   </wsdl:portType>
   <wsdl:binding name="BlogSoap" type="tns:BlogSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetImageWithBitmapById">
+      <soap:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <soap:operation soapAction="http://dblock.org/ns/Login" style="document" />
       <wsdl:input>
@@ -3889,15 +3955,6 @@
     </wsdl:operation>
     <wsdl:operation name="IncrementImageCounters">
       <soap:operation soapAction="http://dblock.org/ns/IncrementImageCounters" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetImageWithBitmapById">
-      <soap:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4463,6 +4520,24 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
+    <wsdl:operation name="GetAssociatedComments">
+      <soap:operation soapAction="http://dblock.org/ns/GetAssociatedComments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAssociatedCommentsCount">
+      <soap:operation soapAction="http://dblock.org/ns/GetAssociatedCommentsCount" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPostComments">
       <soap:operation soapAction="http://dblock.org/ns/GetPostComments" style="document" />
       <wsdl:input>
@@ -4835,6 +4910,15 @@
   </wsdl:binding>
   <wsdl:binding name="BlogSoap12" type="tns:BlogSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetImageWithBitmapById">
+      <soap12:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="Login">
       <soap12:operation soapAction="http://dblock.org/ns/Login" style="document" />
       <wsdl:input>
@@ -5017,15 +5101,6 @@
     </wsdl:operation>
     <wsdl:operation name="IncrementImageCounters">
       <soap12:operation soapAction="http://dblock.org/ns/IncrementImageCounters" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetImageWithBitmapById">
-      <soap12:operation soapAction="http://dblock.org/ns/GetImageWithBitmapById" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -5584,6 +5659,24 @@
     </wsdl:operation>
     <wsdl:operation name="GetPostCommentsCount">
       <soap12:operation soapAction="http://dblock.org/ns/GetPostCommentsCount" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAssociatedComments">
+      <soap12:operation soapAction="http://dblock.org/ns/GetAssociatedComments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAssociatedCommentsCount">
+      <soap12:operation soapAction="http://dblock.org/ns/GetAssociatedCommentsCount" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

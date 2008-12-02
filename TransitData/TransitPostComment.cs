@@ -62,19 +62,19 @@ namespace DBlog.TransitData
         public TransitPostComment()
             : base()
         {
-
+            AssociatedType = "Post";
         }
 
         public TransitPostComment(ISession session, DBlog.Data.PostComment o, string ticket)
             : base(session, o.Post.Id, o.Comment, TransitPost.GetAccess(session, o.Post, ticket))
         {
-
+            AssociatedType = "Post";
         }
 
         public TransitPostComment(ISession session, DBlog.Data.PostComment o)
             : base(session, o.Post.Id, o.Comment)
         {
-
+            AssociatedType = "Post";
         }
 
         public PostComment GetPostComment(ISession session)

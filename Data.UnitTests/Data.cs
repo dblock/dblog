@@ -1,6 +1,7 @@
 using System;
 using System.Text;
 using DBlog.Data;
+using DBlog.Data.Hibernate.UnitTests;
 using NUnit.Framework;
 using NHibernate;
 using NHibernate.Cfg;

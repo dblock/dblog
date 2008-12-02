@@ -44,6 +44,7 @@ public class Global : DBlog.Tools.Web.HostedApplication
         base.Application_Start(sender, e);
 
         DBlog.Data.Hibernate.Session.Configuration.AddAssembly("DBlog.Data");
+        DBlog.Data.Hibernate.Session.Configuration.AddAssembly("DBlog.Data.Hibernate");
 
         using (DBlog.Data.Hibernate.Session.OpenConnection(WebService.GetNewConnection()))
         {

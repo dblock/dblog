@@ -61,19 +61,19 @@ namespace DBlog.TransitData
         public TransitImageComment()
             : base()
         {
-
+            AssociatedType = "Image";
         }
 
         public TransitImageComment(ISession session, DBlog.Data.ImageComment o, string ticket)
             : this(session, o, TransitImage.HasAccess(session, o.Image, ticket))
         {
-
+            AssociatedType = "Image";
         }
 
         public TransitImageComment(ISession session, DBlog.Data.ImageComment o, bool hasaccess)
             : base(session, o.Image.Id, o.Comment, hasaccess)
         {
-
+            AssociatedType = "Image";
         }
 
         public ImageComment GetImageComment(ISession session)

@@ -30,6 +30,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitObject))]
     public partial class Blog : System.Web.Services.Protocols.SoapHttpClientProtocol {
         
+        private System.Threading.SendOrPostCallback GetImageWithBitmapByIdOperationCompleted;
+        
         private System.Threading.SendOrPostCallback LoginOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetLoginOperationCompleted;
@@ -71,8 +73,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private System.Threading.SendOrPostCallback IncrementImageCounterOperationCompleted;
         
         private System.Threading.SendOrPostCallback IncrementImageCountersOperationCompleted;
-        
-        private System.Threading.SendOrPostCallback GetImageWithBitmapByIdOperationCompleted;
         
         private System.Threading.SendOrPostCallback GetImageEXIFMetaDataByIdOperationCompleted;
         
@@ -198,6 +198,10 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private System.Threading.SendOrPostCallback GetPostCommentsCountOperationCompleted;
         
+        private System.Threading.SendOrPostCallback GetAssociatedCommentsOperationCompleted;
+        
+        private System.Threading.SendOrPostCallback GetAssociatedCommentsCountOperationCompleted;
+        
         private System.Threading.SendOrPostCallback GetPostCommentsOperationCompleted;
         
         private System.Threading.SendOrPostCallback CreateOrUpdateImageCommentOperationCompleted;
@@ -319,6 +323,9 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        public event GetImageWithBitmapByIdCompletedEventHandler GetImageWithBitmapByIdCompleted;
+        
+        /// <remarks/>
         public event LoginCompletedEventHandler LoginCompleted;
         
         /// <remarks/>
@@ -380,9 +387,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event IncrementImageCountersCompletedEventHandler IncrementImageCountersCompleted;
-        
-        /// <remarks/>
-        public event GetImageWithBitmapByIdCompletedEventHandler GetImageWithBitmapByIdCompleted;
         
         /// <remarks/>
         public event GetImageEXIFMetaDataByIdCompletedEventHandler GetImageEXIFMetaDataByIdCompleted;
@@ -571,6 +575,12 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         public event GetPostCommentsCountCompletedEventHandler GetPostCommentsCountCompleted;
         
         /// <remarks/>
+        public event GetAssociatedCommentsCompletedEventHandler GetAssociatedCommentsCompleted;
+        
+        /// <remarks/>
+        public event GetAssociatedCommentsCountCompletedEventHandler GetAssociatedCommentsCountCompleted;
+        
+        /// <remarks/>
         public event GetPostCommentsCompletedEventHandler GetPostCommentsCompleted;
         
         /// <remarks/>
@@ -692,6 +702,37 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         /// <remarks/>
         public event GetUptimeCompletedEventHandler GetUptimeCompleted;
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageWithBitmapById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitImage GetImageWithBitmapById(string ticket, int id) {
+            object[] results = this.Invoke("GetImageWithBitmapById", new object[] {
+                        ticket,
+                        id});
+            return ((TransitImage)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetImageWithBitmapByIdAsync(string ticket, int id) {
+            this.GetImageWithBitmapByIdAsync(ticket, id, null);
+        }
+        
+        /// <remarks/>
+        public void GetImageWithBitmapByIdAsync(string ticket, int id, object userState) {
+            if ((this.GetImageWithBitmapByIdOperationCompleted == null)) {
+                this.GetImageWithBitmapByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageWithBitmapByIdOperationCompleted);
+            }
+            this.InvokeAsync("GetImageWithBitmapById", new object[] {
+                        ticket,
+                        id}, this.GetImageWithBitmapByIdOperationCompleted, userState);
+        }
+        
+        private void OnGetImageWithBitmapByIdOperationCompleted(object arg) {
+            if ((this.GetImageWithBitmapByIdCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetImageWithBitmapByIdCompleted(this, new GetImageWithBitmapByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
         
         /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/Login", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
@@ -1336,37 +1377,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             if ((this.IncrementImageCountersCompleted != null)) {
                 System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
                 this.IncrementImageCountersCompleted(this, new IncrementImageCountersCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
-            }
-        }
-        
-        /// <remarks/>
-        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetImageWithBitmapById", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
-        public TransitImage GetImageWithBitmapById(string ticket, int id) {
-            object[] results = this.Invoke("GetImageWithBitmapById", new object[] {
-                        ticket,
-                        id});
-            return ((TransitImage)(results[0]));
-        }
-        
-        /// <remarks/>
-        public void GetImageWithBitmapByIdAsync(string ticket, int id) {
-            this.GetImageWithBitmapByIdAsync(ticket, id, null);
-        }
-        
-        /// <remarks/>
-        public void GetImageWithBitmapByIdAsync(string ticket, int id, object userState) {
-            if ((this.GetImageWithBitmapByIdOperationCompleted == null)) {
-                this.GetImageWithBitmapByIdOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetImageWithBitmapByIdOperationCompleted);
-            }
-            this.InvokeAsync("GetImageWithBitmapById", new object[] {
-                        ticket,
-                        id}, this.GetImageWithBitmapByIdOperationCompleted, userState);
-        }
-        
-        private void OnGetImageWithBitmapByIdOperationCompleted(object arg) {
-            if ((this.GetImageWithBitmapByIdCompleted != null)) {
-                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
-                this.GetImageWithBitmapByIdCompleted(this, new GetImageWithBitmapByIdCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
             }
         }
         
@@ -3296,6 +3306,68 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetAssociatedComments", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public TransitAssociatedComment[] GetAssociatedComments(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetAssociatedComments", new object[] {
+                        ticket,
+                        options});
+            return ((TransitAssociatedComment[])(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetAssociatedCommentsAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetAssociatedCommentsAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetAssociatedCommentsAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetAssociatedCommentsOperationCompleted == null)) {
+                this.GetAssociatedCommentsOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetAssociatedCommentsOperationCompleted);
+            }
+            this.InvokeAsync("GetAssociatedComments", new object[] {
+                        ticket,
+                        options}, this.GetAssociatedCommentsOperationCompleted, userState);
+        }
+        
+        private void OnGetAssociatedCommentsOperationCompleted(object arg) {
+            if ((this.GetAssociatedCommentsCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetAssociatedCommentsCompleted(this, new GetAssociatedCommentsCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
+        [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetAssociatedCommentsCount", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
+        public int GetAssociatedCommentsCount(string ticket, WebServiceQueryOptions options) {
+            object[] results = this.Invoke("GetAssociatedCommentsCount", new object[] {
+                        ticket,
+                        options});
+            return ((int)(results[0]));
+        }
+        
+        /// <remarks/>
+        public void GetAssociatedCommentsCountAsync(string ticket, WebServiceQueryOptions options) {
+            this.GetAssociatedCommentsCountAsync(ticket, options, null);
+        }
+        
+        /// <remarks/>
+        public void GetAssociatedCommentsCountAsync(string ticket, WebServiceQueryOptions options, object userState) {
+            if ((this.GetAssociatedCommentsCountOperationCompleted == null)) {
+                this.GetAssociatedCommentsCountOperationCompleted = new System.Threading.SendOrPostCallback(this.OnGetAssociatedCommentsCountOperationCompleted);
+            }
+            this.InvokeAsync("GetAssociatedCommentsCount", new object[] {
+                        ticket,
+                        options}, this.GetAssociatedCommentsCountOperationCompleted, userState);
+        }
+        
+        private void OnGetAssociatedCommentsCountOperationCompleted(object arg) {
+            if ((this.GetAssociatedCommentsCountCompleted != null)) {
+                System.Web.Services.Protocols.InvokeCompletedEventArgs invokeArgs = ((System.Web.Services.Protocols.InvokeCompletedEventArgs)(arg));
+                this.GetAssociatedCommentsCountCompleted(this, new GetAssociatedCommentsCountCompletedEventArgs(invokeArgs.Results, invokeArgs.Error, invokeArgs.Cancelled, invokeArgs.UserState));
+            }
+        }
+        
+        /// <remarks/>
         [System.Web.Services.Protocols.SoapDocumentMethodAttribute("http://dblock.org/ns/GetPostComments", RequestNamespace="http://dblock.org/ns/", ResponseNamespace="http://dblock.org/ns/", Use=System.Web.Services.Description.SoapBindingUse.Literal, ParameterStyle=System.Web.Services.Protocols.SoapParameterStyle.Wrapped)]
         public TransitPostComment[] GetPostComments(string ticket, TransitPostCommentQueryOptions options) {
             object[] results = this.Invoke("GetPostComments", new object[] {
@@ -4567,19 +4639,25 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public partial class TransitLogin : TransitObject {
+    public partial class TransitImage : TransitObject {
         
         private string nameField;
         
-        private string emailField;
+        private string pathField;
         
-        private TransitLoginRole roleField;
+        private string descriptionField;
         
-        private string usernameField;
+        private bool preferredField;
         
-        private string passwordField;
+        private byte[] dataField;
         
-        private string websiteField;
+        private byte[] thumbnailField;
+        
+        private System.DateTime modifiedField;
+        
+        private int commentsCountField;
+        
+        private TransitCounter counterField;
         
         /// <remarks/>
         public string Name {
@@ -4592,52 +4670,84 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         }
         
         /// <remarks/>
-        public string Email {
+        public string Path {
             get {
-                return this.emailField;
+                return this.pathField;
             }
             set {
-                this.emailField = value;
+                this.pathField = value;
             }
         }
         
         /// <remarks/>
-        public TransitLoginRole Role {
+        public string Description {
             get {
-                return this.roleField;
+                return this.descriptionField;
             }
             set {
-                this.roleField = value;
+                this.descriptionField = value;
             }
         }
         
         /// <remarks/>
-        public string Username {
+        public bool Preferred {
             get {
-                return this.usernameField;
+                return this.preferredField;
             }
             set {
-                this.usernameField = value;
+                this.preferredField = value;
             }
         }
         
         /// <remarks/>
-        public string Password {
+        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+        public byte[] Data {
             get {
-                return this.passwordField;
+                return this.dataField;
             }
             set {
-                this.passwordField = value;
+                this.dataField = value;
             }
         }
         
         /// <remarks/>
-        public string Website {
+        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
+        public byte[] Thumbnail {
             get {
-                return this.websiteField;
+                return this.thumbnailField;
             }
             set {
-                this.websiteField = value;
+                this.thumbnailField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public System.DateTime Modified {
+            get {
+                return this.modifiedField;
+            }
+            set {
+                this.modifiedField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public int CommentsCount {
+            get {
+                return this.commentsCountField;
+            }
+            set {
+                this.commentsCountField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public TransitCounter Counter {
+            get {
+                return this.counterField;
+            }
+            set {
+                this.counterField = value;
             }
         }
     }
@@ -4645,17 +4755,34 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     /// <remarks/>
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
     [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public enum TransitLoginRole {
+    public partial class TransitCounter : TransitObject {
+        
+        private long countField;
+        
+        private System.DateTime createdField;
         
         /// <remarks/>
-        Unknown,
+        public long Count {
+            get {
+                return this.countField;
+            }
+            set {
+                this.countField = value;
+            }
+        }
         
         /// <remarks/>
-        Guest,
-        
-        /// <remarks/>
-        Administrator,
+        public System.DateTime Created {
+            get {
+                return this.createdField;
+            }
+            set {
+                this.createdField = value;
+            }
+        }
     }
     
     /// <remarks/>
@@ -4676,10 +4803,10 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerSearchQuery))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReferrerHostRollup))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitReference))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitCounter))]
-    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImage))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitTopic))]
     [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitLogin))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitCounter))]
+    [System.Xml.Serialization.XmlIncludeAttribute(typeof(TransitImage))]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
     [System.SerializableAttribute()]
     [System.Diagnostics.DebuggerStepThroughAttribute()]
@@ -5264,6 +5391,103 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public partial class TransitLogin : TransitObject {
+        
+        private string nameField;
+        
+        private string emailField;
+        
+        private TransitLoginRole roleField;
+        
+        private string usernameField;
+        
+        private string passwordField;
+        
+        private string websiteField;
+        
+        /// <remarks/>
+        public string Name {
+            get {
+                return this.nameField;
+            }
+            set {
+                this.nameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Email {
+            get {
+                return this.emailField;
+            }
+            set {
+                this.emailField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public TransitLoginRole Role {
+            get {
+                return this.roleField;
+            }
+            set {
+                this.roleField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Username {
+            get {
+                return this.usernameField;
+            }
+            set {
+                this.usernameField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Password {
+            get {
+                return this.passwordField;
+            }
+            set {
+                this.passwordField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public string Website {
+            get {
+                return this.websiteField;
+            }
+            set {
+                this.websiteField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
+    [System.SerializableAttribute()]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
+    public enum TransitLoginRole {
+        
+        /// <remarks/>
+        Unknown,
+        
+        /// <remarks/>
+        Guest,
+        
+        /// <remarks/>
+        Administrator,
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitPost : TransitObject {
         
         private bool hasAccessField;
@@ -5443,39 +5667,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.displayField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public partial class TransitCounter : TransitObject {
-        
-        private long countField;
-        
-        private System.DateTime createdField;
-        
-        /// <remarks/>
-        public long Count {
-            get {
-                return this.countField;
-            }
-            set {
-                this.countField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime Created {
-            get {
-                return this.createdField;
-            }
-            set {
-                this.createdField = value;
             }
         }
     }
@@ -6052,125 +6243,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.ComponentModel.DesignerCategoryAttribute("code")]
     [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
-    public partial class TransitImage : TransitObject {
-        
-        private string nameField;
-        
-        private string pathField;
-        
-        private string descriptionField;
-        
-        private bool preferredField;
-        
-        private byte[] dataField;
-        
-        private byte[] thumbnailField;
-        
-        private System.DateTime modifiedField;
-        
-        private int commentsCountField;
-        
-        private TransitCounter counterField;
-        
-        /// <remarks/>
-        public string Name {
-            get {
-                return this.nameField;
-            }
-            set {
-                this.nameField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Path {
-            get {
-                return this.pathField;
-            }
-            set {
-                this.pathField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public string Description {
-            get {
-                return this.descriptionField;
-            }
-            set {
-                this.descriptionField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public bool Preferred {
-            get {
-                return this.preferredField;
-            }
-            set {
-                this.preferredField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-        public byte[] Data {
-            get {
-                return this.dataField;
-            }
-            set {
-                this.dataField = value;
-            }
-        }
-        
-        /// <remarks/>
-        [System.Xml.Serialization.XmlElementAttribute(DataType="base64Binary")]
-        public byte[] Thumbnail {
-            get {
-                return this.thumbnailField;
-            }
-            set {
-                this.thumbnailField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public System.DateTime Modified {
-            get {
-                return this.modifiedField;
-            }
-            set {
-                this.modifiedField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public int CommentsCount {
-            get {
-                return this.commentsCountField;
-            }
-            set {
-                this.commentsCountField = value;
-            }
-        }
-        
-        /// <remarks/>
-        public TransitCounter Counter {
-            get {
-                return this.counterField;
-            }
-            set {
-                this.counterField = value;
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "2.0.50727.1434")]
-    [System.SerializableAttribute()]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://dblock.org/ns/")]
     public partial class TransitStats : TransitObject {
         
         private int postsCountField;
@@ -6533,6 +6605,32 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.typeField = value;
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.1434")]
+    public delegate void GetImageWithBitmapByIdCompletedEventHandler(object sender, GetImageWithBitmapByIdCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.1434")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetImageWithBitmapByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetImageWithBitmapByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitImage Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitImage)(this.results[0]));
             }
         }
     }
@@ -7013,32 +7111,6 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             get {
                 this.RaiseExceptionIfNecessary();
                 return ((long)(this.results[0]));
-            }
-        }
-    }
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.1434")]
-    public delegate void GetImageWithBitmapByIdCompletedEventHandler(object sender, GetImageWithBitmapByIdCompletedEventArgs e);
-    
-    /// <remarks/>
-    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.1434")]
-    [System.Diagnostics.DebuggerStepThroughAttribute()]
-    [System.ComponentModel.DesignerCategoryAttribute("code")]
-    public partial class GetImageWithBitmapByIdCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
-        
-        private object[] results;
-        
-        internal GetImageWithBitmapByIdCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
-                base(exception, cancelled, userState) {
-            this.results = results;
-        }
-        
-        /// <remarks/>
-        public TransitImage Result {
-            get {
-                this.RaiseExceptionIfNecessary();
-                return ((TransitImage)(this.results[0]));
             }
         }
     }
@@ -8444,6 +8516,58 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         private object[] results;
         
         internal GetPostCommentsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public int Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((int)(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.1434")]
+    public delegate void GetAssociatedCommentsCompletedEventHandler(object sender, GetAssociatedCommentsCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.1434")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetAssociatedCommentsCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetAssociatedCommentsCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
+                base(exception, cancelled, userState) {
+            this.results = results;
+        }
+        
+        /// <remarks/>
+        public TransitAssociatedComment[] Result {
+            get {
+                this.RaiseExceptionIfNecessary();
+                return ((TransitAssociatedComment[])(this.results[0]));
+            }
+        }
+    }
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.1434")]
+    public delegate void GetAssociatedCommentsCountCompletedEventHandler(object sender, GetAssociatedCommentsCountCompletedEventArgs e);
+    
+    /// <remarks/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Web.Services", "2.0.50727.1434")]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    public partial class GetAssociatedCommentsCountCompletedEventArgs : System.ComponentModel.AsyncCompletedEventArgs {
+        
+        private object[] results;
+        
+        internal GetAssociatedCommentsCountCompletedEventArgs(object[] results, System.Exception exception, bool cancelled, object userState) : 
                 base(exception, cancelled, userState) {
             this.results = results;
         }
