@@ -19,16 +19,16 @@ namespace DBlog.Data
 
         //Holds property values
         private System.Int32 m_Id;
-        private System.Collections.IList m_Comments;
+        private System.Collections.Generic.IList<Comment> m_Comments;
         private System.String m_Email;
-        private System.Collections.IList m_LoginCounters;
+        private System.Collections.Generic.IList<LoginCounter> m_LoginCounters;
         private System.String m_Name;
         private System.String m_Password;
         private System.String m_Role;
         private System.String m_Username;
         private System.String m_Website;
-        private System.Collections.IList m_Posts;
-        private System.Collections.IList m_PostLogins;
+        private System.Collections.Generic.IList<Post> m_Posts;
+        private System.Collections.Generic.IList<PostLogin> m_PostLogins;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -46,7 +46,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Login_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -73,7 +73,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Owner_Login_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList Comments
+        public virtual System.Collections.Generic.IList<Comment> Comments
         {
             get
             {
@@ -98,7 +98,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Email' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Email
+        public virtual System.String Email
         {
             get
             {
@@ -129,7 +129,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Login_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList LoginCounters
+        public virtual System.Collections.Generic.IList<LoginCounter> LoginCounters
         {
             get
             {
@@ -154,7 +154,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Name' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Name
+        public virtual System.String Name
         {
             get
             {
@@ -179,7 +179,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Password' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Password
+        public virtual System.String Password
         {
             get
             {
@@ -204,7 +204,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Role' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Role
+        public virtual System.String Role
         {
             get
             {
@@ -229,7 +229,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Username' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Username
+        public virtual System.String Username
         {
             get
             {
@@ -254,7 +254,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Website' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Website
+        public virtual System.String Website
         {
             get
             {
@@ -285,7 +285,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Login_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList Posts
+        public virtual System.Collections.Generic.IList<Post> Posts
         {
             get
             {
@@ -316,7 +316,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Login_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList PostLogins
+        public virtual System.Collections.Generic.IList<PostLogin> PostLogins
         {
             get
             {

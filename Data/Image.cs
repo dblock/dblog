@@ -21,15 +21,15 @@ namespace DBlog.Data
         private System.Int32 m_Id;
         private System.Byte[] m_Data;
         private System.String m_Description;
-        private System.Collections.IList m_Highlights;
-        private System.Collections.IList m_ImageComments;
-        private System.Collections.IList m_ImageCounters;
+        private System.Collections.Generic.IList<Highlight> m_Highlights;
+        private System.Collections.Generic.IList<ImageComment> m_ImageComments;
+        private System.Collections.Generic.IList<ImageCounter> m_ImageCounters;
         private System.DateTime m_Modified;
         private System.String m_Name;
         private System.String m_Path;
         private System.Boolean m_Preferred;
         private System.Byte[] m_Thumbnail;
-        private System.Collections.IList m_PostImages;
+        private System.Collections.Generic.IList<PostImage> m_PostImages;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -47,7 +47,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Image_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -68,7 +68,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Data' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Byte[] Data
+        public virtual System.Byte[] Data
         {
             get
             {
@@ -93,7 +93,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Description' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Description
+        public virtual System.String Description
         {
             get
             {
@@ -124,7 +124,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Image_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList Highlights
+        public virtual System.Collections.Generic.IList<Highlight> Highlights
         {
             get
             {
@@ -155,7 +155,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Image_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList ImageComments
+        public virtual System.Collections.Generic.IList<ImageComment> ImageComments
         {
             get
             {
@@ -186,7 +186,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Image_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList ImageCounters
+        public virtual System.Collections.Generic.IList<ImageCounter> ImageCounters
         {
             get
             {
@@ -211,7 +211,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Modified' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Modified
+        public virtual System.DateTime Modified
         {
             get
             {
@@ -236,7 +236,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Name' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Name
+        public virtual System.String Name
         {
             get
             {
@@ -261,7 +261,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Path' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Path
+        public virtual System.String Path
         {
             get
             {
@@ -286,7 +286,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Preferred' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Boolean Preferred
+        public virtual System.Boolean Preferred
         {
             get
             {
@@ -311,7 +311,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Thumbnail' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Byte[] Thumbnail
+        public virtual System.Byte[] Thumbnail
         {
             get
             {
@@ -342,7 +342,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Image_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList PostImages
+        public virtual System.Collections.Generic.IList<PostImage> PostImages
         {
             get
             {

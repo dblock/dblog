@@ -46,5 +46,15 @@ namespace DBlog.Web.UnitTests.WebServices
                 return "Feed";
             }
         }
+
+        [Test]
+        public void GetTypedFeeds()
+        {
+            TransitFeedQueryOptions options = new TransitFeedQueryOptions();
+            options.Type = TransitFeedType.Rss;
+            TransitFeed[] feeds = Blog.GetFeeds(Ticket, options);
+            Assert.IsNotNull(feeds);
+            Console.WriteLine("Feeds: {0}", feeds.Length);
+        }
     }
 }

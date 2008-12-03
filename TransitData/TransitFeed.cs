@@ -63,7 +63,7 @@ namespace DBlog.TransitData
         {
             if (Type != TransitFeedType.Unknown)
             {
-                criteria.Add(Expression.Eq("Type", Type));
+                criteria.Add(Expression.Eq("Type", Type.ToString()));
             }
 
             base.Apply(criteria);
@@ -73,7 +73,7 @@ namespace DBlog.TransitData
         {
             if (Type != TransitFeedType.Unknown)
             {
-                query.Add(Expression.Eq("Type", Type));
+                query.Add(Expression.Eq("Type", Type.ToString()));
             }
 
             base.Apply(query);

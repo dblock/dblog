@@ -14,6 +14,7 @@ namespace DBlog.Data.Hibernate
         private string mTable = string.Empty;
         private List<ICriterion> mExpressions = new List<ICriterion>();
         private Type mPersistentClass = null;
+        private string mProperty = "Id";
 
         public string Table
         {
@@ -28,9 +29,15 @@ namespace DBlog.Data.Hibernate
         }
 
         public CountQuery(ISession session, Type persistentclass, string table)
+            : this(session, persistentclass, table, "Id")
+        {
+        }
+
+        public CountQuery(ISession session, Type persistentclass, string table, string property)
         {
             mSession = session;
             mTable = table;
+            mProperty = property;
             mPersistentClass = persistentclass;
         }
 
@@ -40,54 +47,21 @@ namespace DBlog.Data.Hibernate
             return this;
         }
 
-        public IQuery CreateQuery()
+        public ICriteria CreateQuery()
         {
-            return mSession.CreateQuery(this.ToString());
-        }
+            ICriteria c = mSession.CreateCriteria(mPersistentClass);
 
-        public int Execute()
-        {
-            return (int)CreateQuery().UniqueResult();
-        }
-
-        public override string ToString()
-        {
-            ISessionFactoryImplementor impl = (ISessionFactoryImplementor)mSession.SessionFactory;
-
-            StringBuilder s = new StringBuilder();
-            s.AppendFormat("SELECT COUNT({1}) FROM {0} {1}", Table, Table);
-
-            Dictionary<string, string> aliasclasses = new Dictionary<string, string>();
-
-            StringBuilder q = new StringBuilder();
             foreach (ICriterion expr in mExpressions)
             {
-                q.Append((q.Length > 0) ? " AND " : " WHERE ");
-                SqlString ss = expr.ToSqlString(impl, mPersistentClass, Table, aliasclasses);
-
-                TypedValue[] values = expr.GetTypedValues(impl, mPersistentClass, aliasclasses);
-
-                int index = 0;
-                int[] pi = ss.ParameterIndexes;
-                foreach (int i in pi)
-                {
-                    string v = values[index].Value.ToString();
-                    v = v.Replace("'", "''");
-                    ss.SqlParts[i] = string.Format("'{0}'", v);
-                    index++;
-                }
-                string ss_s = ss.ToString();
-
-                if (!(expr is SQLCriterion))
-                {
-                    ss_s = ss_s.Replace("_", "."); // hack
-                }
-
-                q.Append(ss_s);
+                c.Add(expr);
             }
 
-            s.Append(q);
-            return s.ToString();
+            return c.SetProjection(Projections.Count(mProperty));
+        }
+
+        public T Execute<T>()
+        {
+            return CreateQuery().UniqueResult<T>();
         }
     }
 }

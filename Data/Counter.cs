@@ -21,11 +21,11 @@ namespace DBlog.Data
         private System.Int32 m_Id;
         private System.Int64 m_Count;
         private System.DateTime m_Created;
-        private System.Collections.IList m_ImageCounters;
-        private System.Collections.IList m_LoginCounters;
-        private System.Collections.IList m_NamedCounters;
-        private System.Collections.IList m_PostCounters;
-        private System.Collections.IList m_BrowserCounters;
+        private System.Collections.Generic.IList<ImageCounter> m_ImageCounters;
+        private System.Collections.Generic.IList<LoginCounter> m_LoginCounters;
+        private System.Collections.Generic.IList<NamedCounter> m_NamedCounters;
+        private System.Collections.Generic.IList<PostCounter> m_PostCounters;
+        private System.Collections.Generic.IList<BrowserCounter> m_BrowserCounters;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -43,7 +43,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Counter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -64,7 +64,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Count' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int64 Count
+        public virtual System.Int64 Count
         {
             get
             {
@@ -89,7 +89,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Created' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Created
+        public virtual System.DateTime Created
         {
             get
             {
@@ -120,7 +120,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Counter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList ImageCounters
+        public virtual System.Collections.Generic.IList<ImageCounter> ImageCounters
         {
             get
             {
@@ -151,7 +151,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Counter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList LoginCounters
+        public virtual System.Collections.Generic.IList<LoginCounter> LoginCounters
         {
             get
             {
@@ -182,7 +182,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Counter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList NamedCounters
+        public virtual System.Collections.Generic.IList<NamedCounter> NamedCounters
         {
             get
             {
@@ -213,7 +213,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Counter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList PostCounters
+        public virtual System.Collections.Generic.IList<PostCounter> PostCounters
         {
             get
             {
@@ -244,7 +244,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Counter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList BrowserCounters
+        public virtual System.Collections.Generic.IList<BrowserCounter> BrowserCounters
         {
             get
             {

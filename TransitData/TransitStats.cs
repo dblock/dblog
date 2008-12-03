@@ -222,9 +222,9 @@ namespace DBlog.TransitData
 
         public TransitStats(ISession session)
         {
-            ImagesCount = (int)session.CreateQuery("SELECT COUNT(i) FROM Image i").UniqueResult();
-            PostsCount = (int)session.CreateQuery("SELECT COUNT(p) FROM Post p").UniqueResult();
-            CommentsCount = (int)session.CreateQuery("SELECT COUNT(c) FROM Comment c").UniqueResult();
+            ImagesCount = (int) session.CreateQuery("SELECT COUNT(i) FROM Image i").UniqueResult<long>();
+            PostsCount = (int) session.CreateQuery("SELECT COUNT(p) FROM Post p").UniqueResult<long>();
+            CommentsCount = (int) session.CreateQuery("SELECT COUNT(c) FROM Comment c").UniqueResult<long>();
             AtomCount = TransitCounter.GetNamedCounter(session, "Atom");
             RssCount = TransitCounter.GetNamedCounter(session, "Rss");
         }

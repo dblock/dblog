@@ -42,7 +42,7 @@ namespace DBlog.Data
         ///The property maps to the column 'ReferrerHost_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -63,7 +63,7 @@ namespace DBlog.Data
         ///The property maps to the column 'LastSource' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String LastSource
+        public virtual System.String LastSource
         {
             get
             {
@@ -88,7 +88,7 @@ namespace DBlog.Data
         ///The property maps to the column 'LastUrl' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String LastUrl
+        public virtual System.String LastUrl
         {
             get
             {
@@ -113,7 +113,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Name' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Name
+        public virtual System.String Name
         {
             get
             {
@@ -138,7 +138,7 @@ namespace DBlog.Data
         ///The property maps to the column 'RequestCount' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int64 RequestCount
+        public virtual System.Int64 RequestCount
         {
             get
             {
@@ -163,7 +163,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Created' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Created
+        public virtual System.DateTime Created
         {
             get
             {
@@ -188,7 +188,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Updated' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Updated
+        public virtual System.DateTime Updated
         {
             get
             {

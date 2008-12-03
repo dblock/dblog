@@ -67,8 +67,7 @@ namespace DBlog.Data.Hibernate
 
             query.AppendLine(mSubQuery.ToString());
             query.AppendLine(mOrderBy);
-            IQuery iq = mSession.CreateSQLQuery(query.ToString(), mTable, mType);
-            return iq;
+            return mSession.CreateSQLQuery(query.ToString()).AddEntity(mTable, mType, LockMode.None);
         }
     }
 }

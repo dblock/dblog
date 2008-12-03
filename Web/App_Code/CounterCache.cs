@@ -82,8 +82,21 @@ public class CounterCache
                     // host isn't available on localhost
                 }
 
+                string urlreferrer = string.Empty;
+                try
+                {
+                    if (request.UrlReferrer != null)
+                    {
+                        urlreferrer = request.UrlReferrer.Host;
+                    }
+                }
+                catch (ArgumentException)
+                {
+                    // referrer host not available
+                }
+
                 // don't track navigation between pages
-                if (request.UrlReferrer != null && request.UrlReferrer.Host != host)
+                if (! string.IsNullOrEmpty(urlreferrer) && urlreferrer != host)
                 {
                     TransitReferrerHost rh = new TransitReferrerHost();
                     rh.Name = request.UrlReferrer.Host;

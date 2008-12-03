@@ -145,25 +145,26 @@ namespace DBlog.TransitData
 
             if (Id == 0)
             {
-                rh = (ReferrerHost)session.CreateCriteria(typeof(ReferrerHost))
+                rh = session.CreateCriteria(typeof(ReferrerHost))
                     .Add(Expression.Eq("Name", Name))
-                    .UniqueResult();
+                    .UniqueResult<ReferrerHost>();
 
                 if (rh == null)
                 {
                     // find whether this is a dup host
-                    ReferrerHostRollup duphost = (ReferrerHostRollup)
+                    ReferrerHostRollup duphost =
                         session.CreateSQLQuery(
                             "SELECT {R.*} FROM ReferrerHostRollup {R}" +
-                            " WHERE '" + Renderer.SqlEncode(Name) + "' LIKE Name",
-                            "R",
-                            typeof(ReferrerHostRollup)).SetMaxResults(1).UniqueResult();
+                            " WHERE '" + Renderer.SqlEncode(Name) + "' LIKE Name")
+                            .AddEntity("R", typeof(ReferrerHostRollup))
+                            .SetMaxResults(1)
+                            .UniqueResult<ReferrerHostRollup>();
 
                     if (duphost != null)
                     {
-                        rh = (ReferrerHost) session.CreateCriteria(typeof(ReferrerHost))
+                        rh = session.CreateCriteria(typeof(ReferrerHost))
                             .Add(Expression.Eq("Name", duphost.Rollup))
-                            .UniqueResult();
+                            .UniqueResult<ReferrerHost>();
                     }
                 }
 
@@ -180,7 +181,7 @@ namespace DBlog.TransitData
             }
             else
             {
-                rh = (ReferrerHost)session.Load(typeof(ReferrerHost), Id);
+                rh = session.Load<ReferrerHost>(Id);
                 rh.RequestCount = RequestCount;
             }
 

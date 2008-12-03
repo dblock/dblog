@@ -41,18 +41,18 @@ namespace DBlog.TransitData
             }
         }
 
-        public static object GetRandomElement(IList collection)
+        public static T GetRandomElement<T>(IList<T> collection)
         {
             if (collection == null)
-                return null;
+                return default(T);
 
             if (collection.Count == 0)
-                return null;
+                return default(T);
 
             return collection[new Random().Next() % collection.Count];
         }
 
-        public static int GetRandomElementId(IList collection)
+        public static int GetRandomElementId<T>(IList<T> collection)
         {
             object r = GetRandomElement(collection);
             if (r == null) return 0;
@@ -64,10 +64,10 @@ namespace DBlog.TransitData
     {
         public static AssociatedType GetAssociatedObject(ISession session, string table, int id)
         {
-            return (AssociatedType)TransitObject.GetRandomElement(
+            return (AssociatedType)TransitObject.GetRandomElement<AssociatedType>(
                 session.CreateCriteria(typeof(AssociatedType))
                     .Add(Expression.Eq(string.Format("{0}.Id", table), id))
-                    .List());
+                    .List<AssociatedType>());
         }
     }
 }

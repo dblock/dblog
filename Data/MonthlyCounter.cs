@@ -38,7 +38,7 @@ namespace DBlog.Data
         ///The property maps to the column 'MonthlyCounter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -59,7 +59,7 @@ namespace DBlog.Data
         ///The property maps to the column 'DateTime' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime DateTime
+        public virtual System.DateTime DateTime
         {
             get
             {
@@ -84,7 +84,7 @@ namespace DBlog.Data
         ///The property maps to the column 'RequestCount' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int64 RequestCount
+        public virtual System.Int64 RequestCount
         {
             get
             {

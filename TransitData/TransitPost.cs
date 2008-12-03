@@ -507,7 +507,7 @@ namespace DBlog.TransitData
 
             CommentsCount = new CountQuery(session, typeof(PostComment), "PostComment")
                 .Add(Expression.Eq("Post.Id", o.Id))
-                .Execute();
+                .Execute<int>();
 
             Counter = TransitCounter.GetAssociatedCounter<Post, PostCounter>(
                 session, o.Id);

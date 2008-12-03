@@ -90,9 +90,9 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
-                Login login = (Login)session.CreateCriteria(typeof(Login))
+                Login login = session.CreateCriteria(typeof(Login))
                     .Add(Expression.Eq("Username", username))
-                    .UniqueResult();
+                    .UniqueResult<Login>();
 
                 if (login == null)
                 {
@@ -126,10 +126,10 @@ namespace DBlog.WebServices
                 }
 
                 // find an existing login, if any
-                DBlog.Data.Login existingLogin = (DBlog.Data.Login) session.CreateCriteria(typeof(DBlog.Data.Login))
+                Login existingLogin = session.CreateCriteria(typeof(Login))
                         .Add(Expression.Eq("Username", login.Username))
                         .Add(Expression.Not(Expression.Eq("Id", login.Id)))
-                        .UniqueResult();
+                        .UniqueResult<Login>();
 
                 if (existingLogin != null)
                 {
@@ -152,7 +152,7 @@ namespace DBlog.WebServices
                 CheckAdministrator(session, ticket);
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.Login), "Login");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -171,7 +171,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Login> list = cr.List<Login>();
 
                 List<TransitLogin> result = new List<TransitLogin>(list.Count);
 
@@ -281,7 +281,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.Topic), "Topic");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -298,7 +298,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Topic> list = cr.List<Topic>();
                 
                 List<TransitTopic> result = new List<TransitTopic>(list.Count);
                 
@@ -390,7 +390,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.Image), "Image");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -408,7 +408,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Image> list = cr.List<Image>();
 
                 List<TransitImage> result = new List<TransitImage>(list.Count);
 
@@ -551,8 +551,9 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                Reference reference = (Reference)session.CreateCriteria(typeof(Reference))
-                    .Add(Expression.Eq("Word", word)).UniqueResult();
+                Reference reference = session.CreateCriteria(typeof(Reference))
+                    .Add(Expression.Eq("Word", word))
+                    .UniqueResult<Reference>();
                 if (reference == null) return null;
                 return new TransitReference(reference);
             }
@@ -581,7 +582,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.Reference), "Reference");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -599,7 +600,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Reference> list = cr.List<Reference>();
 
                 List<TransitReference> result = new List<TransitReference>(list.Count);
 
@@ -626,7 +627,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Reference> list = cr.List<Reference>();
 
                 List<TransitReference> result = new List<TransitReference>(list.Count);
 
@@ -650,7 +651,7 @@ namespace DBlog.WebServices
                 {
                     options.Apply(query);
                 }
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -704,7 +705,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.ReferrerHostRollup), "ReferrerHostRollup");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -722,7 +723,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<ReferrerHostRollup> list = cr.List <ReferrerHostRollup>();
 
                 List<TransitReferrerHostRollup> result = new List<TransitReferrerHostRollup>(list.Count);
 
@@ -781,7 +782,7 @@ namespace DBlog.WebServices
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
-                return new CountQuery(session, typeof(DBlog.Data.ReferrerSearchQuery), "ReferrerSearchQuery").Execute();
+                return new CountQuery(session, typeof(DBlog.Data.ReferrerSearchQuery), "ReferrerSearchQuery").Execute<int>();
             }
         }
 
@@ -800,7 +801,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<ReferrerSearchQuery> list = cr.List<ReferrerSearchQuery>();
 
                 List<TransitReferrerSearchQuery> result = new List<TransitReferrerSearchQuery>(list.Count);
 
@@ -861,7 +862,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.Highlight), "Highlight");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -879,7 +880,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Highlight> list = cr.List<Highlight>();
 
                 List<TransitHighlight> result = new List<TransitHighlight>(list.Count);
 
@@ -1082,6 +1083,8 @@ namespace DBlog.WebServices
                     session.Delete(ei.Image);
                 }
 
+                // bug: delete comments associated with PostComment
+
                 session.Delete(string.Format("FROM PostLogin WHERE Post_Id = {0}", id));
                 session.Delete(string.Format("FROM PostComment WHERE Post_Id = {0}", id));
                 session.Delete(string.Format("FROM PostCounter WHERE Post_Id = {0}", id));
@@ -1226,10 +1229,10 @@ namespace DBlog.WebServices
                 image.Modified = DateTime.UtcNow;
                 session.SaveOrUpdate(image);
 
-                PostImage post_image = (PostImage)session.CreateCriteria(typeof(PostImage))
+                PostImage post_image = session.CreateCriteria(typeof(PostImage))
                     .Add(Expression.Eq("Post.Id", post_id))
                     .Add(Expression.Eq("Image.Id", t_image.Id))
-                    .UniqueResult();
+                    .UniqueResult<PostImage>();
 
                 if (post_image == null)
                 {
@@ -1277,7 +1280,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.PostImage), "PostImage");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -1295,7 +1298,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<PostImage> list = cr.List<PostImage>();
 
                 List<TransitPostImage> result = new List<TransitPostImage>(list.Count);
 
@@ -1342,7 +1345,7 @@ namespace DBlog.WebServices
                     options.Apply(query);
                 }
 
-                return (int)query.UniqueResult();
+                return (int) query.UniqueResult<long>();
             }
         }
 
@@ -1429,7 +1432,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                return new TransitPermalink((Permalink) cr.UniqueResult());
+                return new TransitPermalink(cr.UniqueResult<Permalink>());
             }
         }
 
@@ -1455,7 +1458,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.Permalink), "Permalink");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -1473,7 +1476,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Permalink> list = cr.List<Permalink>();
 
                 List<TransitPermalink> result = new List<TransitPermalink>(list.Count);
 
@@ -1535,7 +1538,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.Comment), "Comment");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -1553,7 +1556,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Comment> list = cr.List<Comment>();
 
                 List<TransitComment> result = new List<TransitComment>(list.Count);
 
@@ -1620,10 +1623,10 @@ namespace DBlog.WebServices
                     session.Save(thread);
                 }
 
-                PostComment post_comment = (PostComment)session.CreateCriteria(typeof(PostComment))
+                PostComment post_comment = session.CreateCriteria(typeof(PostComment))
                     .Add(Expression.Eq("Post.Id", post_id))
                     .Add(Expression.Eq("Comment.Id", t_comment.Id))
-                    .UniqueResult();
+                    .UniqueResult<PostComment>();
 
                 if (post_comment == null)
                 {
@@ -1671,7 +1674,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.PostComment), "PostComment");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -1683,17 +1686,22 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 IQuery sqlquery = session.GetNamedQuery("GetAssociatedComments");
 
-                if (options != null)
-                {
-                    options.Apply(sqlquery);
-                }
+                //if (options != null)
+                //{
+                //    options.Apply(sqlquery);
+                //}
 
-                IList list = sqlquery.List();
+                IList<AssociatedComment> list = sqlquery.List<AssociatedComment>();
 
                 List<TransitAssociatedComment> result = new List<TransitAssociatedComment>(list.Count);
-                foreach (AssociatedComment obj in list)
+                if (options == null) options = new WebServiceQueryOptions(list.Count, 0);
+                for (int i = 0; i < options.PageSize; i++)
                 {
-                    result.Add(new TransitAssociatedComment(session, obj, ticket));
+                    int index = options.FirstResult + i;
+                    if (index >= list.Count) 
+                        break;
+                    
+                    result.Add(new TransitAssociatedComment(session, list[index], ticket));
                 }
 
                 return result;
@@ -1720,7 +1728,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<PostComment> list = cr.List<PostComment>();
 
                 List<TransitPostComment> result = new List<TransitPostComment>(list.Count);
 
@@ -1788,10 +1796,10 @@ namespace DBlog.WebServices
                     session.Save(thread);
                 }
 
-                ImageComment image_comment = (ImageComment)session.CreateCriteria(typeof(ImageComment))
+                ImageComment image_comment = session.CreateCriteria(typeof(ImageComment))
                     .Add(Expression.Eq("Image.Id", image_id))
                     .Add(Expression.Eq("Comment.Id", t_comment.Id))
-                    .UniqueResult();
+                    .UniqueResult<ImageComment>();
 
                 if (image_comment == null)
                 {
@@ -1839,7 +1847,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.ImageComment), "ImageComment");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -1857,7 +1865,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<ImageComment> list = cr.List<ImageComment>();
 
                 List<TransitImageComment> result = new List<TransitImageComment>(list.Count);
 
@@ -1908,9 +1916,9 @@ namespace DBlog.WebServices
                 ITransaction t = session.BeginTransaction();
                 try
                 {
-                    NamedCounter counter = (NamedCounter) session.CreateCriteria(typeof(NamedCounter))
+                    NamedCounter counter = session.CreateCriteria(typeof(NamedCounter))
                         .Add(Expression.Eq("Name", name))
-                        .UniqueResult();
+                        .UniqueResult<NamedCounter>();
 
                     if (counter == null)
                     {
@@ -1953,7 +1961,7 @@ namespace DBlog.WebServices
 
                 if (result != null)
                 {
-                    tc.Count = (result[0] == null) ? 0 : (int) result[0];
+                    tc.Count = (result[0] == null) ? 0 : (long) result[0];
                     tc.Created = (result[1] == null) ? DateTime.UtcNow : (DateTime) result[1];
                 }
 
@@ -2006,7 +2014,7 @@ namespace DBlog.WebServices
                 {
                     options.Apply(q);
                 }
-                return q.Execute();
+                return q.Execute<int>();
             }
         }
 
@@ -2023,7 +2031,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Feed> list = cr.List<Feed>();
 
                 List<TransitFeed> result = new List<TransitFeed>(list.Count);
 
@@ -2109,7 +2117,7 @@ namespace DBlog.WebServices
                 {
                     options.Apply(q);
                 }
-                return q.Execute();
+                return q.Execute<int>();
             }
         }
 
@@ -2127,7 +2135,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<FeedItem> list = cr.List<FeedItem>();
 
                 List<TransitFeedItem> result = new List<TransitFeedItem>(list.Count);
 
@@ -2169,10 +2177,10 @@ namespace DBlog.WebServices
                 Login login = t_login.GetLogin(session);
                 session.SaveOrUpdate(login);
 
-                PostLogin post_login = (PostLogin)session.CreateCriteria(typeof(PostLogin))
+                PostLogin post_login = session.CreateCriteria(typeof(PostLogin))
                     .Add(Expression.Eq("Post.Id", post_id))
                     .Add(Expression.Eq("Login.Id", t_login.Id))
-                    .UniqueResult();
+                    .UniqueResult<PostLogin>();
 
                 if (post_login == null)
                 {
@@ -2218,7 +2226,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.PostLogin), "PostLogin");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -2236,7 +2244,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<PostLogin> list = cr.List<PostLogin>();
 
                 List<TransitPostLogin> result = new List<TransitPostLogin>(list.Count);
 
@@ -2297,7 +2305,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.Browser), "Browser");
                 if (options != null) options.Apply(query);
-                return query.Execute();
+                return query.Execute<int>();
             }
         }
 
@@ -2315,7 +2323,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<Browser> list = cr.List<Browser>();
 
                 List<TransitBrowser> result = new List<TransitBrowser>(list.Count);
 
@@ -2399,7 +2407,7 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
-                IList list = cr.List();
+                IList<ReferrerHost> list = cr.List<ReferrerHost>();
 
                 List<TransitReferrerHost> result = new List<TransitReferrerHost>(list.Count);
 

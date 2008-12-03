@@ -22,6 +22,7 @@ namespace DBlog.Data.UnitTests
             mReferrerHost.LastUrl = Guid.NewGuid().ToString();
             mReferrerHost.Name = Guid.NewGuid().ToString();
             mReferrerHost.RequestCount = 10;
+            mReferrerHost.Created = mReferrerHost.Updated = DateTime.UtcNow;
         }
 
         public override object Object

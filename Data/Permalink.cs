@@ -40,7 +40,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Permalink_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -61,7 +61,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Source_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 SourceId
+        public virtual System.Int32 SourceId
         {
             get
             {
@@ -86,7 +86,7 @@ namespace DBlog.Data
         ///The property maps to the column 'SourceType' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String SourceType
+        public virtual System.String SourceType
         {
             get
             {
@@ -111,7 +111,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Target_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 TargetId
+        public virtual System.Int32 TargetId
         {
             get
             {
@@ -136,7 +136,7 @@ namespace DBlog.Data
         ///The property maps to the column 'TargetType' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String TargetType
+        public virtual System.String TargetType
         {
             get
             {

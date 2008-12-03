@@ -22,7 +22,7 @@ namespace DBlog.Data
         private System.String m_Name;
         private System.String m_Platform;
         private System.String m_Version;
-        private System.Collections.IList m_BrowserCounters;
+        private System.Collections.Generic.IList<BrowserCounter> m_BrowserCounters;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -40,7 +40,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Browser_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -61,7 +61,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Name' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Name
+        public virtual System.String Name
         {
             get
             {
@@ -86,7 +86,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Platform' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Platform
+        public virtual System.String Platform
         {
             get
             {
@@ -111,7 +111,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Version' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Version
+        public virtual System.String Version
         {
             get
             {
@@ -142,7 +142,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Browser_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList BrowserCounters
+        public virtual System.Collections.Generic.IList<BrowserCounter> BrowserCounters
         {
             get
             {

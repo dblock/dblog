@@ -60,12 +60,12 @@ namespace DBlog.TransitData
         {
             string urlServicePost = ServicePostUrl;
 
-            IList posts = session.CreateCriteria(typeof(Post))
+            IList<Post> posts = session.CreateCriteria(typeof(Post))
                 .Add(Expression.Ge("Modified", mFeed.Saved))
                 .Add(Expression.Eq("Publish", true))
                 .Add(Expression.Eq("Display", true))
                 .AddOrder(Order.Desc("Modified"))
-                .List();
+                .List<Post>();
 
             foreach (Post post in posts)
             {

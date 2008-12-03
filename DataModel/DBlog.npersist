@@ -1,226 +1,226 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<domain name="DBlog.Data" assembly="DBlog.Data" root="DBlog.Data" source="DBlog" field-strategy="PascalCase">
+<domain name="DBlog.Data" assembly="DBlog.Data" root="DBlog.Data" source="DBlog" field-strategy="PascalCase" count="Lazy" load="Lazy">
   <class name="Browser" table="Browser">
-    <property name="Id" id="true" columns="Browser_Id" type="System.Int32" />
-    <property name="Name" columns="Name" type="System.String" />
-    <property name="Platform" columns="Platform" type="System.String" />
-    <property name="Version" columns="Version" type="System.String" />
-    <property name="BrowserCounters" table="BrowserCounter" id-columns="Browser_Id" list="true" item-type="BrowserCounter" slave="true" ref="ManyToOne" inverse="Browser" inherits-inverse="true" />
+    <property name="Id" id="true" columns="Browser_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
+    <property name="Platform" columns="Platform" type="System.String" modifier="Virtual" />
+    <property name="Version" columns="Version" type="System.String" modifier="Virtual" />
+    <property name="BrowserCounters" table="BrowserCounter" id-columns="Browser_Id" list="true" item-type="BrowserCounter" slave="true" ref="ManyToOne" inverse="Browser" inherits-inverse="true" modifier="Virtual" />
   </class>
   <class name="BrowserCounter" table="BrowserCounter">
-    <property name="Id" id="true" columns="BrowserCounter_Id" type="System.Int32" />
-    <property name="Browser" columns="Browser_Id" ref="OneToMany" inverse="BrowserCounters" type="Browser" />
-    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="BrowserCounters" type="Counter" />
+    <property name="Id" id="true" columns="BrowserCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Browser" columns="Browser_Id" ref="OneToMany" inverse="BrowserCounters" type="Browser" modifier="Virtual" />
+    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="BrowserCounters" type="Counter" modifier="Virtual" />
   </class>
   <class name="Comment" table="Comment">
-    <property name="Id" id="true" columns="Comment_Id" type="System.Int32" />
-    <property name="Created" columns="Created" type="System.DateTime" />
-    <property name="ImageComments" table="ImageComment" id-columns="Comment_Id" list="true" item-type="ImageComment" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" />
-    <property name="IpAddress" columns="IpAddress" type="System.String" />
-    <property name="Modified" columns="Modified" type="System.DateTime" />
-    <property name="OwnerLogin" columns="Owner_Login_Id" ref="OneToMany" inverse="Comments" type="Login" />
-    <property name="ParentCommentThreads" table="Thread" id-columns="ParentComment_Id" list="true" item-type="Thread" slave="true" ref="ManyToOne" inverse="ParentComment" inherits-inverse="true" />
-    <property name="Text" columns="Text" type="System.String" />
-    <property name="Threads" table="Thread" id-columns="Comment_Id" list="true" item-type="Thread" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" />
-    <property name="PostComments" table="PostComment" id-columns="Comment_Id" list="true" item-type="PostComment" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" />
+    <property name="Id" id="true" columns="Comment_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Created" columns="Created" type="System.DateTime" modifier="Virtual" />
+    <property name="ImageComments" table="ImageComment" id-columns="Comment_Id" list="true" item-type="ImageComment" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" modifier="Virtual" />
+    <property name="IpAddress" columns="IpAddress" type="System.String" modifier="Virtual" />
+    <property name="Modified" columns="Modified" type="System.DateTime" modifier="Virtual" />
+    <property name="OwnerLogin" columns="Owner_Login_Id" ref="OneToMany" inverse="Comments" type="Login" modifier="Virtual" />
+    <property name="ParentCommentThreads" table="Thread" id-columns="ParentComment_Id" list="true" item-type="Thread" slave="true" ref="ManyToOne" inverse="ParentComment" inherits-inverse="true" modifier="Virtual" />
+    <property name="Text" columns="Text" type="System.String" modifier="Virtual" />
+    <property name="Threads" table="Thread" id-columns="Comment_Id" list="true" item-type="Thread" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" modifier="Virtual" />
+    <property name="PostComments" table="PostComment" id-columns="Comment_Id" list="true" item-type="PostComment" slave="true" ref="ManyToOne" inverse="Comment" inherits-inverse="true" modifier="Virtual" />
   </class>
   <class name="Counter" table="Counter">
-    <property name="Id" id="true" columns="Counter_Id" type="System.Int32" />
-    <property name="Count" columns="Count" type="System.Int64" />
-    <property name="Created" columns="Created" type="System.DateTime" />
-    <property name="ImageCounters" table="ImageCounter" id-columns="Counter_Id" list="true" item-type="ImageCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
-    <property name="LoginCounters" table="LoginCounter" id-columns="Counter_Id" list="true" item-type="LoginCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
-    <property name="NamedCounters" table="NamedCounter" id-columns="Counter_Id" list="true" item-type="NamedCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
-    <property name="PostCounters" table="PostCounter" id-columns="Counter_Id" list="true" item-type="PostCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
-    <property name="BrowserCounters" table="BrowserCounter" id-columns="Counter_Id" list="true" item-type="BrowserCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" />
+    <property name="Id" id="true" columns="Counter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Count" columns="Count" type="System.Int64" modifier="Virtual" />
+    <property name="Created" columns="Created" type="System.DateTime" modifier="Virtual" />
+    <property name="ImageCounters" table="ImageCounter" id-columns="Counter_Id" list="true" item-type="ImageCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" modifier="Virtual" />
+    <property name="LoginCounters" table="LoginCounter" id-columns="Counter_Id" list="true" item-type="LoginCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" modifier="Virtual" />
+    <property name="NamedCounters" table="NamedCounter" id-columns="Counter_Id" list="true" item-type="NamedCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" modifier="Virtual" />
+    <property name="PostCounters" table="PostCounter" id-columns="Counter_Id" list="true" item-type="PostCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" modifier="Virtual" />
+    <property name="BrowserCounters" table="BrowserCounter" id-columns="Counter_Id" list="true" item-type="BrowserCounter" slave="true" ref="ManyToOne" inverse="Counter" inherits-inverse="true" modifier="Virtual" />
   </class>
   <class name="DailyCounter" table="DailyCounter">
-    <property name="Id" id="true" columns="DailyCounter_Id" type="System.Int32" />
-    <property name="DateTime" columns="DateTime" type="System.DateTime" />
-    <property name="RequestCount" columns="RequestCount" type="System.Int32" />
+    <property name="Id" id="true" columns="DailyCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="DateTime" columns="DateTime" type="System.DateTime" modifier="Virtual" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int32" modifier="Virtual" />
   </class>
   <class name="Feed" table="Feed">
-    <property name="Id" id="true" columns="Feed_Id" type="System.Int32" />
-    <property name="Description" columns="Description" type="System.String" />
-    <property name="Exception" columns="Exception" type="System.String" />
-    <property name="Interval" columns="Interval" type="System.Int32" />
-    <property name="Name" columns="Name" type="System.String" />
-    <property name="Password" columns="Password" type="System.String" />
-    <property name="Saved" columns="Saved" type="System.DateTime" />
-    <property name="Type" columns="Type" type="System.String" />
-    <property name="Updated" columns="Updated" type="System.DateTime" />
-    <property name="Url" columns="Url" type="System.String" />
-    <property name="Username" columns="Username" type="System.String" />
-    <property name="Xsl" columns="Xsl" type="System.String" />
-    <property name="FeedItems" table="FeedItem" id-columns="Feed_Id" list="true" item-type="FeedItem" slave="true" ref="ManyToOne" inverse="Feed" inherits-inverse="true" />
+    <property name="Id" id="true" columns="Feed_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Description" columns="Description" type="System.String" modifier="Virtual" />
+    <property name="Exception" columns="Exception" type="System.String" modifier="Virtual" />
+    <property name="Interval" columns="Interval" type="System.Int32" modifier="Virtual" />
+    <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
+    <property name="Password" columns="Password" type="System.String" modifier="Virtual" />
+    <property name="Saved" columns="Saved" type="System.DateTime" modifier="Virtual" />
+    <property name="Type" columns="Type" type="System.String" modifier="Virtual" />
+    <property name="Updated" columns="Updated" type="System.DateTime" modifier="Virtual" />
+    <property name="Url" columns="Url" type="System.String" modifier="Virtual" />
+    <property name="Username" columns="Username" type="System.String" modifier="Virtual" />
+    <property name="Xsl" columns="Xsl" type="System.String" modifier="Virtual" />
+    <property name="FeedItems" table="FeedItem" id-columns="Feed_Id" list="true" item-type="FeedItem" slave="true" ref="ManyToOne" inverse="Feed" inherits-inverse="true" modifier="Virtual" />
   </class>
   <class name="FeedItem" table="FeedItem">
-    <property name="Id" id="true" columns="FeedItem_Id" type="System.Int32" />
-    <property name="Description" columns="Description" type="System.String" />
-    <property name="Link" columns="Link" type="System.String" />
-    <property name="Title" columns="Title" type="System.String" />
-    <property name="Feed" columns="Feed_Id" ref="OneToMany" inverse="FeedItems" type="Feed" />
+    <property name="Id" id="true" columns="FeedItem_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Description" columns="Description" type="System.String" modifier="Virtual" />
+    <property name="Link" columns="Link" type="System.String" modifier="Virtual" />
+    <property name="Title" columns="Title" type="System.String" modifier="Virtual" />
+    <property name="Feed" columns="Feed_Id" ref="OneToMany" inverse="FeedItems" type="Feed" modifier="Virtual" />
   </class>
   <class name="Highlight" table="Highlight">
-    <property name="Id" id="true" columns="Highlight_Id" type="System.Int32" />
-    <property name="Description" columns="Description" type="System.String" />
-    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="Highlights" type="Image" />
-    <property name="Title" columns="Title" type="System.String" />
-    <property name="Url" columns="Url" type="System.String" />
+    <property name="Id" id="true" columns="Highlight_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Description" columns="Description" type="System.String" modifier="Virtual" />
+    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="Highlights" type="Image" modifier="Virtual" />
+    <property name="Title" columns="Title" type="System.String" modifier="Virtual" />
+    <property name="Url" columns="Url" type="System.String" modifier="Virtual" />
   </class>
   <class name="HourlyCounter" table="HourlyCounter">
-    <property name="Id" id="true" columns="HourlyCounter_Id" type="System.Int32" />
-    <property name="DateTime" columns="DateTime" type="System.DateTime" />
-    <property name="RequestCount" columns="RequestCount" type="System.Int32" />
+    <property name="Id" id="true" columns="HourlyCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="DateTime" columns="DateTime" type="System.DateTime" modifier="Virtual" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int32" modifier="Virtual" />
   </class>
   <class name="Image" table="Image">
-    <property name="Id" id="true" columns="Image_Id" type="System.Int32" />
-    <property name="Data" columns="Data" type="System.Byte()" />
-    <property name="Description" columns="Description" type="System.String" />
-    <property name="Highlights" table="Highlight" id-columns="Image_Id" list="true" item-type="Highlight" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
-    <property name="ImageComments" table="ImageComment" id-columns="Image_Id" list="true" item-type="ImageComment" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
-    <property name="ImageCounters" table="ImageCounter" id-columns="Image_Id" list="true" item-type="ImageCounter" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
-    <property name="Modified" columns="Modified" type="System.DateTime" />
-    <property name="Name" columns="Name" type="System.String" />
-    <property name="Path" columns="Path" type="System.String" />
-    <property name="Preferred" columns="Preferred" type="System.Boolean" />
-    <property name="Thumbnail" columns="Thumbnail" type="System.Byte()" />
-    <property name="PostImages" table="PostImage" id-columns="Image_Id" list="true" item-type="PostImage" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" />
+    <property name="Id" id="true" columns="Image_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Data" columns="Data" type="System.Byte()" modifier="Virtual" />
+    <property name="Description" columns="Description" type="System.String" modifier="Virtual" />
+    <property name="Highlights" table="Highlight" id-columns="Image_Id" list="true" item-type="Highlight" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" modifier="Virtual" />
+    <property name="ImageComments" table="ImageComment" id-columns="Image_Id" list="true" item-type="ImageComment" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" modifier="Virtual" />
+    <property name="ImageCounters" table="ImageCounter" id-columns="Image_Id" list="true" item-type="ImageCounter" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" modifier="Virtual" />
+    <property name="Modified" columns="Modified" type="System.DateTime" modifier="Virtual" />
+    <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
+    <property name="Path" columns="Path" type="System.String" modifier="Virtual" />
+    <property name="Preferred" columns="Preferred" type="System.Boolean" modifier="Virtual" />
+    <property name="Thumbnail" columns="Thumbnail" type="System.Byte()" modifier="Virtual" />
+    <property name="PostImages" table="PostImage" id-columns="Image_Id" list="true" item-type="PostImage" slave="true" ref="ManyToOne" inverse="Image" inherits-inverse="true" modifier="Virtual" />
   </class>
   <class name="ImageComment" table="ImageComment">
-    <property name="Id" id="true" columns="ImageComment_Id" type="System.Int32" />
-    <property name="Comment" columns="Comment_Id" ref="OneToMany" inverse="ImageComments" type="Comment" />
-    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="ImageComments" type="Image" />
+    <property name="Id" id="true" columns="ImageComment_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Comment" columns="Comment_Id" ref="OneToMany" inverse="ImageComments" type="Comment" modifier="Virtual" />
+    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="ImageComments" type="Image" modifier="Virtual" />
   </class>
   <class name="ImageCounter" table="ImageCounter">
-    <property name="Id" id="true" columns="ImageCounter_Id" type="System.Int32" />
-    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="ImageCounters" type="Counter" />
-    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="ImageCounters" type="Image" />
+    <property name="Id" id="true" columns="ImageCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="ImageCounters" type="Counter" modifier="Virtual" />
+    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="ImageCounters" type="Image" modifier="Virtual" />
   </class>
   <class name="Login" table="Login">
-    <property name="Id" id="true" columns="Login_Id" type="System.Int32" />
-    <property name="Comments" table="Comment" id-columns="Owner_Login_Id" list="true" item-type="Comment" slave="true" ref="ManyToOne" inverse="OwnerLogin" inherits-inverse="true" />
-    <property name="Email" columns="Email" type="System.String" />
-    <property name="LoginCounters" table="LoginCounter" id-columns="Login_Id" list="true" item-type="LoginCounter" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" />
-    <property name="Name" columns="Name" type="System.String" />
-    <property name="Password" columns="Password" type="System.String" />
-    <property name="Role" columns="Role" type="System.String" />
-    <property name="Username" columns="Username" type="System.String" />
-    <property name="Website" columns="Website" type="System.String" />
-    <property name="Posts" table="Post" id-columns="Login_Id" list="true" item-type="Post" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" />
-    <property name="PostLogins" table="PostLogin" id-columns="Login_Id" list="true" item-type="PostLogin" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" />
+    <property name="Id" id="true" columns="Login_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Comments" table="Comment" id-columns="Owner_Login_Id" list="true" item-type="Comment" slave="true" ref="ManyToOne" inverse="OwnerLogin" inherits-inverse="true" modifier="Virtual" />
+    <property name="Email" columns="Email" type="System.String" modifier="Virtual" />
+    <property name="LoginCounters" table="LoginCounter" id-columns="Login_Id" list="true" item-type="LoginCounter" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" modifier="Virtual" />
+    <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
+    <property name="Password" columns="Password" type="System.String" modifier="Virtual" />
+    <property name="Role" columns="Role" type="System.String" modifier="Virtual" />
+    <property name="Username" columns="Username" type="System.String" modifier="Virtual" />
+    <property name="Website" columns="Website" type="System.String" modifier="Virtual" />
+    <property name="Posts" table="Post" id-columns="Login_Id" list="true" item-type="Post" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" modifier="Virtual" />
+    <property name="PostLogins" table="PostLogin" id-columns="Login_Id" list="true" item-type="PostLogin" slave="true" ref="ManyToOne" inverse="Login" inherits-inverse="true" modifier="Virtual" />
   </class>
   <class name="LoginCounter" table="LoginCounter">
-    <property name="Id" id="true" columns="LoginCounter_Id" type="System.Int32" />
-    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="LoginCounters" type="Counter" />
-    <property name="Login" columns="Login_Id" ref="OneToMany" inverse="LoginCounters" type="Login" />
+    <property name="Id" id="true" columns="LoginCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="LoginCounters" type="Counter" modifier="Virtual" />
+    <property name="Login" columns="Login_Id" ref="OneToMany" inverse="LoginCounters" type="Login" modifier="Virtual" />
   </class>
   <class name="MonthlyCounter" table="MonthlyCounter">
-    <property name="Id" id="true" columns="MonthlyCounter_Id" type="System.Int32" />
-    <property name="DateTime" columns="DateTime" type="System.DateTime" />
-    <property name="RequestCount" columns="RequestCount" type="System.Int64" />
+    <property name="Id" id="true" columns="MonthlyCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="DateTime" columns="DateTime" type="System.DateTime" modifier="Virtual" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int64" modifier="Virtual" />
   </class>
   <class name="NamedCounter" table="NamedCounter">
-    <property name="Id" id="true" columns="NamedCounter_Id" type="System.Int32" />
-    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="NamedCounters" type="Counter" />
-    <property name="Name" columns="Name" type="System.String" />
+    <property name="Id" id="true" columns="NamedCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="NamedCounters" type="Counter" modifier="Virtual" />
+    <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
   </class>
   <class name="Permalink" table="Permalink">
-    <property name="Id" id="true" columns="Permalink_Id" type="System.Int32" />
-    <property name="SourceId" columns="Source_Id" type="System.Int32" />
-    <property name="SourceType" columns="SourceType" type="System.String" />
-    <property name="TargetId" columns="Target_Id" type="System.Int32" />
-    <property name="TargetType" columns="TargetType" type="System.String" />
+    <property name="Id" id="true" columns="Permalink_Id" type="System.Int32" modifier="Virtual" />
+    <property name="SourceId" columns="Source_Id" type="System.Int32" modifier="Virtual" />
+    <property name="SourceType" columns="SourceType" type="System.String" modifier="Virtual" />
+    <property name="TargetId" columns="Target_Id" type="System.Int32" modifier="Virtual" />
+    <property name="TargetType" columns="TargetType" type="System.String" modifier="Virtual" />
   </class>
   <class name="Platform" table="Platform">
-    <property name="Id" id="true" columns="Platform_Id" type="System.Int32" />
-    <property name="Name" columns="Name" type="System.String" />
+    <property name="Id" id="true" columns="Platform_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
   </class>
   <class name="Post" table="Post">
-    <property name="Id" id="true" columns="Post_Id" type="System.Int32" />
-    <property name="Body" columns="Body" type="System.String" />
-    <property name="Created" columns="Created" type="System.DateTime" />
-    <property name="Login" columns="Login_Id" ref="OneToMany" inverse="Posts" type="Login" />
-    <property name="Modified" columns="Modified" type="System.DateTime" />
-    <property name="PostComments" table="PostComment" id-columns="Post_Id" list="true" item-type="PostComment" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" />
-    <property name="PostCounters" table="PostCounter" id-columns="Post_Id" list="true" item-type="PostCounter" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" />
-    <property name="PostImages" table="PostImage" id-columns="Post_Id" list="true" item-type="PostImage" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" />
-    <property name="Title" columns="Title" type="System.String" />
-    <property name="Topic" columns="Topic_Id" ref="OneToMany" inverse="Posts" type="Topic" />
-    <property name="PostLogins" table="PostLogin" id-columns="Post_Id" list="true" item-type="PostLogin" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" />
-    <property name="Publish" columns="Publish" type="System.Boolean" />
-    <property name="Display" columns="Display" type="System.Boolean" />
+    <property name="Id" id="true" columns="Post_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Body" columns="Body" type="System.String" modifier="Virtual" />
+    <property name="Created" columns="Created" type="System.DateTime" modifier="Virtual" />
+    <property name="Login" columns="Login_Id" ref="OneToMany" inverse="Posts" type="Login" modifier="Virtual" />
+    <property name="Modified" columns="Modified" type="System.DateTime" modifier="Virtual" />
+    <property name="PostComments" table="PostComment" id-columns="Post_Id" list="true" item-type="PostComment" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" modifier="Virtual" />
+    <property name="PostCounters" table="PostCounter" id-columns="Post_Id" list="true" item-type="PostCounter" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" modifier="Virtual" />
+    <property name="PostImages" table="PostImage" id-columns="Post_Id" list="true" item-type="PostImage" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" modifier="Virtual" />
+    <property name="Title" columns="Title" type="System.String" modifier="Virtual" />
+    <property name="Topic" columns="Topic_Id" ref="OneToMany" inverse="Posts" type="Topic" modifier="Virtual" />
+    <property name="PostLogins" table="PostLogin" id-columns="Post_Id" list="true" item-type="PostLogin" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" modifier="Virtual" />
+    <property name="Publish" columns="Publish" type="System.Boolean" modifier="Virtual" />
+    <property name="Display" columns="Display" type="System.Boolean" modifier="Virtual" />
   </class>
   <class name="PostComment" table="PostComment">
-    <property name="Id" id="true" columns="PostComment_Id" type="System.Int32" />
-    <property name="Comment" columns="Comment_Id" ref="OneToMany" inverse="PostComments" type="Comment" />
-    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostComments" type="Post" />
+    <property name="Id" id="true" columns="PostComment_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Comment" columns="Comment_Id" ref="OneToMany" inverse="PostComments" type="Comment" modifier="Virtual" />
+    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostComments" type="Post" modifier="Virtual" />
   </class>
   <class name="PostCounter" table="PostCounter">
-    <property name="Id" id="true" columns="PostCounter_Id" type="System.Int32" />
-    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="PostCounters" type="Counter" />
-    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostCounters" type="Post" />
+    <property name="Id" id="true" columns="PostCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Counter" columns="Counter_Id" ref="OneToMany" inverse="PostCounters" type="Counter" modifier="Virtual" />
+    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostCounters" type="Post" modifier="Virtual" />
   </class>
   <class name="PostImage" table="PostImage">
-    <property name="Id" id="true" columns="PostImage_Id" type="System.Int32" />
-    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="PostImages" type="Image" />
-    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostImages" type="Post" />
+    <property name="Id" id="true" columns="PostImage_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Image" columns="Image_Id" ref="OneToMany" inverse="PostImages" type="Image" modifier="Virtual" />
+    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostImages" type="Post" modifier="Virtual" />
   </class>
   <class name="PostLogin" table="PostLogin">
-    <property name="Id" id="true" columns="PostLogin_Id" type="System.Int32" />
-    <property name="Login" columns="Login_Id" ref="OneToMany" inverse="PostLogins" type="Login" />
-    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostLogins" type="Post" />
+    <property name="Id" id="true" columns="PostLogin_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Login" columns="Login_Id" ref="OneToMany" inverse="PostLogins" type="Login" modifier="Virtual" />
+    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostLogins" type="Post" modifier="Virtual" />
   </class>
   <class name="Reference" table="Reference">
-    <property name="Id" id="true" columns="Reference_Id" type="System.Int32" />
-    <property name="Result" columns="Result" type="System.String" />
-    <property name="Url" columns="Url" type="System.String" />
-    <property name="Word" columns="Word" type="System.String" />
-  </class>
-  <class name="ReferrerHost" table="ReferrerHost">
-    <property name="Id" id="true" columns="ReferrerHost_Id" type="System.Int32" />
-    <property name="LastSource" columns="LastSource" type="System.String" />
-    <property name="LastUrl" columns="LastUrl" type="System.String" />
-    <property name="Name" columns="Name" type="System.String" />
-    <property name="RequestCount" columns="RequestCount" type="System.Int64" />
-    <property name="Created" columns="Created" type="System.DateTime" />
-    <property name="Updated" columns="Updated" type="System.DateTime" />
-  </class>
-  <class name="ReferrerHostRollup" table="ReferrerHostRollup">
-    <property name="Id" id="true" columns="ReferrerHostRollup_Id" type="System.Int32" />
-    <property name="Name" columns="Name" type="System.String" />
-    <property name="Rollup" columns="Rollup" type="System.String" />
-  </class>
-  <class name="ReferrerSearchQuery" table="ReferrerSearchQuery">
-    <property name="Id" id="true" columns="ReferrerSearchQuery_Id" type="System.Int32" />
-    <property name="RequestCount" columns="RequestCount" type="System.Int64" />
-    <property name="SearchQuery" columns="SearchQuery" type="System.String" />
-  </class>
-  <class name="Thread" table="Thread">
-    <property name="Id" id="true" columns="Thread_Id" type="System.Int32" />
-    <property name="Comment" columns="Comment_Id" ref="OneToMany" inverse="Threads" type="Comment" />
-    <property name="ParentComment" columns="ParentComment_Id" ref="OneToMany" inverse="ParentCommentThreads" type="Comment" />
-  </class>
-  <class name="Topic" table="Topic">
-    <property name="Id" id="true" columns="Topic_Id" type="System.Int32" />
-    <property name="Name" columns="Name" type="System.String" />
-    <property name="Posts" table="Post" id-columns="Topic_Id" list="true" item-type="Post" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" />
-    <property name="Type" columns="Type" type="System.String" />
-  </class>
-  <class name="WeeklyCounter" table="WeeklyCounter">
-    <property name="Id" id="true" columns="WeeklyCounter_Id" type="System.Int32" />
-    <property name="DateTime" columns="DateTime" type="System.DateTime" />
-    <property name="RequestCount" columns="RequestCount" type="System.Int64" />
-  </class>
-  <class name="YearlyCounter" table="YearlyCounter">
-    <property name="Id" id="true" columns="YearlyCounter_Id" type="System.Int32" />
-    <property name="DateTime" columns="DateTime" type="System.DateTime" />
-    <property name="RequestCount" columns="RequestCount" type="System.Int64" />
+    <property name="Id" id="true" columns="Reference_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Result" columns="Result" type="System.String" modifier="Virtual" />
+    <property name="Url" columns="Url" type="System.String" modifier="Virtual" />
+    <property name="Word" columns="Word" type="System.String" modifier="Virtual" />
   </class>
   <class name="Referrer" table="Referrer">
-    <property name="Id" id="true" columns="Referrer_Id" type="System.Int32" />
-    <property name="Source" columns="Source" type="System.String" />
-    <property name="Url" columns="Url" type="System.String" />
+    <property name="Id" id="true" columns="Referrer_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Source" columns="Source" type="System.String" modifier="Virtual" />
+    <property name="Url" columns="Url" type="System.String" modifier="Virtual" />
+  </class>
+  <class name="ReferrerHost" table="ReferrerHost">
+    <property name="Id" id="true" columns="ReferrerHost_Id" type="System.Int32" modifier="Virtual" />
+    <property name="LastSource" columns="LastSource" type="System.String" modifier="Virtual" />
+    <property name="LastUrl" columns="LastUrl" type="System.String" modifier="Virtual" />
+    <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int64" modifier="Virtual" />
+    <property name="Created" columns="Created" type="System.DateTime" modifier="Virtual" />
+    <property name="Updated" columns="Updated" type="System.DateTime" modifier="Virtual" />
+  </class>
+  <class name="ReferrerHostRollup" table="ReferrerHostRollup">
+    <property name="Id" id="true" columns="ReferrerHostRollup_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
+    <property name="Rollup" columns="Rollup" type="System.String" modifier="Virtual" />
+  </class>
+  <class name="ReferrerSearchQuery" table="ReferrerSearchQuery">
+    <property name="Id" id="true" columns="ReferrerSearchQuery_Id" type="System.Int32" modifier="Virtual" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int64" modifier="Virtual" />
+    <property name="SearchQuery" columns="SearchQuery" type="System.String" modifier="Virtual" />
+  </class>
+  <class name="Thread" table="Thread">
+    <property name="Id" id="true" columns="Thread_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Comment" columns="Comment_Id" ref="OneToMany" inverse="Threads" type="Comment" modifier="Virtual" />
+    <property name="ParentComment" columns="ParentComment_Id" ref="OneToMany" inverse="ParentCommentThreads" type="Comment" modifier="Virtual" />
+  </class>
+  <class name="Topic" table="Topic">
+    <property name="Id" id="true" columns="Topic_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
+    <property name="Posts" table="Post" id-columns="Topic_Id" list="true" item-type="Post" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" modifier="Virtual" />
+    <property name="Type" columns="Type" type="System.String" modifier="Virtual" />
+  </class>
+  <class name="WeeklyCounter" table="WeeklyCounter">
+    <property name="Id" id="true" columns="WeeklyCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="DateTime" columns="DateTime" type="System.DateTime" modifier="Virtual" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int64" modifier="Virtual" />
+  </class>
+  <class name="YearlyCounter" table="YearlyCounter">
+    <property name="Id" id="true" columns="YearlyCounter_Id" type="System.Int32" modifier="Virtual" />
+    <property name="DateTime" columns="DateTime" type="System.DateTime" modifier="Virtual" />
+    <property name="RequestCount" columns="RequestCount" type="System.Int64" modifier="Virtual" />
   </class>
   <source name="DBlog" type="MSSqlServer" provider="SqlClient" schema="dbo" catalog="Blog">
     <connection-string>Server=localhost;Database=Blog;Trusted_Connection=yes</connection-string>
@@ -378,6 +378,11 @@
       <column name="Url" type="String" prec="256" length="512" scale="0" />
       <column name="Word" type="String" prec="256" length="512" scale="0" />
     </table>
+    <table name="Referrer">
+      <column name="Referrer_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="Source" type="String" prec="1024" length="2048" scale="0" />
+      <column name="Url" type="String" prec="1024" length="2048" scale="0" />
+    </table>
     <table name="ReferrerHost">
       <column name="ReferrerHost_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="LastSource" type="String" prec="1024" length="2048" scale="0" />
@@ -416,11 +421,6 @@
       <column name="YearlyCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="DateTime" type="DateTime" prec="23" length="8" scale="3" />
       <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" />
-    </table>
-    <table name="Referrer">
-      <column name="Referrer_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
-      <column name="Source" type="String" prec="1024" length="2048" scale="0" />
-      <column name="Url" type="String" prec="1024" length="2048" scale="0" />
     </table>
   </source>
 </domain>

@@ -38,7 +38,7 @@ namespace DBlog.Data
         ///The property maps to the column 'ReferrerHostRollup_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -59,7 +59,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Name' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Name
+        public virtual System.String Name
         {
             get
             {
@@ -84,7 +84,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Rollup' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Rollup
+        public virtual System.String Rollup
         {
             get
             {

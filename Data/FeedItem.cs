@@ -40,7 +40,7 @@ namespace DBlog.Data
         ///The property maps to the column 'FeedItem_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -61,7 +61,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Description' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Description
+        public virtual System.String Description
         {
             get
             {
@@ -86,7 +86,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Link' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Link
+        public virtual System.String Link
         {
             get
             {
@@ -111,7 +111,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Title' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Title
+        public virtual System.String Title
         {
             get
             {
@@ -138,7 +138,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Feed_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Feed Feed
+        public virtual Feed Feed
         {
             get
             {

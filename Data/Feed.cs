@@ -30,7 +30,7 @@ namespace DBlog.Data
         private System.String m_Url;
         private System.String m_Username;
         private System.String m_Xsl;
-        private System.Collections.IList m_FeedItems;
+        private System.Collections.Generic.IList<FeedItem> m_FeedItems;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -48,7 +48,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Feed_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -69,7 +69,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Description' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Description
+        public virtual System.String Description
         {
             get
             {
@@ -94,7 +94,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Exception' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Exception
+        public virtual System.String Exception
         {
             get
             {
@@ -119,7 +119,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Interval' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Interval
+        public virtual System.Int32 Interval
         {
             get
             {
@@ -144,7 +144,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Name' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Name
+        public virtual System.String Name
         {
             get
             {
@@ -169,7 +169,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Password' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Password
+        public virtual System.String Password
         {
             get
             {
@@ -194,7 +194,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Saved' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Saved
+        public virtual System.DateTime Saved
         {
             get
             {
@@ -219,7 +219,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Type' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Type
+        public virtual System.String Type
         {
             get
             {
@@ -244,7 +244,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Updated' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Updated
+        public virtual System.DateTime Updated
         {
             get
             {
@@ -269,7 +269,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Url' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Url
+        public virtual System.String Url
         {
             get
             {
@@ -294,7 +294,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Username' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Username
+        public virtual System.String Username
         {
             get
             {
@@ -319,7 +319,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Xsl' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Xsl
+        public virtual System.String Xsl
         {
             get
             {
@@ -350,7 +350,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Feed_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList FeedItems
+        public virtual System.Collections.Generic.IList<FeedItem> FeedItems
         {
             get
             {

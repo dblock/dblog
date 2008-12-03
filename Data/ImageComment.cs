@@ -38,7 +38,7 @@ namespace DBlog.Data
         ///The property maps to the column 'ImageComment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -61,7 +61,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Comment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Comment Comment
+        public virtual Comment Comment
         {
             get
             {
@@ -88,7 +88,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Image_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Image Image
+        public virtual Image Image
         {
             get
             {

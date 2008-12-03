@@ -11,7 +11,7 @@ namespace DBlog.Data.Hibernate
 
         private System.Int32 m_Id;
 
-        public System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -25,7 +25,7 @@ namespace DBlog.Data.Hibernate
 
         private System.Int32 m_AssociatedId;
 
-        public System.Int32 AssociatedId
+        public virtual System.Int32 AssociatedId
         {
             get
             {
@@ -39,7 +39,7 @@ namespace DBlog.Data.Hibernate
 
         private System.String m_Type;
 
-        public System.String Type
+        public virtual System.String Type
         {
             get
             {
@@ -53,7 +53,7 @@ namespace DBlog.Data.Hibernate
 
         private System.String m_IpAddress;
 
-        public System.String IpAddress
+        public virtual System.String IpAddress
         {
             get
             {
@@ -67,7 +67,7 @@ namespace DBlog.Data.Hibernate
 
         private System.String m_Text;
 
-        public System.String Text
+        public virtual System.String Text
         {
             get
             {
@@ -81,7 +81,7 @@ namespace DBlog.Data.Hibernate
 
         private System.DateTime m_Created;
 
-        public System.DateTime Created
+        public virtual System.DateTime Created
         {
             get
             {
@@ -95,7 +95,7 @@ namespace DBlog.Data.Hibernate
 
         private System.DateTime m_Modified;
 
-        public System.DateTime Modified
+        public virtual System.DateTime Modified
         {
             get
             {

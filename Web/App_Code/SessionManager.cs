@@ -452,7 +452,7 @@ public class SessionManager
                 Cache.Insert(key, count, GetTransitTypeCacheDependency<TransitType>(), DateTime.Now.AddMinutes(10), TimeSpan.Zero);
             }
 
-            return (int)count;
+            return (int) count;
         }
         catch (Exception ex)
         {

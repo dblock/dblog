@@ -16,7 +16,7 @@ namespace DBlog.Data.Hibernate.UnitTests
         {
             IQuery q = Session.GetNamedQuery("GetAssociatedComments");
             Assert.IsNotNull(q);
-            IList comments = q.List();
+            IList<AssociatedComment> comments = q.List<AssociatedComment>();
             Assert.IsNotNull(comments);
             Assert.IsTrue(comments.Count >= 0);
             foreach (AssociatedComment comment in comments)

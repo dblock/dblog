@@ -38,7 +38,7 @@ namespace DBlog.Data
         ///The property maps to the column 'ReferrerSearchQuery_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -59,7 +59,7 @@ namespace DBlog.Data
         ///The property maps to the column 'RequestCount' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int64 RequestCount
+        public virtual System.Int64 RequestCount
         {
             get
             {
@@ -84,7 +84,7 @@ namespace DBlog.Data
         ///The property maps to the column 'SearchQuery' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String SearchQuery
+        public virtual System.String SearchQuery
         {
             get
             {

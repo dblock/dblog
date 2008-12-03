@@ -17,6 +17,7 @@ using System.Text;
 using DBlog.Data;
 using DBlog.Data.Hibernate;
 using DBlog.TransitData;
+using System.Collections.Generic;
 
 public class SystemFeedUpdateService : DBlog.Data.Hibernate.HibernateService
 {
@@ -27,7 +28,7 @@ public class SystemFeedUpdateService : DBlog.Data.Hibernate.HibernateService
 
     public override void Run(ISession session)
     {
-        IList feeds = session.CreateCriteria(typeof(Feed)).List();
+        IList<Feed> feeds = session.CreateCriteria(typeof(Feed)).List<Feed>();
 
         foreach (Feed feed in feeds)
         {

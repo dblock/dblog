@@ -39,7 +39,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Reference_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -60,7 +60,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Result' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Result
+        public virtual System.String Result
         {
             get
             {
@@ -85,7 +85,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Url' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Url
+        public virtual System.String Url
         {
             get
             {
@@ -110,7 +110,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Word' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Word
+        public virtual System.String Word
         {
             get
             {

@@ -40,7 +40,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Highlight_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -61,7 +61,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Description' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Description
+        public virtual System.String Description
         {
             get
             {
@@ -88,7 +88,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Image_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Image Image
+        public virtual Image Image
         {
             get
             {
@@ -113,7 +113,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Title' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Title
+        public virtual System.String Title
         {
             get
             {
@@ -138,7 +138,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Url' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Url
+        public virtual System.String Url
         {
             get
             {

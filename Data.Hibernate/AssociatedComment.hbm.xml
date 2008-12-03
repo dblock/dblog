@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<hibernate-mapping xmlns="urn:nhibernate-mapping-2.0" schema="dbo">
+<hibernate-mapping xmlns="urn:nhibernate-mapping-2.2" schema="dbo">
  <class name="DBlog.Data.Hibernate.AssociatedComment, DBlog.Data.Hibernate" mutable="false">
-  <id name="Id" type="Int32" access="field.pascalcase-m-underscore">
+  <id name="Id" type="Int32" column="Comment_Id" access="field.pascalcase-m-underscore">
    <generator class="assigned" />
   </id>
   <property name="AssociatedId" column="Associated_Id" type="Int32" />
@@ -48,13 +48,13 @@
   FROM ImageComment, Comment
   WHERE ImageComment.Comment_Id = Comment.Comment_Id
 
-  SELECT [Comment_Id] AS 'Id0_'
-  , [Associated_Id] AS 'Associat2_0_'
-  , [Type] AS 'Type0_'
-  , [IpAddress] AS 'IpAddress0_'
-  , [Text] AS 'Text0_'
-  , [Created] AS 'Created0_'
-  , [Modified] AS 'Modified0_'
+  SELECT [Comment_Id]
+  , [Associated_Id]
+  , [Type]
+  , [IpAddress]
+  , [Text]
+  , [Created]
+  , [Modified]
   FROM #AssociatedComment
   ORDER BY [Modified] DESC
 

@@ -23,12 +23,12 @@ namespace DBlog.Data
         private System.DateTime m_Created;
         private Login m_Login;
         private System.DateTime m_Modified;
-        private System.Collections.IList m_PostComments;
-        private System.Collections.IList m_PostCounters;
-        private System.Collections.IList m_PostImages;
+        private System.Collections.Generic.IList<PostComment> m_PostComments;
+        private System.Collections.Generic.IList<PostCounter> m_PostCounters;
+        private System.Collections.Generic.IList<PostImage> m_PostImages;
         private System.String m_Title;
         private Topic m_Topic;
-        private System.Collections.IList m_PostLogins;
+        private System.Collections.Generic.IList<PostLogin> m_PostLogins;
         private System.Boolean m_Publish;
         private System.Boolean m_Display;
 
@@ -48,7 +48,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -69,7 +69,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Body' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Body
+        public virtual System.String Body
         {
             get
             {
@@ -94,7 +94,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Created' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Created
+        public virtual System.DateTime Created
         {
             get
             {
@@ -121,7 +121,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Login_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Login Login
+        public virtual Login Login
         {
             get
             {
@@ -146,7 +146,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Modified' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Modified
+        public virtual System.DateTime Modified
         {
             get
             {
@@ -177,7 +177,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList PostComments
+        public virtual System.Collections.Generic.IList<PostComment> PostComments
         {
             get
             {
@@ -208,7 +208,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList PostCounters
+        public virtual System.Collections.Generic.IList<PostCounter> PostCounters
         {
             get
             {
@@ -239,7 +239,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList PostImages
+        public virtual System.Collections.Generic.IList<PostImage> PostImages
         {
             get
             {
@@ -264,7 +264,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Title' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Title
+        public virtual System.String Title
         {
             get
             {
@@ -291,7 +291,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Topic_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Topic Topic
+        public virtual Topic Topic
         {
             get
             {
@@ -322,7 +322,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList PostLogins
+        public virtual System.Collections.Generic.IList<PostLogin> PostLogins
         {
             get
             {
@@ -347,7 +347,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Publish' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Boolean Publish
+        public virtual System.Boolean Publish
         {
             get
             {
@@ -372,7 +372,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Display' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Boolean Display
+        public virtual System.Boolean Display
         {
             get
             {

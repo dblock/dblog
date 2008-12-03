@@ -38,7 +38,7 @@ namespace DBlog.Data
         ///The property maps to the column 'PostCounter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -61,7 +61,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Counter_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Counter Counter
+        public virtual Counter Counter
         {
             get
             {
@@ -88,7 +88,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Post_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Post Post
+        public virtual Post Post
         {
             get
             {

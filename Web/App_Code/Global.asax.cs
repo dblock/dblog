@@ -110,10 +110,10 @@ public class Global : DBlog.Tools.Web.HostedApplication
 
         try
         {
-            int adminCount = (int)session.CreateQuery(string.Format(
-                "SELECT COUNT(l) FROM Login l WHERE Role='{0}'", 
-                    TransitLoginRole.Administrator.ToString()))
-                .UniqueResult();
+            int adminCount = session.CreateCriteria(typeof(Login))
+                .Add(Expression.Eq("Role", TransitLoginRole.Administrator.ToString()))
+                .SetProjection(Projections.Count("Id"))
+                .UniqueResult<int>();
 
             if (adminCount == 0)
             {

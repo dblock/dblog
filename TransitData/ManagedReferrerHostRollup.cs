@@ -27,9 +27,9 @@ namespace DBlog.TransitData
         public void RollupExistingReferrerHosts(ISession session)
         {
             // find a host that is exactly the target
-            ReferrerHost targethost = (ReferrerHost) session.CreateCriteria(typeof(ReferrerHost))
+            ReferrerHost targethost = session.CreateCriteria(typeof(ReferrerHost))
                 .Add(Expression.Eq("Name", mReferrerHostRollup.Rollup))
-                .UniqueResult();
+                .UniqueResult<ReferrerHost>();
 
             if (targethost == null)
             {
@@ -41,11 +41,10 @@ namespace DBlog.TransitData
                 session.Save(targethost);
             }
 
-            IList hosts = session.CreateSQLQuery(
+            IList<ReferrerHost> hosts = session.CreateSQLQuery(
                     "SELECT {R.*} FROM ReferrerHost {R}" +
-                    " WHERE Name LIKE '" + Renderer.SqlEncode(mReferrerHostRollup.Name) + "'",
-                    "R",
-                    typeof(ReferrerHost)).List();
+                    " WHERE Name LIKE '" + Renderer.SqlEncode(mReferrerHostRollup.Name) + "'")
+                    .AddEntity("R", typeof(ReferrerHost)).List<ReferrerHost>();
 
             foreach (ReferrerHost host in hosts)
             {

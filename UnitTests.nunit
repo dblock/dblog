@@ -3,9 +3,11 @@
   <Config name="Debug" binpathtype="Auto">
     <assembly path="Data.UnitTests\bin\Debug\DBlog.Data.UnitTests.dll" />
     <assembly path="Web.UnitTests\bin\Debug\DBlog.Web.UnitTests.dll" />
+    <assembly path="Data.Hibernate.UnitTests\bin\Debug\DBlog.Data.Hibernate.UnitTests.dll" />
   </Config>
   <Config name="Release" binpathtype="Auto">
     <assembly path="Data.UnitTests\bin\Release\DBlog.Data.UnitTests.dll" />
     <assembly path="Web.UnitTests\bin\Release\DBlog.Web.UnitTests.dll" />
+    <assembly path="Data.Hibernate.UnitTests\bin\Release\DBlog.Data.Hibernate.UnitTests.dll" />
   </Config>
 </NUnitProject>

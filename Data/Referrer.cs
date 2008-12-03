@@ -38,7 +38,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Referrer_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -59,7 +59,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Source' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Source
+        public virtual System.String Source
         {
             get
             {
@@ -84,7 +84,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Url' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Url
+        public virtual System.String Url
         {
             get
             {

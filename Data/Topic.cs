@@ -20,7 +20,7 @@ namespace DBlog.Data
         //Holds property values
         private System.Int32 m_Id;
         private System.String m_Name;
-        private System.Collections.IList m_Posts;
+        private System.Collections.Generic.IList<Post> m_Posts;
         private System.String m_Type;
 
         //Public properties
@@ -39,7 +39,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Topic_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -60,7 +60,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Name' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Name
+        public virtual System.String Name
         {
             get
             {
@@ -91,7 +91,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Topic_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList Posts
+        public virtual System.Collections.Generic.IList<Post> Posts
         {
             get
             {
@@ -116,7 +116,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Type' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Type
+        public virtual System.String Type
         {
             get
             {

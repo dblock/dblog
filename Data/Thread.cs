@@ -38,7 +38,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Thread_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -61,7 +61,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Comment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Comment Comment
+        public virtual Comment Comment
         {
             get
             {
@@ -88,7 +88,7 @@ namespace DBlog.Data
         ///The property maps to the column 'ParentComment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Comment ParentComment
+        public virtual Comment ParentComment
         {
             get
             {

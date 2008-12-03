@@ -20,14 +20,14 @@ namespace DBlog.Data
         //Holds property values
         private System.Int32 m_Id;
         private System.DateTime m_Created;
-        private System.Collections.IList m_ImageComments;
+        private System.Collections.Generic.IList<ImageComment> m_ImageComments;
         private System.String m_IpAddress;
         private System.DateTime m_Modified;
         private Login m_OwnerLogin;
-        private System.Collections.IList m_ParentCommentThreads;
+        private System.Collections.Generic.IList<Thread> m_ParentCommentThreads;
         private System.String m_Text;
-        private System.Collections.IList m_Threads;
-        private System.Collections.IList m_PostComments;
+        private System.Collections.Generic.IList<Thread> m_Threads;
+        private System.Collections.Generic.IList<PostComment> m_PostComments;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Comment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Int32 Id
+        public virtual System.Int32 Id
         {
             get
             {
@@ -66,7 +66,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Created' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Created
+        public virtual System.DateTime Created
         {
             get
             {
@@ -97,7 +97,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Comment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList ImageComments
+        public virtual System.Collections.Generic.IList<ImageComment> ImageComments
         {
             get
             {
@@ -122,7 +122,7 @@ namespace DBlog.Data
         ///The property maps to the column 'IpAddress' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String IpAddress
+        public virtual System.String IpAddress
         {
             get
             {
@@ -147,7 +147,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Modified' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.DateTime Modified
+        public virtual System.DateTime Modified
         {
             get
             {
@@ -174,7 +174,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Owner_Login_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  Login OwnerLogin
+        public virtual Login OwnerLogin
         {
             get
             {
@@ -205,7 +205,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'ParentComment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList ParentCommentThreads
+        public virtual System.Collections.Generic.IList<Thread> ParentCommentThreads
         {
             get
             {
@@ -230,7 +230,7 @@ namespace DBlog.Data
         ///The property maps to the column 'Text' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.String Text
+        public virtual System.String Text
         {
             get
             {
@@ -261,7 +261,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Comment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList Threads
+        public virtual System.Collections.Generic.IList<Thread> Threads
         {
             get
             {
@@ -292,7 +292,7 @@ namespace DBlog.Data
         ///The property maps to the identity column 'Comment_Id' in the data source.
         ///</remarks>
         ///--------------------------------------------------------------------------------
-        public  System.Collections.IList PostComments
+        public virtual System.Collections.Generic.IList<PostComment> PostComments
         {
             get
             {

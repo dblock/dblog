@@ -50,8 +50,8 @@ namespace DBlog.TransitData
         {
             if (mExcludeBlogImages)
             {
-                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM PostImage e WHERE e.Image_Id = this.Image_Id )"));
-                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM Highlight h WHERE h.Image_Id = this.Image_Id )"));
+                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM PostImage e WHERE e.Image_Id = this_.Image_Id )"));
+                criteria.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM Highlight h WHERE h.Image_Id = this_.Image_Id )"));
             }
 
             base.Apply(criteria);
@@ -61,8 +61,8 @@ namespace DBlog.TransitData
         {
             if (mExcludeBlogImages)
             {
-                query.Add(Expression.Sql("NOT EXISTS ( SELECT e.Image.Id FROM PostImage e WHERE e.Image.Id = Image.Id )"));
-                query.Add(Expression.Sql("NOT EXISTS ( SELECT h.Image.Id FROM Highlight h WHERE h.Image.Id = Image.Id )"));
+                query.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM PostImage e WHERE e.Image_Id = this_.Image_Id )"));
+                query.Add(Expression.Sql("NOT EXISTS ( SELECT * FROM Highlight h WHERE h.Image_Id = this_.Image_Id )"));
             }
 
             base.Apply(query);
@@ -245,7 +245,7 @@ namespace DBlog.TransitData
 
                 CommentsCount = new CountQuery(session, typeof(ImageComment), "ImageComment")
                     .Add(Expression.Eq("Image.Id", o.Id))
-                    .Execute();
+                    .Execute<int>();
 
                 if (withthumbnail)
                 {

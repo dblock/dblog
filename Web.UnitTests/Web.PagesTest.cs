@@ -20,7 +20,7 @@ namespace DBlog.Web.UnitTests
         public const string sDBlogPostCookieName = "DBlog.postcookie";
 
         [Test]
-        public void TestDeepGuestPerformance()
+        protected void TestDeepGuestPerformance()
         {
             TestDeepPerformance(null);
         }
