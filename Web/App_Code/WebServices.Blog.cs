@@ -374,10 +374,19 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
-                session.Delete(string.Format("FROM ImageComment WHERE Image_Id = {0}", id));
+
+                Image image = session.Load<Image>(id);
+
+                // delete comments associated with the image
+                foreach (ImageComment instance in image.ImageComments)
+                {
+                    session.Delete(instance);
+                    session.Delete(instance.Comment);
+                }
+
                 session.Delete(string.Format("FROM ImageCounter WHERE Image_Id = {0}", id));
                 session.Delete(string.Format("FROM PostImage WHERE Image_Id = {0}", id));
-                session.Delete(session.Load(typeof(DBlog.Data.Image), id));
+                session.Delete(image);
                 session.Flush();
             }
         }
@@ -1075,18 +1084,23 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
-                Post post = (Post)session.Load(typeof(Post), id);
+                Post post = session.Load<Post>(id);
 
-                foreach (PostImage ei in post.PostImages)
+                // delete images associated with the post
+                foreach (PostImage instance in post.PostImages)
                 {
-                    session.Delete(ei);
-                    session.Delete(ei.Image);
+                    session.Delete(instance);
+                    session.Delete(instance.Image);
                 }
 
-                // bug: delete comments associated with PostComment
+                // delete comments associated with the post
+                foreach (PostComment instance in post.PostComments)
+                {
+                    session.Delete(instance);
+                    session.Delete(instance.Comment);
+                }
 
                 session.Delete(string.Format("FROM PostLogin WHERE Post_Id = {0}", id));
-                session.Delete(string.Format("FROM PostComment WHERE Post_Id = {0}", id));
                 session.Delete(string.Format("FROM PostCounter WHERE Post_Id = {0}", id));
                 session.Delete(post);
                 session.Flush();
