@@ -985,6 +985,7 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 StringCriteria criteria = new StringCriteria(session, "Post", typeof(Post));
+                criteria.AddOrder("Sticky", WebServiceQuerySortDirection.Descending);
 
                 if (options != null)
                 {
@@ -1055,6 +1056,8 @@ namespace DBlog.WebServices
                 {
                     options.Apply(criteria);
                 }
+
+                criteria.AddOrder("Post.Sticky", WebServiceQuerySortDirection.Descending);
 
                 IQuery query = criteria.CreateQuery();
 

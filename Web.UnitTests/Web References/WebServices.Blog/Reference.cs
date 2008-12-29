@@ -5368,6 +5368,8 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
         
         private bool displayField;
         
+        private bool stickyField;
+        
         /// <remarks/>
         public bool HasAccess {
             get {
@@ -5515,6 +5517,16 @@ namespace DBlog.Web.UnitTests.WebServices.Blog {
             }
             set {
                 this.displayField = value;
+            }
+        }
+        
+        /// <remarks/>
+        public bool Sticky {
+            get {
+                return this.stickyField;
+            }
+            set {
+                this.stickyField = value;
             }
         }
     }

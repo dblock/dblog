@@ -94,6 +94,16 @@
    <td class="table_tr_td_label">
    </td>
    <td valign="top" class="table_tr_td_value">
+    <asp:CheckBox ID="inputSticky" runat="server" Text="Sticky" CssClass="checkbox" />
+    <div class="description">
+     check to keep post on top
+    </div>
+   </td>
+  </tr>
+  <tr>
+   <td class="table_tr_td_label">
+   </td>
+   <td valign="top" class="table_tr_td_value">
     <Controls:WorkingButton runat="server" ID="save" Text="Save" CssClass="button" OnClick="save_Click" />
    </td>
   </tr>

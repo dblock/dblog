@@ -8,6 +8,7 @@ using System.Reflection;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using DBlog.Tools.Drawing;
+using System.Threading;
 
 namespace DBlog.Web.UnitTests.WebServices
 {
@@ -81,6 +82,7 @@ namespace DBlog.Web.UnitTests.WebServices
             t_post.Body = Guid.NewGuid().ToString();
             t_post.Title = Guid.NewGuid().ToString();
             t_post.TopicId = t_topic.Id;
+            t_post.Publish = true;
             t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
             Assert.Greater(t_post.Id, 0);
 
@@ -115,6 +117,7 @@ namespace DBlog.Web.UnitTests.WebServices
             t_post.Body = Guid.NewGuid().ToString();
             t_post.Title = Guid.NewGuid().ToString();
             t_post.TopicId = t_topic.Id;
+            t_post.Publish = true;
             t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
             Assert.Greater(t_post.Id, 0);
 
@@ -158,6 +161,7 @@ namespace DBlog.Web.UnitTests.WebServices
             t_post.Body = Guid.NewGuid().ToString();
             t_post.Title = Guid.NewGuid().ToString();
             t_post.TopicId = t_topic.Id;
+            t_post.Publish = true;
             t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
             Assert.Greater(t_post.Id, 0);
 
@@ -184,6 +188,7 @@ namespace DBlog.Web.UnitTests.WebServices
             t_post.Body = Guid.NewGuid().ToString();
             t_post.Title = Guid.NewGuid().ToString();
             t_post.TopicId = t_topic.Id;
+            t_post.Publish = true;
             t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
             Assert.Greater(t_post.Id, 0);
 
@@ -192,6 +197,53 @@ namespace DBlog.Web.UnitTests.WebServices
 
             Blog.DeletePost(Ticket, t_post.Id);
             Blog.DeleteTopic(Ticket, t_topic.Id);
+        }
+
+        [Test]
+        public void CreateStickyPostTest()
+        {
+            TransitTopic t_topic = new TransitTopic();
+            t_topic.Name = Guid.NewGuid().ToString();
+            t_topic.Id = Blog.CreateOrUpdateTopic(Ticket, t_topic);
+
+            TransitPost t_post1 = new TransitPost();
+            t_post1.Body = Guid.NewGuid().ToString();
+            t_post1.Title = Guid.NewGuid().ToString();
+            t_post1.TopicId = t_topic.Id;
+            t_post1.Publish = true;
+            t_post1.Sticky = true;
+            t_post1.Created = t_post1.Modified = DateTime.UtcNow;
+            t_post1.Id = Blog.CreateOrUpdatePost(Ticket, t_post1);
+            Assert.Greater(t_post1.Id, 0);
+
+            Thread.Sleep(1000);
+
+            TransitPost t_post2 = new TransitPost();
+            t_post2.Body = Guid.NewGuid().ToString();
+            t_post2.Title = Guid.NewGuid().ToString();
+            t_post2.TopicId = t_topic.Id;
+            t_post2.Publish = true;
+            t_post2.Sticky = false;
+            t_post2.Created = t_post2.Modified = DateTime.UtcNow;
+            t_post2.Id = Blog.CreateOrUpdatePost(Ticket, t_post2);
+            Assert.Greater(t_post1.Id, 0);
+
+            TransitPostQueryOptions queryOptions = new TransitPostQueryOptions();
+            queryOptions.PageNumber = 0;
+            queryOptions.PageSize = 2;
+            queryOptions.DateStart = DateTime.MinValue;
+            queryOptions.DateEnd = DateTime.MaxValue;
+            queryOptions.SortDirection = WebServiceQuerySortDirection.Descending;
+            queryOptions.SortExpression = "Created";
+            TransitPost[] posts = Blog.GetPosts(Ticket, queryOptions);
+
+            Blog.DeletePost(Ticket, t_post1.Id);
+            Blog.DeletePost(Ticket, t_post2.Id);
+            Blog.DeleteTopic(Ticket, t_topic.Id);
+
+            Assert.AreEqual(2, posts.Length);
+            // make sure the sticky post is on top (the second post might not be in second position if there're other stick posts)
+            Assert.AreEqual(t_post1.Id, posts[0].Id);
         }
     }
 }

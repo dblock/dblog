@@ -23,3 +23,7 @@ GO
 DELETE Comment
 WHERE NOT EXISTS ( SELECT * FROM ImageComment WHERE ImageComment.Comment_Id = Comment.Comment_Id )
 AND NOT EXISTS ( SELECT * FROM PostComment where PostComment.Comment_Id = Comment.Comment_Id )
+-- 12/29/2008: add sticky to posts
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Sticky')
+ALTER TABLE dbo.Post ADD [Sticky] bit NOT NULL DEFAULT 0
+GO

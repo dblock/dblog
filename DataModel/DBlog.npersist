@@ -150,6 +150,7 @@
     <property name="PostLogins" table="PostLogin" id-columns="Post_Id" list="true" item-type="PostLogin" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" modifier="Virtual" />
     <property name="Publish" columns="Publish" type="System.Boolean" modifier="Virtual" />
     <property name="Display" columns="Display" type="System.Boolean" modifier="Virtual" />
+    <property name="Sticky" columns="Sticky" type="System.Boolean" />
   </class>
   <class name="PostComment" table="PostComment">
     <property name="Id" id="true" columns="PostComment_Id" type="System.Int32" modifier="Virtual" />
@@ -351,6 +352,7 @@
       <column name="Topic_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Topic" primary-column="Topic_Id" foreign-key="FK_Post_Topic" />
       <column name="Publish" type="Boolean" prec="1" length="1" scale="0" default="((1))" />
       <column name="Display" type="Boolean" prec="1" length="1" scale="0" default="((1))" />
+      <column name="Sticky" type="Boolean" prec="1" length="1" scale="0" default="((0))" />
     </table>
     <table name="PostComment">
       <column name="PostComment_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />

@@ -34,6 +34,9 @@
          <span style="<%# (bool) Eval("Display") ? "display: none;" : "" %>">
           <img src="images/site/hidden.gif" alt="Hidden" border="0" />
          </span>
+         <span style="<%# (bool) Eval("Sticky") ? "" : "display: none;" %>">
+          <img src="images/site/sticky.gif" alt="Sticky" border="0" />
+         </span>
         </div>
         <div class="post_subtitle">
          <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>

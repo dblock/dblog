@@ -441,6 +441,20 @@ namespace DBlog.TransitData
             }
         }
 
+        private bool mSticky = true;
+
+        public bool Sticky
+        {
+            get
+            {
+                return mSticky;
+            }
+            set
+            {
+                mSticky = value;
+            }
+        }
+
         public TransitPost()
         {
 
@@ -514,6 +528,7 @@ namespace DBlog.TransitData
 
             Publish = o.Publish;
             Display = o.Display;
+            Sticky = o.Sticky;
         }
 
         public static string Render(ISession session, string value)
@@ -535,6 +550,7 @@ namespace DBlog.TransitData
             post.Topic = (Topic)session.Load(typeof(Topic), TopicId);
             post.Publish = Publish;
             post.Display = Display;
+            post.Sticky = Sticky;
             return post;
         }
 

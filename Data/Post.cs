@@ -31,6 +31,7 @@ namespace DBlog.Data
         private System.Collections.Generic.IList<PostLogin> m_PostLogins;
         private System.Boolean m_Publish;
         private System.Boolean m_Display;
+        private System.Boolean m_Sticky;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -381,6 +382,31 @@ namespace DBlog.Data
             set
             {
                 m_Display = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.Boolean'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Sticky' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Sticky' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public virtual System.Boolean Sticky
+        {
+            get
+            {
+                return m_Sticky;
+            }
+            set
+            {
+                m_Sticky = value;
             }
         }
 

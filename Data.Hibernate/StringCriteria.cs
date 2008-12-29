@@ -14,7 +14,7 @@ namespace DBlog.Data.Hibernate
         private ISession mSession = null;
         private string mTable = string.Empty;
         private StringBuilder mSubQuery = new StringBuilder();
-        private string mOrderBy = string.Empty;
+        private List<string> mOrderBy = new List<string>();
         private Type mType;
         private string[] mAdditionalTables = null;
 
@@ -48,8 +48,8 @@ namespace DBlog.Data.Hibernate
                 }
             }
 
-            mOrderBy = string.Format("ORDER BY {0} {1}", Renderer.SqlEncode(orderby), 
-                direction == WebServiceQuerySortDirection.Ascending ? "ASC" : "DESC");
+            mOrderBy.Add(string.Format("{0} {1}", Renderer.SqlEncode(orderby), 
+                direction == WebServiceQuerySortDirection.Ascending ? "ASC" : "DESC"));
         }
 
         public IQuery CreateQuery()
@@ -66,7 +66,17 @@ namespace DBlog.Data.Hibernate
             }
 
             query.AppendLine(mSubQuery.ToString());
-            query.AppendLine(mOrderBy);
+
+            if (mOrderBy.Count > 0)
+            {
+                query.Append(" ORDER BY ");
+                for (int i = 0; i < mOrderBy.Count; i++)
+                {
+                    if (i != 0) query.Append(", ");
+                    query.Append(mOrderBy[i]);
+                }
+            }
+
             return mSession.CreateSQLQuery(query.ToString()).AddEntity(mTable, mType, LockMode.None);
         }
     }

@@ -638,6 +638,7 @@ CREATE TABLE [dbo].[Post](
 	[Modified] [datetime] NOT NULL,
 	[Publish] [bit] NOT NULL DEFAULT ((1)),
 	[Display] [bit] NOT NULL DEFAULT ((1)),
+	[Sticky] [bit] NOT NULL DEFAULT ((0)),
  CONSTRAINT [PK_Post] PRIMARY KEY CLUSTERED 
 (
 	[Post_Id] ASC
