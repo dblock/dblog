@@ -15,6 +15,7 @@ using DBlog.Tools.Web;
 using System.Text;
 using DBlog.Data.Hibernate;
 using DBlog.TransitData.References;
+using DBlog.Tools.Web.Html;
 
 public partial class ShowBlog : BlogPage
 {
@@ -295,4 +296,12 @@ public partial class ShowBlog : BlogPage
             return mMetaDescription;
         }
     }
+
+    public override string RenderEx(string text, int id)
+    {
+        if (string.IsNullOrEmpty(text))
+            return string.Empty;
+
+ 	    return base.RenderEx(Cutter.Cut(text, id), id);
+    }    
 }

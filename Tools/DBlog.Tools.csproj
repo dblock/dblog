@@ -56,6 +56,7 @@
     <Compile Include="Reflection.AssemblyInfo.cs" />
     <Compile Include="Web.HostedApplication.cs" />
     <Compile Include="Web.Html.HtmlAbsoluteLinksWriter.cs" />
+    <Compile Include="Web.Html.HtmlCutter.cs" />
     <Compile Include="Web.Html.HtmlGenericExtractor.cs" />
     <Compile Include="Web.Html.HtmlImageExtractor.cs" />
     <Compile Include="Web.Html.HtmlReaderWriter.cs" />

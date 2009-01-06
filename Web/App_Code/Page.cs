@@ -12,6 +12,7 @@ using System.Reflection;
 using System.Text.RegularExpressions;
 using DBlog.WebServices;
 using DBlog.TransitData.References;
+using DBlog.Tools.Web.Html;
 
 public class BlogPage : DBlog.Tools.Web.Page
 {
@@ -134,12 +135,12 @@ public class BlogPage : DBlog.Tools.Web.Page
         base.OnPreInit(e);
     }
 
-    public string RenderEx(string text, int id)
+    public virtual string RenderEx(string text, int id)
     {
         if (string.IsNullOrEmpty(text))
             return string.Empty;
 
         ReferencesRedirector redirector = new ReferencesRedirector(id, "Post");
-        return Renderer.RenderEx(text, ConfigurationManager.AppSettings["url"], redirector.ReferUri);
+        return Renderer.RenderEx(Cutter.DeleteCut(text), ConfigurationManager.AppSettings["url"], redirector.ReferUri);
     }
 }

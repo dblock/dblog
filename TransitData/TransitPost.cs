@@ -8,6 +8,7 @@ using DBlog.Data.Hibernate;
 using DBlog.TransitData.References;
 using System.Configuration;
 using DBlog.Tools.Web;
+using DBlog.Tools.Web.Html;
 
 namespace DBlog.TransitData
 {
@@ -561,7 +562,8 @@ namespace DBlog.TransitData
             if (!string.IsNullOrEmpty(post.Body))
             {
                 content.Append("<div>");
-                string body = Render(session, post.Body);
+                string body = Cutter.DeleteCut(post.Body);
+                body = Render(session, body);
                 body = Renderer.RenderEx(body, ConfigurationManager.AppSettings["url"], null);
                 body = body.Replace("&", "&amp;");
                 content.Append(body);
