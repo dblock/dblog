@@ -42,6 +42,11 @@
         runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />
       </itemtemplate>
      </asp:TemplateColumn>
+     <asp:TemplateColumn ItemStyle-Width="100px">
+      <itemtemplate>
+       <a href="ShowZenGallery.aspx?id=<%# Eval("Id") %>">Gallery</a>
+      </itemtemplate>
+     </asp:TemplateColumn>
     </Columns>
    </Controls:PagedGrid>
   </ContentTemplate>

@@ -27,6 +27,9 @@ namespace DBlog.TransitData
         {
             get
             {
+                if (mFeed.Interval < 0)
+                    return false;
+
                 return (mFeed.Updated.AddSeconds(mFeed.Interval) < DateTime.UtcNow);
             }
         }

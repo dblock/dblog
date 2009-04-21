@@ -1,87 +1,89 @@
 <Project DefaultTargets="all" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" >
- <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
- <PropertyGroup Condition="'$(Configuration)'==''">
-  <Configuration>Debug</Configuration>
- </PropertyGroup>
- <Target Name="all">
-  <CallTarget Targets="announceprojectname" />
-  <CallTarget Targets="version" />
-  <CallTarget Targets="clean" />
-  <CallTarget Targets="deployables" />
-  <CallTarget Targets="package" />
- </Target>
- <Target Name="sdk">
-  <CallTarget Targets="announceprojectname" />
-  <CallTarget Targets="version" />
-  <CallTarget Targets="clean" />
-  <CallTarget Targets="deployables" />
-  <CallTarget Targets="documentation" />
-  <CallTarget Targets="installer" />
- </Target>
- <Target Name="version">
-  <Version>
-   <Output TaskParameter="Major" PropertyName="Major" />
-   <Output TaskParameter="Minor" PropertyName="Minor" />
-   <Output TaskParameter="Build" PropertyName="Build" />
-   <Output TaskParameter="Revision" PropertyName="Revision" />
-  </Version>
-  <SvnVersion LocalPath=".">
-   <Output TaskParameter="Revision" PropertyName="Build" />
-  </SvnVersion>
-  <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
-  <MakeDir Directories="Version" />
-  <AssemblyInfo CodeLanguage="CS" OutputFile="Version\GlobalAssemblyInfo.cs"
-   AssemblyConfiguration="" AssemblyCompany="Vestris Inc." AssemblyProduct="DBlog.NET"
-   AssemblyCopyright="Copyright (c) Vestris Inc."
-   AssemblyTrademark="" ComVisible="false" CLSCompliant="false"
-   AssemblyKeyFile="" AssemblyDelaySign="false" AssemblyKeyName="" AssemblyCulture=""
-   AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)" AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)" />
-  <Copy SourceFiles="Version\GlobalAssemblyInfo.cs" DestinationFiles="Web\App_Code\GlobalAssemblyInfo.cs" />
- </Target>
- <Target Name="announceprojectname">
-  <Message Importance="high" Text="Building $(ProjectName) ..." />
- </Target>
- <Target Name="clean">
-  <RemoveDir Directories="Target" />
-  <MSBuild Projects="DBlog.sln" Targets="Clean" />
- </Target>
- <Target Name="deployables">
-  <MSBuild
-   Projects="Data\DBlog.Data.csproj;
-    Data.Hibernate\DBlog.Data.Hibernate.csproj;
-    Web.Deploy\DBlog.Web.Deploy.wdproj"
-   Properties="Configuration=$(Configuration);"
-   Targets="Build"
-   />
- </Target>
- <Target Name="package" DependsOnTargets="version">
-  <MakeDir Directories="Target\$(Configuration)" />
-  <RemoveDir Directories="Web.Deploy\Target\$(Configuration)" />
-  <MakeDir Directories="Web.Deploy\Target\$(Configuration)" />
-  <Exec WorkingDirectory="Web.Deploy\Target\$(Configuration)"
-  Command="xcopy /EXCLUDE:..\..\XCopy.exclude /s /i ..\..\..\Web.Deploy\$(Configuration)\*.* $(ProjectName)" />
-  <Exec WorkingDirectory="Web.Deploy\Target\$(Configuration)"
-   Command="..\..\..\Web.Deploy\bin\zip32.exe -r ..\..\..\Target\$(Configuration)\$(ProjectName).zip $(ProjectName)\*.*" />
-  <Message Importance="high" Text="Created 'Target\$(Configuration)\$(ProjectName).zip'." />
- </Target>
- <Target Name="unittests" DependsOnTargets="version">
-  <MSBuild
-   Projects="Web.UnitTests\DBlog.Web.UnitTests.csproj;
-    Data.UnitTests\DBlog.Data.UnitTests.csproj"
-   Properties="Configuration=$(Configuration);"
-   Targets="Build"
-   />
- </Target>
- <Target Name="rununittests" DependsOnTargets="version">
-  <NUnit Assemblies="Web.UnitTests\DBlog.Web.UnitTests.csproj;
-    Data.UnitTests\DBlog.Data.UnitTests.csproj"
-   OutputXmlFile="Target\$(Configuration)\Tests.xml" ToolPath="$(NUnitDir)\bin" />
- </Target>
- <Target Name="sql">
-  <Exec WorkingDirectory="Database" Command="..\Data.Script\bin\$(Configuration)\DBlog.Data.Script.exe" />
- </Target>
- <Target Name="data">
-  <Exec Command="Data.Mapping\bin\$(Configuration)\DBlog.Data.Mapping.exe Data\DBlog.Data.csproj" />
-  <Exec Command="svn revert Data\AssemblyInfo.cs" />
- </Target>
+  <Import Project="$(MSBuildExtensionsPath)\MSBuildCommunityTasks\MSBuild.Community.Tasks.Targets"/>
+  <PropertyGroup Condition="'$(Configuration)'==''">
+    <Configuration>Debug</Configuration>
+  </PropertyGroup>
+  <Target Name="all">
+    <CallTarget Targets="announceprojectname" />
+    <CallTarget Targets="version" />
+    <CallTarget Targets="clean" />
+    <CallTarget Targets="deployables" />
+    <CallTarget Targets="package" />
+  </Target>
+  <Target Name="sdk">
+    <CallTarget Targets="announceprojectname" />
+    <CallTarget Targets="version" />
+    <CallTarget Targets="clean" />
+    <CallTarget Targets="deployables" />
+    <CallTarget Targets="documentation" />
+    <CallTarget Targets="installer" />
+  </Target>
+  <Target Name="version">
+    <Version>
+      <Output TaskParameter="Major" PropertyName="Major" />
+      <Output TaskParameter="Minor" PropertyName="Minor" />
+      <Output TaskParameter="Build" PropertyName="Build" />
+      <Output TaskParameter="Revision" PropertyName="Revision" />
+    </Version>
+    <SvnVersion LocalPath=".">
+      <Output TaskParameter="Revision" PropertyName="Build" />
+    </SvnVersion>
+    <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
+    <MakeDir Directories="Version" />
+    <AssemblyInfo CodeLanguage="CS" OutputFile="Version\GlobalAssemblyInfo.cs"
+     AssemblyConfiguration="" AssemblyCompany="Vestris Inc." AssemblyProduct="DBlog.NET"
+     AssemblyCopyright="Copyright (c) Vestris Inc."
+     AssemblyTrademark="" ComVisible="false" CLSCompliant="false"
+     AssemblyKeyFile="" AssemblyDelaySign="false" AssemblyKeyName="" AssemblyCulture=""
+     AssemblyVersion="$(Major).$(Minor).$(Build).$(Revision)" AssemblyFileVersion="$(Major).$(Minor).$(Build).$(Revision)" />
+    <Copy SourceFiles="Version\GlobalAssemblyInfo.cs" DestinationFiles="Web\App_Code\GlobalAssemblyInfo.cs" />
+  </Target>
+  <Target Name="announceprojectname">
+    <Message Importance="high" Text="Building $(ProjectName) ..." />
+  </Target>
+  <Target Name="clean">
+    <DeleteTree Directories="Target" />
+    <MSBuild Projects="DBlog.sln" Targets="Clean" />
+    <CreateItem Include="Web\galleries\**\*" Exclude="**/.svn/**;Web\galleries\gallery.xml;Web\galleries\sounds\*.*;Web\galleries\ZenGallery.swf">
+      <Output TaskParameter="Include" ItemName="GeneratedGalleryFiles"/>
+    </CreateItem>
+    <Delete Files="@(GeneratedGalleryFiles)" />
+  </Target>
+  <Target Name="deployables">
+    <MSBuild Projects="Data\DBlog.Data.csproj;
+     Data.Hibernate\DBlog.Data.Hibernate.csproj;
+     Web.Deploy\DBlog.Web.Deploy.wdproj"
+     Properties="Configuration=$(Configuration);"
+     Targets="Build"
+    />
+  </Target>
+  <Target Name="package" DependsOnTargets="version">
+    <MakeDir Directories="Target\$(Configuration)" />
+    <RemoveDir Directories="Web.Deploy\Target\$(Configuration)" />
+    <MakeDir Directories="Web.Deploy\Target\$(Configuration)" />
+    <Exec WorkingDirectory="Web.Deploy\Target\$(Configuration)"
+    Command="xcopy /EXCLUDE:..\..\XCopy.exclude /s /i ..\..\..\Web.Deploy\$(Configuration)\*.* $(ProjectName)" />
+    <Exec WorkingDirectory="Web.Deploy\Target\$(Configuration)"
+     Command="..\..\..\Web.Deploy\bin\zip32.exe -r ..\..\..\Target\$(Configuration)\$(ProjectName).zip $(ProjectName)\*.*" />
+    <Message Importance="high" Text="Created 'Target\$(Configuration)\$(ProjectName).zip'." />
+  </Target>
+  <Target Name="unittests" DependsOnTargets="version">
+    <MSBuild
+     Projects="Web.UnitTests\DBlog.Web.UnitTests.csproj;Data.UnitTests\DBlog.Data.UnitTests.csproj"
+     Properties="Configuration=$(Configuration);"
+     Targets="Build"
+    />
+  </Target>
+  <Target Name="rununittests" DependsOnTargets="version">
+    <NUnit Assemblies="Web.UnitTests\DBlog.Web.UnitTests.csproj;
+     Data.UnitTests\DBlog.Data.UnitTests.csproj"
+     OutputXmlFile="Target\$(Configuration)\Tests.xml" ToolPath="$(NUnitDir)\bin" />
+  </Target>
+  <Target Name="sql">
+    <Exec WorkingDirectory="Database" Command="..\Data.Script\bin\$(Configuration)\DBlog.Data.Script.exe" />
+  </Target>
+  <Target Name="data">
+    <Exec Command="Data.Mapping\bin\$(Configuration)\DBlog.Data.Mapping.exe Data\DBlog.Data.csproj" />
+    <Exec Command="svn revert Data\AssemblyInfo.cs" />
+  </Target>
 </Project>
