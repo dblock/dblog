@@ -456,6 +456,20 @@ namespace DBlog.TransitData
             }
         }
 
+        private bool mExport = false;
+
+        public bool Export
+        {
+            get
+            {
+                return mExport;
+            }
+            set
+            {
+                mExport = value;
+            }
+        }
+
         public TransitPost()
         {
 
@@ -530,6 +544,7 @@ namespace DBlog.TransitData
             Publish = o.Publish;
             Display = o.Display;
             Sticky = o.Sticky;
+            Export = o.Export;
         }
 
         public static string Render(ISession session, string value)
@@ -552,6 +567,7 @@ namespace DBlog.TransitData
             post.Publish = Publish;
             post.Display = Display;
             post.Sticky = Sticky;
+            post.Export = Export;
             return post;
         }
 

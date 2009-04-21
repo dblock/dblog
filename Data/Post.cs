@@ -32,6 +32,7 @@ namespace DBlog.Data
         private System.Boolean m_Publish;
         private System.Boolean m_Display;
         private System.Boolean m_Sticky;
+        private System.Boolean m_Export;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -407,6 +408,31 @@ namespace DBlog.Data
             set
             {
                 m_Sticky = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.Boolean'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Export' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Export' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public virtual System.Boolean Export
+        {
+            get
+            {
+                return m_Export;
+            }
+            set
+            {
+                m_Export = value;
             }
         }
 

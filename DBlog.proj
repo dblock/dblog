@@ -25,7 +25,7 @@
    <Output TaskParameter="Build" PropertyName="Build" />
    <Output TaskParameter="Revision" PropertyName="Revision" />
   </Version>
-  <SvnVersion LocalPath="." ToolPath="$(ProgramFiles)\Svn\bin">
+  <SvnVersion LocalPath=".">
    <Output TaskParameter="Revision" PropertyName="Build" />
   </SvnVersion>
   <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
@@ -75,7 +75,7 @@
  <Target Name="rununittests" DependsOnTargets="version">
   <NUnit Assemblies="Web.UnitTests\DBlog.Web.UnitTests.csproj;
     Data.UnitTests\DBlog.Data.UnitTests.csproj"
-   OutputXmlFile="Target\$(Configuration)\Tests.xml" />
+   OutputXmlFile="Target\$(Configuration)\Tests.xml" ToolPath="$(NUnitDir)\bin" />
  </Target>
  <Target Name="sql">
   <Exec WorkingDirectory="Database" Command="..\Data.Script\bin\$(Configuration)\DBlog.Data.Script.exe" />

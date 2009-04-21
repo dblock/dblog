@@ -97,24 +97,31 @@ namespace DBlog.TransitData
             switch ((TransitFeedType)Enum.Parse(typeof(TransitFeedType), feed.Type))
             {
                 case TransitFeedType.Rss:
-                    ManagedRssFeed m_rss_feed = new ManagedRssFeed(feed);
-                    if (!checktimestamp || m_rss_feed.NeedsUpdate)
+                    ManagedRssFeed rssFeed = new ManagedRssFeed(feed);
+                    if (!checktimestamp || rssFeed.NeedsUpdate)
                     {
-                        result = m_rss_feed.Update(session);
+                        result = rssFeed.Update(session);
                     }
                     break;
                 case TransitFeedType.Atom:
-                    ManagedAtomFeed m_atom_feed = new ManagedAtomFeed(feed);
-                    if (!checktimestamp || m_atom_feed.NeedsUpdate)
+                    ManagedAtomFeed atomFeed = new ManagedAtomFeed(feed);
+                    if (!checktimestamp || atomFeed.NeedsUpdate)
                     {
-                        result = m_atom_feed.Update(session);
+                        result = atomFeed.Update(session);
                     }
                     break;
                 case TransitFeedType.AtomPost:
-                    ManagedAtomPostFeed m_atom_post_feed = new ManagedAtomPostFeed(feed);
-                    if (!checktimestamp || m_atom_post_feed.NeedsUpdate)
+                    ManagedAtomPostFeed atomPostFeed = new ManagedAtomPostFeed(feed);
+                    if (!checktimestamp || atomPostFeed.NeedsUpdate)
                     {
-                        result = m_atom_post_feed.Update(session);
+                        result = atomPostFeed.Update(session);
+                    }
+                    break;
+                case TransitFeedType.ZenFlashGallery:
+                    ManagedZenFlashGalleryFeed zenFeed = new ManagedZenFlashGalleryFeed(feed);
+                    if (!checktimestamp || zenFeed.NeedsUpdate)
+                    {
+                        result = zenFeed.Update(session);
                     }
                     break;
                 default:

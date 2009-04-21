@@ -1,4 +1,4 @@
-﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
     <ProductVersion>9.0.21022</ProductVersion>
@@ -192,7 +192,10 @@
     <Compile Include="YearlyCounter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <EmbeddedResource Include="DBlog.Data.hbm.xml" />
+    <EmbeddedResource Include="DBlog.Data.hbm.xml" />
+    <Compile Include="GlobalAssemblyInfo.cs">
+      <Link>..\Version\GlobalAssemblyInfo.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

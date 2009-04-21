@@ -16,14 +16,10 @@ if EXIST "%VisualStudioCmd%" (
  call "%VisualStudioCmd%"
 )
 
-set SvnDir=%ProgramFiles%\svn
-if NOT EXIST "%SvnDir%" set SvnDir=%ProgramFiles%\Subversion
-if NOT EXIST "%SvnDir%" (
- echo Missing SubVersion, expected in %SvnDir%
- exit /b -1
+for /D %%n in ( "%ProgramFiles%\NUnit*" ) do (
+ set NUnitDir=%%~n
 )
 
-set NUnitDir=%ProgramFiles%\NUnit 2.4.7\bin
 if NOT EXIST "%NUnitDir%" (
  echo Missing NUnit, expected in %NUnitDir%
  exit /b -1
@@ -32,7 +28,7 @@ if NOT EXIST "%NUnitDir%" (
 set FrameworkVersion=v3.5
 set FrameworkDir=%SystemRoot%\Microsoft.NET\Framework
 
-PATH=%FrameworkDir%\%FrameworkVersion%;%NUnitDir%;%SvnDir%;%PATH%
+PATH=%FrameworkDir%\%FrameworkVersion%;%NUnitDir%;%PATH%
 msbuild.exe %ProjectName%.proj /t:%*
 popd
 endlocal

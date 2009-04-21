@@ -1,0 +1,32 @@
+﻿<gallery>
+  <settings>
+    <frameSize>5</frameSize>
+    <frameColor>0xFFFFFF</frameColor>
+    <cornerRadius>7</cornerRadius>
+    <backgroundColor>0xFFFFFF</backgroundColor>
+    <initialState>Loading ...</initialState>
+    <showCaption>Always</showCaption>
+    <captionBackgroundAlpha>41</captionBackgroundAlpha>
+    <captionBackgroundCornerRadius>6</captionBackgroundCornerRadius>
+    <buttonsBackgroundAlpha>41</buttonsBackgroundAlpha>
+    <buttonsBackgroundCornerRadius>6</buttonsBackgroundCornerRadius>
+    <showButtons>Always</showButtons>
+    <showAlbumsButton>true</showAlbumsButton>
+    <showThumbnailsButton>true</showThumbnailsButton>
+    <showSlideshowButton>true</showSlideshowButton>
+    <showNavigationButton>true</showNavigationButton>
+    <slideshowDelay>4</slideshowDelay>
+    <rotationDirection>Horizontal CW</rotationDirection>
+    <rotationDuration>600</rotationDuration>
+    <panelBackgroundAlpha>43</panelBackgroundAlpha>
+    <iconWidth>90</iconWidth>
+    <iconHeight>55</iconHeight>
+    <iconPadding>10</iconPadding>
+    <useRotation>true</useRotation>
+    <imageScaleMode>Crop</imageScaleMode>
+    <rotationSound>galleries/sounds/rotate.mp3</rotationSound>
+    <overSound>galleries/sounds/over.mp3</overSound>
+    <clickSound>galleries/sounds/click.mp3</clickSound>
+  </settings>
+  <albums />
+</gallery>

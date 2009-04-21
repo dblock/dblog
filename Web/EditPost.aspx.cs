@@ -80,6 +80,7 @@ public partial class EditPost : BlogAdminPage
                     inputPublish.Checked = Post.Publish;
                     inputDisplay.Checked = Post.Display;
                     inputSticky.Checked = Post.Sticky;
+                    inputExport.Checked = Post.Export;
                 }
                 else
                 {
@@ -147,6 +148,7 @@ public partial class EditPost : BlogAdminPage
             Post.Publish = inputPublish.Checked;
             Post.Display = inputDisplay.Checked;
             Post.Sticky = inputSticky.Checked;
+            Post.Export = inputExport.Checked;
             Post.Created = SessionManager.Region.UserToUtc(inputCreatedDate.SelectedDate.Add(inputCreatedTime.SelectedTime));
             Post.Id = PostId = SessionManager.BlogService.CreateOrUpdatePost(
                 SessionManager.Ticket, Post);

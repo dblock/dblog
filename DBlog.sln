@@ -40,28 +40,60 @@ Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "DBlog", "http://localhost/D
 		Release.AspNetCompiler.Debug = "False"
 		SlnRelativePath = "Web\"
 	EndProjectSection
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data", "Data\DBlog.Data.csproj", "{89404491-35C1-4457-9C8C-C02192EFCF36}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.Hibernate", "Data.Hibernate\DBlog.Data.Hibernate.csproj", "{437F9693-8C20-49BD-A4FD-68A88E9A92C0}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Tools", "Tools\DBlog.Tools.csproj", "{75FB606F-0483-49CA-AF2F-8E57DB9864AB}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SgmlReaderDll8", "SgmlReader\sgmlreaderdll\SgmlReaderDll8.csproj", "{499527FF-AE52-450F-B3E3-4AD53E1712AD}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.UnitTests", "Data.UnitTests\DBlog.Data.UnitTests.csproj", "{2426AC0A-A493-4CC8-A323-C7E775DEC8E4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.TransitData", "TransitData\DBlog.TransitData.csproj", "{07B2FB5A-1FB0-4955-A218-12229318ECBE}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Web.UnitTests", "Web.UnitTests\DBlog.Web.UnitTests.csproj", "{EA8183AF-FB41-4F28-9B07-5AB96A37A277}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
 EndProject
 Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "DBlog.Web.Deploy", "Web.Deploy\DBlog.Web.Deploy.wdproj", "{6DACA3AC-FE40-4DAF-8722-D991A351EF24}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.Script", "Data.Script\DBlog.Data.Script.csproj", "{AF50F70B-06AD-41D1-BA82-8C6339C4A271}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.Mapping", "Data.Mapping\DBlog.Data.Mapping.csproj", "{06BC80C4-5F6E-4352-8307-CFA4C1252755}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DBlog.Data.Hibernate.UnitTests", "Data.Hibernate.UnitTests\DBlog.Data.Hibernate.UnitTests.csproj", "{E1E269BD-9B3A-4974-B9A5-72893ED6C78F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3} = {DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Version", "Version\Version.csproj", "{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -193,6 +225,16 @@ Global
 		{E1E269BD-9B3A-4974-B9A5-72893ED6C78F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{E1E269BD-9B3A-4974-B9A5-72893ED6C78F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
 		{E1E269BD-9B3A-4974-B9A5-72893ED6C78F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Debug|.NET.ActiveCfg = Debug|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Release|.NET.ActiveCfg = Release|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DF9B8E13-AD32-4FEA-83CB-5048234FC2F3}.Release|Mixed Platforms.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

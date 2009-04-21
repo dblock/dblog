@@ -13,7 +13,8 @@ namespace DBlog.TransitData
         Unknown = 0,
         Rss = 1,
         Atom = 2,
-        AtomPost = 3
+        AtomPost = 3,
+        ZenFlashGallery = 4,
     }
 
     public class TransitFeedQueryOptions : WebServiceQueryOptions
