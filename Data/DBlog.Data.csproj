@@ -193,9 +193,6 @@
       <SubType>Code</SubType>
     </Compile>
     <EmbeddedResource Include="DBlog.Data.hbm.xml" />
-    <Compile Include="GlobalAssemblyInfo.cs">
-      <Link>..\Version\GlobalAssemblyInfo.cs</Link>
-    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

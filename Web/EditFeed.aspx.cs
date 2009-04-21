@@ -103,6 +103,7 @@ public partial class EditFeed : BlogAdminPage
             Feed.Type = (TransitFeedType) Enum.Parse(typeof(TransitFeedType), inputType.SelectedValue);
             Feed.Username = inputUsername.Text;
             Feed.Password = inputPassword.Text;
+            Feed.Interval = int.Parse(inputInterval.SelectedValue);
 
             SessionManager.BlogService.CreateOrUpdateFeed(SessionManager.Ticket, Feed);
             SessionManager.Invalidate<TransitFeed>();

@@ -34,7 +34,7 @@ public partial class ShowZenGallery : BlogPage
         {
             return string.Format("{0}/galleries/{1}.xml",
                 SessionManager.WebsiteUrl,
-                Topic.Name);
+                Topic.Id);
         }
     }
 

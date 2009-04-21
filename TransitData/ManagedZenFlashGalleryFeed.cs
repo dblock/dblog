@@ -25,7 +25,7 @@ namespace DBlog.TransitData
 
         protected override int UpdateFeedItems(ISession session)
         {
-            Dictionary<string, XmlDocument> allalbums = new Dictionary<string, XmlDocument>();
+            Dictionary<int, XmlDocument> allalbums = new Dictionary<int, XmlDocument>();
 
             IList<Post> posts = session.CreateCriteria(typeof(Post))
                 .Add(Expression.Eq("Export", true))
@@ -35,11 +35,11 @@ namespace DBlog.TransitData
             foreach (Post post in posts)
             {
                 XmlDocument albums = null;
-                if (!allalbums.TryGetValue(post.Topic.Name, out albums))
+                if (!allalbums.TryGetValue(post.Topic.Id, out albums))
                 {
                     albums = new XmlDocument();
                     albums.Load(Path.Combine(mFeed.Url, "gallery.xml"));
-                    allalbums[post.Topic.Name] = albums;
+                    allalbums.Add(post.Topic.Id, albums);
                 }
                 
                 XmlNode albumsNode = albums.SelectSingleNode("/gallery/albums");
@@ -86,7 +86,7 @@ namespace DBlog.TransitData
                     image.Attributes.Append(imageThumbnail);
 
                     XmlAttribute imageDescription = albums.CreateAttribute("description");
-                    imageDescription.Value = postImage.Image.Name;
+                    imageDescription.Value = postImage.Image.Description;
                     image.Attributes.Append(imageDescription);
 
                     File.Copy(
@@ -101,11 +101,11 @@ namespace DBlog.TransitData
                     album.AppendChild(image);
                 }
 
-                Dictionary<string, XmlDocument>.Enumerator allalbumsenum = allalbums.GetEnumerator();
+                Dictionary<int, XmlDocument>.Enumerator allalbumsenum = allalbums.GetEnumerator();
                 while (allalbumsenum.MoveNext())
                 {
-                    allalbumsenum.Current.Value.Save(Path.Combine(mFeed.Url,
-                        string.Format(@"{0}.xml", allalbumsenum.Current.Key)));
+                    string albumxml = Path.Combine(mFeed.Url, string.Format("{0}.xml", allalbumsenum.Current.Key));
+                    allalbumsenum.Current.Value.Save(albumxml);
                 }
             }
 

@@ -4,7 +4,7 @@
     <frameColor>0xFFFFFF</frameColor>
     <cornerRadius>7</cornerRadius>
     <backgroundColor>0xFFFFFF</backgroundColor>
-    <initialState>Loading ...</initialState>
+    <initialState>Show Albums</initialState>
     <showCaption>Always</showCaption>
     <captionBackgroundAlpha>41</captionBackgroundAlpha>
     <captionBackgroundCornerRadius>6</captionBackgroundCornerRadius>
@@ -23,7 +23,7 @@
     <iconHeight>55</iconHeight>
     <iconPadding>10</iconPadding>
     <useRotation>true</useRotation>
-    <imageScaleMode>Crop</imageScaleMode>
+    <imageScaleMode>Fit</imageScaleMode>
     <rotationSound>galleries/sounds/rotate.mp3</rotationSound>
     <overSound>galleries/sounds/over.mp3</overSound>
     <clickSound>galleries/sounds/click.mp3</clickSound>

@@ -27,3 +27,7 @@ AND NOT EXISTS ( SELECT * FROM PostComment where PostComment.Comment_Id = Commen
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Sticky')
 ALTER TABLE dbo.Post ADD [Sticky] bit NOT NULL DEFAULT 0
 GO
+-- 04/19/2009: export to album
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Export')
+ALTER TABLE dbo.Post ADD [Export] bit NOT NULL DEFAULT 0
+GO
