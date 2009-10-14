@@ -7,7 +7,7 @@
   Login
  </div>
  <div class="subtitle">
-  <asp:HyperLink ID="linkCancel" runat="server" Text="Cancel" />
+  <asp:HyperLink ID="linkCancel" runat="server" Text="&#171; Cancel" />
  </div>
  <asp:UpdatePanel runat="server" ID="panelLogin" UpdateMode="Always">
   <ContentTemplate>

@@ -1,29 +1,28 @@
-<%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="Login.aspx.cs"
- Inherits="BlogLogin" Title="Login" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="ResetPassword.aspx.cs"
+ Inherits="ResetPassword" Title="Reset Password" %>
 
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <div class="title">
-  Login
+  Reset Password
  </div>
  <div class="subtitle">
-  <asp:HyperLink ID="linkNewUser" runat="server" Text="I don't have a login &#187; Register" />
-  <asp:LinkButton ID="linkResetPassword" OnClick="linkResetPassword_Click" runat="server" Text="&#187; Forgot Password" />
+  <asp:HyperLink ID="linkCancel" runat="server" Text="&#171; Cancel" />
  </div>
- <asp:UpdatePanel runat="server" ID="panelLogin" UpdateMode="Always">
+ <asp:UpdatePanel runat="server" ID="panelResetPassword" UpdateMode="Always">
   <ContentTemplate>
    <table class="table">
     <tr>
      <td class="table_tr_td_label">
-      username / e-mail:
+      e-mail:
      </td>
      <td valign="top" class="table_tr_td_value">
-      <asp:TextBox runat="server" CssClass="textbox" ID="inputUsername" />
+      <asp:TextBox runat="server" CssClass="textbox" ID="inputEmail" ReadOnly="true" />
      </td>
     </tr>
     <tr>
      <td class="table_tr_td_label">
-      password:
+      new password:
      </td>
      <td valign="top" class="table_tr_td_value">
       <asp:TextBox runat="server" CssClass="textbox" ID="inputPassword" TextMode="password" />
@@ -31,18 +30,27 @@
     </tr>
     <tr>
      <td class="table_tr_td_label">
+      re-type password:
      </td>
      <td valign="top" class="table_tr_td_value">
-      <asp:CheckBox runat="server" CssClass="checkbox" ID="inputRememberMe" Text="remember me"
-       Checked="false" />
+      <asp:TextBox runat="server" CssClass="textbox" ID="inputPassword2" TextMode="password" />
      </td>
     </tr>
     <tr>
      <td class="table_tr_td_label">
      </td>
      <td valign="top" class="table_tr_td_value">
-      <Controls:WorkingButton runat="server" ID="button" Text="Login" CssClass="button"
-       OnClick="button_Click" />
+      <div class="description">
+       An e-mail with a link to reset your password will be sent to your registered e-mail address.
+      </div>
+     </td>
+    </tr>
+    <tr>
+     <td class="table_tr_td_label">
+     </td>
+     <td valign="top" class="table_tr_td_value">
+      <Controls:WorkingButton runat="server" ID="reset" Text="Reset" CssClass="button"
+       OnClick="reset_Click" />
      </td>
     </tr>
    </table>

@@ -8,7 +8,7 @@
   Image Comment
  </div>
  <div class="link">
-  <asp:Hyperlink ID="linkCancel" runat="server" Text="Cancel" />
+  <asp:Hyperlink ID="linkCancel" runat="server" Text="&#171; Cancel" />
  </div>
  <table class="table" cellpadding="2">
   <tr>

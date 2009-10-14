@@ -68,6 +68,7 @@
     <Compile Include="ManagedAtomFeed.cs" />
     <Compile Include="ManagedAtomPostFeed.cs" />
     <Compile Include="ManagedFeed.cs" />
+    <Compile Include="ManagedPostComment.cs" />
     <Compile Include="ManagedReferrerHostRollup.cs" />
     <Compile Include="ManagedRssFeed.cs" />
     <Compile Include="ManagedZenFlashGalleryFeed.cs" />

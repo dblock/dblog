@@ -1,16 +1,13 @@
 using System;
 using System.Data;
 using System.Data.SqlClient;
-using Microsoft.Web.Services3;
-using Microsoft.Web.Services3.Messaging;
-using Microsoft.Web.Services3.Design;
 using System.Web.Services.Protocols;
 using System.Diagnostics;
 using System.Web.Hosting;
 
 namespace DBlog.Data.Hibernate
 {
-    public class WebService : SoapService
+    public class WebService : System.Web.Services.WebService
     {
         private EventLog mEventLog = null;
 
@@ -44,8 +41,8 @@ namespace DBlog.Data.Hibernate
         public static IDbConnection GetNewConnection()
         {
             return new SqlConnection(
-             Session.Configuration.GetProperty(
-              "hibernate.connection.connection_string"));
+                DBlog.Data.Hibernate.Session.Configuration.GetProperty(
+                    "hibernate.connection.connection_string"));
         }
     }
 }

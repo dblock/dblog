@@ -88,8 +88,8 @@ public class BlogPage : DBlog.Tools.Web.Page
         if (Master == null) throw new Exception(message);
         object notice = Master.FindControl("noticeMenu");
         if (notice == null) throw new Exception(message);
-        notice.GetType().GetProperty("Info").SetValue(notice, message, null);
         notice.GetType().GetProperty("HtmlEncode").SetValue(notice, htmlencode, null);
+        notice.GetType().GetProperty("Info").SetValue(notice, message, null);
     }
 
     public void ReportInfo(string message)

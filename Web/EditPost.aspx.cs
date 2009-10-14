@@ -73,7 +73,7 @@ public partial class EditPost : BlogAdminPage
                     GetDataImages(sender, e);
                     GetDataLogins(sender, e);
                     inputTitle.Text = Post.Title;
-                    inputBody.Text = Post.RawBody;
+                    inputBody.Content = Post.RawBody;
                     inputTopic.Items.FindByValue(Post.TopicId.ToString()).Selected = true;
                     inputCreatedDate.SelectedDate = SessionManager.Region.UtcToUser(Post.Created).Date;
                     inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(Post.Created).TimeOfDay;
@@ -144,7 +144,7 @@ public partial class EditPost : BlogAdminPage
         {
             Post.Title = CheckInput("Title", inputTitle.Text);
             Post.TopicId = CheckInput("Topic", int.Parse(inputTopic.SelectedValue));
-            Post.Body = inputBody.Text;
+            Post.Body = inputBody.Content;
             Post.Publish = inputPublish.Checked;
             Post.Display = inputDisplay.Checked;
             Post.Sticky = inputSticky.Checked;

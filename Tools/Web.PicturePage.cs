@@ -9,6 +9,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.HtmlControls;
 using System.IO;
 using DBlog.Tools.Drawing;
+using System.Threading;
 
 namespace DBlog.Tools.Web
 {
@@ -153,6 +154,10 @@ namespace DBlog.Tools.Web
                 Response.AddHeader("Modified", p.Modified.ToString("r"));
                 Response.BinaryWrite(p.Bitmap);
                 Response.End();
+            }
+            catch (ThreadAbortException)
+            {
+
             }
             catch (Exception ex)
             {

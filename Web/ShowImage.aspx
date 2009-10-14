@@ -10,7 +10,7 @@
     <asp:Label ID="labelName" runat="server" />
    </div>
    <div class="subtitle">
-    <asp:HyperLink ID="linkBack" runat="server" text="Back" />
+    <asp:HyperLink ID="linkBack" runat="server" text="&#171; Back" />
     | <asp:HyperLink ID="linkComment" runat="server" text="Post Comment" />
     | <asp:Label ID="labelCount" runat="server" />
     | <asp:LinkButton ID="linkEXIF" runat="server" OnClick="linkEXIF_Click" Text="EXIF" />

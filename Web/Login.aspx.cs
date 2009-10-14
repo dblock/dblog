@@ -39,6 +39,7 @@ public partial class BlogLogin : BlogPage
             if (!IsPostBack)
             {
                 linkNewUser.NavigateUrl = string.Format("EditLogin.aspx?r={0}", Renderer.UrlEncode(ReturnUrl));
+                inputUsername.Text = Request["username"];
 
                 switch (AccessDeniedType)
                 {
@@ -48,7 +49,8 @@ public partial class BlogLogin : BlogPage
                         break;
                     case AccessType.User:
                         linkNewUser.Enabled = true;
-                        ReportInfo("You must be logged-in to open this page. Please register first.");
+                        ReportInfo(string.Format("You must be logged-in to open this page. Please <a href='{0}'>register</a> first.",
+                            linkNewUser.NavigateUrl), false);
                         break;
                     case AccessType.Denied:
                         linkNewUser.Enabled = false;
@@ -104,5 +106,11 @@ public partial class BlogLogin : BlogPage
         {
             return false;
         }
+    }
+
+    protected void linkResetPassword_Click(object sender, EventArgs e)
+    {
+        Response.Redirect(string.Format("ResetPasswordEmail.aspx?username={0}", 
+            Renderer.UrlEncode(inputUsername.Text)));
     }
 }

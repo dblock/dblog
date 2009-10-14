@@ -103,6 +103,26 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Send an e-mail to reset the login password.")]
+        public string ResetLoginPasswordEmail(string usernameOrEmail)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                return ManagedLogin.ResetPasswordEmail(session, usernameOrEmail);
+            }
+        }
+
+        [WebMethod(Description = "Reset the login password.")]
+        public void ResetLoginPassword(int id, string hash, string newPassword)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                ManagedLogin.ResetPassword(session, id, hash, newPassword);
+            }
+        }
+
         [WebMethod(Description = "Create or update a login.")]
         public int CreateOrUpdateLogin(string ticket, TransitLogin t_login)
         {
@@ -1652,6 +1672,8 @@ namespace DBlog.WebServices
                     post_comment.Comment = comment;
                     session.SaveOrUpdate(post_comment);
                 }
+
+                ManagedPostComment.Notify(post_comment);
 
                 session.Flush();
                 return comment.Id;

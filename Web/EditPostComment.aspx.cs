@@ -12,6 +12,7 @@ using System.Collections.Generic;
 using DBlog.TransitData;
 using System.IO;
 using System.Collections.ObjectModel;
+using DBlog.Tools.Web;
 
 public partial class EditPostComment : BlogUserPage
 {
@@ -43,7 +44,16 @@ public partial class EditPostComment : BlogUserPage
 
                 if (RequestId > 0)
                 {
-                    inputText.Text = PostComment.CommentText;
+                    inputText.Content = PostComment.CommentText;
+                }
+
+                if (SessionManager.PostLoginRecord != null)
+                {
+                    labelPostUsername.Text = string.Format("<b>{0}</b> ({1})", Renderer.Render(
+                        string.IsNullOrEmpty(SessionManager.PostLoginRecord.Name)
+                            ? SessionManager.PostLoginRecord.Username
+                            : SessionManager.PostLoginRecord.Name),
+                            Renderer.Render(SessionManager.PostLoginRecord.Email));
                 }
             }
         }
@@ -72,7 +82,7 @@ public partial class EditPostComment : BlogUserPage
         {
             TransitComment t_comment = new TransitComment();
             t_comment.Id = RequestId;
-            t_comment.Text = CheckInput("Comment", inputText.Text);
+            t_comment.Text = CheckInput("Comment", inputText.Content);
             t_comment.IpAddress = Request.ServerVariables["REMOTE_ADDR"];
             t_comment.ParentCommentId = GetId("pid");
             PostComment.Id = SessionManager.BlogService.CreateOrUpdatePostComment(

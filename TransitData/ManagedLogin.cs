@@ -9,6 +9,8 @@ using NHibernate;
 using NHibernate.Expression;
 using System.Text;
 using System.Web.Services.Protocols;
+using System.Net.Mail;
+using DBlog.Tools.Web;
 
 namespace DBlog.TransitData
 {
@@ -27,8 +29,8 @@ namespace DBlog.TransitData
         {
             if (string.IsNullOrEmpty(ticket)) return false;
             int id = GetLoginId(ticket);
-            DBlog.Data.Login login = (DBlog.Data.Login) session.Load(typeof(DBlog.Data.Login), id);
-            return ((TransitLoginRole) Enum.Parse(typeof(TransitLoginRole), login.Role) == TransitLoginRole.Administrator);
+            DBlog.Data.Login login = (DBlog.Data.Login)session.Load(typeof(DBlog.Data.Login), id);
+            return ((TransitLoginRole)Enum.Parse(typeof(TransitLoginRole), login.Role) == TransitLoginRole.Administrator);
         }
 
         public static int GetLoginId(string ticket)
@@ -69,6 +71,67 @@ namespace DBlog.TransitData
             return Convert.ToBase64String(
                 new MD5CryptoServiceProvider().ComputeHash(
                     Encoding.Default.GetBytes(password)));
+        }
+
+        #endregion
+
+        #region Password
+
+        public static string ResetPasswordEmail(ISession session, string usernameOrEmail)
+        {
+            Login login = session.CreateCriteria(typeof(Login))
+                .Add(Expression.Eq("Email", usernameOrEmail))
+                .UniqueResult<Login>();
+
+            if (login == null)
+            {
+                login = session.CreateCriteria(typeof(Login))
+                    .Add(Expression.Eq("Username", usernameOrEmail))
+                    .UniqueResult<Login>();
+            }
+
+            if (login == null)
+            {
+                throw new Exception(string.Format("No user with e-mail or username '{0}' found.",
+                    usernameOrEmail));
+            }
+
+            if (string.IsNullOrEmpty(login.Email))
+            {
+                throw new Exception(string.Format("User '{0}' does not have a registered e-mail address.",
+                    usernameOrEmail));
+            }
+
+            MailMessage message = new MailMessage();
+            message.From = new MailAddress(ConfigurationManager.AppSettings["Email"]);
+            message.To.Add(new MailAddress(login.Email));
+            message.Subject = string.Format("{0} Password Reset", ConfigurationManager.AppSettings["Url"]);
+            message.IsBodyHtml = true;
+            message.Body = string.Format("Please <a href='{0}ResetPassword.aspx?id={1}&username={2}&hash={3}'>click here</a> to reset your login password.",
+                ConfigurationManager.AppSettings["Url"], login.Id, login.Email, Renderer.UrlEncode(GetPasswordHash(login.Password)));
+
+            SmtpClient client = new SmtpClient();
+            client.Send(message);
+            return login.Email;
+        }
+
+        public static void ResetPassword(ISession session, int id, string hash, string newPassword)
+        {
+            Login login = session.Load<Login>(id);
+
+            if (login == null)
+            {
+                throw new Exception(string.Format("Invalid login id '{0}'.", id));
+            }
+
+            if (GetPasswordHash(login.Password) != hash)
+            {
+                throw new Exception(string.Format("Invalid hash code '{0}'.", hash));
+            }
+
+            login.Password = GetPasswordHash(newPassword);
+            session.SaveOrUpdate(login);
+            session.Flush();
         }
 
         #endregion
