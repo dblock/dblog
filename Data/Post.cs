@@ -27,8 +27,8 @@ namespace DBlog.Data
         private System.Collections.Generic.IList<PostCounter> m_PostCounters;
         private System.Collections.Generic.IList<PostImage> m_PostImages;
         private System.String m_Title;
-        private Topic m_Topic;
         private System.Collections.Generic.IList<PostLogin> m_PostLogins;
+        private System.Collections.Generic.IList<PostTopic> m_PostTopics;
         private System.Boolean m_Publish;
         private System.Boolean m_Display;
         private System.Boolean m_Sticky;
@@ -280,33 +280,6 @@ namespace DBlog.Data
 
         ///--------------------------------------------------------------------------------
         ///<summary>
-        ///Persistent one-many reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts references to objects of the type 'Topic'.
-        ///This property is part of a 'OneToMany' relationship.
-        ///The inverse property for this property is 'Topic.Posts'.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Topic' that holds the value for this property is 'PrivateAccess'.
-        ///
-        ///Mapping information:
-        ///The property maps to the column 'Topic_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public virtual Topic Topic
-        {
-            get
-            {
-                return m_Topic;
-            }
-            set
-            {
-                m_Topic = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
         ///Persistent many-one reference property.
         ///</summary>
         ///<remarks>
@@ -333,6 +306,37 @@ namespace DBlog.Data
             set
             {
                 m_PostLogins = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'PostTopic'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'PostTopic.Post'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_PostTopics' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'PostTopic' table in the data source.
+        ///The property maps to the identity column 'Post_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public virtual System.Collections.Generic.IList<PostTopic> PostTopics
+        {
+            get
+            {
+                return m_PostTopics;
+            }
+            set
+            {
+                m_PostTopics = value;
             }
         }
 

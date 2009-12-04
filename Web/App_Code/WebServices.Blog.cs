@@ -973,6 +973,11 @@ namespace DBlog.WebServices
                 post.Modified = DateTime.UtcNow;
                 if (post.Id == 0) post.Created = post.Modified;
                 session.SaveOrUpdate(post);
+                List<PostTopic> postTopicsToBeCreated = null;
+                List<PostTopic> postTopicsToBeDeleted = null;
+                TransitTopic.MergeTo(session, post, t_post.Topics, out postTopicsToBeCreated, out postTopicsToBeDeleted);
+                foreach (PostTopic postTopic in postTopicsToBeCreated) session.Save(postTopic);
+                foreach (PostTopic postTopic in postTopicsToBeDeleted) session.Delete(postTopic);
                 session.Flush();
                 return post.Id;
             }

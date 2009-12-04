@@ -71,6 +71,17 @@ public partial class AtomBlog : BlogPage
         }
     }
 
+    public string GetCategories(TransitTopic[] topics)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (TransitTopic topic in topics)
+        {
+            sb.AppendFormat("<category term=\"{0}\" />",
+                Renderer.Render(topic.Name));
+        }
+        return sb.ToString();
+    }
+
     protected override void Render(HtmlTextWriter writer)
     {
         Response.ContentType = "text/xml";

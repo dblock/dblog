@@ -41,6 +41,16 @@ public partial class RssBlog : BlogPage
         return title;
     }
 
+    public string GetCategories(TransitTopic[] topics)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (TransitTopic topic in topics)
+        {
+            sb.AppendFormat("<category>{0}</category>", Renderer.Render(topic.Name));
+        }
+        return sb.ToString();
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try

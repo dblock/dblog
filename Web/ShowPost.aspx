@@ -4,6 +4,9 @@
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="TransitData" Namespace="DBlog.TransitData" Assembly="DBlog.Tools" %>
+
+<%@ Import Namespace="DBlog.TransitData" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <table class="table_post">
   <tr>
@@ -15,6 +18,7 @@
      <asp:UpdatePanel runat="server" ID="panelButtons" UpdateMode="Always" RenderMode="Inline">
       <ContentTemplate>
        <a href="ShowBlog.aspx">Back</a> |
+       <asp:Label ID="posttopics" runat="server" /> |
        <asp:Label ID="postcreated" runat="server" /> |
        <asp:Label ID="postcounter" runat="server" /> |
        <asp:Hyperlink ID="linkComment" runat="server" Text="Post Comment" /> |

@@ -630,7 +630,6 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Po
 BEGIN
 CREATE TABLE [dbo].[Post](
 	[Post_Id] [int] IDENTITY(1,1) NOT NULL,
-	[Topic_Id] [int] NOT NULL,
 	[Login_Id] [int] NOT NULL,
 	[Title] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[Body] [ntext] COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -818,6 +817,70 @@ ALTER TABLE [dbo].[PostLogin] ADD  CONSTRAINT [PK_PostLogin] PRIMARY KEY CLUSTER
 (
 	[PostLogin_Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PostTopic]') AND type in (N'U'))
+BEGIN
+CREATE TABLE [dbo].[PostTopic](
+	[PostTopic_Id] [int] IDENTITY(1,1) NOT NULL,
+	[Post_Id] [int] NOT NULL,
+	[Topic_Id] [int] NOT NULL,
+ CONSTRAINT [PK_PostTopic] PRIMARY KEY CLUSTERED 
+(
+	[PostTopic_Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[PostTopic]') AND name = N'IX_PostTopic_Post_Id')
+CREATE NONCLUSTERED INDEX [IX_PostTopic_Post_Id] ON [dbo].[PostTopic] 
+(
+	[Post_Id] DESC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[PostTopic]') AND name = N'IX_PostTopic_Topic_Id')
+CREATE NONCLUSTERED INDEX [IX_PostTopic_Topic_Id] ON [dbo].[PostTopic] 
+(
+	[Topic_Id] DESC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[PostTopic]') AND name = N'UK_PostTopic')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_PostTopic] ON [dbo].[PostTopic] 
+(
+	[Post_Id] DESC,
+	[Topic_Id] DESC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[PostTopic]') AND name = N'IX_PostTopic_Post_Id')
+CREATE NONCLUSTERED INDEX [IX_PostTopic_Post_Id] ON [dbo].[PostTopic] 
+(
+	[Post_Id] DESC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[PostTopic]') AND name = N'IX_PostTopic_Topic_Id')
+CREATE NONCLUSTERED INDEX [IX_PostTopic_Topic_Id] ON [dbo].[PostTopic] 
+(
+	[Topic_Id] DESC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[PostTopic]') AND name = N'PK_PostTopic')
+ALTER TABLE [dbo].[PostTopic] ADD  CONSTRAINT [PK_PostTopic] PRIMARY KEY CLUSTERED 
+(
+	[PostTopic_Id] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[PostTopic]') AND name = N'UK_PostTopic')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_PostTopic] ON [dbo].[PostTopic] 
+(
+	[Post_Id] DESC,
+	[Topic_Id] DESC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
 SET ANSI_NULLS ON
 GO
@@ -1190,12 +1253,6 @@ REFERENCES [dbo].[Login] ([Login_Id])
 GO
 ALTER TABLE [dbo].[Post] CHECK CONSTRAINT [FK_Post_Login]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Post_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[Post]'))
-ALTER TABLE [dbo].[Post]  WITH CHECK ADD  CONSTRAINT [FK_Post_Topic] FOREIGN KEY([Topic_Id])
-REFERENCES [dbo].[Topic] ([Topic_Id])
-GO
-ALTER TABLE [dbo].[Post] CHECK CONSTRAINT [FK_Post_Topic]
-GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Comment] FOREIGN KEY([Comment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
@@ -1243,6 +1300,19 @@ ALTER TABLE [dbo].[PostLogin]  WITH CHECK ADD  CONSTRAINT [FK_PostLogin_Post] FO
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
 ALTER TABLE [dbo].[PostLogin] CHECK CONSTRAINT [FK_PostLogin_Post]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
+ALTER TABLE [dbo].[PostTopic]  WITH CHECK ADD  CONSTRAINT [FK_PostTopic_Post] FOREIGN KEY([Post_Id])
+REFERENCES [dbo].[Post] ([Post_Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[PostTopic] CHECK CONSTRAINT [FK_PostTopic_Post]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
+ALTER TABLE [dbo].[PostTopic]  WITH CHECK ADD  CONSTRAINT [FK_PostTopic_Topic] FOREIGN KEY([Topic_Id])
+REFERENCES [dbo].[Topic] ([Topic_Id])
+GO
+ALTER TABLE [dbo].[PostTopic] CHECK CONSTRAINT [FK_PostTopic_Topic]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment] FOREIGN KEY([Comment_Id])
@@ -1335,12 +1405,6 @@ REFERENCES [dbo].[Login] ([Login_Id])
 GO
 ALTER TABLE [dbo].[Post] CHECK CONSTRAINT [FK_Post_Login]
 GO
-IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Post_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[Post]'))
-ALTER TABLE [dbo].[Post]  WITH CHECK ADD  CONSTRAINT [FK_Post_Topic] FOREIGN KEY([Topic_Id])
-REFERENCES [dbo].[Topic] ([Topic_Id])
-GO
-ALTER TABLE [dbo].[Post] CHECK CONSTRAINT [FK_Post_Topic]
-GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Comment] FOREIGN KEY([Comment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
@@ -1388,6 +1452,19 @@ ALTER TABLE [dbo].[PostLogin]  WITH CHECK ADD  CONSTRAINT [FK_PostLogin_Post] FO
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
 ALTER TABLE [dbo].[PostLogin] CHECK CONSTRAINT [FK_PostLogin_Post]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
+ALTER TABLE [dbo].[PostTopic]  WITH CHECK ADD  CONSTRAINT [FK_PostTopic_Post] FOREIGN KEY([Post_Id])
+REFERENCES [dbo].[Post] ([Post_Id])
+ON DELETE CASCADE
+GO
+ALTER TABLE [dbo].[PostTopic] CHECK CONSTRAINT [FK_PostTopic_Post]
+GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
+ALTER TABLE [dbo].[PostTopic]  WITH CHECK ADD  CONSTRAINT [FK_PostTopic_Topic] FOREIGN KEY([Topic_Id])
+REFERENCES [dbo].[Topic] ([Topic_Id])
+GO
+ALTER TABLE [dbo].[PostTopic] CHECK CONSTRAINT [FK_PostTopic_Topic]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment] FOREIGN KEY([Comment_Id])

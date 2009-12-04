@@ -164,6 +164,8 @@ public partial class ShowBlog : BlogPage
         grid.DataSource = SessionManager.GetCachedCollection<TransitPost>(
             (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPosts" : "GetPostsEx",
             SessionManager.PostTicket, options);
+
+        GetCriteria();
     }
 
     private TransitPostQueryOptions GetOptions()
@@ -212,6 +214,45 @@ public partial class ShowBlog : BlogPage
 
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
+    }
+
+    private void GetCriteria()
+    {
+        StringBuilder queryText = new StringBuilder();
+        if (!string.IsNullOrEmpty(Query))
+        {
+            queryText.AppendFormat("Searching for \"{0}\"", Renderer.Render(Query));
+            if (TopicId != 0) queryText.AppendFormat(" in \"{0}\"", Renderer.Render(
+                SessionManager.GetCachedObject<TransitTopic>("GetTopicById", SessionManager.Ticket, TopicId).Name));
+            queryText.Append(" ...");
+        }
+        else if (TopicId > 0)
+        {
+            queryText.AppendFormat("{0} post{1} in \"{2}\" ...", grid.VirtualItemCount,
+                grid.VirtualItemCount == 1 ? "" : "s", Renderer.Render(
+                SessionManager.GetCachedObject<TransitTopic>("GetTopicById", SessionManager.Ticket, TopicId).Name));
+        }
+
+        if (queryText.Length > 0)
+        {
+            labelCriteria.Text = queryText.ToString();
+            labelCriteria.Visible = true;
+        }
+        else
+        {
+            labelCriteria.Visible = false;
+        }
+    }
+
+    public string GetTopics(TransitTopic[] topics)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (TransitTopic topic in topics)
+        {
+            if (sb.Length != 0) sb.Append(", ");
+            sb.Append(Renderer.Render(topic.Name));
+        }
+        return sb.ToString();
     }
 
     public void grid_ItemCommand(object source, DataGridCommandEventArgs e)

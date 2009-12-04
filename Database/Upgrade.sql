@@ -31,3 +31,10 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Export')
 ALTER TABLE dbo.Post ADD [Export] bit NOT NULL DEFAULT 0
 GO
+-- 03/12/2009: posts can have multiple topics
+IF EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Topic_Id')
+INSERT INTO PostTopic ( Post_Id, Topic_Id) 
+SELECT Post_Id, Topic_Id FROM Post
+ALTER TABLE dbo.Post DROP CONSTRAINT FK_Post_Topic
+ALTER TABLE dbo.Post DROP COLUMN Topic_Id 
+GO

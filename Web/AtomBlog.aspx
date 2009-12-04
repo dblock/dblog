@@ -1,6 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="AtomBlog.aspx.cs"
  Inherits="AtomBlog" Title="Atom Blog" %>
-
+<%@ Import Namespace="DBlog.TransitData" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <feed xml:lang="en-us" version="0.3" xmlns="http://purl.org/atom/ns#">
  <title><% Response.Write(GetRssTitle()); %></title>
@@ -16,6 +16,7 @@
      <author>
       <name><%# SessionManager.GetSetting("author", string.Empty) %></name>
      </author>
+     <%# GetCategories((TransitTopic[]) Eval("Topics")) %>
      <content type="text/html" mode="xhtml">
       <body xmlns="http://www.w3.org/1999/xhtml">
        <![CDATA[

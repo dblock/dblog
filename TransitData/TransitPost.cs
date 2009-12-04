@@ -127,7 +127,8 @@ namespace DBlog.TransitData
         {
             if (TopicId != 0)
             {
-                criteria.Add(string.Format("Post.Topic_Id = {0}", TopicId));
+                criteria.Add(string.Format("EXISTS (SELECT * FROM PostTopic WHERE PostTopic.Post_Id = Post.Post_Id AND PostTopic.Topic_Id = {0})",
+                    TopicId));
             }
 
             if (!string.IsNullOrEmpty(Query))
@@ -163,7 +164,8 @@ namespace DBlog.TransitData
         {
             if (TopicId != 0)
             {
-                criteria.Add(Expression.Eq("Topic.Id", TopicId));
+                criteria.Add(Expression.Sql(string.Format("EXISTS ( SELECT * FROM PostTopic t WHERE t.Post_Id = this_.Post_Id AND t.Topic_Id = {0})",
+                    TopicId)));
             }
 
             if (DateStart != DateTime.MinValue)
@@ -193,7 +195,8 @@ namespace DBlog.TransitData
         {
             if (TopicId != 0)
             {
-                query.Add(Expression.Eq("Topic.Id", TopicId));
+                query.Add(Expression.Sql(string.Format("EXISTS ( SELECT * FROM PostTopic t WHERE t.Post_Id = this_.Post_Id AND t.Topic_Id = {0})",
+                    TopicId)));
             }
 
             if (DateStart != DateTime.MinValue)
@@ -222,6 +225,20 @@ namespace DBlog.TransitData
 
     public class TransitPost : TransitObject
     {
+        private TransitTopic[] mTopics;
+
+        public TransitTopic[] Topics
+        {
+            get
+            {
+                return mTopics;
+            }
+            set
+            {
+                mTopics = value;
+            }
+        }
+
         private bool mHasAccess = true;
 
         public bool HasAccess
@@ -327,34 +344,6 @@ namespace DBlog.TransitData
             set
             {
                 mBody = value;
-            }
-        }
-
-        private string mTopicName;
-
-        public string TopicName
-        {
-            get
-            {
-                return mTopicName;
-            }
-            set
-            {
-                mTopicName = value;
-            }
-        }
-
-        private int mTopicId;
-
-        public int TopicId
-        {
-            get
-            {
-                return mTopicId;
-            }
-            set
-            {
-                mTopicId = value;
             }
         }
 
@@ -518,8 +507,6 @@ namespace DBlog.TransitData
             }
 
             LoginId = o.Login.Id;
-            TopicId = o.Topic.Id;
-            TopicName = o.Topic.Name;
 
             if (o.PostImages != null && o.PostImages.Count > 0)
             {
@@ -530,6 +517,17 @@ namespace DBlog.TransitData
                     ImageId = ((PostImage)TransitObject.GetRandomElement(o.PostImages)).Image.Id;
                 }
             }
+
+            // topics
+            List<TransitTopic> topics = new List<TransitTopic>();
+            if (o.PostTopics != null)
+            {
+                foreach (PostTopic postTopic in o.PostTopics)
+                {
+                    topics.Add(new TransitTopic(postTopic.Topic));
+                }
+            }
+            mTopics = topics.ToArray();
 
             Created = o.Created;
             Modified = o.Modified;
@@ -563,7 +561,6 @@ namespace DBlog.TransitData
             post.Body = Body;
             post.Created = Created;
             post.Login = (LoginId > 0) ? (Login)session.Load(typeof(Login), LoginId) : null;
-            post.Topic = (Topic)session.Load(typeof(Topic), TopicId);
             post.Publish = Publish;
             post.Display = Display;
             post.Sticky = Sticky;

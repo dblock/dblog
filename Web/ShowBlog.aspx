@@ -7,10 +7,15 @@
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 
+<%@ Import Namespace="DBlog.TransitData" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
   <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelPosts" RenderMode="Inline">
    <ContentTemplate>
     <asp:Label ID="labelPosts" CssClass="title" runat="server" Visible="false" />
+    <div>
+        <asp:Label ID="labelCriteria" CssClass="subtitle" runat="server" Visible="false" />
+    </div>
     <Controls:PagedGrid runat="server" ID="grid" CssClass="table" 
      AutoGenerateColumns="false" AllowPaging="true" AllowCustomPaging="true" 
      PageSize="7" ShowHeader="false" OnItemCommand="grid_ItemCommand" 
@@ -42,6 +47,7 @@
          <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
           Read
          </a>
+         | <%# GetTopics((TransitTopic[]) Eval("Topics")) %>
          | <%# SessionManager.Region.UtcToUser((DateTime) Eval("Created")).ToString("f") %>
          <%# GetLink((int)Eval("CommentsCount"), (int)Eval("ImagesCount"))%>
          <span id="SpanEditComment" runat="server" style='<%# (bool) Eval("HasAccess") ? String.Empty : "display: none;" %>'>

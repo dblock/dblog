@@ -129,6 +129,7 @@ public partial class ShowPost : BlogPage
 
         Title = posttitle.Text = Renderer.Render(post.Title);
         postbody.Text = RenderEx(post.Body, post.Id);
+        posttopics.Text = GetTopics(post.Topics);
         postcreated.Text = post.Created.ToString("d");
         postcounter.Text = string.Format("{0} Click{1}", post.Counter.Count,
             post.Counter.Count != 1 ? "s" : string.Empty);
@@ -138,6 +139,17 @@ public partial class ShowPost : BlogPage
 
         GetImagesData(sender, e);
         GetCommentsData(sender, e);
+    }
+
+    public string GetTopics(TransitTopic[] topics)
+    {
+        StringBuilder sb = new StringBuilder();
+        foreach (TransitTopic topic in topics)
+        {
+            if (sb.Length != 0) sb.Append(", ");
+            sb.Append(Renderer.Render(topic.Name));
+        }
+        return sb.ToString();
     }
 
     void GetCommentsData(object sender, EventArgs e)

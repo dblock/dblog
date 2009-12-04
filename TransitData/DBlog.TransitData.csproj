@@ -95,6 +95,7 @@
     <Compile Include="TransitLogin.cs" />
     <Compile Include="TransitObject.cs" />
     <Compile Include="TransitPostLogin.cs" />
+    <Compile Include="TransitPostTopic.cs" />
     <Compile Include="TransitReference.cs" />
     <Compile Include="TransitReferrerHost.cs" />
     <Compile Include="TransitReferrerHostRollup.cs" />

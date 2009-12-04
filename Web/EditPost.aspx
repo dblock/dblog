@@ -32,11 +32,11 @@
   </tr>
   <tr>
    <td class="table_tr_td_label">
-    topic:
+    topic(s):
    </td>
    <td valign="top" class="table_tr_td_value">
-    <asp:DropDownList DataTextField="Name" DataValueField="Id" runat="server" CssClass="dropdown"
-     ID="inputTopic" />
+    <asp:CheckBoxList SelectionMode="Multiple" DataTextField="Name" DataValueField="Id" runat="server" CssClass="listbox"
+     ID="inputTopic" RepeatColumns="2" />
    </td>
   </tr>
   <tr>

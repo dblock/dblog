@@ -250,10 +250,13 @@
       <one-to-many class="DBlog.Data.PostImage, DBlog.Data" />
     </bag>
     <property name="Title" column="Title" type="String" />
-    <many-to-one name="Topic" column="Topic_Id" class="DBlog.Data.Topic, DBlog.Data" />
     <bag lazy="true" name="PostLogins" inverse="true">
       <key column="Post_Id" />
       <one-to-many class="DBlog.Data.PostLogin, DBlog.Data" />
+    </bag>
+    <bag lazy="true" name="PostTopics" inverse="true">
+      <key column="Post_Id" />
+      <one-to-many class="DBlog.Data.PostTopic, DBlog.Data" />
     </bag>
     <property name="Publish" column="Publish" type="Boolean" />
     <property name="Display" column="Display" type="Boolean" />
@@ -286,6 +289,13 @@
       <generator class="identity" />
     </id>
     <many-to-one name="Login" column="Login_Id" class="DBlog.Data.Login, DBlog.Data" />
+    <many-to-one name="Post" column="Post_Id" class="DBlog.Data.Post, DBlog.Data" />
+  </class>
+  <class name="DBlog.Data.PostTopic, DBlog.Data" table="PostTopic">
+    <id name="Id" type="Int32" column="PostTopic_Id" access="field.pascalcase-m-underscore">
+      <generator class="identity" />
+    </id>
+    <many-to-one name="Topic" column="Topic_Id" class="DBlog.Data.Topic, DBlog.Data" />
     <many-to-one name="Post" column="Post_Id" class="DBlog.Data.Post, DBlog.Data" />
   </class>
   <class name="DBlog.Data.Reference, DBlog.Data" table="Reference">

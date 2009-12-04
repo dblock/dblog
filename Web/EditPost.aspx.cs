@@ -74,7 +74,10 @@ public partial class EditPost : BlogAdminPage
                     GetDataLogins(sender, e);
                     inputTitle.Text = Post.Title;
                     inputBody.Content = Post.RawBody;
-                    inputTopic.Items.FindByValue(Post.TopicId.ToString()).Selected = true;
+                    foreach (TransitTopic topic in Post.Topics)
+                    {
+                        inputTopic.Items.FindByValue(topic.Id.ToString()).Selected = true;
+                    }
                     inputCreatedDate.SelectedDate = SessionManager.Region.UtcToUser(Post.Created).Date;
                     inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(Post.Created).TimeOfDay;
                     inputPublish.Checked = Post.Publish;
@@ -89,7 +92,6 @@ public partial class EditPost : BlogAdminPage
                     DateTime utcnow = DateTime.UtcNow;
                     inputCreatedDate.SelectedDate = SessionManager.Region.UtcToUser(utcnow).Date;
                     inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(utcnow).TimeOfDay;
-                    inputTopic.Items.Insert(0, new ListItem(string.Empty, "0"));
                     inputPublish.Checked = true;
                     inputDisplay.Checked = true;
                 }
@@ -143,7 +145,20 @@ public partial class EditPost : BlogAdminPage
         try
         {
             Post.Title = CheckInput("Title", inputTitle.Text);
-            Post.TopicId = CheckInput("Topic", int.Parse(inputTopic.SelectedValue));
+           
+            List<TransitTopic> topics = new List<TransitTopic>();
+            foreach (ListItem topic in inputTopic.Items)
+            {
+                if (topic.Selected)
+                {
+                    TransitTopic t_topic = new TransitTopic();
+                    t_topic.Name = topic.Text;
+                    t_topic.Id = int.Parse(topic.Value);
+                    topics.Add(t_topic);
+                }
+            }
+            Post.Topics = topics.ToArray();
+            
             Post.Body = inputBody.Content;
             Post.Publish = inputPublish.Checked;
             Post.Display = inputDisplay.Checked;

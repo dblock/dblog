@@ -21,14 +21,9 @@ namespace DBlog.Web.UnitTests.WebServices
         [Test]
         public void CreateSecurePostTest()
         {
-            TransitTopic t_topic = new TransitTopic();
-            t_topic.Name = Guid.NewGuid().ToString();
-            t_topic.Id = Blog.CreateOrUpdateTopic(Ticket, t_topic);
-
             TransitPost t_post = new TransitPost();
             t_post.Body = Guid.NewGuid().ToString();
             t_post.Title = Guid.NewGuid().ToString();
-            t_post.TopicId = t_topic.Id;
             t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
             Assert.Greater(t_post.Id, 0);
 
@@ -90,7 +85,6 @@ namespace DBlog.Web.UnitTests.WebServices
             Assert.IsFalse(string.IsNullOrEmpty(t_comment_authorized.Text), "Authorized comment didn't return data.");
 
             Blog.DeletePost(Ticket, t_post.Id);
-            Blog.DeleteTopic(Ticket, t_topic.Id);
         }
 
     }

@@ -1,6 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="RssBlog.aspx.cs"
  Inherits="RssBlog" Title="Rss Blog" %>
-
+<%@ Import Namespace="DBlog.TransitData" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <rss version="2.0">
   <channel>
@@ -26,7 +26,7 @@
           <%# Eval("BodyXHTML") %>
          ]]>
        </description>
-       <category><%# Renderer.Render(Eval("TopicName")) %></category>
+       <%# GetCategories((TransitTopic[]) Eval("Topics")) %>
        <link><%# SessionManager.GetSetting("url", string.Empty) %>ShowPost.aspx?Id=<%# Eval("Id") %></link>
        <guid isPermaLink="false"><%# SessionManager.GetSetting("url", string.Empty) %>Post/<%# Eval("Id") %></guid>
       </item>
