@@ -85,7 +85,7 @@ public partial class AtomPost : BlogPage
         {
             atomEntry.Categories.Add(new AtomCategory(topic.Name));
         }
-        atomEntry.Content = new AtomContent(post.Body, "html");
+        atomEntry.Content = new AtomContent(post.BodyXHTML, "html");
         atomEntry.PublishedOn = post.Created;
         atomEntry.UpdatedOn = post.Modified;
         atomEntry.Id = new AtomId(new Uri(string.Format("{0}Post/{1}", SessionManager.WebsiteUrl, post.Id)));
