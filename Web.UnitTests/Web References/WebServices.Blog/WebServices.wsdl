@@ -2,6 +2,43 @@
 <wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://dblock.org/ns/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" targetNamespace="http://dblock.org/ns/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <s:schema elementFormDefault="qualified" targetNamespace="http://dblock.org/ns/">
+      <s:element name="CreateOrUpdatePostComment">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="post_id" type="s:int" />
+            <s:element minOccurs="0" maxOccurs="1" name="t_comment" type="tns:TransitComment" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="TransitComment">
+        <s:complexContent mixed="false">
+          <s:extension base="tns:TransitObject">
+            <s:sequence>
+              <s:element minOccurs="1" maxOccurs="1" name="ParentCommentId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="IpAddress" type="s:string" />
+              <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
+              <s:element minOccurs="1" maxOccurs="1" name="LoginId" type="s:int" />
+              <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
+              <s:element minOccurs="0" maxOccurs="1" name="LoginWebsite" type="s:string" />
+            </s:sequence>
+          </s:extension>
+        </s:complexContent>
+      </s:complexType>
+      <s:complexType name="TransitObject">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateOrUpdatePostCommentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdatePostCommentResult" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
       <s:element name="GetPostCommentById">
         <s:complexType>
           <s:sequence>
@@ -43,11 +80,6 @@
             </s:sequence>
           </s:extension>
         </s:complexContent>
-      </s:complexType>
-      <s:complexType name="TransitObject">
-        <s:sequence>
-          <s:element minOccurs="1" maxOccurs="1" name="Id" type="s:int" />
-        </s:sequence>
       </s:complexType>
       <s:element name="DeletePostComment">
         <s:complexType>
@@ -171,22 +203,6 @@
           </s:sequence>
         </s:complexType>
       </s:element>
-      <s:complexType name="TransitComment">
-        <s:complexContent mixed="false">
-          <s:extension base="tns:TransitObject">
-            <s:sequence>
-              <s:element minOccurs="1" maxOccurs="1" name="ParentCommentId" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="Text" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="IpAddress" type="s:string" />
-              <s:element minOccurs="1" maxOccurs="1" name="Created" type="s:dateTime" />
-              <s:element minOccurs="1" maxOccurs="1" name="Modified" type="s:dateTime" />
-              <s:element minOccurs="1" maxOccurs="1" name="LoginId" type="s:int" />
-              <s:element minOccurs="0" maxOccurs="1" name="LoginName" type="s:string" />
-              <s:element minOccurs="0" maxOccurs="1" name="LoginWebsite" type="s:string" />
-            </s:sequence>
-          </s:extension>
-        </s:complexContent>
-      </s:complexType>
       <s:element name="CreateOrUpdateImageCommentResponse">
         <s:complexType>
           <s:sequence>
@@ -1058,6 +1074,21 @@
         <s:complexType>
           <s:sequence>
             <s:element minOccurs="0" maxOccurs="1" name="GetTopicByIdResult" type="tns:TransitTopic" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTopicByName">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="name" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetTopicByNameResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetTopicByNameResult" type="tns:TransitTopic" />
           </s:sequence>
         </s:complexType>
       </s:element>
@@ -2324,22 +2355,6 @@
       <s:element name="DeleteCommentResponse">
         <s:complexType />
       </s:element>
-      <s:element name="CreateOrUpdatePostComment">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="0" maxOccurs="1" name="ticket" type="s:string" />
-            <s:element minOccurs="1" maxOccurs="1" name="post_id" type="s:int" />
-            <s:element minOccurs="0" maxOccurs="1" name="t_comment" type="tns:TransitComment" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
-      <s:element name="CreateOrUpdatePostCommentResponse">
-        <s:complexType>
-          <s:sequence>
-            <s:element minOccurs="1" maxOccurs="1" name="CreateOrUpdatePostCommentResult" type="s:int" />
-          </s:sequence>
-        </s:complexType>
-      </s:element>
       <s:element name="GetVersion">
         <s:complexType />
       </s:element>
@@ -2392,6 +2407,12 @@
       </s:element>
     </s:schema>
   </wsdl:types>
+  <wsdl:message name="CreateOrUpdatePostCommentSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdatePostComment" />
+  </wsdl:message>
+  <wsdl:message name="CreateOrUpdatePostCommentSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateOrUpdatePostCommentResponse" />
+  </wsdl:message>
   <wsdl:message name="GetPostCommentByIdSoapIn">
     <wsdl:part name="parameters" element="tns:GetPostCommentById" />
   </wsdl:message>
@@ -2703,6 +2724,12 @@
   </wsdl:message>
   <wsdl:message name="GetTopicByIdSoapOut">
     <wsdl:part name="parameters" element="tns:GetTopicByIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetTopicByNameSoapIn">
+    <wsdl:part name="parameters" element="tns:GetTopicByName" />
+  </wsdl:message>
+  <wsdl:message name="GetTopicByNameSoapOut">
+    <wsdl:part name="parameters" element="tns:GetTopicByNameResponse" />
   </wsdl:message>
   <wsdl:message name="CreateOrUpdateTopicSoapIn">
     <wsdl:part name="parameters" element="tns:CreateOrUpdateTopic" />
@@ -3130,12 +3157,6 @@
   <wsdl:message name="DeleteCommentSoapOut">
     <wsdl:part name="parameters" element="tns:DeleteCommentResponse" />
   </wsdl:message>
-  <wsdl:message name="CreateOrUpdatePostCommentSoapIn">
-    <wsdl:part name="parameters" element="tns:CreateOrUpdatePostComment" />
-  </wsdl:message>
-  <wsdl:message name="CreateOrUpdatePostCommentSoapOut">
-    <wsdl:part name="parameters" element="tns:CreateOrUpdatePostCommentResponse" />
-  </wsdl:message>
   <wsdl:message name="GetVersionSoapIn">
     <wsdl:part name="parameters" element="tns:GetVersion" />
   </wsdl:message>
@@ -3167,6 +3188,11 @@
     <wsdl:part name="parameters" element="tns:GetUptimeResponse" />
   </wsdl:message>
   <wsdl:portType name="BlogSoap">
+    <wsdl:operation name="CreateOrUpdatePostComment">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a post comment.</wsdl:documentation>
+      <wsdl:input message="tns:CreateOrUpdatePostCommentSoapIn" />
+      <wsdl:output message="tns:CreateOrUpdatePostCommentSoapOut" />
+    </wsdl:operation>
     <wsdl:operation name="GetPostCommentById">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a post comment.</wsdl:documentation>
       <wsdl:input message="tns:GetPostCommentByIdSoapIn" />
@@ -3426,6 +3452,11 @@
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a topic.</wsdl:documentation>
       <wsdl:input message="tns:GetTopicByIdSoapIn" />
       <wsdl:output message="tns:GetTopicByIdSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetTopicByName">
+      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Get a topic by name.</wsdl:documentation>
+      <wsdl:input message="tns:GetTopicByNameSoapIn" />
+      <wsdl:output message="tns:GetTopicByNameSoapOut" />
     </wsdl:operation>
     <wsdl:operation name="CreateOrUpdateTopic">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a topic.</wsdl:documentation>
@@ -3782,11 +3813,6 @@
       <wsdl:input message="tns:DeleteCommentSoapIn" />
       <wsdl:output message="tns:DeleteCommentSoapOut" />
     </wsdl:operation>
-    <wsdl:operation name="CreateOrUpdatePostComment">
-      <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">Create or update a post comment.</wsdl:documentation>
-      <wsdl:input message="tns:CreateOrUpdatePostCommentSoapIn" />
-      <wsdl:output message="tns:CreateOrUpdatePostCommentSoapOut" />
-    </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <wsdl:documentation xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">System version.</wsdl:documentation>
       <wsdl:input message="tns:GetVersionSoapIn" />
@@ -3815,6 +3841,15 @@
   </wsdl:portType>
   <wsdl:binding name="BlogSoap" type="tns:BlogSoap">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateOrUpdatePostComment">
+      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdatePostComment" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPostCommentById">
       <soap:operation soapAction="http://dblock.org/ns/GetPostCommentById" style="document" />
       <wsdl:input>
@@ -4276,6 +4311,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetTopicById">
       <soap:operation soapAction="http://dblock.org/ns/GetTopicById" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopicByName">
+      <soap:operation soapAction="http://dblock.org/ns/GetTopicByName" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
@@ -4922,15 +4966,6 @@
         <soap:body use="literal" />
       </wsdl:output>
     </wsdl:operation>
-    <wsdl:operation name="CreateOrUpdatePostComment">
-      <soap:operation soapAction="http://dblock.org/ns/CreateOrUpdatePostComment" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
     <wsdl:operation name="GetVersion">
       <soap:operation soapAction="http://dblock.org/ns/GetVersion" style="document" />
       <wsdl:input>
@@ -4979,6 +5014,15 @@
   </wsdl:binding>
   <wsdl:binding name="BlogSoap12" type="tns:BlogSoap">
     <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="CreateOrUpdatePostComment">
+      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdatePostComment" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
     <wsdl:operation name="GetPostCommentById">
       <soap12:operation soapAction="http://dblock.org/ns/GetPostCommentById" style="document" />
       <wsdl:input>
@@ -5440,6 +5484,15 @@
     </wsdl:operation>
     <wsdl:operation name="GetTopicById">
       <soap12:operation soapAction="http://dblock.org/ns/GetTopicById" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetTopicByName">
+      <soap12:operation soapAction="http://dblock.org/ns/GetTopicByName" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>
@@ -6079,15 +6132,6 @@
     </wsdl:operation>
     <wsdl:operation name="DeleteComment">
       <soap12:operation soapAction="http://dblock.org/ns/DeleteComment" style="document" />
-      <wsdl:input>
-        <soap12:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap12:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CreateOrUpdatePostComment">
-      <soap12:operation soapAction="http://dblock.org/ns/CreateOrUpdatePostComment" style="document" />
       <wsdl:input>
         <soap12:body use="literal" />
       </wsdl:input>

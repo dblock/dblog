@@ -16,6 +16,7 @@ using DBlog.TransitData;
 using DBlog.Data.Hibernate;
 using DBlog.Tools.Globalization;
 using System.Diagnostics;
+using System.Text;
 
 public class SessionManager
 {
@@ -91,7 +92,9 @@ public class SessionManager
     {
         get
         {
-            return GetSetting("url", "http://localhost/DBlog");
+            string url = GetSetting("url", String.Empty);
+            if (!url.EndsWith("/")) url += "/";
+            return url;
         }
     }
 
@@ -481,6 +484,31 @@ public class SessionManager
                 mEventLog = HostedApplication.CreateEventLog();
             }
             return mEventLog;
+        }
+    }
+
+    /// <summary>
+    /// Do basic authentication.
+    /// </summary>
+    public bool BasicAuth()
+    {
+        string authHeader = Request.Headers["Authorization"];
+        if (string.IsNullOrEmpty(authHeader))
+            return false;
+        if (! authHeader.StartsWith("basic ", StringComparison.InvariantCultureIgnoreCase))
+            return false;
+        string userNameAndPassword = Encoding.Default.GetString(Convert.FromBase64String(authHeader.Substring(6)));
+        string[] parts = userNameAndPassword.Split(':');
+        if (parts.Length != 2) throw new ManagedLogin.AccessDeniedException();
+        mTicket = mPostTicket = BlogService.Login(parts[0], parts[1]);
+        return true;
+    }
+
+    public string BasicAuthRealm
+    {
+        get
+        {
+            return "DBlog";
         }
     }
 }

@@ -13,6 +13,12 @@ using DBlog.TransitData;
 using DBlog.Tools.Web;
 using System.Text;
 using DBlog.Data.Hibernate;
+using System.IO;
+using System.Xml;
+using Argotic.Extensions.Core;
+using Argotic.Syndication;
+using System.Collections.Generic;
+using System.Threading;
 
 public partial class AtomBlog : BlogPage
 {
@@ -50,25 +56,40 @@ public partial class AtomBlog : BlogPage
                 SessionManager.BlogService.IncrementNamedCounter(
                     SessionManager.Ticket, "Atom", 1);
 
-                TransitPostQueryOptions options = new TransitPostQueryOptions(
-                    GetId("topicid"), string.Empty);
-                options.PageNumber = 0;
-                options.PageSize = 25;
-                options.SortDirection = WebServiceQuerySortDirection.Descending;
-                options.SortExpression = "Created";
-                options.PublishedOnly = true;
-                options.DisplayedOnly = true;
-
-                repeater.DataSource = SessionManager.GetCachedCollection<TransitPost>(
-                    "GetPosts", SessionManager.PostTicket, options);
-                repeater.DataBind();
+                GetPosts(sender, e);
             }
+        }
+        catch (ManagedLogin.AccessDeniedException)
+        {
+            Response.StatusCode = 401;
+            Response.StatusDescription = "Access Denied";
+            Response.AddHeader("WWW-Authenticate", string.Format("BASIC Realm={0}", SessionManager.BasicAuthRealm));
+        }
+        catch (ThreadAbortException)
+        {
+
         }
         catch (Exception ex)
         {
             Response.StatusCode = 400;
-            Response.Status = ex.Message;
+            Response.StatusDescription = ex.Message;
         }
+    }
+
+    private void GetPosts(object sender, EventArgs e)
+    {
+        TransitPostQueryOptions options = new TransitPostQueryOptions(
+            GetId("topicid"), string.Empty);
+        options.PageNumber = 0;
+        options.PageSize = 25;
+        options.SortDirection = WebServiceQuerySortDirection.Descending;
+        options.SortExpression = "Created";
+        options.PublishedOnly = true;
+        options.DisplayedOnly = true;
+
+        repeater.DataSource = SessionManager.GetCachedCollection<TransitPost>(
+            "GetPosts", SessionManager.PostTicket, options);
+        repeater.DataBind();
     }
 
     public string GetCategories(TransitTopic[] topics)

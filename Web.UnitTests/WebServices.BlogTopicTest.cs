@@ -39,5 +39,19 @@ namespace DBlog.Web.UnitTests.WebServices
                 return "Topic";
             }
         }
+
+        [Test]
+        public void TestGetTopicByName()
+        {
+            TransitTopic t_topic = new TransitTopic();
+            t_topic.Name = Guid.NewGuid().ToString();
+            t_topic.Type = Guid.NewGuid().ToString();
+            Assert.IsNull(Blog.GetTopicByName(Ticket, t_topic.Name));
+            t_topic.Id = Blog.CreateOrUpdateTopic(Ticket, t_topic);
+            TransitTopic t_topic_2 = Blog.GetTopicByName(Ticket, t_topic.Name);
+            Assert.IsNotNull(t_topic_2);
+            Assert.AreEqual(t_topic.Name, t_topic_2.Name);
+            Blog.DeleteTopic(Ticket, t_topic.Id);
+        }
     }
 }

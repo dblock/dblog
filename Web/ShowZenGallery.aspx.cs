@@ -32,7 +32,7 @@ public partial class ShowZenGallery : BlogPage
     {
         get
         {
-            return string.Format("{0}/galleries/{1}.xml",
+            return string.Format("{0}galleries/{1}.xml",
                 SessionManager.WebsiteUrl,
                 Topic.Id);
         }

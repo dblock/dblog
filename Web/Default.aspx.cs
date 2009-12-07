@@ -17,10 +17,20 @@ public partial class _Default : BlogPage
         {
             if (!IsPostBack)
             {
+                linkAtomPost.Href = string.Format("{0}AtomSvc.aspx", 
+                    SessionManager.WebsiteUrl);
+                linkAtomPost.Attributes["title"] = string.Format("{0} {1}",
+                    SessionManager.GetSetting("title", "Untitled"),
+                    linkAtom.Attributes["title"]);
+
+                linkAtom.Href = string.Format("{0}AtomBlog.aspx",
+                    SessionManager.WebsiteUrl);
                 linkAtom.Attributes["title"] = string.Format("{0} {1}", 
                     SessionManager.GetSetting("title", "Untitled"),
                     linkAtom.Attributes["title"]);
 
+                linkRss.Href = string.Format("{0}RssBlog.aspx",
+                    SessionManager.WebsiteUrl);
                 linkRss.Attributes["title"] = string.Format("{0} {1}",
                     SessionManager.GetSetting("title", "Untitled"),
                     linkRss.Attributes["title"]);

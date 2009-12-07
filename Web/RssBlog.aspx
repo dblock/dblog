@@ -22,13 +22,13 @@
        <pubDate><%# Renderer.ToRfc822((DateTime) Eval("Created")) %></pubDate>
        <description>
          <![CDATA[
-          <link rel="stylesheet" href='<%# SessionManager.GetSetting("url", string.Empty) %>Style.css' />
+          <link rel="stylesheet" href='<%# SessionManager.WebsiteUrl %>Style.css' />
           <%# Eval("BodyXHTML") %>
          ]]>
        </description>
        <%# GetCategories((TransitTopic[]) Eval("Topics")) %>
-       <link><%# SessionManager.GetSetting("url", string.Empty) %>ShowPost.aspx?Id=<%# Eval("Id") %></link>
-       <guid isPermaLink="false"><%# SessionManager.GetSetting("url", string.Empty) %>Post/<%# Eval("Id") %></guid>
+       <link><%# SessionManager.WebsiteUrl %>ShowPost.aspx?Id=<%# Eval("Id") %></link>
+       <guid isPermaLink="false"><%# SessionManager.WebsiteUrl %>Post/<%# Eval("Id") %></guid>
       </item>
      </ItemTemplate>
     </asp:Repeater>    

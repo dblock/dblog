@@ -8,7 +8,8 @@
  <link rel="stylesheet" href="Style.css" type="text/css">
  <meta http-equiv="refresh" content="2;url=ShowBlog.aspx">
  <link id="linkRss" runat="server" rel="alternate" type="application/rss+xml" title="(RSS)" href="RssBlog.aspx" /> 
- <link id="linkAtom" runat="server" rel="alternate" type="application/atom+xml" title="(Atom)" href="RssBlog.aspx" /> 
+ <link id="linkAtom" runat="server" rel="alternate" type="application/atom+xml" title="(Atom)" href="AtomBlog.aspx" /> 
+ <link id="linkAtomPost" runat="server" rel="service" type="application/atomsvc+xml" href="AtomSvc.aspx">
 </head>
 <body bgcolor="#FFFFFF">
  <center>

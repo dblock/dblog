@@ -150,6 +150,37 @@ namespace DBlog.Web.UnitTests.WebServices
         }
 
         [Test]
+        public void CreatePostWithANewTopicTest()
+        {
+            // topic that doesn't exist
+            TransitTopic t_topic1 = new TransitTopic();
+            t_topic1.Name = Guid.NewGuid().ToString();
+            // topic that exists
+            TransitTopic t_topic2 = new TransitTopic();
+            t_topic2.Name = Guid.NewGuid().ToString();
+            t_topic2.Id = Blog.CreateOrUpdateTopic(Ticket, t_topic2);
+
+            // post
+            TransitPost t_post = new TransitPost();
+            t_post.Body = Guid.NewGuid().ToString();
+            t_post.Title = Guid.NewGuid().ToString();
+            List<TransitTopic> topics = new List<TransitTopic>();
+            topics.Add(t_topic1);
+            topics.Add(t_topic2);
+            t_post.Topics = topics.ToArray();
+            t_post.Publish = true;
+            t_post.Id = Blog.CreateOrUpdatePost(Ticket, t_post);
+            Assert.Greater(t_post.Id, 0);
+
+            TransitPost t_post_retrieved = Blog.GetPostById(Ticket, t_post.Id);
+            Assert.AreEqual(t_post_retrieved.Topics.Length, t_post.Topics.Length);
+
+            Blog.DeletePost(Ticket, t_post.Id);
+            t_topic1.Id = Blog.GetTopicByName(Ticket, t_topic1.Name).Id;
+            Blog.DeleteTopic(Ticket, t_topic2.Id);
+        }
+
+        [Test]
         public void CreatePostWithImageAndCommentTest()
         {
             // post

@@ -279,6 +279,20 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Get a topic by name.")]
+        public TransitTopic GetTopicByName(string ticket, string name)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                Topic topic = session.CreateCriteria(typeof(Topic))
+                    .Add(Expression.Eq("Name", name))
+                    .UniqueResult<Topic>();
+                if (topic == null) return null;
+                return new TransitTopic(topic);
+            }
+        }
+
         [WebMethod(Description = "Create or update a topic.")]
         public int CreateOrUpdateTopic(string ticket, TransitTopic t_topic)
         {
@@ -973,6 +987,17 @@ namespace DBlog.WebServices
                 post.Modified = DateTime.UtcNow;
                 if (post.Id == 0) post.Created = post.Modified;
                 session.SaveOrUpdate(post);
+                
+                foreach (TransitTopic t_topic in t_post.Topics)
+                {
+                    if (t_topic.Id == 0)
+                    {
+                        Topic topic = t_topic.GetTopic(session);
+                        session.SaveOrUpdate(topic);
+                        t_topic.Id = topic.Id;
+                    }
+                }
+
                 List<PostTopic> postTopicsToBeCreated = null;
                 List<PostTopic> postTopicsToBeDeleted = null;
                 TransitTopic.MergeTo(session, post, t_post.Topics, out postTopicsToBeCreated, out postTopicsToBeDeleted);
