@@ -9,14 +9,26 @@ using System.Web.UI.HtmlControls;
 
 namespace DBlog.Tools.Web.Html
 {
+    public class HtmlUri
+    {
+        public Uri Uri;
+        public HtmlGenericControl Control;
+
+        public HtmlUri(Uri uri, HtmlGenericControl control)
+        {
+            Uri = uri;
+            Control = control;
+        }
+    }
+
     /// <summary>
     /// This class extracts all links from an HTML body.
     /// </summary>
     public class HtmlUriExtractor : HtmlUrlBasedExtractor
     {
-        private List<Uri> mUris = new List<Uri>();
+        private List<HtmlUri> mUris = new List<HtmlUri>();
 
-        public List<Uri> Uris
+        public List<HtmlUri> Uris
         {
             get
             {
@@ -66,21 +78,21 @@ namespace DBlog.Tools.Web.Html
             if (BaseHref != null)
             {
                 if (Uri.TryCreate(BaseHref, href, out uri))
-                    mUris.Add(uri);
+                    mUris.Add(new HtmlUri(uri, tag));
             }
             else
             {
                 if (Uri.TryCreate(href, UriKind.RelativeOrAbsolute, out uri))
-                    mUris.Add(uri);
+                    mUris.Add(new HtmlUri(uri, tag));
             }
         }
 
-        public static List<Uri> Extract(string html)
+        public static List<HtmlUri> Extract(string html)
         {
             return Extract(html, null);
         }
 
-        public static List<Uri> Extract(string html, Uri root)
+        public static List<HtmlUri> Extract(string html, Uri root)
         {
             HtmlUriExtractor ex = new HtmlUriExtractor(html, root);
             while (!ex.EOF) ex.Read();

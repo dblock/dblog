@@ -28,12 +28,12 @@ namespace DBlog.Web.UnitTests
         public void TestPage(Uri root, Uri uri)
         {
             Cookie cookie = null;
-            List<Uri> links = null;
+            List<HtmlUri> links = null;
             double ts = 0;
             TestPage(root, uri, cookie, out links, out ts);
         }
 
-        public void TestPage(Uri root, Uri uri, Cookie cookie, out List<Uri> links, out double ts)
+        public void TestPage(Uri root, Uri uri, Cookie cookie, out List<HtmlUri> links, out double ts)
         {
             DateTime start = DateTime.UtcNow;
             Console.Write("{0} (from {1}) ...", uri.PathAndQuery, root.PathAndQuery);
@@ -67,7 +67,7 @@ namespace DBlog.Web.UnitTests
             if (response.ContentType != "text/html; charset=utf-8")
             {
                 Console.WriteLine("[ignore: {0}]", response.ContentType);
-                links = new List<Uri>();
+                links = new List<HtmlUri>();
                 return;
             }
 
@@ -75,7 +75,7 @@ namespace DBlog.Web.UnitTests
             if (response.ResponseUri.PathAndQuery.Contains("DBlog/Login.aspx") && response.ResponseUri.PathAndQuery.Contains("access=denied"))
             {
                 Console.WriteLine("[ignore: {0}]", uri.PathAndQuery);
-                links = new List<Uri>();
+                links = new List<HtmlUri>();
                 return;
             }
 
@@ -150,7 +150,7 @@ namespace DBlog.Web.UnitTests
             while (queue.Count > 0)
             {
                 Uri topofqueue = queue[0];
-                List<Uri> links;
+                List<HtmlUri> links;
                 double ts = 0;
 
                 PerformanceData perf = (perfdata != null ? new PerformanceData(topofqueue.ToString()) : null);
@@ -187,9 +187,9 @@ namespace DBlog.Web.UnitTests
                 Console.Write(" => ");
 
                 int count = 0;
-                foreach (Uri uri in links)
+                foreach (HtmlUri uri in links)
                 {
-                    Uri fulluri = uri;
+                    Uri fulluri = uri.Uri;
 
                     if (!root.IsBaseOf(fulluri))
                     {
