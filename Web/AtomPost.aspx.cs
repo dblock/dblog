@@ -55,6 +55,9 @@ public partial class AtomPost : BlogPage
                             GetPosts(sender, e);
                         }
                         break;
+                    case "DELETE":
+                        DeletePost(sender, e);
+                        break;
                     default:
                         throw new NotSupportedException(Request.HttpMethod);
                 }
@@ -117,8 +120,10 @@ public partial class AtomPost : BlogPage
         AtomEntry atomEntry = new AtomEntry();
         atomEntry.Load(Request.InputStream);
 
-        TransitPost post = new TransitPost();
-        post.Id = RequestId;
+        TransitPost post = (RequestId > 0) 
+            ? SessionManager.BlogService.GetPostById(SessionManager.Ticket, RequestId) 
+            : new TransitPost();
+
         post.Title = atomEntry.Title.Content;
 
         List<TransitTopic> topics = new List<TransitTopic>();
@@ -139,8 +144,12 @@ public partial class AtomPost : BlogPage
         post.Display = true;
         post.Sticky = false;
         post.Export = false;
-        post.Created = atomEntry.PublishedOn;
-        post.Modified = atomEntry.UpdatedOn;
+        
+        if (atomEntry.PublishedOn != DateTime.MinValue)
+            post.Created = atomEntry.PublishedOn;
+        if (atomEntry.UpdatedOn != DateTime.MinValue)
+            post.Modified = atomEntry.UpdatedOn;
+        
         post.Id = SessionManager.BlogService.CreateOrUpdatePost(SessionManager.Ticket, post);
 
         Response.ContentType = "application/atom+xml;type=entry;charset=\"utf-8\"";
@@ -187,6 +196,22 @@ public partial class AtomPost : BlogPage
         }
 
         feed.Save(Response.OutputStream);
+        Response.End();
+    }
+
+    public void DeletePost(object sender, EventArgs e)
+    {
+        SessionManager.BasicAuth();
+
+        if (!SessionManager.IsAdministrator)
+        {
+            throw new ManagedLogin.AccessDeniedException();
+        }
+
+        SessionManager.BlogService.DeletePost(
+            SessionManager.Ticket, RequestId);
+
+        Response.StatusCode = 200;
         Response.End();
     }
 }

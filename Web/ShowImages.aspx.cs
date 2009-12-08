@@ -35,15 +35,21 @@ public partial class ShowImages : BlogPage
     public void GetData(object sender, EventArgs e)
     {
         images.CurrentPageIndex = 0;
-        TransitPostImageQueryOptions options = new TransitPostImageQueryOptions();
-        options.Counters = true;
+        TransitPostImageQueryOptions options = GetOptions();
         images.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitPostImage>(
-            "GetPostImagesCountEx", SessionManager.PostTicket, new TransitPostImageQueryOptions());
+            "GetPostImagesCountEx", SessionManager.PostTicket, options);
         images_OnGetDataSource(sender, e);
         images.DataBind();
     }
 
     void images_OnGetDataSource(object sender, EventArgs e)
+    {
+        TransitPostImageQueryOptions options = GetOptions();
+        images.DataSource = SessionManager.GetCachedCollection<TransitPostImage>(
+            "GetPostImagesEx", SessionManager.PostTicket, options);
+    }
+
+    private TransitPostImageQueryOptions GetOptions()
     {
         TransitPostImageQueryOptions options = new TransitPostImageQueryOptions();
         options.PageNumber = images.CurrentPageIndex;
@@ -51,8 +57,7 @@ public partial class ShowImages : BlogPage
         options.SortExpression = "Counter.Count";
         options.SortDirection = WebServiceQuerySortDirection.Descending;
         options.Counters = true;
-        images.DataSource = SessionManager.GetCachedCollection<TransitPostImage>(
-            "GetPostImagesEx", SessionManager.PostTicket, options);
+        return options;
     }
 
     public string GetComments(TransitImage image)

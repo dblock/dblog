@@ -50,6 +50,9 @@ public partial class AtomImage : BlogPage
                     case "GET":
                         GetImage(sender, e);
                         break;
+                    case "DELETE":
+                        DeleteImage(sender, e);
+                        break;
                     default:
                         throw new NotSupportedException(Request.HttpMethod);
                 }
@@ -97,8 +100,10 @@ public partial class AtomImage : BlogPage
             throw new ManagedLogin.AccessDeniedException();
         }
 
-        TransitImage image = new TransitImage();
-        image.Id = RequestId;
+        TransitImage image = (RequestId > 0)
+            ? SessionManager.BlogService.GetImageById(SessionManager.Ticket, RequestId)
+            : new TransitImage();
+
         image.Name = string.Format("{0}.jpg", Request.Headers["Slug"]);
         image.Data = new byte[Request.InputStream.Length];
         Request.InputStream.Read(image.Data, 0, (int)Request.InputStream.Length);
@@ -143,6 +148,22 @@ public partial class AtomImage : BlogPage
 
         AtomEntry atomEntry = GetImage(image);
         atomEntry.Save(Response.OutputStream);
+        Response.End();
+    }
+
+    public void DeleteImage(object sender, EventArgs e)
+    {
+        SessionManager.BasicAuth();
+
+        if (!SessionManager.IsAdministrator)
+        {
+            throw new ManagedLogin.AccessDeniedException();
+        }
+
+        SessionManager.BlogService.DeleteImage(
+            SessionManager.Ticket, RequestId);
+
+        Response.StatusCode = 200;
         Response.End();
     }
 }
