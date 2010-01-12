@@ -48,7 +48,7 @@
           Read
          </a>
          | <%# GetTopics((TransitTopic[]) Eval("Topics")) %>
-         | <%# SessionManager.Region.UtcToUser((DateTime) Eval("Created")).ToString("f") %>
+         | <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("f") %>
          <%# GetLink((int)Eval("CommentsCount"), (int)Eval("ImagesCount"))%>
          <span id="SpanEditComment" runat="server" style='<%# (bool) Eval("HasAccess") ? String.Empty : "display: none;" %>'>
           <a href='EditPostComment.aspx?sid=<%# Eval("Id") %>&r=<%# Renderer.UrlEncode(Request.Url.PathAndQuery) %>'>

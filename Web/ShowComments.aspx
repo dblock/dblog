@@ -21,7 +21,7 @@
          <%# RenderEx((string) Eval("CommentText"), (int) Eval("AssociatedId")) %>
         </div>
         <div class="table_comments_note">
-         <%# SessionManager.Region.UtcToUser((DateTime) Eval("CommentCreated")).ToString("f") %>
+         <%# SessionManager.Adjust((DateTime) Eval("CommentCreated")).ToString("f") %>
          <a href='Show<%# Eval("AssociatedType") %>.aspx?id=<%# Eval("AssociatedId") %>'>
           View
          </a>

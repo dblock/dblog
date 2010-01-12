@@ -51,9 +51,9 @@
     <Compile Include="Collections.Tree.cs" />
     <Compile Include="Drawing.Exif.cs" />
     <Compile Include="Drawing.ThumbnailBitmap.cs" />
-    <Compile Include="Globalization.TimeZone.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reflection.AssemblyInfo.cs" />
+    <Compile Include="TimeZoneInformation.cs" />
     <Compile Include="Web.HostedApplication.cs" />
     <Compile Include="Web.Html.HtmlAbsoluteLinksWriter.cs" />
     <Compile Include="Web.Html.HtmlCutter.cs" />

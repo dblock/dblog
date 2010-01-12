@@ -14,7 +14,7 @@
      <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
       <b><%# RenderEx((string) Eval("Title"), (int) Eval("Id")) %></b>
      </a>
-     &#187; <%# SessionManager.Region.UtcToUser((DateTime) Eval("Created")).ToString("f") %>
+     &#187; <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("f") %>
      <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">
       <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
        &#187; edit draft

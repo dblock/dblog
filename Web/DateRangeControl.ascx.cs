@@ -63,8 +63,8 @@ public partial class DateRangeControl : BlogControl
                 if (end == DateTime.MaxValue || dt > end) end = dt.AddDays(1);
             }
 
-            if (start != DateTime.MinValue) start = SessionManager.Region.UserToUtc(start);
-            if (end != DateTime.MaxValue) end = SessionManager.Region.UserToUtc(end);
+            if (start != DateTime.MinValue) start = SessionManager.ToUTC(start);
+            if (end != DateTime.MaxValue) end = SessionManager.ToUTC(end);
 
             DateRangeChanged(sender, new DateRangeEventArgs(start, end));
         }

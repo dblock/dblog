@@ -14,9 +14,9 @@ using System.Collections.Generic;
 using DBlog.WebServices;
 using DBlog.TransitData;
 using DBlog.Data.Hibernate;
-using DBlog.Tools.Globalization;
 using System.Diagnostics;
 using System.Text;
+using DBlog.Tools;
 
 public class SessionManager
 {
@@ -35,7 +35,7 @@ public class SessionManager
     private Blog mBlogService = null;
     private TransitLogin mLoginRecord = null;
     private TransitLogin mPostLoginRecord = null;
-    private Region mRegion = null;
+    private TimeSpan mUtcOffset = TimeSpan.Zero;
 
     public class TypeCacheDependency<TransitType> : CacheDependency
     {
@@ -136,6 +136,9 @@ public class SessionManager
             // use main ticket as default (avoid login twice for admins)
             mPostTicket = mTicket;
         }
+
+        TimeZoneInformation.TryParseTimezoneRegionToTimeSpan(
+            ConfigurationManager.AppSettings["region"], out mUtcOffset);
     }
 
     private void CacheTicket(string name, ref string ticket)
@@ -463,18 +466,6 @@ public class SessionManager
         }
     }
 
-    public Region Region
-    {
-        get
-        {
-            if (mRegion == null)
-            {
-                mRegion = new Region(ConfigurationManager.AppSettings["region"]);
-            }
-            return mRegion;
-        }
-    }
-
     public EventLog EventLog
     {
         get
@@ -510,5 +501,15 @@ public class SessionManager
         {
             return "DBlog";
         }
+    }
+
+    public DateTime Adjust(DateTime dt)
+    {
+        return dt.Add(mUtcOffset);
+    }
+
+    public DateTime ToUTC(DateTime dt)
+    {
+        return dt.Add(-mUtcOffset);
     }
 }

@@ -78,8 +78,8 @@ public partial class EditPost : BlogAdminPage
                     {
                         inputTopic.Items.FindByValue(topic.Id.ToString()).Selected = true;
                     }
-                    inputCreatedDate.SelectedDate = SessionManager.Region.UtcToUser(Post.Created).Date;
-                    inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(Post.Created).TimeOfDay;
+                    inputCreatedDate.SelectedDate = SessionManager.Adjust(Post.Created).Date;
+                    inputCreatedTime.SelectedTime = SessionManager.Adjust(Post.Created).TimeOfDay;
                     inputPublish.Checked = Post.Publish;
                     inputDisplay.Checked = Post.Display;
                     inputSticky.Checked = Post.Sticky;
@@ -90,8 +90,8 @@ public partial class EditPost : BlogAdminPage
                     images.Visible = false;
                     logins.Visible = false;
                     DateTime utcnow = DateTime.UtcNow;
-                    inputCreatedDate.SelectedDate = SessionManager.Region.UtcToUser(utcnow).Date;
-                    inputCreatedTime.SelectedTime = SessionManager.Region.UtcToUser(utcnow).TimeOfDay;
+                    inputCreatedDate.SelectedDate = SessionManager.Adjust(utcnow).Date;
+                    inputCreatedTime.SelectedTime = SessionManager.Adjust(utcnow).TimeOfDay;
                     inputPublish.Checked = true;
                     inputDisplay.Checked = true;
                 }
@@ -164,7 +164,8 @@ public partial class EditPost : BlogAdminPage
             Post.Display = inputDisplay.Checked;
             Post.Sticky = inputSticky.Checked;
             Post.Export = inputExport.Checked;
-            Post.Created = SessionManager.Region.UserToUtc(inputCreatedDate.SelectedDate.Add(inputCreatedTime.SelectedTime));
+            Post.Created = SessionManager.ToUTC(inputCreatedDate.SelectedDate.Add(
+                inputCreatedTime.SelectedTime));
             Post.Id = PostId = SessionManager.BlogService.CreateOrUpdatePost(
                 SessionManager.Ticket, Post);
 
