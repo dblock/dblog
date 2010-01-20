@@ -23,7 +23,7 @@
     <iconHeight>55</iconHeight>
     <iconPadding>10</iconPadding>
     <useRotation>true</useRotation>
-    <imageScaleMode>Fit</imageScaleMode>
+    <imageScaleMode>fit</imageScaleMode>
     <rotationSound>galleries/sounds/rotate.mp3</rotationSound>
     <overSound>galleries/sounds/over.mp3</overSound>
     <clickSound>galleries/sounds/click.mp3</clickSound>
