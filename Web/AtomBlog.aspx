@@ -1,2 +1,2 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AtomPost.aspx.cs"
- Inherits="AtomPost" Title="Atom Blog (Redirect)" %>
+<%@ Page Language="C#" AutoEventWireup="true" CodeFile="AtomBlog.aspx.cs"
+ Inherits="AtomBlog" Title="Atom Blog (Redirect)" %>

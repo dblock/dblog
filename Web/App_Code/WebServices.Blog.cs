@@ -1335,6 +1335,14 @@ namespace DBlog.WebServices
                 PostImage ei = (PostImage)session.Load(typeof(PostImage), id);
                 session.Delete(ei);
                 session.Delete(ei.Image);
+                if (ei.Image.ImageCounters != null)
+                {
+                    foreach (ImageCounter imageCounter in ei.Image.ImageCounters)
+                    {
+                        session.Delete(imageCounter.Counter);
+                        session.Delete(imageCounter);
+                    }
+                }
                 session.Flush();
             }
         }
