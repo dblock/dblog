@@ -82,6 +82,27 @@ public partial class ShowPost : BlogPage
         }
     }
 
+    public void comments_ItemCommand(object sender, DataGridCommandEventArgs e)
+    {
+        try
+        {
+            switch (e.CommandName)
+            {
+                case "Delete":
+                    SessionManager.BlogService.DeleteComment(SessionManager.Ticket, 
+                        int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitPostComment>();
+                    SessionManager.Invalidate<TransitComment>();
+                    GetCommentsData(sender, e);                
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
+    }
+
     protected void Page_Load(object sender, EventArgs e)
     {
         try

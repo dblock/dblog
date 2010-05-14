@@ -1651,7 +1651,11 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
-                session.Delete((Comment)session.Load(typeof(Comment), id));
+                Comment comment = session.Load<Comment>(id);
+                session.Delete(string.Format("FROM ImageComment WHERE Comment_Id = {0}", id));
+                session.Delete(string.Format("FROM PostComment WHERE Comment_Id = {0}", id));
+                session.Delete(string.Format("FROM Thread WHERE ParentComment_Id = {0} OR Comment_Id = {0}", id));
+                session.Delete(comment);
                 session.Flush();
             }
         }

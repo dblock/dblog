@@ -9,7 +9,7 @@
   <ContentTemplate>
    <Controls:PagedGrid runat="server" ID="comments" BorderWidth="0" CssClass="table" 
     AllowPaging="true" AllowCustomPaging="true" CellPadding="2" ShowHeader="false" 
-    AutoGenerateColumns="false" PageSize="10">
+    AutoGenerateColumns="false" PageSize="10" OnItemCommand="comments_ItemCommand">
     <ItemStyle HorizontalAlign="Left" CssClass="table_tr_td" />
     <PagerStyle cssclass="table_pager" position="TopAndBottom" nextpagetext="Next" prevpagetext="Prev"
      horizontalalign="Center" />    
@@ -25,6 +25,8 @@
          <a href='Show<%# Eval("AssociatedType") %>.aspx?id=<%# Eval("AssociatedId") %>'>
           View
          </a>
+         <asp:LinkButton id="commentDelete" runat="server" Text="&#187; Delete" Visible='<%# SessionManager.IsAdministrator %>' 
+          CommandName="Delete" CommandArgument='<%# Eval("CommentId") %>' OnClientClick="return confirm('Are you sure you want to delete this comment?');" />
         </div>
        </div>
       </ItemTemplate>

@@ -133,7 +133,7 @@ public partial class ShowImage : BlogPage
         int pid = GetId("pid");
         int index = GetId("index");
 
-        if (RequestId > 0 && ! IsPostBack)
+        if (RequestId > 0)
         {
             if (pid > 0)
             {
@@ -295,6 +295,27 @@ public partial class ShowImage : BlogPage
         {
             exif.Visible = !exif.Visible;
             GetEXIFData(sender, e);
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
+    }
+
+    public void comments_ItemCommand(object sender, DataGridCommandEventArgs e)
+    {
+        try
+        {
+            switch (e.CommandName)
+            {
+                case "Delete":
+                    SessionManager.BlogService.DeleteComment(SessionManager.Ticket,
+                        int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitImageComment>();
+                    SessionManager.Invalidate<TransitComment>();
+                    GetDataImages(sender, e);
+                    break;
+            }
         }
         catch (Exception ex)
         {

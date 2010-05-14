@@ -54,4 +54,27 @@ public partial class ShowComments : BlogAdminPage
         comments_OnGetDataSource(sender, e);
         comments.DataBind();
     }
+
+    public void comments_ItemCommand(object sender, DataGridCommandEventArgs e)
+    {
+        try
+        {
+            switch (e.CommandName)
+            {
+                case "Delete":
+                    SessionManager.BlogService.DeleteComment(SessionManager.Ticket,
+                        int.Parse(e.CommandArgument.ToString()));
+                    SessionManager.Invalidate<TransitImageComment>();
+                    SessionManager.Invalidate<TransitPostComment>();
+                    SessionManager.Invalidate<TransitComment>();
+                    SessionManager.Invalidate<TransitAssociatedComment>();
+                    GetData(sender, e);
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            ReportException(ex);
+        }
+    }
 }
