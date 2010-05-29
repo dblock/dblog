@@ -52,16 +52,24 @@ namespace DBlog.Web.UnitTests.WebServices
             string root = Guid.NewGuid().ToString();
             for (int i = 0; i < count; i++)
             {
-                host.Name = string.Format("http://www.{0}.{1}", root, i);
+                host.Name = string.Format("www.{0}.{1}", root, i);
                 Blog.CreateOrUpdateReferrerHost(Ticket, host);
                 Console.WriteLine("Created {0}", host.Name);
             }
 
             // create a rollup, should merge hosts
             TransitReferrerHostRollup rollup = new TransitReferrerHostRollup();
-            rollup.Name = string.Format("http://www.{0}.%", root);
-            rollup.Rollup = string.Format("http://www.{0}.target", root);
+            rollup.Name = string.Format("www.{0}.%", root);
+            rollup.Rollup = string.Format("www.{0}.target", root);
             rollup.Id = Blog.CreateOrUpdateReferrerHostRollup(Ticket, rollup);
+
+            // additional host will auto-rollup
+            for (int i = 0; i < count; i++)
+            {
+                host.Name = string.Format("www.{0}.{1}", root, i);
+                Blog.CreateOrUpdateReferrerHost(Ticket, host);
+                Console.WriteLine("Created {0}", host.Name);
+            }
 
             // get the rollup host
             TransitReferrerHost[] hosts = Blog.GetReferrerHosts(Ticket, null);
@@ -72,7 +80,7 @@ namespace DBlog.Web.UnitTests.WebServices
                 if (rh.Name == rollup.Rollup)
                 {
                     Console.WriteLine("Found {0} with {1} hits", rh.Name, rh.RequestCount);
-                    Assert.AreEqual(rh.RequestCount, count);
+                    Assert.AreEqual(rh.RequestCount, count * 2);
                     found = true;
                     Blog.DeleteReferrerHost(Ticket, rh.Id);
                 }

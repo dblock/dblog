@@ -177,6 +177,7 @@ namespace DBlog.TransitData
                 {
                     rh = new ReferrerHost();
                     rh.RequestCount = RequestCount;
+                    rh.Name = Name;
                 }
             }
             else
@@ -187,7 +188,6 @@ namespace DBlog.TransitData
 
             rh.LastUrl = LastUrl;
             rh.LastSource = LastSource;
-            rh.Name = Name;
             rh.Updated = DateTime.UtcNow;
             if (rh.Id == 0) rh.Created = rh.Updated;
 
