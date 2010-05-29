@@ -5,7 +5,7 @@ using System.Web.Services;
 using System.Web.Services.Protocols;
 using DBlog.TransitData;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using System.Web.Security;
 using DBlog.Data;
 using DBlog.Data.Hibernate;
@@ -987,14 +987,17 @@ namespace DBlog.WebServices
                 post.Modified = DateTime.UtcNow;
                 if (post.Id == 0) post.Created = post.Modified;
                 session.SaveOrUpdate(post);
-                
-                foreach (TransitTopic t_topic in t_post.Topics)
+
+                if (t_post.Topics != null)
                 {
-                    if (t_topic.Id == 0)
+                    foreach (TransitTopic t_topic in t_post.Topics)
                     {
-                        Topic topic = t_topic.GetTopic(session);
-                        session.SaveOrUpdate(topic);
-                        t_topic.Id = topic.Id;
+                        if (t_topic.Id == 0)
+                        {
+                            Topic topic = t_topic.GetTopic(session);
+                            session.SaveOrUpdate(topic);
+                            t_topic.Id = topic.Id;
+                        }
                     }
                 }
 

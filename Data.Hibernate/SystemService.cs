@@ -31,7 +31,7 @@ namespace DBlog.Data.Hibernate
         {
             return new SqlConnection(
                 Session.Configuration.GetProperty(
-                    "hibernate.connection.connection_string"));
+                    "connection.connection_string"));
         }
 
         public void Start()

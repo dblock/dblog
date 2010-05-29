@@ -26,10 +26,7 @@ namespace DBlog.Data.Hibernate.UnitTests
                 if (mFactory == null)
                 {
                     NHibernate.Cfg.Configuration cfg = new NHibernate.Cfg.Configuration();
-                    cfg.Properties.Add("hibernate.dialect", "NHibernate.Dialect.MsSql2000Dialect");
-                    cfg.Properties.Add("hibernate.connection.provider", "NHibernate.Connection.DriverConnectionProvider");
-                    cfg.Properties.Add("hibernate.connection.driver_class", "NHibernate.Driver.SqlClientDriver");
-                    cfg.Properties.Add("hibernate.connection.connection_string", "Server=localhost;initial catalog=Blog;Integrated Security=SSPI");
+                    cfg.Configure();
                     cfg.AddAssembly("DBlog.Data");
                     cfg.AddAssembly("DBlog.Data.Hibernate");
                     mFactory = cfg.BuildSessionFactory();

@@ -4,7 +4,7 @@ using System.Text;
 using System.Web;
 using System.Collections;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace DBlog.TransitData
 {

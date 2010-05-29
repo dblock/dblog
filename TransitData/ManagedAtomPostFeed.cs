@@ -7,7 +7,7 @@ using System.Xml;
 using System.Configuration;
 using System.Web;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using System.Collections;
 using DBlog.Tools.Web;
 using System.Net;

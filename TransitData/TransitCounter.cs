@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DBlog.Data;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 
 namespace DBlog.TransitData
 {

@@ -42,7 +42,7 @@ namespace DBlog.Data.Hibernate
         {
             return new SqlConnection(
                 DBlog.Data.Hibernate.Session.Configuration.GetProperty(
-                    "hibernate.connection.connection_string"));
+                    "connection.connection_string"));
         }
     }
 }

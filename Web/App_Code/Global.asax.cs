@@ -6,7 +6,7 @@ using System.Web.SessionState;
 using System.Reflection;
 using System.Diagnostics;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using DBlog.Data;
 using DBlog.Data.Hibernate;
 using DBlog.WebServices;

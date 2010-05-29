@@ -5,7 +5,7 @@ using DBlog.Data;
 using NHibernate;
 using System.Drawing;
 using DBlog.Tools.Drawing;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using DBlog.Data.Hibernate;
 using DBlog.Tools.Drawing.Exif;
 

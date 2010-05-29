@@ -5,7 +5,7 @@ using DBlog.Data.Hibernate.UnitTests;
 using NUnit.Framework;
 using NHibernate;
 using NHibernate.Cfg;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using System.Collections;
 
 namespace DBlog.Data.UnitTests

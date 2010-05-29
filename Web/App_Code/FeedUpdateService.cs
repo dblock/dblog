@@ -8,7 +8,7 @@ using System.Web.UI.WebControls;
 using System.Web.UI.WebControls.WebParts;
 using System.Web.UI.HtmlControls;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using System.Collections;
 using System.Threading;
 using System.Net.Mail;

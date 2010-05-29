@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Text;
 using DBlog.Data;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using System.Xml;
 using System.Xml.Xsl;
 using System.Xml.XPath;

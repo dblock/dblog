@@ -58,6 +58,7 @@ namespace DBlog.Data.Hibernate
         private static void CreateConfiguration()
         {
             _config = new NHibernate.Cfg.Configuration();
+            _config.Configure();
             // Add interceptor, if you need to.
             // _config.Interceptor = new Interceptor();
         }

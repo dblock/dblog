@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using NHibernate;
 using System.Reflection;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using DBlog.Tools.Web;
 
 namespace DBlog.Data.Hibernate

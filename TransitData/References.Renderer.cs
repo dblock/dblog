@@ -13,7 +13,7 @@ using System.Collections.Generic;
 using System.Web.Caching;
 using DBlog.Tools.Web;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using DBlog.Data;
 
 namespace DBlog.TransitData.References

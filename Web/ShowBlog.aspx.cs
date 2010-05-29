@@ -19,7 +19,7 @@ using DBlog.Tools.Web.Html;
 
 public partial class ShowBlog : BlogPage
 {
-    private HtmlMeta mMetaDescription = null;
+    private HtmlMeta mHtmlMetaDescription = null;
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -27,7 +27,7 @@ public partial class ShowBlog : BlogPage
         {
             if (Header != null)
             {
-                Header.Controls.Add(MetaDescription);
+                Header.Controls.Add(HtmlMetaDescription);
             }
 
             DBlogMaster master = (DBlogMaster)this.Master;
@@ -323,18 +323,18 @@ public partial class ShowBlog : BlogPage
         }
     }
 
-    public HtmlMeta MetaDescription
+    public HtmlMeta HtmlMetaDescription
     {
         get
         {
-            if (mMetaDescription == null)
+            if (mHtmlMetaDescription == null)
             {
-                mMetaDescription = new HtmlMeta();
-                mMetaDescription.Name = "description";
-                mMetaDescription.Content = SessionManager.GetSetting(
+                mHtmlMetaDescription = new HtmlMeta();
+                mHtmlMetaDescription.Name = "description";
+                mHtmlMetaDescription.Content = SessionManager.GetSetting(
                     "description", string.Empty);
             }
-            return mMetaDescription;
+            return mHtmlMetaDescription;
         }
     }
 

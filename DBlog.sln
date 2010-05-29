@@ -1,6 +1,6 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 10.00
-# Visual Studio 2008
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Database", "Database", "{8D0A77A7-8475-455A-8CED-5939295C9042}"
 	ProjectSection(SolutionItems) = preProject
 		Database\DBlog.sql = Database\DBlog.sql
@@ -22,7 +22,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Build", "Build", "{9D3D33E1
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "DBlog", "http://localhost/DBlog", "{8CE895ED-CDC6-41F0-AE93-2ED257DEC9FB}"
 	ProjectSection(WebsiteProperties) = preProject
-		TargetFramework = "3.5"
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.0"
 		ProjectReferences = "{437F9693-8C20-49BD-A4FD-68A88E9A92C0}|DBlog.Data.Hibernate.dll;{75FB606F-0483-49CA-AF2F-8E57DB9864AB}|DBlog.Tools.dll;{07B2FB5A-1FB0-4955-A218-12229318ECBE}|DBlog.TransitData.dll;{89404491-35C1-4457-9C8C-C02192EFCF36}|DBlog.Data.dll;{499527FF-AE52-450F-B3E3-4AD53E1712AD}|SgmlReaderDll.dll;"
 		Debug.AspNetCompiler.VirtualPath = "/DBlog"
 		Debug.AspNetCompiler.PhysicalPath = "Web\"

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text;
 using DBlog.Data.Hibernate;
 using DBlog.Data.Hibernate.UnitTests;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using NUnit.Framework;
 
 namespace DBlog.Data.UnitTests

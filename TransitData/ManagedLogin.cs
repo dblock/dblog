@@ -6,7 +6,7 @@ using System.Web.Security;
 using DBlog.Data;
 using System.Security.Cryptography;
 using NHibernate;
-using NHibernate.Expression;
+using NHibernate.Criterion;
 using System.Text;
 using System.Web.Services.Protocols;
 using System.Net.Mail;
