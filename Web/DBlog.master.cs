@@ -162,4 +162,11 @@ public partial class DBlogMaster : MasterPage
             ReportException(ex);
         }
     }
+
+    public void linkContact_Click(object sender, EventArgs e)
+    {
+        Page.ClientScript.RegisterStartupScript(this.GetType(), "email",
+            string.Format("<script language='JavaScript'>window.location.href='mailto:{0}';</script>",
+            SessionManager.GetSetting("email", "admin@localhost.com")));
+    }
 }

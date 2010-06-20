@@ -49,6 +49,9 @@
        <asp:Image runat="server" ID="imageMain" ImageUrl="images/blog/blog.gif" />
       </a>
      </div>
+     <div style="font-weight: bold;">
+      <asp:LinkButton OnClick="linkContact_Click" ID="linkContact" runat="server" Text="Contact" />
+     </div>
      <asp:Panel ID="panelAdmin" Visible="false" runat="server">
       <div class="div_top">
       </div>
