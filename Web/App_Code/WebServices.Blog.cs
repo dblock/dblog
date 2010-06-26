@@ -1452,12 +1452,12 @@ namespace DBlog.WebServices
                     q.AppendLine("AND Image.Preferred = 1");
                 }
 
-                if (options != null && !string.IsNullOrEmpty(options.SortExpression))
-                {
-                    q.AppendLine(string.Format("ORDER BY {0} {1}",
-                        Renderer.SqlEncode(options.SortExpression),
-                        options.SortDirection == WebServiceQuerySortDirection.Ascending ? string.Empty : "DESC"));
-                }
+                //if (options != null && !string.IsNullOrEmpty(options.SortExpression))
+                //{
+                //    q.AppendLine(string.Format("ORDER BY {0} {1}",
+                //        Renderer.SqlEncode(options.SortExpression),
+                //        options.SortDirection == WebServiceQuerySortDirection.Ascending ? string.Empty : "DESC"));
+                //}
 
                 IQuery query = session.CreateSQLQuery(q.ToString(), "PostImage", typeof(PostImage));
 
