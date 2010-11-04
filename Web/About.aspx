@@ -11,6 +11,9 @@
   <asp:Label ID="labelDescription" runat="Server" />
  </div>
  <div class="subtitle">
+  <asp:Label ID="labelDetails" runat="Server" />
+ </div>
+ <div class="subtitle">
   <asp:Label ID="labelCopyright" runat="Server" />
  </div>
  <div class="title">

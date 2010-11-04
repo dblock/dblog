@@ -23,6 +23,7 @@ public partial class About : BlogPage
             {
                 labelTitle.Text = Renderer.Render(SessionManager.GetSetting("Title", "Blog"));
                 labelDescription.Text = Renderer.Render(SessionManager.GetSetting("Description", string.Empty));
+                labelDetails.Text = Renderer.CleanHtml(SessionManager.GetSetting("Details", string.Empty));
                 labelCopyright.Text = Renderer.Render(SessionManager.GetSetting("Copyright", string.Empty));
                 linkEmail.OnClientClick = string.Format("location.href='mailto:{0}';", Renderer.Render(SessionManager.GetSetting("Email", string.Empty)));
             }

@@ -50,6 +50,8 @@
       </a>
      </div>
      <div style="font-weight: bold;">
+      <asp:HyperLink ID="linkAbout" runat="server" Text="About" NavigateUrl="~/About.aspx" />
+      <br />
       <asp:LinkButton OnClick="linkContact_Click" ID="linkContact" runat="server" Text="Contact" />
      </div>
      <asp:Panel ID="panelAdmin" Visible="false" runat="server">
