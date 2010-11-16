@@ -38,3 +38,7 @@ SELECT Post_Id, Topic_Id FROM Post
 ALTER TABLE dbo.Post DROP CONSTRAINT FK_Post_Topic
 ALTER TABLE dbo.Post DROP COLUMN Topic_Id 
 GO
+-- 10/16/2010: highlights are ordered
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Highlight]') AND name = N'Position')
+ALTER TABLE dbo.Highlight ADD [Position] int NOT NULL DEFAULT 0
+GO

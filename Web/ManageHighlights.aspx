@@ -23,7 +23,7 @@
      <asp:BoundColumn DataField="Id" Visible="false" />
      <asp:TemplateColumn ItemStyle-Width="25px">
       <itemtemplate>
-       <img src="images/site/item.gif" />
+       <img src="images/site/item.gif" alt='<%# Renderer.Render(Eval("Position")) %>' />
       </itemtemplate>
      </asp:TemplateColumn>
      <asp:TemplateColumn>
@@ -51,6 +51,18 @@
       <itemtemplate>
        <asp:LinkButton ID="linkDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
         runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />
+      </itemtemplate>
+     </asp:TemplateColumn>
+     <asp:TemplateColumn ItemStyle-Width="50px">
+      <itemtemplate>
+       <asp:LinkButton ID="linkUp" CommandName="Up" CommandArgument='<%# Eval("Id") %>' 
+        runat="server" Text="Up" Visible='<%# (int) Eval("Position") != 1 %>' />
+      </itemtemplate>
+     </asp:TemplateColumn>
+     <asp:TemplateColumn ItemStyle-Width="50px">
+      <itemtemplate>
+       <asp:LinkButton ID="linkDown" CommandName="Down" CommandArgument='<%# Eval("Id") %>' 
+        runat="server" Text="Down" Visible='<%# (int) Eval("Position") != Count %>' />
       </itemtemplate>
      </asp:TemplateColumn>
     </Columns>

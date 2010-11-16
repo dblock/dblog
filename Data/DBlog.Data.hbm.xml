@@ -116,6 +116,7 @@
     <many-to-one name="Image" column="Image_Id" class="DBlog.Data.Image, DBlog.Data" />
     <property name="Title" column="Title" type="String" />
     <property name="Url" column="Url" type="String" />
+    <property name="Position" column="Position" type="Int32" />
   </class>
   <class name="DBlog.Data.HourlyCounter, DBlog.Data" table="HourlyCounter">
     <id name="Id" type="Int32" column="HourlyCounter_Id" access="field.pascalcase-m-underscore">
@@ -254,14 +255,14 @@
       <key column="Post_Id" />
       <one-to-many class="DBlog.Data.PostLogin, DBlog.Data" />
     </bag>
-    <bag lazy="true" name="PostTopics" inverse="true">
-      <key column="Post_Id" />
-      <one-to-many class="DBlog.Data.PostTopic, DBlog.Data" />
-    </bag>
     <property name="Publish" column="Publish" type="Boolean" />
     <property name="Display" column="Display" type="Boolean" />
     <property name="Sticky" column="Sticky" type="Boolean" />
     <property name="Export" column="Export" type="Boolean" />
+    <bag lazy="true" name="PostTopics" inverse="true">
+      <key column="Post_Id" />
+      <one-to-many class="DBlog.Data.PostTopic, DBlog.Data" />
+    </bag>
   </class>
   <class name="DBlog.Data.PostComment, DBlog.Data" table="PostComment">
     <id name="Id" type="Int32" column="PostComment_Id" access="field.pascalcase-m-underscore">
@@ -295,8 +296,8 @@
     <id name="Id" type="Int32" column="PostTopic_Id" access="field.pascalcase-m-underscore">
       <generator class="identity" />
     </id>
-    <many-to-one name="Topic" column="Topic_Id" class="DBlog.Data.Topic, DBlog.Data" />
     <many-to-one name="Post" column="Post_Id" class="DBlog.Data.Post, DBlog.Data" />
+    <many-to-one name="Topic" column="Topic_Id" class="DBlog.Data.Topic, DBlog.Data" />
   </class>
   <class name="DBlog.Data.Reference, DBlog.Data" table="Reference">
     <id name="Id" type="Int32" column="Reference_Id" access="field.pascalcase-m-underscore">
@@ -350,11 +351,15 @@
       <generator class="identity" />
     </id>
     <property name="Name" column="Name" type="String" />
-    <bag lazy="true" name="Posts" inverse="true">
+    <bag lazy="true" name="Posts">
       <key column="Topic_Id" />
       <one-to-many class="DBlog.Data.Post, DBlog.Data" />
     </bag>
     <property name="Type" column="Type" type="String" />
+    <bag lazy="true" name="PostTopics" inverse="true">
+      <key column="Topic_Id" />
+      <one-to-many class="DBlog.Data.PostTopic, DBlog.Data" />
+    </bag>
   </class>
   <class name="DBlog.Data.WeeklyCounter, DBlog.Data" table="WeeklyCounter">
     <id name="Id" type="Int32" column="WeeklyCounter_Id" access="field.pascalcase-m-underscore">

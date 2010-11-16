@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<domain name="DBlog.Data" assembly="DBlog.Data" root="DBlog.Data" source="DBlog" field-strategy="PascalCase" count="Lazy" load="Lazy">
+<domain name="DBlog.Data" assembly="DBlog.Data" root="DBlog.Data" source="DBlog" field-strategy="PascalCase" load="Lazy">
   <class name="Browser" table="Browser">
     <property name="Id" id="true" columns="Browser_Id" type="System.Int32" modifier="Virtual" />
     <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
@@ -67,6 +67,7 @@
     <property name="Image" columns="Image_Id" ref="OneToMany" inverse="Highlights" type="Image" modifier="Virtual" />
     <property name="Title" columns="Title" type="System.String" modifier="Virtual" />
     <property name="Url" columns="Url" type="System.String" modifier="Virtual" />
+    <property name="Position" columns="Position" type="System.Int32" modifier="Virtual" />
   </class>
   <class name="HourlyCounter" table="HourlyCounter">
     <property name="Id" id="true" columns="HourlyCounter_Id" type="System.Int32" modifier="Virtual" />
@@ -146,11 +147,12 @@
     <property name="PostCounters" table="PostCounter" id-columns="Post_Id" list="true" item-type="PostCounter" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" modifier="Virtual" />
     <property name="PostImages" table="PostImage" id-columns="Post_Id" list="true" item-type="PostImage" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" modifier="Virtual" />
     <property name="Title" columns="Title" type="System.String" modifier="Virtual" />
-    <property name="Topic" columns="Topic_Id" ref="OneToMany" inverse="Posts" type="Topic" modifier="Virtual" />
     <property name="PostLogins" table="PostLogin" id-columns="Post_Id" list="true" item-type="PostLogin" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" modifier="Virtual" />
     <property name="Publish" columns="Publish" type="System.Boolean" modifier="Virtual" />
     <property name="Display" columns="Display" type="System.Boolean" modifier="Virtual" />
-    <property name="Sticky" columns="Sticky" type="System.Boolean" />
+    <property name="Sticky" columns="Sticky" type="System.Boolean" modifier="Virtual" />
+    <property name="Export" columns="Export" type="System.Boolean" modifier="Virtual" />
+    <property name="PostTopics" table="PostTopic" id-columns="Post_Id" list="true" item-type="PostTopic" slave="true" ref="ManyToOne" inverse="Post" inherits-inverse="true" modifier="Virtual" />
   </class>
   <class name="PostComment" table="PostComment">
     <property name="Id" id="true" columns="PostComment_Id" type="System.Int32" modifier="Virtual" />
@@ -171,6 +173,11 @@
     <property name="Id" id="true" columns="PostLogin_Id" type="System.Int32" modifier="Virtual" />
     <property name="Login" columns="Login_Id" ref="OneToMany" inverse="PostLogins" type="Login" modifier="Virtual" />
     <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostLogins" type="Post" modifier="Virtual" />
+  </class>
+  <class name="PostTopic" table="PostTopic">
+    <property name="Id" id="true" columns="PostTopic_Id" type="System.Int32" modifier="Virtual" />
+    <property name="Post" columns="Post_Id" ref="OneToMany" inverse="PostTopics" type="Post" modifier="Virtual" />
+    <property name="Topic" columns="Topic_Id" ref="OneToMany" inverse="PostTopics" type="Topic" modifier="Virtual" />
   </class>
   <class name="Reference" table="Reference">
     <property name="Id" id="true" columns="Reference_Id" type="System.Int32" modifier="Virtual" />
@@ -210,8 +217,8 @@
   <class name="Topic" table="Topic">
     <property name="Id" id="true" columns="Topic_Id" type="System.Int32" modifier="Virtual" />
     <property name="Name" columns="Name" type="System.String" modifier="Virtual" />
-    <property name="Posts" table="Post" id-columns="Topic_Id" list="true" item-type="Post" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" modifier="Virtual" />
     <property name="Type" columns="Type" type="System.String" modifier="Virtual" />
+    <property name="PostTopics" table="PostTopic" id-columns="Topic_Id" list="true" item-type="PostTopic" slave="true" ref="ManyToOne" inverse="Topic" inherits-inverse="true" modifier="Virtual" />
   </class>
   <class name="WeeklyCounter" table="WeeklyCounter">
     <property name="Id" id="true" columns="WeeklyCounter_Id" type="System.Int32" modifier="Virtual" />
@@ -223,8 +230,8 @@
     <property name="DateTime" columns="DateTime" type="System.DateTime" modifier="Virtual" />
     <property name="RequestCount" columns="RequestCount" type="System.Int64" modifier="Virtual" />
   </class>
-  <source name="DBlog" type="MSSqlServer" provider="SqlClient" schema="dbo" catalog="Blog">
-    <connection-string>Server=localhost;Database=Blog;Trusted_Connection=yes</connection-string>
+  <source name="DBlog" type="MSSqlServer" provider="SqlClient" schema="dbo" catalog="DBlog">
+    <connection-string>Server=localhost;Database=DBlog;Trusted_Connection=yes</connection-string>
     <table name="Browser">
       <column name="Browser_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="Name" type="String" prec="128" length="256" scale="0" />
@@ -281,6 +288,7 @@
       <column name="Image_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Image" primary-column="Image_Id" foreign-key="FK_Highlight_Image" />
       <column name="Title" type="String" prec="64" length="128" scale="0" />
       <column name="Url" type="AnsiString" prec="256" length="256" scale="0" />
+      <column name="Position" type="Int32" prec="10" length="4" scale="0" default="((0))" />
     </table>
     <table name="HourlyCounter">
       <column name="HourlyCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
@@ -353,6 +361,7 @@
       <column name="Publish" type="Boolean" prec="1" length="1" scale="0" default="((1))" />
       <column name="Display" type="Boolean" prec="1" length="1" scale="0" default="((1))" />
       <column name="Sticky" type="Boolean" prec="1" length="1" scale="0" default="((0))" />
+      <column name="Export" type="Boolean" prec="1" length="1" scale="0" default="((0))" />
     </table>
     <table name="PostComment">
       <column name="PostComment_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
@@ -423,6 +432,11 @@
       <column name="YearlyCounter_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
       <column name="DateTime" type="DateTime" prec="23" length="8" scale="3" />
       <column name="RequestCount" type="Int64" prec="19" length="8" scale="0" />
+    </table>
+    <table name="PostTopic">
+      <column name="PostTopic_Id" primary="true" type="Int32" prec="10" length="4" scale="0" auto-inc="true" seed="1" inc="1" />
+      <column name="Post_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Post" primary-column="Post_Id" foreign-key="FK_PostTopic_Post" />
+      <column name="Topic_Id" type="Int32" prec="10" length="4" scale="0" foreign="true" primary-table="Topic" primary-column="Topic_Id" foreign-key="FK_PostTopic_Topic" />
     </table>
   </source>
 </domain>

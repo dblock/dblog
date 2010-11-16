@@ -56,5 +56,16 @@ namespace DBlog.Web.UnitTests.WebServices
             base.Delete();
             mImageTest.Delete();
         }
+
+        [Test]
+        public void TestAutoIndex()
+        {
+            int id = Create();
+            int count = Count();
+            Assert.IsTrue(count > 0);
+            TransitHighlight to = (TransitHighlight) Retrieve(id);
+            Assert.AreEqual(to.Position, count);
+            Blog.DeleteHighlight(Ticket, id);
+        }
     }
 }

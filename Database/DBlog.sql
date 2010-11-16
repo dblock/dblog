@@ -172,7 +172,7 @@ CREATE TABLE [dbo].[Feed](
 	[Feed_Id] [int] IDENTITY(1,1) NOT NULL,
 	[Url] [varchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[Updated] [datetime] NULL,
-	[Interval] [int] NOT NULL CONSTRAINT [DF_Feed_Interval]  DEFAULT ((60)),
+	[Interval] [int] NOT NULL,
 	[Name] [nvarchar](64) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Description] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Exception] [ntext] COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
@@ -244,6 +244,7 @@ CREATE TABLE [dbo].[Highlight](
 	[Image_Id] [int] NOT NULL,
 	[Description] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Url] [varchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
+	[Position] [int] NOT NULL,
  CONSTRAINT [PK_Highlight] PRIMARY KEY CLUSTERED 
 (
 	[Highlight_Id] ASC
@@ -255,6 +256,19 @@ CREATE TABLE [dbo].[Highlight](
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 END
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Highlight]') AND name = N'IX_Highlight_Position')
+CREATE NONCLUSTERED INDEX [IX_Highlight_Position] ON [dbo].[Highlight] 
+(
+	[Position] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Highlight]') AND name = N'IX_Highlight_Position')
+CREATE NONCLUSTERED INDEX [IX_Highlight_Position] ON [dbo].[Highlight] 
+(
+	[Position] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Highlight]') AND name = N'PK_Highlight')
 ALTER TABLE [dbo].[Highlight] ADD  CONSTRAINT [PK_Highlight] PRIMARY KEY CLUSTERED 
@@ -277,8 +291,8 @@ IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[Ho
 BEGIN
 CREATE TABLE [dbo].[HourlyCounter](
 	[HourlyCounter_Id] [int] IDENTITY(1,1) NOT NULL,
-	[RequestCount] [int] NOT NULL CONSTRAINT [DF_HourlyCounter_RequestCount]  DEFAULT ((0)),
-	[DateTime] [datetime] NOT NULL CONSTRAINT [DF_HourlyCounter_DateTime]  DEFAULT (getdate()),
+	[RequestCount] [int] NOT NULL,
+	[DateTime] [datetime] NOT NULL,
  CONSTRAINT [PK_HourlyCounter] PRIMARY KEY CLUSTERED 
 (
 	[HourlyCounter_Id] ASC
@@ -318,7 +332,7 @@ CREATE TABLE [dbo].[Image](
 	[Modified] [datetime] NOT NULL,
 	[Path] [nvarchar](260) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Thumbnail] [image] NULL,
-	[Preferred] [bit] NULL CONSTRAINT [DF_Image_Preferred]  DEFAULT ((0)),
+	[Preferred] [bit] NULL,
 	[Description] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
  CONSTRAINT [PK_Image] PRIMARY KEY CLUSTERED 
 (
@@ -635,10 +649,10 @@ CREATE TABLE [dbo].[Post](
 	[Body] [ntext] COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
 	[Created] [datetime] NOT NULL,
 	[Modified] [datetime] NOT NULL,
-	[Publish] [bit] NOT NULL DEFAULT ((1)),
-	[Display] [bit] NOT NULL DEFAULT ((1)),
-	[Sticky] [bit] NOT NULL DEFAULT ((0)),
-	[Export] [bit] NOT NULL DEFAULT ((0)),
+	[Publish] [bit] NOT NULL,
+	[Display] [bit] NOT NULL,
+	[Sticky] [bit] NOT NULL,
+	[Export] [bit] NOT NULL,
  CONSTRAINT [PK_Post] PRIMARY KEY CLUSTERED 
 (
 	[Post_Id] ASC
@@ -657,8 +671,9 @@ IF not EXISTS (SELECT * FROM sys.fulltext_indexes fti WHERE fti.object_id = OBJE
 CREATE FULLTEXT INDEX ON [dbo].[Post](
 [Body] LANGUAGE [English], 
 [Title] LANGUAGE [English])
-KEY INDEX [PK_Post] ON [Blog]
-WITH CHANGE_TRACKING AUTO
+KEY INDEX [PK_Post]ON ([Blog], FILEGROUP [PRIMARY])
+WITH (CHANGE_TRACKING = AUTO, STOPLIST = SYSTEM)
+
 
 GO
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'IX_Post_Created')
@@ -677,8 +692,9 @@ IF not EXISTS (SELECT * FROM sys.fulltext_indexes fti WHERE fti.object_id = OBJE
 CREATE FULLTEXT INDEX ON [dbo].[Post](
 [Body] LANGUAGE [English], 
 [Title] LANGUAGE [English])
-KEY INDEX [PK_Post] ON [Blog]
-WITH CHANGE_TRACKING AUTO
+KEY INDEX [PK_Post]ON ([Blog], FILEGROUP [PRIMARY])
+WITH (CHANGE_TRACKING = AUTO, STOPLIST = SYSTEM)
+
 
 GO
 SET ANSI_NULLS ON
@@ -940,7 +956,7 @@ CREATE TABLE [dbo].[ReferrerHost](
 	[Name] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[LastUrl] [nvarchar](1024) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
 	[LastSource] [nvarchar](1024) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-	[RequestCount] [bigint] NULL CONSTRAINT [DF_ReferrerHost_RequestCount]  DEFAULT ((0)),
+	[RequestCount] [bigint] NULL,
 	[Created] [datetime] NOT NULL,
 	[Updated] [datetime] NOT NULL,
  CONSTRAINT [PK_ReferrerHost] PRIMARY KEY CLUSTERED 
@@ -1008,7 +1024,7 @@ BEGIN
 CREATE TABLE [dbo].[ReferrerSearchQuery](
 	[ReferrerSearchQuery_Id] [int] IDENTITY(1,1) NOT NULL,
 	[SearchQuery] [nvarchar](128) COLLATE SQL_Latin1_General_CP1_CI_AS NOT NULL,
-	[RequestCount] [bigint] NOT NULL CONSTRAINT [DF_ReferrerSearchQuery_RequestCount]  DEFAULT ((0)),
+	[RequestCount] [bigint] NOT NULL,
  CONSTRAINT [PK_ReferrerSearchQuery] PRIMARY KEY CLUSTERED 
 (
 	[ReferrerSearchQuery_Id] ASC
@@ -1178,18 +1194,21 @@ IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo
 ALTER TABLE [dbo].[BrowserCounter]  WITH CHECK ADD  CONSTRAINT [FK_BrowserCounter_Browser] FOREIGN KEY([Browser_Id])
 REFERENCES [dbo].[Browser] ([Browser_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserCounter_Browser]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserCounter]'))
 ALTER TABLE [dbo].[BrowserCounter] CHECK CONSTRAINT [FK_BrowserCounter_Browser]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserCounter]'))
 ALTER TABLE [dbo].[BrowserCounter]  WITH CHECK ADD  CONSTRAINT [FK_BrowserCounter_Counter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserCounter]'))
 ALTER TABLE [dbo].[BrowserCounter] CHECK CONSTRAINT [FK_BrowserCounter_Counter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Comment_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Comment]'))
 ALTER TABLE [dbo].[Comment]  WITH CHECK ADD  CONSTRAINT [FK_Comment_Login] FOREIGN KEY([Owner_Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Comment_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Comment]'))
 ALTER TABLE [dbo].[Comment] CHECK CONSTRAINT [FK_Comment_Login]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_FeedItem_Feed]') AND parent_object_id = OBJECT_ID(N'[dbo].[FeedItem]'))
@@ -1197,108 +1216,126 @@ ALTER TABLE [dbo].[FeedItem]  WITH CHECK ADD  CONSTRAINT [FK_FeedItem_Feed] FORE
 REFERENCES [dbo].[Feed] ([Feed_Id])
 ON DELETE CASCADE
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_FeedItem_Feed]') AND parent_object_id = OBJECT_ID(N'[dbo].[FeedItem]'))
 ALTER TABLE [dbo].[FeedItem] CHECK CONSTRAINT [FK_FeedItem_Feed]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Highlight_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[Highlight]'))
 ALTER TABLE [dbo].[Highlight]  WITH CHECK ADD  CONSTRAINT [FK_Highlight_Image] FOREIGN KEY([Image_Id])
 REFERENCES [dbo].[Image] ([Image_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Highlight_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[Highlight]'))
 ALTER TABLE [dbo].[Highlight] CHECK CONSTRAINT [FK_Highlight_Image]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageComment]'))
 ALTER TABLE [dbo].[ImageComment]  WITH CHECK ADD  CONSTRAINT [FK_ImageComment_Comment] FOREIGN KEY([Comment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageComment]'))
 ALTER TABLE [dbo].[ImageComment] CHECK CONSTRAINT [FK_ImageComment_Comment]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageComment_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageComment]'))
 ALTER TABLE [dbo].[ImageComment]  WITH CHECK ADD  CONSTRAINT [FK_ImageComment_Image] FOREIGN KEY([Image_Id])
 REFERENCES [dbo].[Image] ([Image_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageComment_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageComment]'))
 ALTER TABLE [dbo].[ImageComment] CHECK CONSTRAINT [FK_ImageComment_Image]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageCounter]'))
 ALTER TABLE [dbo].[ImageCounter]  WITH CHECK ADD  CONSTRAINT [FK_ImageCounter_Counter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageCounter]'))
 ALTER TABLE [dbo].[ImageCounter] CHECK CONSTRAINT [FK_ImageCounter_Counter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageCounter_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageCounter]'))
 ALTER TABLE [dbo].[ImageCounter]  WITH CHECK ADD  CONSTRAINT [FK_ImageCounter_Image] FOREIGN KEY([Image_Id])
 REFERENCES [dbo].[Image] ([Image_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageCounter_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageCounter]'))
 ALTER TABLE [dbo].[ImageCounter] CHECK CONSTRAINT [FK_ImageCounter_Image]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_LoginCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[LoginCounter]'))
 ALTER TABLE [dbo].[LoginCounter]  WITH CHECK ADD  CONSTRAINT [FK_LoginCounter_Counter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_LoginCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[LoginCounter]'))
 ALTER TABLE [dbo].[LoginCounter] CHECK CONSTRAINT [FK_LoginCounter_Counter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_LoginCounter_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[LoginCounter]'))
 ALTER TABLE [dbo].[LoginCounter]  WITH CHECK ADD  CONSTRAINT [FK_LoginCounter_Login] FOREIGN KEY([Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_LoginCounter_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[LoginCounter]'))
 ALTER TABLE [dbo].[LoginCounter] CHECK CONSTRAINT [FK_LoginCounter_Login]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_NamedCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[NamedCounter]'))
 ALTER TABLE [dbo].[NamedCounter]  WITH CHECK ADD  CONSTRAINT [FK_NamedCounter_Counter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_NamedCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[NamedCounter]'))
 ALTER TABLE [dbo].[NamedCounter] CHECK CONSTRAINT [FK_NamedCounter_Counter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Post_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Post]'))
 ALTER TABLE [dbo].[Post]  WITH CHECK ADD  CONSTRAINT [FK_Post_Login] FOREIGN KEY([Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Post_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Post]'))
 ALTER TABLE [dbo].[Post] CHECK CONSTRAINT [FK_Post_Login]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Comment] FOREIGN KEY([Comment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment] CHECK CONSTRAINT [FK_PostComment_Comment]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Post] FOREIGN KEY([Post_Id])
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment] CHECK CONSTRAINT [FK_PostComment_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostCounter_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostCounter]'))
 ALTER TABLE [dbo].[PostCounter]  WITH CHECK ADD  CONSTRAINT [FK_PostCounter_Post] FOREIGN KEY([Post_Id])
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostCounter_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostCounter]'))
 ALTER TABLE [dbo].[PostCounter] CHECK CONSTRAINT [FK_PostCounter_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostCounter_PostCounter]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostCounter]'))
 ALTER TABLE [dbo].[PostCounter]  WITH CHECK ADD  CONSTRAINT [FK_PostCounter_PostCounter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostCounter_PostCounter]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostCounter]'))
 ALTER TABLE [dbo].[PostCounter] CHECK CONSTRAINT [FK_PostCounter_PostCounter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
 ALTER TABLE [dbo].[PostImage]  WITH CHECK ADD  CONSTRAINT [FK_PostImage_Image] FOREIGN KEY([Image_Id])
 REFERENCES [dbo].[Image] ([Image_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
 ALTER TABLE [dbo].[PostImage] CHECK CONSTRAINT [FK_PostImage_Image]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
 ALTER TABLE [dbo].[PostImage]  WITH CHECK ADD  CONSTRAINT [FK_PostImage_Post] FOREIGN KEY([Post_Id])
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
 ALTER TABLE [dbo].[PostImage] CHECK CONSTRAINT [FK_PostImage_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostLogin_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostLogin]'))
 ALTER TABLE [dbo].[PostLogin]  WITH CHECK ADD  CONSTRAINT [FK_PostLogin_Login] FOREIGN KEY([Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostLogin_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostLogin]'))
 ALTER TABLE [dbo].[PostLogin] CHECK CONSTRAINT [FK_PostLogin_Login]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostLogin_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostLogin]'))
 ALTER TABLE [dbo].[PostLogin]  WITH CHECK ADD  CONSTRAINT [FK_PostLogin_Post] FOREIGN KEY([Post_Id])
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostLogin_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostLogin]'))
 ALTER TABLE [dbo].[PostLogin] CHECK CONSTRAINT [FK_PostLogin_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
@@ -1306,151 +1343,230 @@ ALTER TABLE [dbo].[PostTopic]  WITH CHECK ADD  CONSTRAINT [FK_PostTopic_Post] FO
 REFERENCES [dbo].[Post] ([Post_Id])
 ON DELETE CASCADE
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
 ALTER TABLE [dbo].[PostTopic] CHECK CONSTRAINT [FK_PostTopic_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
 ALTER TABLE [dbo].[PostTopic]  WITH CHECK ADD  CONSTRAINT [FK_PostTopic_Topic] FOREIGN KEY([Topic_Id])
 REFERENCES [dbo].[Topic] ([Topic_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
 ALTER TABLE [dbo].[PostTopic] CHECK CONSTRAINT [FK_PostTopic_Topic]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment] FOREIGN KEY([Comment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread] CHECK CONSTRAINT [FK_Thread_Comment]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment_Parent]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment_Parent] FOREIGN KEY([ParentComment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment_Parent]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread] CHECK CONSTRAINT [FK_Thread_Comment_Parent]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserCounter_Browser]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserCounter]'))
 ALTER TABLE [dbo].[BrowserCounter]  WITH CHECK ADD  CONSTRAINT [FK_BrowserCounter_Browser] FOREIGN KEY([Browser_Id])
 REFERENCES [dbo].[Browser] ([Browser_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserCounter_Browser]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserCounter]'))
 ALTER TABLE [dbo].[BrowserCounter] CHECK CONSTRAINT [FK_BrowserCounter_Browser]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserCounter]'))
 ALTER TABLE [dbo].[BrowserCounter]  WITH CHECK ADD  CONSTRAINT [FK_BrowserCounter_Counter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_BrowserCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[BrowserCounter]'))
 ALTER TABLE [dbo].[BrowserCounter] CHECK CONSTRAINT [FK_BrowserCounter_Counter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Comment_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Comment]'))
 ALTER TABLE [dbo].[Comment]  WITH CHECK ADD  CONSTRAINT [FK_Comment_Login] FOREIGN KEY([Owner_Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Comment_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Comment]'))
 ALTER TABLE [dbo].[Comment] CHECK CONSTRAINT [FK_Comment_Login]
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Feed_Interval]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Feed] ADD  CONSTRAINT [DF_Feed_Interval]  DEFAULT ((60)) FOR [Interval]
+END
+
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_FeedItem_Feed]') AND parent_object_id = OBJECT_ID(N'[dbo].[FeedItem]'))
 ALTER TABLE [dbo].[FeedItem]  WITH CHECK ADD  CONSTRAINT [FK_FeedItem_Feed] FOREIGN KEY([Feed_Id])
 REFERENCES [dbo].[Feed] ([Feed_Id])
 ON DELETE CASCADE
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_FeedItem_Feed]') AND parent_object_id = OBJECT_ID(N'[dbo].[FeedItem]'))
 ALTER TABLE [dbo].[FeedItem] CHECK CONSTRAINT [FK_FeedItem_Feed]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Highlight_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[Highlight]'))
 ALTER TABLE [dbo].[Highlight]  WITH CHECK ADD  CONSTRAINT [FK_Highlight_Image] FOREIGN KEY([Image_Id])
 REFERENCES [dbo].[Image] ([Image_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Highlight_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[Highlight]'))
 ALTER TABLE [dbo].[Highlight] CHECK CONSTRAINT [FK_Highlight_Image]
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Highlight_Order]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Highlight] ADD  CONSTRAINT [DF_Highlight_Order]  DEFAULT ((0)) FOR [Position]
+END
+
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_HourlyCounter_RequestCount]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[HourlyCounter] ADD  CONSTRAINT [DF_HourlyCounter_RequestCount]  DEFAULT ((0)) FOR [RequestCount]
+END
+
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_HourlyCounter_DateTime]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[HourlyCounter] ADD  CONSTRAINT [DF_HourlyCounter_DateTime]  DEFAULT (getdate()) FOR [DateTime]
+END
+
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Image_Preferred]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Image] ADD  CONSTRAINT [DF_Image_Preferred]  DEFAULT ((0)) FOR [Preferred]
+END
+
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageComment]'))
 ALTER TABLE [dbo].[ImageComment]  WITH CHECK ADD  CONSTRAINT [FK_ImageComment_Comment] FOREIGN KEY([Comment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageComment]'))
 ALTER TABLE [dbo].[ImageComment] CHECK CONSTRAINT [FK_ImageComment_Comment]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageComment_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageComment]'))
 ALTER TABLE [dbo].[ImageComment]  WITH CHECK ADD  CONSTRAINT [FK_ImageComment_Image] FOREIGN KEY([Image_Id])
 REFERENCES [dbo].[Image] ([Image_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageComment_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageComment]'))
 ALTER TABLE [dbo].[ImageComment] CHECK CONSTRAINT [FK_ImageComment_Image]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageCounter]'))
 ALTER TABLE [dbo].[ImageCounter]  WITH CHECK ADD  CONSTRAINT [FK_ImageCounter_Counter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageCounter]'))
 ALTER TABLE [dbo].[ImageCounter] CHECK CONSTRAINT [FK_ImageCounter_Counter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageCounter_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageCounter]'))
 ALTER TABLE [dbo].[ImageCounter]  WITH CHECK ADD  CONSTRAINT [FK_ImageCounter_Image] FOREIGN KEY([Image_Id])
 REFERENCES [dbo].[Image] ([Image_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_ImageCounter_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[ImageCounter]'))
 ALTER TABLE [dbo].[ImageCounter] CHECK CONSTRAINT [FK_ImageCounter_Image]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_LoginCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[LoginCounter]'))
 ALTER TABLE [dbo].[LoginCounter]  WITH CHECK ADD  CONSTRAINT [FK_LoginCounter_Counter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_LoginCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[LoginCounter]'))
 ALTER TABLE [dbo].[LoginCounter] CHECK CONSTRAINT [FK_LoginCounter_Counter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_LoginCounter_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[LoginCounter]'))
 ALTER TABLE [dbo].[LoginCounter]  WITH CHECK ADD  CONSTRAINT [FK_LoginCounter_Login] FOREIGN KEY([Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_LoginCounter_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[LoginCounter]'))
 ALTER TABLE [dbo].[LoginCounter] CHECK CONSTRAINT [FK_LoginCounter_Login]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_NamedCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[NamedCounter]'))
 ALTER TABLE [dbo].[NamedCounter]  WITH CHECK ADD  CONSTRAINT [FK_NamedCounter_Counter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_NamedCounter_Counter]') AND parent_object_id = OBJECT_ID(N'[dbo].[NamedCounter]'))
 ALTER TABLE [dbo].[NamedCounter] CHECK CONSTRAINT [FK_NamedCounter_Counter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Post_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Post]'))
 ALTER TABLE [dbo].[Post]  WITH CHECK ADD  CONSTRAINT [FK_Post_Login] FOREIGN KEY([Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Post_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Post]'))
 ALTER TABLE [dbo].[Post] CHECK CONSTRAINT [FK_Post_Login]
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Publish__29572725]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Post] ADD  DEFAULT ((1)) FOR [Publish]
+END
+
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Display__2A4B4B5E]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Post] ADD  DEFAULT ((1)) FOR [Display]
+END
+
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Sticky__2B3F6F97]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Post] ADD  DEFAULT ((0)) FOR [Sticky]
+END
+
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Export__2C3393D0]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Post] ADD  DEFAULT ((0)) FOR [Export]
+END
+
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Comment] FOREIGN KEY([Comment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment] CHECK CONSTRAINT [FK_PostComment_Comment]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment]  WITH CHECK ADD  CONSTRAINT [FK_PostComment_Post] FOREIGN KEY([Post_Id])
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostComment_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostComment]'))
 ALTER TABLE [dbo].[PostComment] CHECK CONSTRAINT [FK_PostComment_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostCounter_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostCounter]'))
 ALTER TABLE [dbo].[PostCounter]  WITH CHECK ADD  CONSTRAINT [FK_PostCounter_Post] FOREIGN KEY([Post_Id])
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostCounter_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostCounter]'))
 ALTER TABLE [dbo].[PostCounter] CHECK CONSTRAINT [FK_PostCounter_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostCounter_PostCounter]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostCounter]'))
 ALTER TABLE [dbo].[PostCounter]  WITH CHECK ADD  CONSTRAINT [FK_PostCounter_PostCounter] FOREIGN KEY([Counter_Id])
 REFERENCES [dbo].[Counter] ([Counter_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostCounter_PostCounter]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostCounter]'))
 ALTER TABLE [dbo].[PostCounter] CHECK CONSTRAINT [FK_PostCounter_PostCounter]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
 ALTER TABLE [dbo].[PostImage]  WITH CHECK ADD  CONSTRAINT [FK_PostImage_Image] FOREIGN KEY([Image_Id])
 REFERENCES [dbo].[Image] ([Image_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
 ALTER TABLE [dbo].[PostImage] CHECK CONSTRAINT [FK_PostImage_Image]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
 ALTER TABLE [dbo].[PostImage]  WITH CHECK ADD  CONSTRAINT [FK_PostImage_Post] FOREIGN KEY([Post_Id])
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostImage_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostImage]'))
 ALTER TABLE [dbo].[PostImage] CHECK CONSTRAINT [FK_PostImage_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostLogin_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostLogin]'))
 ALTER TABLE [dbo].[PostLogin]  WITH CHECK ADD  CONSTRAINT [FK_PostLogin_Login] FOREIGN KEY([Login_Id])
 REFERENCES [dbo].[Login] ([Login_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostLogin_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostLogin]'))
 ALTER TABLE [dbo].[PostLogin] CHECK CONSTRAINT [FK_PostLogin_Login]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostLogin_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostLogin]'))
 ALTER TABLE [dbo].[PostLogin]  WITH CHECK ADD  CONSTRAINT [FK_PostLogin_Post] FOREIGN KEY([Post_Id])
 REFERENCES [dbo].[Post] ([Post_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostLogin_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostLogin]'))
 ALTER TABLE [dbo].[PostLogin] CHECK CONSTRAINT [FK_PostLogin_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
@@ -1458,23 +1574,39 @@ ALTER TABLE [dbo].[PostTopic]  WITH CHECK ADD  CONSTRAINT [FK_PostTopic_Post] FO
 REFERENCES [dbo].[Post] ([Post_Id])
 ON DELETE CASCADE
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Post]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
 ALTER TABLE [dbo].[PostTopic] CHECK CONSTRAINT [FK_PostTopic_Post]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
 ALTER TABLE [dbo].[PostTopic]  WITH CHECK ADD  CONSTRAINT [FK_PostTopic_Topic] FOREIGN KEY([Topic_Id])
 REFERENCES [dbo].[Topic] ([Topic_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_PostTopic_Topic]') AND parent_object_id = OBJECT_ID(N'[dbo].[PostTopic]'))
 ALTER TABLE [dbo].[PostTopic] CHECK CONSTRAINT [FK_PostTopic_Topic]
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ReferrerHost_RequestCount]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[ReferrerHost] ADD  CONSTRAINT [DF_ReferrerHost_RequestCount]  DEFAULT ((0)) FOR [RequestCount]
+END
+
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_ReferrerSearchQuery_RequestCount]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[ReferrerSearchQuery] ADD  CONSTRAINT [DF_ReferrerSearchQuery_RequestCount]  DEFAULT ((0)) FOR [RequestCount]
+END
+
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment] FOREIGN KEY([Comment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread] CHECK CONSTRAINT [FK_Thread_Comment]
 GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment_Parent]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread]  WITH CHECK ADD  CONSTRAINT [FK_Thread_Comment_Parent] FOREIGN KEY([ParentComment_Id])
 REFERENCES [dbo].[Comment] ([Comment_Id])
 GO
+IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Thread_Comment_Parent]') AND parent_object_id = OBJECT_ID(N'[dbo].[Thread]'))
 ALTER TABLE [dbo].[Thread] CHECK CONSTRAINT [FK_Thread_Comment_Parent]
 GO

@@ -64,6 +64,20 @@ namespace DBlog.TransitData
             }
         }
 
+        private int mPosition;
+
+        public int Position
+        {
+            get
+            {
+                return mPosition;
+            }
+            set
+            {
+                mPosition = value;
+            }
+        }
+
         public TransitHighlight()
         {
 
@@ -76,6 +90,7 @@ namespace DBlog.TransitData
             Title = o.Title;
             Description = o.Description;
             ImageId = o.Image.Id;
+            Position = o.Position;
         }
 
         public Highlight GetHighlight(ISession session)
@@ -85,6 +100,7 @@ namespace DBlog.TransitData
             highlight.Url = Url;
             highlight.Description = Description;
             highlight.Image = (ImageId != 0) ? (Image) session.Load(typeof(Image), ImageId) : null;
+            highlight.Position = Position;
             return highlight;
         }
     }

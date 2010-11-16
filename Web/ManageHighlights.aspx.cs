@@ -42,6 +42,16 @@ public partial class admin_ManageHighlights : BlogAdminPage
                     ReportInfo("Item Deleted");
                     GetData(source, e);
                     break;
+                case "Up":
+                    SessionManager.BlogService.MoveHighlight(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()), -1);
+                    SessionManager.Invalidate<TransitHighlight>();
+                    GetData(source, e);
+                    break;
+                case "Down":
+                    SessionManager.BlogService.MoveHighlight(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()), 1);
+                    SessionManager.Invalidate<TransitHighlight>();
+                    GetData(source, e);
+                    break;
             }
         }
         catch(Exception ex)
@@ -63,5 +73,13 @@ public partial class admin_ManageHighlights : BlogAdminPage
             "GetHighlightsCount", SessionManager.Ticket, null);
         grid_OnGetDataSource(sender, e);
         grid.DataBind();
+    }
+
+    public int Count
+    {
+        get
+        {
+            return grid.VirtualItemCount;
+        }
     }
 }

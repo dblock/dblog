@@ -23,6 +23,7 @@ namespace DBlog.Data
         private Image m_Image;
         private System.String m_Title;
         private System.String m_Url;
+        private System.Int32 m_Position;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -147,6 +148,31 @@ namespace DBlog.Data
             set
             {
                 m_Url = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.Int32'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Position' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Position' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public virtual System.Int32 Position
+        {
+            get
+            {
+                return m_Position;
+            }
+            set
+            {
+                m_Position = value;
             }
         }
 

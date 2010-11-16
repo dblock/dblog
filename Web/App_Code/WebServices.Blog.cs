@@ -891,11 +891,66 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
                 Highlight highlight = t_highlight.GetHighlight(session);
+                // renumber highlights
+                ICriteria cr = session.CreateCriteria(typeof(Highlight));
+                cr.AddOrder(Order.Asc("Position"));
+                IList<Highlight> list = cr.List<Highlight>();
+                if (highlight.Id == 0) highlight.Position = list.Count + 1;
+                // renumber highlights (necessary if highlight order is broken)
+                for (int i = 0; i < list.Count; i++)
+                {
+                    list[i].Position = (i + 1);
+                    session.Save(list[i]);
+                }
                 session.SaveOrUpdate(highlight);
                 session.Flush();
                 return highlight.Id;
             }
         }
+
+        [WebMethod(Description = "Move a highlight.")]
+        public void MoveHighlight(string ticket, int id, int move)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                // this highlight
+                Highlight h = session.Load<Highlight>(id);
+                int oldPosition = h.Position;
+                h.Position += move;
+                // rest of highlights
+                ICriteria cr = session.CreateCriteria(typeof(Highlight));
+                cr.AddOrder(Order.Asc("Position"));
+                IList<Highlight> list = cr.List<Highlight>();
+                // new position out of bounds?
+                if (h.Position <= 0 || h.Position > list.Count)
+                {
+                    throw new Exception(string.Format("Invalid new position: {0}", h.Position));
+                }
+                // renumber
+                if (move > 0)
+                {
+                    // item moved forward, renumber the items that followed it before
+                    for (int i = oldPosition; i < h.Position; i++)
+                    {
+                        list[i].Position--;
+                        session.Save(list[i]);
+                    }
+                }
+                else if (move < 0)
+                {
+                    // item moved backward, renumber the items that follow it now
+                    for (int i = h.Position; i < oldPosition; i++)
+                    {
+                        list[i - 1].Position++;
+                        session.Save(list[i - 1]);
+                    }
+                }
+                session.Flush();
+            }
+        }
+
 
         [WebMethod(Description = "Get highlights count.")]
         public int GetHighlightsCount(string ticket, WebServiceQueryOptions options)
@@ -923,6 +978,8 @@ namespace DBlog.WebServices
                     options.Apply(cr);
                 }
 
+                cr.AddOrder(Order.Asc("Position"));
+
                 IList<Highlight> list = cr.List<Highlight>();
 
                 List<TransitHighlight> result = new List<TransitHighlight>(list.Count);
@@ -943,7 +1000,23 @@ namespace DBlog.WebServices
             {
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
-                session.Delete((Highlight)session.Load(typeof(Highlight), id));
+                Highlight h = session.Load<Highlight>(id);
+                ICriteria cr = session.CreateCriteria(typeof(Highlight));
+                cr.AddOrder(Order.Asc("Position"));
+                IList<Highlight> list = cr.List<Highlight>();
+                if (h.Position <= 0 || h.Position > list.Count)
+                {
+                    throw new Exception("Hightlights are not ordered.");
+                }
+
+                for (int index = h.Position - 1; index < list.Count; index++)
+                {
+                    list[index].Position--;
+                    session.Save(list[index]);
+                }
+
+                
+                session.Delete(h);
                 session.Flush();
             }
         }
