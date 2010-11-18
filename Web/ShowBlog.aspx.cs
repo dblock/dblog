@@ -262,11 +262,35 @@ public partial class ShowBlog : BlogPage
             switch (e.CommandName)
             {
                 case "Delete":
-                    SessionManager.BlogService.DeletePost(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
-                    SessionManager.Invalidate<TransitPost>();
-                    ReportInfo("Item Deleted");
-                    GetData(source, e);
+                    {
+                        SessionManager.BlogService.DeletePost(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                        SessionManager.Invalidate<TransitPost>();
+                        ReportInfo("Item Deleted");
+                        GetData(source, e);
+                    }
                     break;
+                case "Display":
+                    {
+                        TransitPost t_post = SessionManager.BlogService.GetPostById(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                        t_post.Display = ! t_post.Display;
+                        SessionManager.BlogService.CreateOrUpdatePost(SessionManager.Ticket, t_post);
+                        ReportInfo(t_post.Display ? "Post Displayed" : "Post Hidden");
+                        GetData(source, e);
+                        break;
+                    }
+                case "Sticky":
+                    {
+                        TransitPost t_post = SessionManager.BlogService.GetPostById(SessionManager.Ticket, int.Parse(e.CommandArgument.ToString()));
+                        t_post.Sticky = ! t_post.Sticky;
+                        SessionManager.BlogService.CreateOrUpdatePost(SessionManager.Ticket, t_post);
+                        ReportInfo(t_post.Sticky ? "Post Stuck" : "Post Unstuck");
+                        GetData(source, e);
+                        break;
+                    }
+                default:
+                    {
+                        throw new Exception(string.Format("Invalid command: {0}", e.CommandName));
+                    }
             }
         }
         catch (Exception ex)

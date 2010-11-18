@@ -119,7 +119,7 @@
        | <a href="ShowImages.aspx">pics</a>
        | <a href="ShowComments.aspx">c</a>
        | <a href="About.aspx">me</a>
-       | <a href="ListBlog.aspx">h</a>
+       | <a href="ListBlog.aspx">list</a>
       </div>
       <div class="counter">
        <asp:Label ID="labelCounter" runat="server" />

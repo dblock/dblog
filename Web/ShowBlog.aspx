@@ -62,6 +62,10 @@
           </a>
           | <asp:LinkButton ID="linkDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
            runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />
+          | <asp:LinkButton ID="linkToggleSticky" CommandName="Sticky" CommandArgument='<%# Eval("Id") %>'
+           runat="server" Text='<%# (bool) Eval("Sticky") ? "Unstick" : "Stick" %>' />
+          | <asp:LinkButton ID="linkToggleDisplay" CommandName="Display" CommandArgument='<%# Eval("Id") %>'
+           runat="server" Text='<%# (bool) Eval("Display") ? "Hide" : "Show" %>' />
          </span>
         </div>
         <div class="post_body">
