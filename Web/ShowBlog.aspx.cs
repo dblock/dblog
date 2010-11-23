@@ -287,10 +287,6 @@ public partial class ShowBlog : BlogPage
                         GetData(source, e);
                         break;
                     }
-                default:
-                    {
-                        throw new Exception(string.Format("Invalid command: {0}", e.CommandName));
-                    }
             }
         }
         catch (Exception ex)
