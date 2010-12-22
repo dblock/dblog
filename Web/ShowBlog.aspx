@@ -4,12 +4,15 @@
 <%@ Register TagPrefix="Controls" TagName="Topics" Src="ViewTopicsControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="Search" Src="SearchControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="DateRange" Src="DateRangeControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="TwitterScript" Src="TwitterScriptControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="TwitterShare" Src="TwitterShareControl.ascx" %>
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 
 <%@ Import Namespace="DBlog.TransitData" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+  <Controls:TwitterScript id="twitterScript" runat="server" />
   <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelPosts" RenderMode="Inline">
    <ContentTemplate>
     <asp:Label ID="labelPosts" CssClass="title" runat="server" Visible="false" />
@@ -48,7 +51,7 @@
           Read
          </a>
          | <%# GetTopics((TransitTopic[]) Eval("Topics")) %>
-         | <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("f") %>
+         | <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("dddd, dd MMMM yyyy") %>
          <%# GetLink((int)Eval("CommentsCount"), (int)Eval("ImagesCount"))%>
          <span id="SpanEditComment" runat="server" style='<%# (bool) Eval("HasAccess") ? String.Empty : "display: none;" %>'>
           <a href='EditPostComment.aspx?sid=<%# Eval("Id") %>&r=<%# Renderer.UrlEncode(Request.Url.PathAndQuery) %>'>
@@ -67,6 +70,10 @@
           | <asp:LinkButton ID="linkToggleDisplay" CommandName="Display" CommandArgument='<%# Eval("Id") %>'
            runat="server" Text='<%# (bool) Eval("Display") ? "Hide" : "Show" %>' />
          </span>
+         <Controls:TwitterShare id="twitterShare" runat="server" 
+           Url='<%# String.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, Eval("Id")) %>'
+           Text='<%# Eval("Title") %>'
+           />
         </div>
         <div class="post_body">
          <%# RenderEx((string) Eval("Body"), (int) Eval("Id")) %>

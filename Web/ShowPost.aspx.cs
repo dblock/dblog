@@ -158,6 +158,9 @@ public partial class ShowPost : BlogPage
         postimage.ImageUrl = string.Format("ShowPicture.aspx?id={0}", post.ImageId);
         linkimage.HRef = string.Format("ShowImage.aspx?id={0}&pid={1}", post.ImageId, post.Id);
 
+        twitterShare.Url = string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id);
+        twitterShare.Text = post.Title;
+
         GetImagesData(sender, e);
         GetCommentsData(sender, e);
     }

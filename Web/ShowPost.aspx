@@ -4,10 +4,13 @@
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="TransitData" Namespace="DBlog.TransitData" Assembly="DBlog.Tools" %>
+<%@ Register TagPrefix="Controls" TagName="TwitterScript" Src="TwitterScriptControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="TwitterShare" Src="TwitterShareControl.ascx" %>
 
 <%@ Import Namespace="DBlog.TransitData" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+ <Controls:TwitterScript id="twitterScript" runat="server" />
  <table class="table_post">
   <tr>
    <td valign="top" class="table_post_tr_td_left">
@@ -26,6 +29,7 @@
         <asp:Hyperlink ID="linkEdit" runat="server" Text="Edit" /> |
        </span>
        <asp:LinkButton ID="linkPreferred" OnClick="linkPreferred_Click" runat="server" Enabled="true" Text="Favorites" />
+       <Controls:TwitterShare id="twitterShare" runat="server" />
       </ContentTemplate>
      </asp:UpdatePanel>
     </div>
@@ -99,7 +103,7 @@
              <%# Renderer.Render(Eval("CommentLoginName")) %>
             </a>
             @
-            <%# SessionManager.Adjust((DateTime) Eval("CommentCreated")).ToString("f") %>
+            <%# SessionManager.Adjust((DateTime) Eval("CommentCreated")).ToString("dddd, dd MMMM yyyy") %>
             <a href='EditPostComment.aspx?sid=<%# Eval("PostId") %>&pid=<%# Eval("CommentId") %>&r=<%# Renderer.UrlEncode(Request.Url.PathAndQuery) %>'>
              Reply
             </a>
