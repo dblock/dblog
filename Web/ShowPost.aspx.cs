@@ -146,7 +146,7 @@ public partial class ShowPost : BlogPage
     {
         TransitPost post = Post;
 
-        linkComment.NavigateUrl = string.Format("EditPostComment.aspx?sid={0}", post.Id);
+        // linkComment.NavigateUrl = string.Format("EditPostComment.aspx?sid={0}", post.Id);
 
         Title = posttitle.Text = Renderer.Render(post.Title);
         postbody.Text = RenderEx(post.Body, post.Id);
@@ -160,6 +160,9 @@ public partial class ShowPost : BlogPage
 
         twitterShare.Url = string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id);
         twitterShare.Text = post.Title;
+
+        disquisComments.DisquisId = string.Format("Post_{0}", post.Id);
+        disquisComments.DisquisUrl = string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id);
 
         GetImagesData(sender, e);
         GetCommentsData(sender, e);

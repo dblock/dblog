@@ -8,6 +8,7 @@
 <%@ Register TagPrefix="Controls" TagName="TwitterShare" Src="TwitterShareControl.ascx" %>
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
+<%@ Register TagPrefix="Controls" TagName="DisquisCountScript" Src="DisquisCountScriptControl.ascx" %>
 
 <%@ Import Namespace="DBlog.TransitData" %>
 
@@ -52,12 +53,8 @@
          </a>
          | <%# GetTopics((TransitTopic[]) Eval("Topics")) %>
          | <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("dddd, dd MMMM yyyy") %>
-         <%# GetLink((int)Eval("CommentsCount"), (int)Eval("ImagesCount"))%>
-         <span id="SpanEditComment" runat="server" style='<%# (bool) Eval("HasAccess") ? String.Empty : "display: none;" %>'>
-          <a href='EditPostComment.aspx?sid=<%# Eval("Id") %>&r=<%# Renderer.UrlEncode(Request.Url.PathAndQuery) %>'>
-           | Post Comment
-          </a>
-         </span>
+         <%# GetImagesShortLink((int)Eval("ImagesCount"))%>
+         | <a href="ShowPost.aspx?id=<%# Eval("Id") %>#disqus_thread" data-disqus-identifier="Post_<%# Eval("Id") %>">Post Comment</a>
          | <%# GetCounter((long) Eval("Counter.Count")) %>
          <span id="SpanEditPost" runat="server" style='<%# (bool) SessionManager.IsAdministrator ? String.Empty : "display: none;" %>'>
           | <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
@@ -94,4 +91,5 @@
     </Controls:PagedGrid>
    </ContentTemplate>
   </asp:UpdatePanel>
+  <Controls:DisquisCountScript id="disquisCommentsCount" runat="server" />
 </asp:Content>

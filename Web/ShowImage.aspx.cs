@@ -241,9 +241,10 @@ public partial class ShowImage : BlogPage
         if (list.Count > 0)
         {
             PostImage = list[0];
-
+            /*
             linkComment.NavigateUrl = string.Format("EditImageComment.aspx?sid={0}&r={1}",
                 PostImage.Image.Id, Renderer.UrlEncode(Request.Url.PathAndQuery));
+             */
         }
 
         GetEXIFData(sender, e);

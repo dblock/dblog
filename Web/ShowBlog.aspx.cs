@@ -312,7 +312,7 @@ public partial class ShowBlog : BlogPage
         return string.Empty;
     }
 
-    public string GetLink(int comments_count, int images_count)
+    public string GetImagesShortLink(int images_count)
     {
         StringBuilder result = new StringBuilder();
 
@@ -320,12 +320,6 @@ public partial class ShowBlog : BlogPage
         {
             result.AppendFormat(" | {0} Image{1}", images_count
                 , images_count == 1 ? string.Empty : "s");
-        }
-
-        if (comments_count > 0)
-        {
-            result.AppendFormat(" | {0} Comment{1}", comments_count
-                , comments_count == 1 ? string.Empty : "s");
         }
 
         return result.ToString();

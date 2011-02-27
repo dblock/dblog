@@ -6,6 +6,7 @@
 <%@ Register TagPrefix="TransitData" Namespace="DBlog.TransitData" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Controls" TagName="TwitterScript" Src="TwitterScriptControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="TwitterShare" Src="TwitterShareControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="DisquisScript" Src="DisquisScriptControl.ascx" %>
 
 <%@ Import Namespace="DBlog.TransitData" %>
 
@@ -24,7 +25,7 @@
        <asp:Label ID="posttopics" runat="server" /> |
        <asp:Label ID="postcreated" runat="server" /> |
        <asp:Label ID="postcounter" runat="server" /> |
-       <asp:Hyperlink ID="linkComment" runat="server" Text="Post Comment" /> |
+       <!--<asp:Hyperlink ID="linkComment" runat="server" Text="Post Comment" /> |-->
        <span id="spanAdmin" runat="server">
         <asp:Hyperlink ID="linkEdit" runat="server" Text="Edit" /> |
        </span>
@@ -65,9 +66,11 @@
         <%# Renderer.Render(Eval("Image.Name")) %>
         <%# GetCounter((TransitImage) Eval("Image")) %>
        </div>
+       <!--
        <div>
         <%# GetComments((TransitImage) Eval("Image")) %>
        </div>
+       -->
       </a>
       <div style='<%# SessionManager.IsAdministrator ? string.Empty : "display: none;" %>'>
        <asp:LinkButton runat="server" ID="togglePreferred" CommandArgument='<%# Eval("Image.Id") %>' 
@@ -79,6 +82,7 @@
    </Controls:PagedList>
   </ContentTemplate>
  </asp:UpdatePanel>
+ <Controls:DisquisScript id="disquisComments" runat="server" />
  <asp:UpdatePanel runat="server" ID="panelComments" UpdateMode="Always" RenderMode="Inline">
   <ContentTemplate>
    <Controls:PagedGrid runat="server" ID="comments" BorderWidth="0" CssClass="table" 
