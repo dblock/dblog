@@ -1,13 +1,13 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DisquisScriptControl.ascx.cs"
-    Inherits="DisquisScriptControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DisqusScriptControl.ascx.cs"
+    Inherits="DisqusScriptControl" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <div id="disqus_thread"></div>
 <script type="text/javascript">
-    var disqus_shortname = '<% Response.Write(Renderer.Render(SessionManager.GetSetting("Disquis.Shortname", ""))); %>';
+    var disqus_shortname = '<% Response.Write(Renderer.Render(SessionManager.GetSetting("Disqus.Shortname", ""))); %>';
 
-    <% if (! String.IsNullOrEmpty(DisquisId)) Response.Write(String.Format("var disqus_identifier='{0}';\n", DisquisId)); %>
-    <% if (! String.IsNullOrEmpty(DisquisUrl)) Response.Write(String.Format("var disqus_url='{0}';\n", DisquisUrl)); %>
-    <% if (! String.IsNullOrEmpty(DisquisDeveloper)) Response.Write(String.Format("var disqus_developer='{0}';\n", DisquisDeveloper)); %>
+    <% if (! String.IsNullOrEmpty(DisqusId)) Response.Write(String.Format("var disqus_identifier='{0}';\n", DisqusId)); %>
+    <% if (! String.IsNullOrEmpty(DisqusUrl)) Response.Write(String.Format("var disqus_url='{0}';\n", DisqusUrl)); %>
+    <% if (! String.IsNullOrEmpty(DisqusDeveloper)) Response.Write(String.Format("var disqus_developer='{0}';\n", DisqusDeveloper)); %>
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function () {

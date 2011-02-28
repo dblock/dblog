@@ -3,22 +3,22 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-public class DisquisControl : BlogControl
+public class DisqusControl : BlogControl
 {
-    public bool DisquisEnabled
+    public bool DisqusEnabled
     {
         get
         {
             return !string.IsNullOrEmpty(SessionManager.GetSetting(
-                "Disquis.Shortname", string.Empty));
+                "Disqus.Shortname", string.Empty));
         }
     }
 
-    public string DisquisDeveloper
+    public string DisqusDeveloper
     {
         get
         {
-            return SessionManager.GetSetting("Disquis.Developer", string.Empty);
+            return SessionManager.GetSetting("Disqus.Developer", string.Empty);
         }
     }
 
@@ -26,7 +26,7 @@ public class DisquisControl : BlogControl
     {
         if (!IsPostBack)
         {
-            this.Visible = DisquisEnabled;
+            this.Visible = DisqusEnabled;
         }
     }
 }

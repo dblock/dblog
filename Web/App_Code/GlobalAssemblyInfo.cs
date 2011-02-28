@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 [assembly: CLSCompliant(false)]
 [assembly: AssemblyDelaySign(false)]
-[assembly: AssemblyVersion("1.0.1716.0")]
-[assembly: AssemblyFileVersion("1.0.1716.0")]
+[assembly: AssemblyVersion("1.0.1724.0")]
+[assembly: AssemblyFileVersion("1.0.1724.0")]
 
 

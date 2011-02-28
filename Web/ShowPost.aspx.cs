@@ -161,8 +161,8 @@ public partial class ShowPost : BlogPage
         twitterShare.Url = string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id);
         twitterShare.Text = post.Title;
 
-        disquisComments.DisquisId = string.Format("Post_{0}", post.Id);
-        disquisComments.DisquisUrl = string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id);
+        disqusComments.DisqusId = string.Format("Post_{0}", post.Id);
+        disqusComments.DisqusUrl = string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id);
 
         GetImagesData(sender, e);
         GetCommentsData(sender, e);

@@ -5,32 +5,32 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-public partial class DisquisScriptControl : DisquisControl
+public partial class DisqusScriptControl : DisqusControl
 {
-    private string mDisquisId;
-    private string mDisquisUrl;
+    private string mDisqusId; 
+    private string mDisqusUrl;
 
-    public string DisquisId
+    public string DisqusId
     {
         get
         {
-            return mDisquisId;
+            return mDisqusId;
         }
         set
         {
-            mDisquisId = value;
+            mDisqusId = value;
         }
     }
 
-    public string DisquisUrl
+    public string DisqusUrl
     {
         get
         {
-            return mDisquisUrl;
+            return mDisqusUrl;
         }
         set
         {
-            mDisquisUrl = value;
+            mDisqusUrl = value;
         }
     }    
 }

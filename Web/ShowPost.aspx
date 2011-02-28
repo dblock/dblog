@@ -6,7 +6,7 @@
 <%@ Register TagPrefix="TransitData" Namespace="DBlog.TransitData" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Controls" TagName="TwitterScript" Src="TwitterScriptControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="TwitterShare" Src="TwitterShareControl.ascx" %>
-<%@ Register TagPrefix="Controls" TagName="DisquisScript" Src="DisquisScriptControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="DisqusScript" Src="DisqusScriptControl.ascx" %>
 
 <%@ Import Namespace="DBlog.TransitData" %>
 
@@ -82,7 +82,7 @@
    </Controls:PagedList>
   </ContentTemplate>
  </asp:UpdatePanel>
- <Controls:DisquisScript id="disquisComments" runat="server" />
+ <Controls:DisqusScript id="disqusComments" runat="server" />
  <asp:UpdatePanel runat="server" ID="panelComments" UpdateMode="Always" RenderMode="Inline">
   <ContentTemplate>
    <Controls:PagedGrid runat="server" ID="comments" BorderWidth="0" CssClass="table" 

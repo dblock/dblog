@@ -1,9 +1,9 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DisquisCountScriptControl.ascx.cs"
-    Inherits="DisquisCountScriptControl" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeFile="DisqusCountScriptControl.ascx.cs"
+    Inherits="DisqusCountScriptControl" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <script type="text/javascript">
-    var disqus_shortname = '<% Response.Write(Renderer.Render(SessionManager.GetSetting("Disquis.Shortname", ""))); %>';
-    <% if (! String.IsNullOrEmpty(DisquisDeveloper)) Response.Write(String.Format("var disqus_developer='{0}';\n", DisquisDeveloper)); %>
+    var disqus_shortname = '<% Response.Write(Renderer.Render(SessionManager.GetSetting("Disqus.Shortname", ""))); %>';
+    <% if (! String.IsNullOrEmpty(DisqusDeveloper)) Response.Write(String.Format("var disqus_developer='{0}';\n", DisqusDeveloper)); %>
 
     /* * * DON'T EDIT BELOW THIS LINE * * */
     (function () {
