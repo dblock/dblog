@@ -28,7 +28,15 @@ namespace DBlog.Data.Hibernate
                 System.Web.ProcessModelInfo.GetCurrentProcessInfo();
                 http = true;
             }
-            catch (System.Web.HttpException) { }
+            catch (System.Web.HttpException)
+            {
+
+            }
+            catch (System.Security.SecurityException)
+            {
+                http = true;
+            }
+
             if (http)
                 _sessionsource = new HttpSessionSource();
             else
