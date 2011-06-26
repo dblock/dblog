@@ -176,7 +176,6 @@
     function pageLoad() {
         getTwitterScript();
         disqusCountScript();
-        googleAnalyticsScript();
     }
  </script>
 </body>
