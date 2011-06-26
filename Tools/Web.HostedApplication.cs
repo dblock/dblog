@@ -5,6 +5,8 @@ using System.Web;
 using System.Reflection;
 using System.Diagnostics;
 using System.Web.Hosting;
+using System.Configuration;
+using System.ComponentModel;
 
 namespace DBlog.Tools.Web
 {
@@ -50,7 +52,7 @@ namespace DBlog.Tools.Web
         {
             get
             {
-                if (mEventLog == null)
+                if (mEventLog == null && EventLogEnabled)
                 {
                     mEventLog = CreateEventLog();
                 }
@@ -62,16 +64,22 @@ namespace DBlog.Tools.Web
         {
             Exception ex = Server.GetLastError().GetBaseException();
 
-            EventLog.WriteEntry(String.Format("Application error in {0}.\n{1}\n\n{2}",
-                Request.Url.ToString(),
-                ex.Message,
-                ex.StackTrace), 
-                EventLogEntryType.Error);
+            if (EventLogEnabled)
+            {
+                EventLog.WriteEntry(String.Format("Application error in {0}.\n{1}\n\n{2}",
+                    Request.Url.ToString(),
+                    ex.Message,
+                    ex.StackTrace),
+                    EventLogEntryType.Error);
+            }
         }
 
         protected virtual void Application_Start(Object sender, EventArgs e)
         {
-            EventLog.WriteEntry("Application starting.");
+            if (EventLogEnabled)
+            {
+                EventLog.WriteEntry("Application starting.");
+            }
         }
 
         protected virtual void Application_End(Object sender, EventArgs e)
@@ -90,12 +98,44 @@ namespace DBlog.Tools.Web
             string shutDownStack = (string)runtime.GetType().InvokeMember("_shutDownStack",
                 BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.GetField, null, runtime, null);
 
-            EventLog.WriteEntry(String.Format("{0}\n{1}\n\n{2}",
-                System.Web.Hosting.HostingEnvironment.ShutdownReason,
-                shutDownMessage,
-                shutDownStack),
-                EventLogEntryType.Warning);
+            if (EventLogEnabled)
+            {
+                EventLog.WriteEntry(String.Format("{0}\n{1}\n\n{2}",
+                    System.Web.Hosting.HostingEnvironment.ShutdownReason,
+                    shutDownMessage,
+                    shutDownStack),
+                    EventLogEntryType.Warning);
+            }
         }
 
+        public static bool EventLogEnabled
+        {
+            get
+            {
+                return IsEnabled("EventLog");
+            }
+        }
+
+        public static bool ServicesEnabled
+        {
+            get
+            {
+                return IsEnabled("Services");
+            }
+        }
+
+        private static bool IsEnabled(string name)
+        {
+            bool b_result = true;
+
+            object result = ConfigurationManager.AppSettings[string.Format("{0}.Enabled", name)];
+
+            if (result != null)
+            {
+                bool.TryParse(result.ToString(), out b_result);
+            }
+
+            return b_result;
+        }
     }
 }

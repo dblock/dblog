@@ -117,12 +117,12 @@ public partial class NoticeControl : BlogControl
             if (Request != null && Request.UrlReferrer != null) s.AppendFormat("\nReferrer: {0}", Request.UrlReferrer);
             if (Request != null && !string.IsNullOrEmpty(Request.UserAgent)) s.AppendFormat("\nUser-agent: {0}", Request.UserAgent);
 
-            SessionManager.EventLog.WriteEntry(s.ToString(), EventLogEntryType.Warning);
+            SessionManager.EventLogWriteEntry(s.ToString(), EventLogEntryType.Warning);
 
             Exception ex_eventlog = value.InnerException;
             while (ex_eventlog != null)
             {
-                SessionManager.EventLog.WriteEntry(string.Format("User-raised inner-exception from {0}: {1}\n{2}",
+                SessionManager.EventLogWriteEntry(string.Format("User-raised inner-exception from {0}: {1}\n{2}",
                     ex_eventlog.Source, ex_eventlog.Message, ex_eventlog.StackTrace),
                     EventLogEntryType.Warning);
 

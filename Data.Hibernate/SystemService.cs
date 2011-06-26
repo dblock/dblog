@@ -5,6 +5,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Configuration;
 using System.Web.Hosting;
+using DBlog.Tools.Web;
 
 namespace DBlog.Data.Hibernate
 {
@@ -59,7 +60,7 @@ namespace DBlog.Data.Hibernate
         {
             get
             {
-                if (mEventLog == null)
+                if (mEventLog == null && HostedApplication.EventLogEnabled)
                 {
                     string eventLogName = HostingEnvironment.ApplicationVirtualPath.Trim("/".ToCharArray());
                     if (eventLogName.Length == 0) eventLogName = HostingEnvironment.SiteName;
@@ -74,6 +75,14 @@ namespace DBlog.Data.Hibernate
                     mEventLog.Source = eventLogName;
                 }
                 return mEventLog;
+            }
+        }
+
+        public void EventLogWriteEntry(string message, EventLogEntryType type)
+        {
+            if (HostedApplication.EventLogEnabled)
+            {
+                EventLog.WriteEntry(message, type);
             }
         }
 

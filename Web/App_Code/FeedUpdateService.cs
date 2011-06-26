@@ -18,6 +18,7 @@ using DBlog.Data;
 using DBlog.Data.Hibernate;
 using DBlog.TransitData;
 using System.Collections.Generic;
+using DBlog.Tools.Web;
 
 public class SystemFeedUpdateService : DBlog.Data.Hibernate.HibernateService
 {
@@ -39,7 +40,7 @@ public class SystemFeedUpdateService : DBlog.Data.Hibernate.HibernateService
             }
             catch (Exception ex)
             {
-                EventLog.WriteEntry(
+                EventLogWriteEntry(
                     string.Format("Exception in FeedUpdateService with feed {0}: {1}\n{2}",
                         feed.Id, ex.Message, feed.Url), EventLogEntryType.Error);
             }

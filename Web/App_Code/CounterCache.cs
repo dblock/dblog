@@ -121,8 +121,8 @@ public class CounterCache
             }
             catch (Exception ex)
             {
-                manager.BlogService.EventLog.WriteEntry(string.Format("CreateOrUpdateStats for a single request failed. {0}",
-                    ex.Message, EventLogEntryType.Warning));
+                manager.BlogService.EventLogWriteEntry(string.Format("CreateOrUpdateStats for a single request failed. {0}",
+                    ex.Message), EventLogEntryType.Warning);
             }
         }
 
@@ -133,8 +133,8 @@ public class CounterCache
         }
         catch (Exception ex)
         {
-            manager.BlogService.EventLog.WriteEntry(string.Format("CreateOrUpdateStats failed. {0}",
-                ex.Message, EventLogEntryType.Error));
+            manager.BlogService.EventLogWriteEntry(string.Format("CreateOrUpdateStats failed. {0}",
+                ex.Message), EventLogEntryType.Error);
         }
 
         mRequests = new List<HttpRequest>();
@@ -145,8 +145,8 @@ public class CounterCache
         }
         catch (Exception ex)
         {
-            manager.BlogService.EventLog.WriteEntry(string.Format("IncrementPostCounters failed. {0}",
-                ex.Message, EventLogEntryType.Error));
+            manager.BlogService.EventLogWriteEntry(string.Format("IncrementPostCounters failed. {0}",
+                ex.Message), EventLogEntryType.Error);
         }
 
         mPostCounters = new List<int>();
@@ -157,8 +157,8 @@ public class CounterCache
         }
         catch (Exception ex)
         {
-            manager.BlogService.EventLog.WriteEntry(string.Format("IncrementImageCounters failed. {0}",
-                ex.Message, EventLogEntryType.Error));
+            manager.BlogService.EventLogWriteEntry(string.Format("IncrementImageCounters failed. {0}",
+                ex.Message), EventLogEntryType.Error);
         }
 
         mImageCounters = new List<int>();
@@ -201,8 +201,8 @@ public class CounterCache
         }
         catch(Exception ex)
         {
-            manager.BlogService.EventLog.WriteEntry(string.Format("GetCounterCache failed to flush the cache. {0}",
-                ex.Message, EventLogEntryType.Error));
+            manager.BlogService.EventLogWriteEntry(string.Format("GetCounterCache failed to flush the cache. {0}",
+                ex.Message), EventLogEntryType.Error);
             
             s_CounterCache = new CounterCache();
         }

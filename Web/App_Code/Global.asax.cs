@@ -11,7 +11,6 @@ using DBlog.Data;
 using DBlog.Data.Hibernate;
 using DBlog.WebServices;
 using DBlog.TransitData;
-using System.Configuration;
 
 public class Global : DBlog.Tools.Web.HostedApplication
 {
@@ -19,24 +18,7 @@ public class Global : DBlog.Tools.Web.HostedApplication
 
     public Global()
     {
-
-    }
-
-    public bool ServicesEnabled
-    {
-        get
-        {
-            bool b_result = true;
-            
-            object result = ConfigurationManager.AppSettings["Services.Enabled"];
-
-            if (result != null)
-            {
-                bool.TryParse(result.ToString(), out b_result);
-            }
-
-            return b_result;
-        }
+        
     }
 
     protected override void Application_Start(Object sender, EventArgs e)
@@ -52,7 +34,11 @@ public class Global : DBlog.Tools.Web.HostedApplication
         }
 
         DBlog.WebServices.Blog blog = new DBlog.WebServices.Blog();
-        EventLog.WriteEntry(string.Format("Running with back-end web services {0}.", blog.GetVersion()), EventLogEntryType.Information);
+
+        if (EventLogEnabled)
+        {
+            EventLog.WriteEntry(string.Format("Running with back-end web services {0}.", blog.GetVersion()), EventLogEntryType.Information);
+        }
 
         if (ServicesEnabled)
         {
@@ -123,10 +109,14 @@ public class Global : DBlog.Tools.Web.HostedApplication
                 admin.Password = ManagedLogin.GetPasswordHash(string.Empty);
                 session.Save(admin);
                 session.Flush();
-                EventLog.WriteEntry(string.Format(
-                    "Created an Administrator user with id={0}.", 
-                        admin.Id),
-                    EventLogEntryType.Information);
+
+                if (EventLogEnabled)
+                {
+                    EventLog.WriteEntry(string.Format(
+                        "Created an Administrator user with id={0}.",
+                            admin.Id),
+                        EventLogEntryType.Information);
+                }
             }
 
             t.Commit();

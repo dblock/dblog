@@ -470,11 +470,19 @@ public class SessionManager
     {
         get
         {
-            if (mEventLog == null)
+            if (mEventLog == null && HostedApplication.EventLogEnabled)
             {
                 mEventLog = HostedApplication.CreateEventLog();
             }
             return mEventLog;
+        }
+    }
+
+    public void EventLogWriteEntry(string message, EventLogEntryType type)
+    {
+        if (HostedApplication.EventLogEnabled)
+        {
+            EventLog.WriteEntry(message, type);
         }
     }
 
