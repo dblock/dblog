@@ -2,9 +2,8 @@
     Inherits="TwitterScriptControl" %>
 
 <script type="text/javascript">
-    function pageLoad() {
+    function getTwitterScript() {
         $.getScript("http://platform.twitter.com/widgets.js");
-        disqusCountScript();
     }
 </script>
 
