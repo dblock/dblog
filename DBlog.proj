@@ -25,9 +25,6 @@
       <Output TaskParameter="Build" PropertyName="Build" />
       <Output TaskParameter="Revision" PropertyName="Revision" />
     </Version>
-    <SvnVersion LocalPath=".">
-      <Output TaskParameter="Revision" PropertyName="Build" />
-    </SvnVersion>
     <Message Text="Version: $(Major).$(Minor).$(Build).$(Revision)"/>
     <MakeDir Directories="Version" />
     <AssemblyInfo CodeLanguage="CS" OutputFile="Version\GlobalAssemblyInfo.cs"

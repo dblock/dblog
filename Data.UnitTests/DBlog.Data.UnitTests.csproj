@@ -104,7 +104,6 @@
     <Compile Include="Misc.cs" />
     <Compile Include="NamedCounter.cs" />
     <Compile Include="Post.cs" />
-    <Compile Include="PostTopic.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Reference.cs" />
     <Compile Include="ReferrerHost.cs" />
