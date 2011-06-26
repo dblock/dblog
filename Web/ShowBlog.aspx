@@ -55,7 +55,7 @@
          | <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("dddd, dd MMMM yyyy") %>
          <%# GetImagesShortLink((int)Eval("ImagesCount"))%>
          | <a href="ShowPost.aspx?id=<%# Eval("Id") %>#disqus_thread" data-disqus-identifier="Post_<%# Eval("Id") %>">Post Comment</a>
-         | <%# GetCounter((long) Eval("Counter.Count")) %>
+         <!--| <%# GetCounter((long) Eval("Counter.Count")) %>-->
          <span id="SpanEditPost" runat="server" style='<%# (bool) SessionManager.IsAdministrator ? String.Empty : "display: none;" %>'>
           | <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
            Edit

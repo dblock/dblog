@@ -253,6 +253,9 @@ public partial class ShowPost : BlogPage
 
     public string GetCounter(TransitImage image)
     {
+        if (!SessionManager.CountersEnabled)
+            return string.Empty;
+
         if (image == null)
             return String.Empty;
 
