@@ -7,6 +7,7 @@
 <%@ Register TagPrefix="Controls" TagName="DateRange" Src="DateRangeControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="TwitterFollowMe" Src="TwitterFollowMeControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="GoogleAnalytics" Src="GoogleAnalyticsControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="DisqusCountScript" Src="DisqusCountScriptControl.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
@@ -170,6 +171,7 @@
   </table>
  </form>
  <Controls:GoogleAnalytics id="googleAnalytics" runat="server" />
+ <Controls:DisqusCountScript id="disqusCommentsCount" runat="server" />
  <script type="text/javascript">
     function pageLoad() {
         getTwitterScript();

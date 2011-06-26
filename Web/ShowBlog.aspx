@@ -8,7 +8,6 @@
 <%@ Register TagPrefix="Controls" TagName="TwitterShare" Src="TwitterShareControl.ascx" %>
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
-<%@ Register TagPrefix="Controls" TagName="DisqusCountScript" Src="DisqusCountScriptControl.ascx" %>
 
 <%@ Import Namespace="DBlog.TransitData" %>
 
@@ -91,5 +90,4 @@
     </Controls:PagedGrid>
    </ContentTemplate>
   </asp:UpdatePanel>
-  <Controls:DisqusCountScript id="disqusCommentsCount" runat="server" />
 </asp:Content>
