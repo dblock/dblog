@@ -35,8 +35,12 @@ public partial class AtomSvc : BlogPage
         {
             if (!IsPostBack)
             {
-                SessionManager.BlogService.IncrementNamedCounter(
-                    SessionManager.Ticket, "AtomSvc", 1);
+                if (SessionManager.CountersEnabled)
+                {
+                    SessionManager.BlogService.IncrementNamedCounter(
+                        SessionManager.Ticket, "AtomSvc", 1);
+                }
+
                 GetTopics(sender, e);
             }
         }

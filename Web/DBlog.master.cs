@@ -66,9 +66,13 @@ public partial class DBlogMaster : MasterPage
                 imageMain.Width = int.Parse(SessionManager.GetSetting("imagewidth", imageMain.Width.ToString()));
                 imageMain.Height = int.Parse(SessionManager.GetSetting("imageheight", imageMain.Height.ToString()));
 
-                TransitCounter c = Counter;
-                labelCounter.Text = string.Format("{0} click{1} since {2}",
-                    c.Count, c.Count != 1 ? "s" : string.Empty, c.Created.ToString("d"));
+
+                if (SessionManager.CountersEnabled)
+                {
+                    TransitCounter c = Counter;
+                    labelCounter.Text = string.Format("{0} click{1} since {2}",
+                        c.Count, c.Count != 1 ? "s" : string.Empty, c.Created.ToString("d"));
+                }
 
                 linkAtom.Attributes["title"] = string.Format("{0} {1}",
                     SessionManager.GetSetting("title", "Untitled"),

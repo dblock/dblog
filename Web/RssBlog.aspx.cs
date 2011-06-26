@@ -57,8 +57,11 @@ public partial class RssBlog : BlogPage
         {
             if (!IsPostBack)
             {
-                SessionManager.BlogService.IncrementNamedCounter(
-                    SessionManager.Ticket, "Rss", 1);
+                if (SessionManager.CountersEnabled)
+                {
+                    SessionManager.BlogService.IncrementNamedCounter(
+                        SessionManager.Ticket, "Rss", 1);
+                }
 
                 TransitPostQueryOptions options = new TransitPostQueryOptions(
                     GetId("topicid"), string.Empty);

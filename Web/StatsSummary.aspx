@@ -7,7 +7,7 @@
  <div class="title">
   Summary
  </div>
- <div class="link" style="margin-bottom: 20px;">
+ <div id="summaryLinks" class="link" style="margin-bottom: 20px;" runat="server">
     <a href="StatsSummary.aspx" disabled="disabled">Summary</a>
   | <a href="StatsHits.aspx?type=Hourly">Hourly</a>
   | <a href="StatsHits.aspx?type=Daily">Daily</a>

@@ -30,8 +30,11 @@ public partial class SiteMapBlog : BlogPage
         {
             if (!IsPostBack)
             {
-                SessionManager.BlogService.IncrementNamedCounter(
-                    SessionManager.Ticket, "SiteMap", 1);
+                if (SessionManager.CountersEnabled)
+                {
+                    SessionManager.BlogService.IncrementNamedCounter(
+                        SessionManager.Ticket, "SiteMap", 1);
+                }
 
                 TransitPostQueryOptions options = new TransitPostQueryOptions(0, string.Empty);
                 options.PageNumber = 0;

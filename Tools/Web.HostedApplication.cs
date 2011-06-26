@@ -124,7 +124,7 @@ namespace DBlog.Tools.Web
             }
         }
 
-        private static bool IsEnabled(string name)
+        public static bool IsEnabled(string name)
         {
             bool b_result = true;
 

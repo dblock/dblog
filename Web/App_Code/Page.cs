@@ -52,7 +52,10 @@ public class BlogPage : DBlog.Tools.Web.Page
                     "title", "Blog"), Page.Title);
             }
 
-            CounterCache.Increment(Request, Cache, SessionManager);
+            if (SessionManager.CountersEnabled)
+            {
+                CounterCache.Increment(Request, Cache, SessionManager);
+            }
         }
 
         base.OnLoad(e);

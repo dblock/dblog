@@ -160,10 +160,17 @@ public partial class ShowImage : BlogPage
             return;
 
         labelName.Text = PostImage.Image.Name;
-
-        labelCount.Text = string.Format("{0} Click{1}",
-            PostImage.Image.Counter.Count,
-            PostImage.Image.Counter.Count != 1 ? "s" : string.Empty);
+        
+        if (SessionManager.CountersEnabled)
+        {
+            labelCount.Text = string.Format("{0} Click{1}",
+                PostImage.Image.Counter.Count,
+                PostImage.Image.Counter.Count != 1 ? "s" : string.Empty);
+        }
+        else
+        {
+            labelCount.Visible = false;
+        }
 
         panelPicture.Update();
 

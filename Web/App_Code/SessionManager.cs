@@ -466,6 +466,14 @@ public class SessionManager
         }
     }
 
+    public bool CountersEnabled
+    {
+        get
+        {
+            return HostedApplication.IsEnabled("Counters");
+        }
+    }
+
     public EventLog EventLog
     {
         get

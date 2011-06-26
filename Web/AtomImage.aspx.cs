@@ -36,8 +36,11 @@ public partial class AtomImage : BlogPage
         {
             if (!IsPostBack)
             {
-                SessionManager.BlogService.IncrementNamedCounter(
-                    SessionManager.Ticket, "Atom", 1);
+                if (SessionManager.CountersEnabled)
+                {
+                    SessionManager.BlogService.IncrementNamedCounter(
+                        SessionManager.Ticket, "Atom", 1);
+                }
 
                 switch (Request.HttpMethod)
                 {

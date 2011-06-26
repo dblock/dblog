@@ -59,7 +59,10 @@ public partial class ShowPicture : BlogPicturePage
         pic.Name = img.Name;
         pic.Id = img.Id;
 
-        IncrementCounter();
+        if (SessionManager.CountersEnabled)
+        {
+            IncrementCounter();
+        }
 
         return pic;
     }
@@ -98,7 +101,10 @@ public partial class ShowPicture : BlogPicturePage
         pic.Name = img.Name;
         pic.Id = img.Id;
 
-        IncrementCounter();
+        if (SessionManager.CountersEnabled)
+        {
+            IncrementCounter();
+        }
 
         return pic;
     }

@@ -120,7 +120,10 @@ public partial class ShowPost : BlogPage
                         Renderer.UrlEncode(Request.Url.PathAndQuery), SessionManager.sDBlogPostCookieName));
                 }
 
-                CounterCache.IncrementPostCounter(RequestId, Cache, SessionManager);
+                if (SessionManager.CountersEnabled)
+                {
+                    CounterCache.IncrementPostCounter(RequestId, Cache, SessionManager);
+                }
 
                 GetData(sender, e);
 
@@ -152,8 +155,17 @@ public partial class ShowPost : BlogPage
         postbody.Text = RenderEx(post.Body, post.Id);
         posttopics.Text = GetTopics(post.Topics);
         postcreated.Text = post.Created.ToString("d");
-        postcounter.Text = string.Format("{0} Click{1}", post.Counter.Count,
-            post.Counter.Count != 1 ? "s" : string.Empty);
+
+        if (SessionManager.CountersEnabled)
+        {
+            postcounter.Text = string.Format("{0} Click{1}", post.Counter.Count,
+                post.Counter.Count != 1 ? "s" : string.Empty);
+        }
+        else
+        {
+            postcounter.Visible = false;
+        }
+
         panelPicture.Visible = (post.ImageId != 0 && post.ImagesCount <= 1);
         postimage.ImageUrl = string.Format("ShowPicture.aspx?id={0}", post.ImageId);
         linkimage.HRef = string.Format("ShowImage.aspx?id={0}&pid={1}", post.ImageId, post.Id);

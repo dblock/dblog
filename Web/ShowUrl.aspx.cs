@@ -20,11 +20,14 @@ public partial class ShowUrl : BlogPage
                 string url = (string) Request.QueryString["Url"];                
                 linkRedirect.NavigateUrl = url;
 
-                switch((string) Request.QueryString["ObjectType"])
+                if (SessionManager.CountersEnabled)
                 {
-                    case "Post":
-                        CounterCache.IncrementPostCounter(int.Parse(Request.QueryString["ObjectId"]), Cache, SessionManager);
-                        break;
+                    switch ((string)Request.QueryString["ObjectType"])
+                    {
+                        case "Post":
+                            CounterCache.IncrementPostCounter(int.Parse(Request.QueryString["ObjectId"]), Cache, SessionManager);
+                            break;
+                    }
                 }
 
                 Response.Redirect(url, true);
