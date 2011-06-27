@@ -1,6 +1,8 @@
 <%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="About.aspx.cs"
  Inherits="About" Title="Blog - About" %>
 
+<%@ OutputCache Duration="3600" VaryByParam="None"%>
+
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">

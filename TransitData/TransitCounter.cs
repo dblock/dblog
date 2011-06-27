@@ -97,19 +97,22 @@ namespace DBlog.TransitData
 
         public static TransitCounter GetAssociatedCounter<ObjectType, CounterType>(ISession session, int id)
         {
-            CounterType association = (CounterType)session.CreateCriteria(typeof(CounterType))
-                .Add(Expression.Eq(string.Format("{0}.Id", typeof(ObjectType).Name), id))
-                .UniqueResult();
+            // hack: disable counters
+            return new TransitCounter();
 
-            if (association == null)
-            {
-                return new TransitCounter();
-            }
+            //CounterType association = (CounterType)session.CreateCriteria(typeof(CounterType))
+            //    .Add(Expression.Eq(string.Format("{0}.Id", typeof(ObjectType).Name), id))
+            //    .UniqueResult();
 
-            Counter counter = (Counter)association.GetType()
-                .GetProperty("Counter").GetValue(association, null);
+            //if (association == null)
+            //{
+            //    return new TransitCounter();
+            //}
 
-            return new TransitCounter(counter);
+            //Counter counter = (Counter)association.GetType()
+            //    .GetProperty("Counter").GetValue(association, null);
+
+            //return new TransitCounter(counter);
         }
 
         public static void IncrementHourlyCounter(ISession session, int count)

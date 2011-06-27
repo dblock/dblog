@@ -11,6 +11,8 @@
 
 <%@ Import Namespace="DBlog.TransitData" %>
 
+<%@ OutputCache Duration="3600" VaryByParam="None"%>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
   <Controls:TwitterScript id="twitterScript" runat="server" />
   <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelPosts" RenderMode="Inline">

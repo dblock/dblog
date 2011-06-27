@@ -243,9 +243,12 @@ namespace DBlog.TransitData
                 Description = o.Description;
                 Modified = o.Modified;
 
-                CommentsCount = new CountQuery(session, typeof(ImageComment), "ImageComment")
-                    .Add(Expression.Eq("Image.Id", o.Id))
-                    .Execute<int>();
+                CommentsCount = 0;
+                
+                // hack: disable comments, using disqus
+                //CommentsCount = new CountQuery(session, typeof(ImageComment), "ImageComment")
+                //    .Add(Expression.Eq("Image.Id", o.Id))
+                //    .Execute<int>();
 
                 if (withthumbnail)
                 {

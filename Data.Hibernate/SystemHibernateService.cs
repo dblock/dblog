@@ -24,7 +24,7 @@ namespace DBlog.Data.Hibernate
         {
             get
             {
-                return 50;
+                return 600;
             }
         }
 

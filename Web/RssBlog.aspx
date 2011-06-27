@@ -2,6 +2,7 @@
  Inherits="RssBlog" Title="Rss Blog" %>
 <%@ Import Namespace="DBlog.TransitData" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
+<%@ OutputCache Duration="3600" VaryByParam="None"%>
 <rss version="2.0">
   <channel>
     <title><% Response.Write(GetRssTitle()); %></title>
