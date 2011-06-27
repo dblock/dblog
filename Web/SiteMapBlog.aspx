@@ -1,6 +1,6 @@
 <%@ Page Language="C#" AutoEventWireup="true" CodeFile="SiteMapBlog.aspx.cs"
  Inherits="SiteMapBlog" Title="Google SiteMap" %>
-<%@ OutputCache Duration="86400" VaryByParam="None"%>
+<%@ OutputCache Duration="3600" VaryByParam="*" VaryByCustom="Ticket" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
  <asp:Repeater id="repeater" runat="server">

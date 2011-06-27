@@ -11,7 +11,7 @@
 
 <%@ Import Namespace="DBlog.TransitData" %>
 
-<%@ OutputCache Duration="3600" VaryByParam="None"%>
+<%@ OutputCache Duration="3600" VaryByParam="*" VaryByCustom="Ticket" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
   <Controls:TwitterScript id="twitterScript" runat="server" />

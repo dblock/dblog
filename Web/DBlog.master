@@ -107,6 +107,10 @@
         <td class="table_admin_tr_td">
          <asp:LinkButton ID="linkLogout" Text="Logout" runat="server" OnClick="linkLogout_Click" /></td>
        </tr>
+       <tr>
+        <td class="table_admin_tr_td">
+         <asp:LinkButton ID="linkInvalidateCache" Text="Clear Cache" runat="server" OnClick="linkInvalidateCache_Click" /></td>
+       </tr>
       </table>
      </asp:Panel>
      <div class="div_top">

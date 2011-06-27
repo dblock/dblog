@@ -36,7 +36,9 @@ public class BlogPage : DBlog.Tools.Web.Page
 
     protected override void OnLoad(EventArgs e)
     {
-        if (! Index && Header != null)
+        Response.AddCacheItemDependency("Pages");
+
+        if (!Index && Header != null)
         {
             HtmlMeta noindex = new HtmlMeta();
             noindex.Name = "robots";

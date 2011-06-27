@@ -23,6 +23,11 @@ public class Global : DBlog.Tools.Web.HostedApplication
 
     protected override void Application_Start(Object sender, EventArgs e)
     {
+        HttpContext.Current.Cache.Insert("Pages", DateTime.Now, null,
+           System.DateTime.MaxValue, System.TimeSpan.Zero,
+           System.Web.Caching.CacheItemPriority.NotRemovable,
+           null);
+
         base.Application_Start(sender, e);
 
         DBlog.Data.Hibernate.Session.Configuration.AddAssembly("DBlog.Data");
@@ -128,5 +133,19 @@ public class Global : DBlog.Tools.Web.HostedApplication
         }
 
         session.Flush();
+    }
+
+    public override string GetVaryByCustomString(HttpContext context, string arg)
+    {
+        if (arg == "Ticket")
+        {
+            HttpCookie sDBlogAuthCookie = context.Request.Cookies[SessionManager.sDBlogAuthCookieName];
+            HttpCookie sDBlogPostCookie = context.Request.Cookies[SessionManager.sDBlogPostCookieName];
+            int authLoginId = sDBlogAuthCookie != null ? ManagedLogin.GetLoginId(sDBlogAuthCookie.Value) : 0;
+            int postLoginId = sDBlogPostCookie != null ? ManagedLogin.GetLoginId(sDBlogPostCookie.Value) : 0;
+            return string.Format("{0}:{1}", authLoginId, postLoginId);
+        }
+
+        return base.GetVaryByCustomString(context, arg);
     }
 }

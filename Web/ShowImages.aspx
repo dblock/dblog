@@ -5,7 +5,7 @@
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="TransitData" Namespace="DBlog.TransitData" Assembly="DBlog.Tools" %>
 
-<%@ OutputCache Duration="3600" VaryByParam="None"%>
+<%@ OutputCache Duration="3600" VaryByParam="*" VaryByCustom="Ticket" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <div class="title">

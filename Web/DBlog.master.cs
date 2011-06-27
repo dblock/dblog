@@ -173,4 +173,12 @@ public partial class DBlogMaster : MasterPage
             string.Format("<script language='JavaScript'>window.location.href='mailto:{0}';</script>",
             SessionManager.GetSetting("email", "admin@localhost.com")));
     }
+
+    public void linkInvalidateCache_Click(object sender, EventArgs e)
+    {
+        HttpContext.Current.Cache.Insert("Pages", DateTime.Now, null,
+            System.DateTime.MaxValue, System.TimeSpan.Zero,
+            System.Web.Caching.CacheItemPriority.NotRemovable,
+            null);
+    }
 }
