@@ -11,7 +11,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
- <link rel="stylesheet" type="text/css" href="~/Style.css" />
+ <link rel="stylesheet" type="text/css" href="Style.css" />
  <link id="linkRss" runat="server" rel="alternate" type="application/rss+xml" title="(RSS)" href="RssBlog.aspx" /> 
  <link id="linkAtom" runat="server" rel="alternate" type="application/atom+xml" title="(Atom)" href="AtomBlog.aspx" /> 
 </head>
@@ -32,7 +32,7 @@
          <tr valign="top">
           <td style="background: white; width: 10px;">
            <asp:Image ID="busyimage" runat="server" AlternateText="Busy" 
-            ImageAlign="AbsMiddle" ImageUrl="~/images/site/spinner.gif" />
+            ImageAlign="AbsMiddle" ImageUrl="images/site/spinner.gif" />
           </td>
           <td valign="middle">
            Working ...
@@ -57,7 +57,7 @@
       </a>
      </div>
      <div style="font-weight: bold;">
-      <asp:HyperLink ID="linkAbout" runat="server" Text="About" NavigateUrl="~/About.aspx" />
+      <asp:HyperLink ID="linkAbout" runat="server" Text="About" NavigateUrl="About.aspx" />
       <br />
       <asp:LinkButton OnClick="linkContact_Click" ID="linkContact" runat="server" Text="Contact" />
      </div>
