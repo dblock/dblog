@@ -81,7 +81,8 @@ public partial class ShowPicture : BlogPicturePage
         {
             img = SessionManager.BlogService.GetImageWithBitmapByIdIfModifiedSince(
                 SessionManager.PostTicket, id, ifModifiedSince);
-            Cache.Insert(key, img, SessionManager.GetTransitTypeCacheDependency<TransitImage>(), DateTime.Now.AddMinutes(10), TimeSpan.Zero);
+
+            // Cache.Insert(key, img, SessionManager.GetTransitTypeCacheDependency<TransitImage>(), DateTime.Now.AddMinutes(10), TimeSpan.Zero);
         }
 
         if (img == null)

@@ -64,6 +64,7 @@ public class Global : DBlog.Tools.Web.HostedApplication
     protected void Application_EndRequest(Object sender, EventArgs e)
     {
         DBlog.Data.Hibernate.Session.EndRequest();
+        GC.Collect();
     }
 
     protected void Application_AuthenticateRequest(Object sender, EventArgs e)

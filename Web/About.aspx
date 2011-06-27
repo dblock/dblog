@@ -32,4 +32,10 @@
   <br />
   <a href="http://www.dblock.org/" target="_blank">www.dblock.org</a>
  </div>
+ <div class="title">
+  Uptime
+ </div>
+ <div class="subtitle">
+  <asp:Label ID="labelUptime" runat="server" />
+ </div>
 </asp:Content>

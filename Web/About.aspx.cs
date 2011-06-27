@@ -12,6 +12,7 @@ using DBlog.TransitData;
 using DBlog.WebServices;
 using System.Collections.Specialized;
 using DBlog.Tools.Web;
+using System.Diagnostics;
 
 public partial class About : BlogPage
 {
@@ -25,6 +26,8 @@ public partial class About : BlogPage
                 labelDescription.Text = Renderer.Render(SessionManager.GetSetting("Description", string.Empty));
                 labelDetails.Text = Renderer.CleanHtml(SessionManager.GetSetting("Details", string.Empty));
                 labelCopyright.Text = Renderer.Render(SessionManager.GetSetting("Copyright", string.Empty));
+                TimeSpan uptime = (DateTime.Now - Process.GetCurrentProcess().StartTime);
+                labelUptime.Text = string.Format("{0:D2} hrs, {1:D2} mins, {2:D2} secs", uptime.Hours, uptime.Minutes, uptime.Seconds);
                 linkEmail.OnClientClick = string.Format("location.href='mailto:{0}';", Renderer.Render(SessionManager.GetSetting("Email", string.Empty)));
             }
         }
