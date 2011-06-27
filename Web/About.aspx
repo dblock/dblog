@@ -1,7 +1,7 @@
 <%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="About.aspx.cs"
  Inherits="About" Title="Blog - About" %>
 
-<%@ OutputCache Duration="3600" VaryByParam="*" VaryByCustom="Ticket" %>
+<%@ OutputCache Duration="30" VaryByParam="*" VaryByCustom="Ticket" %>
 
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
