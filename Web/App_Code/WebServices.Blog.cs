@@ -1089,6 +1089,7 @@ namespace DBlog.WebServices
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
+                /*
                 ISession session = DBlog.Data.Hibernate.Session.Current;
 
                 StringCriteria criteria = new StringCriteria(session, "Post", typeof(Post));
@@ -1101,6 +1102,12 @@ namespace DBlog.WebServices
                 IQuery sqlquery = criteria.CreateQuery();
 
                 return (int)sqlquery.List().Count;
+                 */
+
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CountQuery query = new CountQuery(session, typeof(DBlog.Data.Post), "Post");
+                if (options != null) options.Apply(query);
+                return query.Execute<int>();
             }
         }
 
