@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 
-<%@ OutputCache Duration="3600" VaryByParam="*" VaryByCustom="Ticket" %>
+<%@ OutputCache Duration="600" VaryByParam="*" VaryByCustom="Ticket" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <ul>
