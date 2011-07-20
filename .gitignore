@@ -16,6 +16,7 @@ TransitData/obj
 TransitData/bin
 Target
 Web.Deploy/Release
+Web.Deploy/Debug
 Web.Deploy/Target
 
 
