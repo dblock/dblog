@@ -14,7 +14,7 @@
   <asp:Repeater ID="grid" runat="server">
    <ItemTemplate>
     <li>
-     <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
+     <a href='<%# Eval("LinkUri") %>'>
       <b><%# RenderEx((string) Eval("Title"), (int) Eval("Id")) %></b>
      </a>
      &#187; <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("dddd, dd MMMM yyyy") %>

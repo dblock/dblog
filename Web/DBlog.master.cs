@@ -181,4 +181,10 @@ public partial class DBlogMaster : MasterPage
             System.Web.Caching.CacheItemPriority.NotRemovable,
             null);
     }
+
+    public void linkReslug_Click(object sender, EventArgs e)
+    {
+        int i = SessionManager.BlogService.GeneratePostSlugs(SessionManager.Ticket);
+        linkReslug.Text = string.Format("Reslug ({0})", i);
+    }
 }

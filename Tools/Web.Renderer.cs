@@ -261,5 +261,23 @@ namespace DBlog.Tools.Web
             return string.Format("{0} GMT",
                 value.ToString("ddd, dd MMM yyyy HH:mm:ss"));
         }
+
+        /// <summary>
+        /// Transform a string into a slug.
+        /// See http://www.intrepidstudios.com/blog/2009/2/10/function-to-generate-a-url-friendly-string.aspx
+        /// </summary>
+        /// <param name="s"></param>
+        /// <returns></returns>
+        public static string ToSlug(string s)
+        {
+            s = s.ToLower();
+            // invalid chars, make into spaces
+            s = Regex.Replace(s, @"[^a-z0-9\s-]", "");
+            // convert multiple spaces/hyphens into one space       
+            s = Regex.Replace(s, @"[\s-]+", " ").Trim();
+            // hyphens
+            s = Regex.Replace(s, @"\s", "-");
+            return s;
+        }
     }
 }

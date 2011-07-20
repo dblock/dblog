@@ -20,9 +20,9 @@ namespace DBlog.Data
         //Holds property values
         private System.Int32 m_Id;
         private System.String m_Name;
-        private System.Collections.Generic.IList<Post> m_Posts;
         private System.String m_Type;
         private System.Collections.Generic.IList<PostTopic> m_PostTopics;
+        private System.Collections.Generic.IList<Post> m_Posts;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -70,37 +70,6 @@ namespace DBlog.Data
             set
             {
                 m_Name = value;
-            }
-        }
-
-        ///--------------------------------------------------------------------------------
-        ///<summary>
-        ///Persistent many-one reference property.
-        ///</summary>
-        ///<remarks>
-        ///This property accepts multiple references to objects of the type 'Post'.
-        ///This property is part of a 'ManyToOne' relationship.
-        ///The data type for this property is 'System.Collections.IList'.
-        ///The inverse property for this property is 'Post.Topic'.
-        ///This property inherits its mapping information from its inverse property.
-        ///The accessibility level for this property is 'PublicAccess'.
-        ///The accessibility level for the field 'm_Posts' that holds the value for this property is 'PrivateAccess'.
-        ///This property is marked as slave.
-        ///
-        ///Mapping information:
-        ///This class maps to the 'Post' table in the data source.
-        ///The property maps to the identity column 'Topic_Id' in the data source.
-        ///</remarks>
-        ///--------------------------------------------------------------------------------
-        public virtual System.Collections.Generic.IList<Post> Posts
-        {
-            get
-            {
-                return m_Posts;
-            }
-            set
-            {
-                m_Posts = value;
             }
         }
 
@@ -157,6 +126,37 @@ namespace DBlog.Data
             set
             {
                 m_PostTopics = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent many-one reference property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts multiple references to objects of the type 'Post'.
+        ///This property is part of a 'ManyToOne' relationship.
+        ///The data type for this property is 'System.Collections.IList'.
+        ///The inverse property for this property is 'Post.Topic'.
+        ///This property inherits its mapping information from its inverse property.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Posts' that holds the value for this property is 'PrivateAccess'.
+        ///This property is marked as slave.
+        ///
+        ///Mapping information:
+        ///This class maps to the 'Post' table in the data source.
+        ///The property maps to the identity column 'Topic_Id' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public virtual System.Collections.Generic.IList<Post> Posts
+        {
+            get
+            {
+                return m_Posts;
+            }
+            set
+            {
+                m_Posts = value;
             }
         }
 

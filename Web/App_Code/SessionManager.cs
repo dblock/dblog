@@ -364,6 +364,11 @@ public class SessionManager
 
     public TransitType GetCachedObject<TransitType>(string invoke, string ticket, int id)
     {
+        return GetCachedObject<TransitType>(invoke, ticket, id.ToString());
+    }
+
+    public TransitType GetCachedObject<TransitType>(string invoke, string ticket, string id)
+    {
         try
         {
             string key = string.Format("{0}:{1}:{2}",
@@ -371,7 +376,7 @@ public class SessionManager
                 invoke, id);
 
             TransitType result = (TransitType)Cache[key];
-            
+
             if (result == null || IsAdministrator)
             {
                 object[] args = { ticket, id };

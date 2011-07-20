@@ -30,7 +30,7 @@
          ]]>
        </description>
        <%# GetCategories((TransitTopic[]) Eval("Topics")) %>
-       <link><%# SessionManager.WebsiteUrl %>ShowPost.aspx?Id=<%# Eval("Id") %></link>
+       <link><%# SessionManager.WebsiteUrl %><%# Eval("LinkUri")%></link>
        <guid isPermaLink="false"><%# SessionManager.WebsiteUrl %>Post/<%# Eval("Id") %></guid>
       </item>
      </ItemTemplate>

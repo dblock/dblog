@@ -1037,6 +1037,20 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Get a post by slug.")]
+        public TransitPost GetPostBySlug(string ticket, string slug)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                Post post = (Post)session.CreateCriteria(typeof(Post))
+                    .Add(Expression.Eq("Slug", slug))
+                    .UniqueResult<Post>();
+                TransitPost t_post = new TransitPost(session, post, ticket);
+                return t_post;
+            }
+        }
+
         [WebMethod(Description = "Check whether access is granted to post.")]
         public bool HasAccessToPost(string ticket, int id)
         {
@@ -1048,6 +1062,28 @@ namespace DBlog.WebServices
             }
         }
 
+        [WebMethod(Description = "Generate slugs.")]
+        public int GeneratePostSlugs(string ticket)
+        {
+            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                CheckAdministrator(session, ticket);
+                IList<Post> list = session.CreateCriteria(typeof(Post))
+                    .Add(Restrictions.IsNull("Slug"))
+                    .List<Post>();
+                foreach(Post post in list)
+                {
+                    TransitPost t_post = new TransitPost(session, post, true);
+                    t_post.GenerateSlug(session);
+                    post.Slug = t_post.Slug;
+                    session.Save(post);
+                }
+                session.Flush();
+                return list.Count;
+            }
+        }
+
         [WebMethod(Description = "Create or update a post.")]
         public int CreateOrUpdatePost(string ticket, TransitPost t_post)
         {
@@ -1056,6 +1092,7 @@ namespace DBlog.WebServices
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CheckAdministrator(session, ticket);
                 if (t_post.LoginId == 0) t_post.LoginId = ManagedLogin.GetLoginId(ticket);
+                t_post.GenerateSlug(session);
                 Post post = t_post.GetPost(session);
                 post.Modified = DateTime.UtcNow;
                 if (post.Id == 0) post.Created = post.Modified;

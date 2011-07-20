@@ -33,6 +33,8 @@ namespace DBlog.Data
         private System.Boolean m_Sticky;
         private System.Boolean m_Export;
         private System.Collections.Generic.IList<PostTopic> m_PostTopics;
+        private System.Int32 m_PostImageCount;
+        private System.String m_Slug;
 
         //Public properties
         ///--------------------------------------------------------------------------------
@@ -437,6 +439,56 @@ namespace DBlog.Data
             set
             {
                 m_PostTopics = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.Int32'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_PostImageCount' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'PostImageCount' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public virtual System.Int32 PostImageCount
+        {
+            get
+            {
+                return m_PostImageCount;
+            }
+            set
+            {
+                m_PostImageCount = value;
+            }
+        }
+
+        ///--------------------------------------------------------------------------------
+        ///<summary>
+        ///Persistent primitive property.
+        ///</summary>
+        ///<remarks>
+        ///This property accepts values of the type 'System.String'.
+        ///The accessibility level for this property is 'PublicAccess'.
+        ///The accessibility level for the field 'm_Slug' that holds the value for this property is 'PrivateAccess'.
+        ///
+        ///Mapping information:
+        ///The property maps to the column 'Slug' in the data source.
+        ///</remarks>
+        ///--------------------------------------------------------------------------------
+        public virtual System.String Slug
+        {
+            get
+            {
+                return m_Slug;
+            }
+            set
+            {
+                m_Slug = value;
             }
         }
 

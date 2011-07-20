@@ -113,7 +113,7 @@ public partial class EditPost : BlogAdminPage
     protected override void OnPreRender(EventArgs e)
     {
         linkView.Visible = (PostId > 0);
-        linkView.NavigateUrl = string.Format("ShowPost.aspx?id={0}", PostId);
+        linkView.NavigateUrl = Post.LinkUri;
         labelServerPath.Text = string.Format("Under {0}", SessionManager.GetSetting("Images", string.Empty));
         base.OnPreRender(e);
     }

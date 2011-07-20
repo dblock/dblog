@@ -42,3 +42,7 @@ GO
 IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Highlight]') AND name = N'Position')
 ALTER TABLE dbo.Highlight ADD [Position] int NOT NULL DEFAULT 0
 GO
+-- 7/19/2011: posts are slugged
+IF NOT EXISTS (SELECT * FROM sys.columns WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'Slug')
+ALTER TABLE dbo.Post ADD [Slug] [nvarchar](256)
+GO

@@ -33,7 +33,7 @@
       <asp:TemplateColumn>
        <itemtemplate>
         <div class="post_title">
-         <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
+         <a href='<%# Eval("LinkUri") %>'>
           <%# RenderEx((string) Eval("Title"), (int) Eval("Id")) %>
          </a>
          <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">
@@ -49,13 +49,13 @@
          </span>
         </div>
         <div class="post_subtitle">
-         <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
+         <a href='<%# Eval("LinkUri") %>'>
           Read
          </a>
          | <%# GetTopics((TransitTopic[]) Eval("Topics")) %>
          | <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("dddd, dd MMMM yyyy") %>
          <%# GetImagesShortLink((int)Eval("ImagesCount"))%>
-         | <a href="ShowPost.aspx?id=<%# Eval("Id") %>#disqus_thread" data-disqus-identifier="Post_<%# Eval("Id") %>">Post Comment</a>
+         | <a href="<%# Eval("LinkUri") %>#disqus_thread" data-disqus-identifier="Post_<%# Eval("Id") %>">Post Comment</a>
          <!--| <%# GetCounter((long) Eval("Counter.Count")) %>-->
          <span id="SpanEditPost" runat="server" style='<%# (bool) SessionManager.IsAdministrator ? String.Empty : "display: none;" %>'>
           | <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
@@ -69,7 +69,7 @@
            runat="server" Text='<%# (bool) Eval("Display") ? "Hide" : "Show" %>' />
          </span>
          <Controls:TwitterShare id="twitterShare" runat="server" 
-           Url='<%# String.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, Eval("Id")) %>'
+           Url='<%# String.Format("{0}{1}", SessionManager.WebsiteUrl, Eval("LinkUri")) %>'
            Text='<%# Eval("Title") %>'
            />
         </div>
@@ -77,11 +77,11 @@
          <%# RenderEx((string) Eval("Body"), (int) Eval("Id")) %>
         </div>
         <asp:Panel CssClass="post_image" Width="100%" id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 %>'>
-         <a href='<%# GetPostLink((int) Eval("ImagesCount"), (int) Eval("Id"), (int) Eval("ImageId")) %>'>
+         <a href='<%# GetPostLink((int) Eval("ImagesCount"), (int) Eval("Id"), (string) Eval("LinkUri"), (int) Eval("ImageId")) %>'>
           <img border="0" src='ShowPicture.aspx?Id=<%# Eval("ImageId") %>' />
          </a>
          <div class="link">
-          <a href='ShowPost.aspx?id=<%# Eval("Id") %>'>
+          <a href='<%# Eval("LinkUri") %>'>
            <%# GetImagesLink((int) Eval("ImagesCount")) %>
           </a>
          </div>

@@ -18,7 +18,7 @@ public class Global : DBlog.Tools.Web.HostedApplication
 
     public Global()
     {
-        
+
     }
 
     protected override void Application_Start(Object sender, EventArgs e)
@@ -59,6 +59,13 @@ public class Global : DBlog.Tools.Web.HostedApplication
     protected void Application_BeginRequest(Object sender, EventArgs e)
     {
         DBlog.Data.Hibernate.Session.BeginRequest();
+        if (Request.Path.IndexOf('.') < 0)
+        {
+            string[] parts = Request.Path.TrimEnd("/".ToCharArray()).Split('/');
+            parts[parts.Length - 1] = string.Format("ShowPost.aspx?slug={0}", parts[parts.Length - 1]);
+            string path = String.Join("/", parts);
+            HttpContext.Current.RewritePath(path);
+        }
     }
 
     protected void Application_EndRequest(Object sender, EventArgs e)

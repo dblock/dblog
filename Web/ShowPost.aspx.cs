@@ -51,7 +51,12 @@ public partial class ShowPost : BlogPage
         {
             if (mPost == null)
             {
-                if (RequestId > 0)
+                if (!string.IsNullOrEmpty(Request["slug"]))
+                {
+                    mPost = SessionManager.GetCachedObject<TransitPost>(
+                        "GetPostBySlug", SessionManager.PostTicket, Request["slug"]);
+                }
+                else if (RequestId > 0)
                 {
                     mPost = SessionManager.GetCachedObject<TransitPost>(
                         "GetPostById", SessionManager.PostTicket, RequestId);
@@ -70,12 +75,12 @@ public partial class ShowPost : BlogPage
     {
         get
         {
-            string key = string.Format("{0}:{1}:PostAccess", SessionManager.PostTicket, RequestId);
+            string key = string.Format("{0}:{1}:PostAccess", SessionManager.PostTicket, Post.Id);
             object result = Cache[key];
             if (result == null)
             {
                 result = SessionManager.BlogService.HasAccessToPost(
-                    SessionManager.PostTicket, RequestId);
+                    SessionManager.PostTicket, Post.Id);
                 Cache.Insert(key, result, null, DateTime.Now.AddHours(1), TimeSpan.Zero);
             }
             return (bool)result;
@@ -122,13 +127,13 @@ public partial class ShowPost : BlogPage
 
                 if (SessionManager.CountersEnabled)
                 {
-                    CounterCache.IncrementPostCounter(RequestId, Cache, SessionManager);
+                    CounterCache.IncrementPostCounter(Post.Id, Cache, SessionManager);
                 }
 
                 GetData(sender, e);
 
                 spanAdmin.Visible = SessionManager.IsAdministrator;
-                linkEdit.NavigateUrl = string.Format("EditPost.aspx?id={0}", RequestId);
+                linkEdit.NavigateUrl = string.Format("EditPost.aspx?id={0}", Post.Id);
             }
         }
         catch (Exception ex)
@@ -170,11 +175,11 @@ public partial class ShowPost : BlogPage
         postimage.ImageUrl = string.Format("ShowPicture.aspx?id={0}", post.ImageId);
         linkimage.HRef = string.Format("ShowImage.aspx?id={0}&pid={1}", post.ImageId, post.Id);
 
-        twitterShare.Url = string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id);
+        twitterShare.Url = string.Format("{0}{1}", SessionManager.WebsiteUrl, post.LinkUri);
         twitterShare.Text = post.Title;
 
         disqusComments.DisqusId = string.Format("Post_{0}", post.Id);
-        disqusComments.DisqusUrl = string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id);
+        disqusComments.DisqusUrl = string.Format("{0}{1}", SessionManager.WebsiteUrl, post.LinkUri);
 
         GetImagesData(sender, e);
         GetCommentsData(sender, e);

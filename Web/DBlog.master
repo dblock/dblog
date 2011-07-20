@@ -72,7 +72,9 @@
        </tr>
        <tr>
         <td class="table_admin_tr_td">
-         <a href="EditPost.aspx">New Post</a></td>
+         <a href="EditPost.aspx">New Post</a>
+         <!--| <asp:LinkButton ID="linkReslug" Text="Reslug" runat="server" OnClick="linkReslug_Click" />-->
+        </td>
        </tr>
        <tr>
         <td class="table_admin_tr_td">

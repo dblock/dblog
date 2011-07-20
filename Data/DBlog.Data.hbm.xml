@@ -251,6 +251,7 @@
       <one-to-many class="DBlog.Data.PostImage, DBlog.Data" />
     </bag>
     <property name="Title" column="Title" type="String" />
+    <property name="Slug" column="Slug" type="String" />
     <bag lazy="true" name="PostLogins" inverse="true">
       <key column="Post_Id" />
       <one-to-many class="DBlog.Data.PostLogin, DBlog.Data" />

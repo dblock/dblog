@@ -5,7 +5,7 @@
   <Resources>
     <Resource>
       <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\DataModel\DBlog.npersist</FilePath>
-      <HintPath>DataModel\DBlog.npersist</HintPath>
+      <HintPath>..\Vestris\trunk\DataModel\DBlog.npersist</HintPath>
       <Name>DBlog.Data</Name>
       <ResourceType>XmlDomainMap</ResourceType>
       <Resources />
@@ -16,7 +16,7 @@
           <ClassesToCodeConfig>
             <Name />
             <MetaData />
-            <TargetFolder>C:\Users\dblock\Source\Vestris\dblog\trunk\Data</TargetFolder>
+            <TargetFolder>C:\Users\dblock\Source\GitHub\dblog\Data</TargetFolder>
             <UseAttributes>false</UseAttributes>
             <ImplementIInterceptable>false</ImplementIInterceptable>
             <ImplementIObjectHelper>false</ImplementIObjectHelper>
@@ -46,7 +46,7 @@
                 <MapObjectType />
                 <MapObjectName>MapFile</MapObjectName>
                 <FileType>Xml</FileType>
-                <LastWrittenTo>2010-11-16T10:51:45.251696-05:00</LastWrittenTo>
+                <LastWrittenTo>2011-07-20T09:14:47.8838185-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>DBlog.Data.csproj</Name>
@@ -55,304 +55,7 @@
                 <MapObjectType>Puzzle.NPersist.Framework.Mapping.DomainMap</MapObjectType>
                 <MapObjectName>DBlog.Data</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:45.7617252-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Browser.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Browser.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Browser</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.0346264-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>BrowserCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\BrowserCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>BrowserCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.0566276-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Comment.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Comment.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Comment</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.0666282-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Counter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Counter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Counter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.0726286-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>DailyCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\DailyCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>DailyCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.0736286-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Feed.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Feed.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Feed</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.0876294-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>FeedItem.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\FeedItem.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>FeedItem</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.0906296-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Highlight.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Highlight.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Highlight</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.0926297-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>HourlyCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\HourlyCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>HourlyCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.0936298-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Image.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Image.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Image</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1006302-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>ImageComment.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\ImageComment.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>ImageComment</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1046304-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>ImageCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\ImageCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>ImageCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1066305-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Login.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Login.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Login</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1136309-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>LoginCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\LoginCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>LoginCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1336321-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>MonthlyCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\MonthlyCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>MonthlyCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1366322-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>NamedCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\NamedCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>NamedCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1386323-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Permalink.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Permalink.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Permalink</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1406325-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Platform.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Platform.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Platform</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1456327-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Post.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Post.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Post</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1566334-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>PostComment.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\PostComment.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>PostComment</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1596335-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>PostCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\PostCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>PostCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1626337-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>PostImage.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\PostImage.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>PostImage</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1646338-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>PostLogin.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\PostLogin.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>PostLogin</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.167634-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Reference.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Reference.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Reference</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1726343-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Referrer.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Referrer.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Referrer</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1766345-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>ReferrerHost.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\ReferrerHost.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>ReferrerHost</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1786346-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>ReferrerHostRollup.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\ReferrerHostRollup.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>ReferrerHostRollup</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1826349-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>ReferrerSearchQuery.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\ReferrerSearchQuery.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>ReferrerSearchQuery</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.185635-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Thread.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Thread.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Thread</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1876351-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>Topic.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\Topic.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>Topic</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1916354-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>WeeklyCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\WeeklyCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>WeeklyCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1936355-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>YearlyCounter.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\YearlyCounter.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>YearlyCounter</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1946355-05:00</LastWrittenTo>
-              </SourceCodeFile>
-              <SourceCodeFile>
-                <Name>PostTopic.cs</Name>
-                <MetaData />
-                <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\Data\PostTopic.cs</FilePath>
-                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
-                <MapObjectName>PostTopic</MapObjectName>
-                <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.1706342-05:00</LastWrittenTo>
+                <LastWrittenTo>2011-07-20T09:14:47.9018208-04:00</LastWrittenTo>
               </SourceCodeFile>
               <SourceCodeFile>
                 <Name>AssemblyInfo.cs</Name>
@@ -361,7 +64,304 @@
                 <MapObjectType />
                 <MapObjectName>AssemblyInfo</MapObjectName>
                 <FileType>CSharp</FileType>
-                <LastWrittenTo>2010-11-16T10:51:44.7776689-05:00</LastWrittenTo>
+                <LastWrittenTo>2011-07-20T09:14:47.8553149-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Browser.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Browser.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Browser</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.0817166-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>BrowserCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\BrowserCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>BrowserCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.0917179-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Comment.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Comment.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Comment</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.1132206-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Counter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Counter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Counter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.1337232-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>DailyCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\DailyCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>DailyCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.1517255-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Feed.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Feed.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Feed</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.1717281-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>FeedItem.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\FeedItem.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>FeedItem</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.1997316-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Highlight.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Highlight.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Highlight</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.2212343-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>HourlyCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\HourlyCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>HourlyCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.2407368-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Image.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Image.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Image</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.2667401-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ImageComment.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\ImageComment.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ImageComment</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.2882428-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ImageCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\ImageCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ImageCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.3102456-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Login.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Login.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Login</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.3492506-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>LoginCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\LoginCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>LoginCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.3827548-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>MonthlyCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\MonthlyCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>MonthlyCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.4117585-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>NamedCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\NamedCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>NamedCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.4447627-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Permalink.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Permalink.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Permalink</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.4757667-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Platform.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Platform.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Platform</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.5007698-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Post.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Post.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Post</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.5357743-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>PostComment.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\PostComment.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>PostComment</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.5577771-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>PostCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\PostCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>PostCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.5817801-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>PostImage.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\PostImage.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>PostImage</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.604783-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>PostLogin.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\PostLogin.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>PostLogin</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.6272859-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>PostTopic.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\PostTopic.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>PostTopic</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.6492887-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Reference.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Reference.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Reference</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.6702914-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Referrer.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Referrer.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Referrer</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.6922942-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ReferrerHost.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\ReferrerHost.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ReferrerHost</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.7132968-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ReferrerHostRollup.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\ReferrerHostRollup.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ReferrerHostRollup</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.7327993-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>ReferrerSearchQuery.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\ReferrerSearchQuery.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>ReferrerSearchQuery</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.7513016-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Thread.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Thread.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Thread</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.7723043-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>Topic.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\Topic.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>Topic</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.7943071-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>WeeklyCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\WeeklyCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>WeeklyCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.8163099-04:00</LastWrittenTo>
+              </SourceCodeFile>
+              <SourceCodeFile>
+                <Name>YearlyCounter.cs</Name>
+                <MetaData />
+                <FilePath>C:\Users\dblock\Source\GitHub\dblog\Data\YearlyCounter.cs</FilePath>
+                <MapObjectType>Puzzle.NPersist.Framework.Mapping.ClassMap</MapObjectType>
+                <MapObjectName>YearlyCounter</MapObjectName>
+                <FileType>CSharp</FileType>
+                <LastWrittenTo>2011-07-20T09:14:47.8368125-04:00</LastWrittenTo>
               </SourceCodeFile>
             </SourceCodeFiles>
             <PutAllClassesInOneFile>false</PutAllClassesInOneFile>
@@ -557,7 +557,7 @@
     </Resource>
     <Resource>
       <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\DataModel\DBlog.npersist</FilePath>
-      <HintPath>DataModel\DBlog.npersist</HintPath>
+      <HintPath>..\Vestris\trunk\DataModel\DBlog.npersist</HintPath>
       <Name>DBlog.Data</Name>
       <ResourceType>XmlDomainMap</ResourceType>
       <Resources />
@@ -617,7 +617,7 @@
     </Resource>
     <Resource>
       <FilePath>C:\Users\dblock\Source\Vestris\dblog\trunk\DataModel\DBlog.npersist</FilePath>
-      <HintPath>DataModel\DBlog.npersist</HintPath>
+      <HintPath>..\Vestris\trunk\DataModel\DBlog.npersist</HintPath>
       <Name>DBlog.Data</Name>
       <ResourceType>XmlDomainMap</ResourceType>
       <Resources />

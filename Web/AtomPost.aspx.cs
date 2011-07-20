@@ -96,7 +96,7 @@ public partial class AtomPost : BlogPage
         atomEntry.UpdatedOn = post.Modified;
         atomEntry.Id = new AtomId(new Uri(string.Format("{0}Post/{1}", SessionManager.WebsiteUrl, post.Id)));
         atomEntry.Links.Add(new AtomLink(new Uri(string.Format("{0}AtomBlog.aspx?id={1}", SessionManager.WebsiteUrl, post.Id)), "edit"));
-        AtomLink atomEntryUri = new AtomLink(new Uri(string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id)), "alternate");
+        AtomLink atomEntryUri = new AtomLink(new Uri(string.Format("{0}{1}", SessionManager.WebsiteUrl, post.LinkUri)), "alternate");
         atomEntryUri.ContentType = "text/html";
         atomEntry.Links.Add(atomEntryUri);
         return atomEntry;
@@ -166,7 +166,7 @@ public partial class AtomPost : BlogPage
         atomEntry.Id = new AtomId(new Uri(string.Format("{0}Post/{1}", SessionManager.WebsiteUrl, post.Id)));
         atomEntry.Links.Add(new AtomLink(new Uri(string.Format("{0}AtomPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id))));
         atomEntry.Links.Add(new AtomLink(new Uri(string.Format("{0}AtomPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id)), "edit"));
-        AtomLink atomEntryUri = new AtomLink(new Uri(string.Format("{0}ShowPost.aspx?id={1}", SessionManager.WebsiteUrl, post.Id)), "alternate");
+        AtomLink atomEntryUri = new AtomLink(new Uri(string.Format("{0}{1}", SessionManager.WebsiteUrl, post.LinkUri)), "alternate");
         atomEntryUri.ContentType = "text/html";
         atomEntry.Links.Add(atomEntryUri);
         atomEntry.Save(Response.OutputStream);

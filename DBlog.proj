@@ -81,6 +81,6 @@
   </Target>
   <Target Name="data">
     <Exec Command="Data.Mapping\bin\$(Configuration)\DBlog.Data.Mapping.exe Data\DBlog.Data.csproj" />
-    <Exec Command="svn revert Data\AssemblyInfo.cs" />
+    <Exec Command="git checkout Data\AssemblyInfo.cs" />
   </Target>
 </Project>

@@ -309,6 +309,20 @@ namespace DBlog.TransitData
             }
         }
 
+        private string mSlug;
+
+        public string Slug
+        {
+            get
+            {
+                return mSlug;
+            }
+            set
+            {
+                mSlug = value;
+            }
+        }
+
         private string mBodyXHTML;
 
         public string BodyXHTML
@@ -497,6 +511,7 @@ namespace DBlog.TransitData
             : base(o.Id)
         {
             Title = o.Title;
+            Slug = o.Slug;
             HasAccess = hasaccess;
 
             if (hasaccess)
@@ -558,6 +573,7 @@ namespace DBlog.TransitData
         {
             Post post = (Id != 0) ? (Post)session.Load(typeof(Post), Id) : new Post();
             post.Title = Title;
+            post.Slug = Slug;
             post.Body = Body;
             post.Created = Created;
             post.Login = (LoginId > 0) ? (Login)session.Load(typeof(Login), LoginId) : null;
@@ -566,6 +582,29 @@ namespace DBlog.TransitData
             post.Sticky = Sticky;
             post.Export = Export;
             return post;
+        }
+
+        public void GenerateSlug(ISession session)
+        {
+            if (! string.IsNullOrEmpty(Slug))
+                return;
+
+            String slug_base = Renderer.ToSlug(Title);
+            String slug_candidate = "";
+            int slug_count = 0;
+            Post existing_post = null;
+
+            do
+            {
+                slug_candidate = slug_base + (slug_count == 0 ? "" : string.Format("_{0}", slug_count));
+                existing_post = session.CreateCriteria(typeof(Post))
+                    .Add(Expression.Eq("Slug", slug_candidate))
+                    .Add(Expression.Not(Expression.Eq("Id", this.Id)))
+                    .UniqueResult<Post>();
+                slug_count += 1;
+            } while (existing_post != null);
+
+            Slug = slug_candidate;
         }
 
         public static string RenderXHTML(ISession session, Post post)
@@ -584,8 +623,12 @@ namespace DBlog.TransitData
             }
 
             content.Append("<div>");
-            content.AppendFormat("<a href=\"ShowPost.aspx?id={0}\">Read</a>",
-                post.Id);
+
+            string link = string.IsNullOrEmpty(post.Slug)
+                ? string.Format("ShowPost.aspx?id={0}", post.Id)
+                : string.Format("{0}", post.Slug);
+            content.AppendFormat("<a href=\"{0}\">Read</a>",
+                link);
 
             if (post.PostImages != null && post.PostImages.Count > 1)
             {
@@ -624,6 +667,16 @@ namespace DBlog.TransitData
             else
             {
                 return content.ToString();
+            }
+        }
+
+        public string LinkUri
+        {
+            get
+            {
+                return string.IsNullOrEmpty(Slug)
+                    ? string.Format("ShowPost.aspx?id={0}", Id)
+                    : string.Format("{0}", Slug);
             }
         }
     }
