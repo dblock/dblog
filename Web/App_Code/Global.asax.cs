@@ -11,6 +11,7 @@ using DBlog.Data;
 using DBlog.Data.Hibernate;
 using DBlog.WebServices;
 using DBlog.TransitData;
+using System.Configuration;
 
 public class Global : DBlog.Tools.Web.HostedApplication
 {
@@ -59,12 +60,35 @@ public class Global : DBlog.Tools.Web.HostedApplication
     protected void Application_BeginRequest(Object sender, EventArgs e)
     {
         DBlog.Data.Hibernate.Session.BeginRequest();
-        if (Request.Path.IndexOf('.') < 0)
+
+        string path = Request.Path.Substring(Request.ApplicationPath.Length).Trim("/".ToCharArray());
+
+        // rewrite ShowPost.aspx link to a slug
+        if (path == "ShowPost.aspx" && ! string.IsNullOrEmpty(Request["id"]))
         {
-            string[] parts = Request.Path.TrimEnd("/".ToCharArray()).Split('/');
-            parts[parts.Length - 1] = string.Format("ShowPost.aspx?slug={0}", parts[parts.Length - 1]);
-            string path = String.Join("/", parts);
-            HttpContext.Current.RewritePath(path);
+            using (DBlog.Data.Hibernate.Session.OpenConnection(WebService.GetNewConnection()))
+            {
+                ISession session = DBlog.Data.Hibernate.Session.Current;
+                int id = 0;
+                if (int.TryParse(Request["Id"], out id))
+                {
+                    Post post = session.Load<Post>(id);
+                    if (post != null && !string.IsNullOrEmpty(post.Slug))
+                    {
+                        Response.RedirectPermanent(post.Slug);
+                    }
+                }
+            }
+        }
+        // rewrite a slug link to a ShowPost.aspx internal url
+        else if (path.IndexOf('.') < 0)
+        {
+            string[] parts = Request.Path.Split('/');
+            string slug = parts[parts.Length - 1];
+            if (! String.IsNullOrEmpty(slug))
+            {
+                HttpContext.Current.RewritePath(string.Format("ShowPost.aspx?slug={0}", slug));
+            }
         }
     }
 

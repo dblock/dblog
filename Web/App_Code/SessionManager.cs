@@ -364,10 +364,15 @@ public class SessionManager
 
     public TransitType GetCachedObject<TransitType>(string invoke, string ticket, int id)
     {
-        return GetCachedObject<TransitType>(invoke, ticket, id.ToString());
+        return GetCachedObject<TransitType, int>(invoke, ticket, id);
     }
 
     public TransitType GetCachedObject<TransitType>(string invoke, string ticket, string id)
+    {
+        return GetCachedObject<TransitType, string>(invoke, ticket, id);
+    }
+
+    public TransitType GetCachedObject<TransitType, IdentityType>(string invoke, string ticket, IdentityType id)
     {
         try
         {
