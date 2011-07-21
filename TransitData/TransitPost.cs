@@ -596,7 +596,7 @@ namespace DBlog.TransitData
 
             do
             {
-                slug_candidate = slug_base + (slug_count == 0 ? "" : string.Format("_{0}", slug_count));
+                slug_candidate = slug_base + (slug_count == 0 ? "" : string.Format("-{0}", slug_count));
                 existing_post = session.CreateCriteria(typeof(Post))
                     .Add(Expression.Eq("Slug", slug_candidate))
                     .Add(Expression.Not(Expression.Eq("Id", this.Id)))
