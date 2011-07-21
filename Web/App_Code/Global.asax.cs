@@ -62,32 +62,39 @@ public class Global : DBlog.Tools.Web.HostedApplication
         DBlog.Data.Hibernate.Session.BeginRequest();
 
         string path = Request.Path.Substring(Request.ApplicationPath.Length).Trim("/".ToCharArray());
-
-        // rewrite ShowPost.aspx link to a slug
-        if (path == "ShowPost.aspx" && ! string.IsNullOrEmpty(Request["id"]))
+        if (! string.IsNullOrEmpty(path))
         {
-            using (DBlog.Data.Hibernate.Session.OpenConnection(WebService.GetNewConnection()))
+            // rewrite ShowPost.aspx link to a slug
+            if (path == "ShowPost.aspx" && !string.IsNullOrEmpty(Request["id"]))
             {
-                ISession session = DBlog.Data.Hibernate.Session.Current;
-                int id = 0;
-                if (int.TryParse(Request["Id"], out id))
+                using (DBlog.Data.Hibernate.Session.OpenConnection(WebService.GetNewConnection()))
                 {
-                    Post post = session.Load<Post>(id);
-                    if (post != null && !string.IsNullOrEmpty(post.Slug))
+                    ISession session = DBlog.Data.Hibernate.Session.Current;
+                    int id = 0;
+                    if (int.TryParse(Request["Id"], out id))
                     {
-                        Response.RedirectPermanent(post.Slug);
+                        Post post = session.Load<Post>(id);
+                        if (post != null && !string.IsNullOrEmpty(post.Slug))
+                        {
+                            Response.RedirectPermanent(post.Slug);
+                        }
                     }
                 }
             }
-        }
-        // rewrite a slug link to a ShowPost.aspx internal url
-        else if (path.IndexOf('.') < 0)
-        {
-            string[] parts = Request.Path.Split('/');
-            string slug = parts[parts.Length - 1];
-            if (! String.IsNullOrEmpty(slug))
+            // rewrite a slug link
+            else if (path == "ShowPost.aspx" && !string.IsNullOrEmpty(Request["slug"]))
             {
-                HttpContext.Current.RewritePath(string.Format("ShowPost.aspx?slug={0}", slug));
+                Response.RedirectPermanent(Request["slug"]);
+            }
+            // rewrite a slug link to a ShowPost.aspx internal url
+            else if (path.IndexOf('.') < 0)
+            {
+                string[] parts = Request.Path.Split('/');
+                string slug = parts[parts.Length - 1];
+                if (!String.IsNullOrEmpty(slug))
+                {
+                    HttpContext.Current.RewritePath(string.Format("ShowPost.aspx?slug={0}", slug));
+                }
             }
         }
     }
