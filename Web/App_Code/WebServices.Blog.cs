@@ -1078,8 +1078,8 @@ namespace DBlog.WebServices
                     t_post.GenerateSlug(session);
                     post.Slug = t_post.Slug;
                     session.Save(post);
+                    session.Flush();
                 }
-                session.Flush();
                 return list.Count;
             }
         }
