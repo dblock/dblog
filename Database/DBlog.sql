@@ -653,6 +653,8 @@ CREATE TABLE [dbo].[Post](
 	[Display] [bit] NOT NULL,
 	[Sticky] [bit] NOT NULL,
 	[Export] [bit] NOT NULL,
+	[PostImageCount] [int] NOT NULL,
+	[Slug] [nvarchar](256) COLLATE SQL_Latin1_General_CP1_CI_AS NULL,
  CONSTRAINT [PK_Post] PRIMARY KEY CLUSTERED 
 (
 	[Post_Id] ASC
@@ -665,6 +667,13 @@ IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Po
 CREATE NONCLUSTERED INDEX [IX_Post_Created] ON [dbo].[Post] 
 (
 	[Created] DESC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'UK_Post_Slug')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_Post_Slug] ON [dbo].[Post] 
+(
+	[Slug] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
 IF not EXISTS (SELECT * FROM sys.fulltext_indexes fti WHERE fti.object_id = OBJECT_ID(N'[dbo].[Post]'))
@@ -687,6 +696,12 @@ ALTER TABLE [dbo].[Post] ADD  CONSTRAINT [PK_Post] PRIMARY KEY CLUSTERED
 (
 	[Post_Id] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[Post]') AND name = N'UK_Post_Slug')
+CREATE UNIQUE NONCLUSTERED INDEX [UK_Post_Slug] ON [dbo].[Post] 
+(
+	[Slug] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
 GO
 IF not EXISTS (SELECT * FROM sys.fulltext_indexes fti WHERE fti.object_id = OBJECT_ID(N'[dbo].[Post]'))
 CREATE FULLTEXT INDEX ON [dbo].[Post](
@@ -1409,9 +1424,9 @@ GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Highlight_Image]') AND parent_object_id = OBJECT_ID(N'[dbo].[Highlight]'))
 ALTER TABLE [dbo].[Highlight] CHECK CONSTRAINT [FK_Highlight_Image]
 GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Highlight_Order]') AND type = 'D')
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Highlight__Posit__4B422AD5]') AND type = 'D')
 BEGIN
-ALTER TABLE [dbo].[Highlight] ADD  CONSTRAINT [DF_Highlight_Order]  DEFAULT ((0)) FOR [Position]
+ALTER TABLE [dbo].[Highlight] ADD  DEFAULT ((0)) FOR [Position]
 END
 
 GO
@@ -1489,27 +1504,33 @@ GO
 IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[dbo].[FK_Post_Login]') AND parent_object_id = OBJECT_ID(N'[dbo].[Post]'))
 ALTER TABLE [dbo].[Post] CHECK CONSTRAINT [FK_Post_Login]
 GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Publish__29572725]') AND type = 'D')
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Publish__5FB337D6]') AND type = 'D')
 BEGIN
 ALTER TABLE [dbo].[Post] ADD  DEFAULT ((1)) FOR [Publish]
 END
 
 GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Display__2A4B4B5E]') AND type = 'D')
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Display__60A75C0F]') AND type = 'D')
 BEGIN
 ALTER TABLE [dbo].[Post] ADD  DEFAULT ((1)) FOR [Display]
 END
 
 GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Sticky__2B3F6F97]') AND type = 'D')
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Sticky__619B8048]') AND type = 'D')
 BEGIN
 ALTER TABLE [dbo].[Post] ADD  DEFAULT ((0)) FOR [Sticky]
 END
 
 GO
-IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Export__2C3393D0]') AND type = 'D')
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF__Post__Export__1F98B2C1]') AND type = 'D')
 BEGIN
 ALTER TABLE [dbo].[Post] ADD  DEFAULT ((0)) FOR [Export]
+END
+
+GO
+IF NOT EXISTS (SELECT * FROM dbo.sysobjects WHERE id = OBJECT_ID(N'[DF_Post_PostImageCount]') AND type = 'D')
+BEGIN
+ALTER TABLE [dbo].[Post] ADD  CONSTRAINT [DF_Post_PostImageCount]  DEFAULT ((0)) FOR [PostImageCount]
 END
 
 GO
