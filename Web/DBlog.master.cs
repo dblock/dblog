@@ -37,7 +37,7 @@ public partial class DBlogMaster : MasterPage
     {
         try
         {
-            topics.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
+            // topics.TopicChanged += new ViewTopicsControl.TopicChangedHandler(topics_TopicChanged);
             searchBox.Search += new SearchControl.SearchHandler(searchBox_Search);
             dates.DateRangeChanged += new DateRangeControl.DateRangeHandler(dates_DateRangeChanged);
 
@@ -145,7 +145,7 @@ public partial class DBlogMaster : MasterPage
             else
             {
                 Response.Redirect(string.Format("ShowBlog.aspx?id={0}", e.TopicId));
-                panelTopics.Update();
+                // panelTopics.Update();
             }
         }
         catch (Exception ex)

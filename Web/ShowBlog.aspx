@@ -21,21 +21,14 @@
     <div>
         <asp:Label ID="labelCriteria" CssClass="subtitle" runat="server" Visible="false" />
     </div>
-    <Controls:PagedGrid runat="server" ID="grid" CssClass="table" 
-     AutoGenerateColumns="false" AllowPaging="true" AllowCustomPaging="true" 
-     PageSize="7" ShowHeader="false" OnItemCommand="grid_ItemCommand" 
-     BorderWidth="0" BorderColor="White">
-     <ItemStyle CssClass="table_tr_td" />
-     <PagerStyle CssClass="table_pager" Position="TopAndBottom" NextPageText="Next"
-      PrevPageText="Prev" HorizontalAlign="Center" />
-     <Columns>
-      <asp:BoundColumn DataField="Id" Visible="false" />
-      <asp:TemplateColumn>
-       <itemtemplate>
-        <div class="post_title">
+    <Controls:PagedList runat="server" ID="grid" OnItemCommand="list_ItemCommand">
+     <ItemTemplate>
+        <h3>
          <a href='<%# Eval("LinkUri") %>'>
           <%# RenderEx((string) Eval("Title"), (int) Eval("Id")) %>
          </a>
+        </h3>
+
          <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">
           <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
            <img src="images/site/draft.gif" alt="Draft" border="0" />
@@ -47,7 +40,8 @@
          <span style="<%# (bool) Eval("Sticky") ? "" : "display: none;" %>">
           <img src="images/site/sticky.gif" alt="Sticky" border="0" />
          </span>
-        </div>
+
+
         <div class="post_subtitle">
          <a href='<%# Eval("LinkUri") %>'>
           Read
@@ -87,9 +81,7 @@
          </div>
         </asp:Panel>
        </itemtemplate>
-      </asp:TemplateColumn>
-     </Columns>
-    </Controls:PagedGrid>
+    </Controls:PagedList>
    </ContentTemplate>
   </asp:UpdatePanel>
 </asp:Content>

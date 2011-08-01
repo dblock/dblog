@@ -9,23 +9,39 @@
 <%@ Register TagPrefix="Controls" TagName="GoogleAnalytics" Src="GoogleAnalyticsControl.ascx" %>
 <%@ Register TagPrefix="Controls" TagName="DisqusCountScript" Src="DisqusCountScriptControl.ascx" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
- <link rel="stylesheet" type="text/css" href="Style.css" />
+ <meta charset="utf-8" />
+ <!--[if lt IE 9]>
+    <script src="javascripts/html5.js"></script>
+ <![endif]-->
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+ <link rel="stylesheet" href="stylesheets/base.css" />
+ <link rel="stylesheet" href="stylesheets/skeleton.css" />
+ <link rel="stylesheet" href="stylesheets/layout.css" />
+ <link rel="stylesheet" href="stylesheets/blog.css" />
+ <link rel="shortcut icon" href="images/favicon.ico" />
+ <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+ <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
+ <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png" />
  <link id="linkRss" runat="server" rel="alternate" type="application/rss+xml" title="(RSS)" href="RssBlog.aspx" /> 
  <link id="linkAtom" runat="server" rel="alternate" type="application/atom+xml" title="(Atom)" href="AtomBlog.aspx" /> 
 </head>
 <body>
+
  <form id="form1" runat="server">
-  <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
-      <Scripts>
-        <asp:ScriptReference Path="jquery-1.6.1.min.js" />
-      </Scripts>
-  </asp:ScriptManager>
-  <table class="table_main" cellpadding="0" cellspacing="0">
-   <tr>
-    <td valign="top" class="table_main_tr_td_left">
-     <asp:UpdateProgress ID="menuProgress" runat="server">
+
+   <asp:ScriptManager ID="ScriptManager1" runat="server" EnablePartialRendering="true">
+    <Scripts>
+     <asp:ScriptReference Path="javascripts/jquery-1.5.1.min.js" />
+    </Scripts>
+   </asp:ScriptManager>
+
+   <asp:UpdateProgress ID="menuProgress" runat="server">
       <ProgressTemplate>
        <div style="text-align: center; vertical-align: top;">
         <table border="0" cellpadding="0" cellspacing="0" id="busylight">
@@ -42,140 +58,100 @@
        </div>
       </ProgressTemplate>
      </asp:UpdateProgress>
-     <asp:UpdatePanel UpdateMode="Always" runat="server" ID="panelNoticeMenu" RenderMode="Inline">
+     
+   <asp:UpdatePanel UpdateMode="Always" runat="server" ID="panelNoticeMenu" RenderMode="Inline">
       <ContentTemplate>
        <Controls:Notice ID="noticeMenu" EnableViewState="false" runat="server" />
       </ContentTemplate>
      </asp:UpdatePanel>
-     <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
-     </asp:ContentPlaceHolder>
-    </td>
-    <td valign="top" align="center" class="table_main_tr_td_right">
-     <div>
-      <a href="ShowBlog.aspx">
-       <asp:Image runat="server" ID="imageMain" ImageUrl="images/blog/blog.gif" />
-      </a>
-     </div>
-     <div style="font-weight: bold;">
-      <a href="About.aspx">About</a>
-      <br />
-      <asp:LinkButton OnClick="linkContact_Click" ID="linkContact" runat="server" Text="Contact" />
-     </div>
-     <Controls:TwitterFollowMe id="twitterFollowMe" runat="server" />
-     <asp:Panel ID="panelAdmin" Visible="false" runat="server">
-      <div class="div_top">
+ 
+   <div class="container">
+      <div class="three columns sidebar">
+       <nav>
+        <h3 id="logo">
+         <a href="ShowBlog.aspx">
+          <asp:Image runat="server" ID="imageMain" ImageUrl="images/blog/blog.gif" />
+         </a>
+        </h3>
+        <ul>
+         <li><a href="About.aspx">About</a></li>
+         <li><asp:LinkButton OnClick="linkContact_Click" ID="linkContact" runat="server" Text="Contact" /></li>
+         <li><Controls:TwitterFollowMe id="twitterFollowMe" runat="server" /></li>
+         <li>
+          <a href="RssBlog.aspx"><img src="images/site/rss.gif" border="0" alt="rss xml"></a>
+          <a href="AtomBlog.aspx"><img src="images/site/atom.gif" border="0" alt="atom xml"></a>
+         </li>
+         <li id="search">
+          <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelSearch" RenderMode="Inline">
+             <ContentTemplate>
+              <div>
+               <Controls:Search runat="server" ID="searchBox" />
+              </div>
+             </ContentTemplate>
+            </asp:UpdatePanel>
+         </li>
+        </ul>
+        <asp:Panel ID="panelAdmin" Visible="false" runat="server">
+         <ul class="admin">
+          <li><a href="EditPost.aspx">New Post</a> | <asp:LinkButton ID="linkReslug" Text="ReSlug" runat="server" OnClick="linkReslug_Click" /></li>
+          <li><a href="ManageLogins.aspx">Logins</a> | <a href="EditLogin.aspx">New</a></li>
+          <li><a href="ManageTopics.aspx">Topics</a> | <a href="EditTopic.aspx">New</a></li>
+          <li><a href="ManageReferences.aspx">References</a> | <a href="EditReference.aspx">New</a></li>
+          <li><a href="ManageHighlights.aspx">Highlights</a> | <a href="EditHighlight.aspx">New</a></li>
+          <li><a href="ManageReferrerHostRollups.aspx">Referrers</a> | <a href="EditReferrerHostRollup.aspx">New</a></li>
+          <li><a href="ManageImages.aspx">Images</a> | <a href="EditImage.aspx">New</a></li>
+          <li><a href="ManageFeeds.aspx">Feeds</a> | <a href="EditFeed.aspx">New</a></li>
+          <li><asp:LinkButton ID="linkLogout" Text="Logout" runat="server" OnClick="linkLogout_Click" /></li>
+          <li><asp:LinkButton ID="linkInvalidateCache" Text="Clear Cache" runat="server" OnClick="linkInvalidateCache_Click" /></li>
+         </ul>
+        </asp:Panel>
+        <Controls:Highlights runat="server" ID="highlights" />
+        <asp:Panel ID="panelCommands" runat="server">
+         <ul class="admin">
+           <li>
+            <a href="Login.aspx"><font face="Symbol">p</font></a>
+            | <a href="StatsSummary.aspx">s</a>
+            <!--
+            | <a href="ShowBlog.aspx?SortDirection=Descending&SortExpression=Counter.Count">pop</a>
+            -->
+            | <a href="ShowImages.aspx">pics</a>
+            <!--| <a href="ShowComments.aspx">c</a>-->
+            | <a href="About.aspx">me</a>
+            | <a href="ListBlog.aspx">list</a>
+           </li>
+          <li><asp:Label ID="labelCounter" runat="server" /></li>
+         </ul>
+        </asp:Panel>
+        <ul class="admin">
+         <li><asp:Label ID="labelUsername" runat="server" /></li>
+         <li><asp:Label ID="labelPostUsername" CssClass="description" runat="server" /></li>
+         <li><asp:LinkButton ID="linkLogout2" CssClass="description" runat="server" Text="logout" OnClick="linkLogout_Click" /></li>
+        </ul>
+        <ul>
+         <li id="dates">
+            <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelDates" RenderMode="Inline">
+             <ContentTemplate>
+              <div>
+               <Controls:DateRange runat="server" ID="dates" />
+              </div>
+             </ContentTemplate>
+            </asp:UpdatePanel>     
+            <Controls:Feeds runat="server" ID="feeds" Type="Rss" />
+         </li>
+        </ul>
+       </nav>
+       &nbsp;
       </div>
-      <table class="table_admin">
-       <tr>
-        <td class="table_admin_tr_th">
-         Settings</td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <a href="EditPost.aspx">New Post</a>
-         | <asp:LinkButton ID="linkReslug" Text="ReSlug" runat="server" OnClick="linkReslug_Click" />
-        </td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <a href="ManageLogins.aspx">Logins</a> | <a href="EditLogin.aspx">New</a></td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <a href="ManageTopics.aspx">Topics</a> | <a href="EditTopic.aspx">New</a></td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <a href="ManageReferences.aspx">References</a> | <a href="EditReference.aspx">New</a></td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <a href="ManageHighlights.aspx">Highlights</a> | <a href="EditHighlight.aspx">New</a></td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <a href="ManageReferrerHostRollups.aspx">Referrers</a> | <a href="EditReferrerHostRollup.aspx">
-          New</a></td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <a href="ManageImages.aspx">Images</a> | <a href="EditImage.aspx">New</a></td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <a href="ManageFeeds.aspx">Feeds</a> | <a href="EditFeed.aspx">New</a></td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <asp:LinkButton ID="linkLogout" Text="Logout" runat="server" OnClick="linkLogout_Click" /></td>
-       </tr>
-       <tr>
-        <td class="table_admin_tr_td">
-         <asp:LinkButton ID="linkInvalidateCache" Text="Clear Cache" runat="server" OnClick="linkInvalidateCache_Click" /></td>
-       </tr>
-      </table>
-     </asp:Panel>
-     <div class="div_top">
-     </div>
-     <Controls:Highlights runat="server" ID="highlights" />
-     <div class="div_top">
-     </div>
-     <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelTopics" RenderMode="Inline">
-      <ContentTemplate>
-       <Controls:Topics runat="server" ID="topics" />
-      </ContentTemplate>
-     </asp:UpdatePanel>
-     <asp:Panel ID="panelCommands" runat="server">
-      <div>
-       <a href="Login.aspx"><font face="Symbol">p</font></a>
-       | <a href="StatsSummary.aspx">s</a>
-       <!--
-       | <a href="ShowBlog.aspx?SortDirection=Descending&SortExpression=Counter.Count">pop</a>
-       -->
-       | <a href="ShowImages.aspx">pics</a>
-       <!--| <a href="ShowComments.aspx">c</a>-->
-       | <a href="About.aspx">me</a>
-       | <a href="ListBlog.aspx">list</a>
-      </div>
-      <div class="counter">
-       <asp:Label ID="labelCounter" runat="server" />
-      </div>
-      <div>
-       <a href="RssBlog.aspx">
-        <img src="images/site/rss.gif" border="0" alt="rss xml"></a> <a href="AtomBlog.aspx">
-         <img src="images/site/atom.gif" border="0" alt="atom xml"></a>
-      </div>
-      <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelSearch" RenderMode="Inline">
-       <ContentTemplate>
-        <div class="search">
-         <Controls:Search runat="server" ID="searchBox" />
+      <div class="twelve columns content offset-by-one">
+        <div class="blog-section">
+         <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+         </asp:ContentPlaceHolder>
         </div>
-       </ContentTemplate>
-      </asp:UpdatePanel>
-      <div>
-       <asp:Label ID="labelUsername" CssClass="description" runat="server" />
       </div>
-      <div>
-       <asp:Label ID="labelPostUsername" CssClass="description" runat="server" />
-      </div>
-      <div>
-       <asp:LinkButton ID="linkLogout2" CssClass="description" runat="server" Text="logout" OnClick="linkLogout_Click" />
-      </div>
-      <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelDates" RenderMode="Inline">
-       <ContentTemplate>
-        <div class="dates">
-         <Controls:DateRange runat="server" ID="dates" />
-        </div>
-       </ContentTemplate>
-      </asp:UpdatePanel>
-     </asp:Panel>
-     <div class="div_top">
-     </div>
-     <Controls:Feeds runat="server" ID="feeds" Type="Rss" />
-    </td>
-   </tr>
-  </table>
+   </div>
+
  </form>
+
  <Controls:GoogleAnalytics id="googleAnalytics" runat="server" />
  <Controls:DisqusCountScript id="disqusCommentsCount" runat="server" />
  <script type="text/javascript">
@@ -184,5 +160,6 @@
         disqusCountScript();
     }
  </script>
+
 </body>
 </html>

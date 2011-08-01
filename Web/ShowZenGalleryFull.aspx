@@ -4,10 +4,25 @@
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
-    <title></title>
-    <link rel="stylesheet" href="Style.css" type="text/css">
+ <meta charset="utf-8" />
+ <!--[if lt IE 9]>
+    <script src="javascripts/html5.js"></script>
+ <![endif]-->
+ <title></title>
+ <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
+ <link rel="stylesheet" href="stylesheets/base.css" />
+ <link rel="stylesheet" href="stylesheets/skeleton.css" />
+ <link rel="stylesheet" href="stylesheets/layout.css" />
+ <link rel="shortcut icon" href="images/favicon.ico" />
+ <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+ <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
+ <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png" />
 </head>
 <body style="vertical-align: middle; text-align: center; background-color: White;">
     <form id="form1" runat="server">

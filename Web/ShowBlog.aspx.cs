@@ -255,7 +255,7 @@ public partial class ShowBlog : BlogPage
         return sb.ToString();
     }
 
-    public void grid_ItemCommand(object source, DataGridCommandEventArgs e)
+    public void list_ItemCommand(object source, DataListCommandEventArgs e)
     {
         try
         {

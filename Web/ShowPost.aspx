@@ -14,13 +14,8 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <Controls:TwitterScript id="twitterScript" runat="server" />
- <table class="table_post">
-  <tr>
-   <td valign="top" class="table_post_tr_td_left">
-    <div class="post_title">
-     <asp:Label ID="posttitle" runat="server" />
-    </div>
-    <div class="post_subtitle">
+    <h3><asp:Label ID="posttitle" runat="server" /></h3>
+    <h4>
      <asp:UpdatePanel runat="server" ID="panelButtons" UpdateMode="Always" RenderMode="Inline">
       <ContentTemplate>
        <a href="ShowBlog.aspx">Back</a> |
@@ -35,20 +30,14 @@
        <Controls:TwitterShare id="twitterShare" runat="server" />
       </ContentTemplate>
      </asp:UpdatePanel>
-    </div>
-    <div class="post_body">
-     <asp:Label ID="postbody" runat="server" />
-    </div>
-   </td>
-   <td class="table_post_tr_td_right">
+    </h3>
+    <asp:Label ID="postbody" runat="server" />
     <asp:Panel ID="panelPicture" runat="server">
      <a href='' runat="server" id="linkimage">
       <asp:Image BorderWidth="0" runat="server" ID="postimage" />
      </a>
     </asp:Panel>
-   </td>
-  </tr>
- </table>
+
  <asp:UpdatePanel runat="server" ID="panelImages" UpdateMode="Always" RenderMode="Inline">
   <ContentTemplate>
    <Controls:PagedList runat="server" ID="images" CssClass="table" AllowCustomPaging="true"

@@ -216,7 +216,8 @@ namespace DBlog.Tools.WebControls
 
         public PagedList()
         {
-
+            RepeatLayout = RepeatLayout.Flow;
+            RepeatDirection = RepeatDirection.Horizontal;
         }
 
         public bool AllowCustomPaging
@@ -300,29 +301,21 @@ namespace DBlog.Tools.WebControls
         protected override void Render(HtmlTextWriter writer)
         {
             int pagerIndex = 0;
-            writer.Write("<table>");
             if (PagerStyle.HasPagerOnTop)
             {
-                writer.Write("<tr>");
                 if (Pagers.Count > pagerIndex)
                 {
                     Pagers[pagerIndex++].Navigator.RenderControl(writer);
                 }
-                writer.Write("</tr>");
             }
-            writer.Write("<tr><td>");
             base.Render(writer);
-            writer.Write("</td></tr>");
             if (PagerStyle.HasPagerOnBottom)
             {
-                writer.Write("<tr>");
                 if (Pagers.Count > pagerIndex)
                 {
                     Pagers[pagerIndex++].Navigator.RenderControl(writer);
                 }
-                writer.Write("</tr>");
             }
-            writer.Write("</table>");
         }
 
         protected void InitializePager(Pager pager)

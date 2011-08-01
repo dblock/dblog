@@ -4,7 +4,7 @@
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 
 <div>
- Search
+ search
 </div>
 <asp:TextBox ID="inputSearch" runat="server" AutoPostBack="true" OnTextChanged="inputSearch_Changed"
  CssClass="search_textbox" />

@@ -25,7 +25,16 @@
        <pubDate><%# Renderer.ToRfc822((DateTime) Eval("Created")) %></pubDate>
        <description>
          <![CDATA[
-          <link rel="stylesheet" href='<%# SessionManager.WebsiteUrl %>Style.css' />
+          <!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
+          <!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
+          <!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
+          <!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
+          <link rel="stylesheet" href="<%# SessionManager.WebsiteUrl %>stylesheets/base.css" />
+          <link rel="stylesheet" href="<%# SessionManager.WebsiteUrl %>stylesheets/skeleton.css" />
+          <link rel="stylesheet" href="<%# SessionManager.WebsiteUrl %>stylesheets/layout.css" />
+          <link rel="apple-touch-icon" href="<%# SessionManager.WebsiteUrl %>images/apple-touch-icon.png" />
+          <link rel="apple-touch-icon" sizes="72x72" href="<%# SessionManager.WebsiteUrl %>images/apple-touch-icon-72x72.png" />
+          <link rel="apple-touch-icon" sizes="114x114" href="<%# SessionManager.WebsiteUrl %>images/apple-touch-icon-114x114.png" />
           <%# Eval("BodyXHTML") %>
          ]]>
        </description>
