@@ -20,6 +20,7 @@
  <link rel="stylesheet" href="stylesheets/base.css" />
  <link rel="stylesheet" href="stylesheets/skeleton.css" />
  <link rel="stylesheet" href="stylesheets/layout.css" />
+ <link rel="stylesheet" href="stylesheets/blog.css" />
  <link rel="shortcut icon" href="images/favicon.ico" />
  <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
  <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png" />

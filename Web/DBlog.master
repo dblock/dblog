@@ -127,6 +127,7 @@
          <li><asp:Label ID="labelPostUsername" CssClass="description" runat="server" /></li>
          <li><asp:LinkButton ID="linkLogout2" CssClass="description" runat="server" Text="logout" OnClick="linkLogout_Click" /></li>
         </ul>
+        <!--
         <ul>
          <li id="dates">
             <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelDates" RenderMode="Inline">
@@ -139,6 +140,7 @@
             <Controls:Feeds runat="server" ID="feeds" Type="Rss" />
          </li>
         </ul>
+        -->
        </nav>
        &nbsp;
       </div>

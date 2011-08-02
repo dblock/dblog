@@ -27,8 +27,6 @@
          <a href='<%# Eval("LinkUri") %>'>
           <%# RenderEx((string) Eval("Title"), (int) Eval("Id")) %>
          </a>
-        </h3>
-
          <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">
           <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
            <img src="images/site/draft.gif" alt="Draft" border="0" />
@@ -40,14 +38,10 @@
          <span style="<%# (bool) Eval("Sticky") ? "" : "display: none;" %>">
           <img src="images/site/sticky.gif" alt="Sticky" border="0" />
          </span>
+        </h3>
 
-
-        <div class="post_subtitle">
-         <a href='<%# Eval("LinkUri") %>'>
-          Read
-         </a>
-         | <%# GetTopics((TransitTopic[]) Eval("Topics")) %>
-         | <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("dddd, dd MMMM yyyy") %>
+        <div class="subtitle">
+         Posted <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("dddd, dd MMMM yyyy") %>
          <%# GetImagesShortLink((int)Eval("ImagesCount"))%>
          | <a href="<%# Eval("LinkUri") %>#disqus_thread" data-disqus-identifier="Post_<%# Eval("Id") %>">Post Comment</a>
          <!--| <%# GetCounter((long) Eval("Counter.Count")) %>-->
@@ -67,9 +61,10 @@
            Text='<%# Eval("Title") %>'
            />
         </div>
-        <div class="post_body">
+        <div class="post">
          <%# RenderEx((string) Eval("Body"), (int) Eval("Id")) %>
         </div>
+
         <asp:Panel CssClass="post_image" Width="100%" id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 %>'>
          <a href='<%# GetPostLink((int) Eval("ImagesCount"), (int) Eval("Id"), (string) Eval("LinkUri"), (int) Eval("ImageId")) %>'>
           <img border="0" src='ShowPicture.aspx?Id=<%# Eval("ImageId") %>' />
@@ -80,6 +75,8 @@
           </a>
          </div>
         </asp:Panel>
+
+        <div class="post_separator">&nbsp;</div>
        </itemtemplate>
     </Controls:PagedList>
    </ContentTemplate>

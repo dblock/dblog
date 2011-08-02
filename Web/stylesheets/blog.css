@@ -14,7 +14,8 @@
 		padding-top: 20px; }
 	/* Blog nav */
 	nav { 
-		width: 190px; }
+		width: 190px; 		
+		}
 	#logo {
 		margin-bottom: 30px;
 		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -78,8 +79,60 @@
 		background: #ebebeb; 
 		margin: 50px 0; }
 	div.blog-section {
-		margin: 30px 0; }
-
+		
+    }
+    div.blog-section h3 {
+        
+    }
+    div.blog-section h3 a {
+        text-decoration: none;
+    }
+    div.subtitle, div.link {
+        font-size: 14px;
+        color: Gray;
+    }
+    div.subtitle a, div.link a 
+    {
+        color: Gray;
+        text-decoration: none;
+    }
+    .topics
+    {
+        font-style: italic;
+    }
+    div.post {
+        margin-top: 15px;
+    }
+    div.post br+br
+    {
+        line-height: 1px;
+    }
+    div.post ol 
+    {
+        line-height: normal;
+    }
+    div.post ol li
+    {
+        line-height: normal;
+        margin: 0px;
+    }
+    div.post_separator 
+    {
+        height: 20px;
+    }
+    .wlWriterEditableSmartContent ol li
+    {
+        margin: 1px;
+        float: none;
+        border-collapse: collapse;
+    }
+    
+    #disqus_thread h3, #disqus_thread a
+    {
+        font-size: 12px;
+    }
+    
+    
 	.hidden-code a {
 		font-size: 12px;
 		color: #999; }
@@ -130,8 +183,7 @@
 	
 	ul ul ul li { margin-bottom: 3px; }
 	
-	.twitter-share-button { margin-bottom: -18px; }
-		 
+	.twitter-share-button { margin-bottom: -5px; }
 		 
 	/* Mobile */
 	@media only screen and (max-width: 767px) {

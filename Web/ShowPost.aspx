@@ -15,28 +15,30 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
  <Controls:TwitterScript id="twitterScript" runat="server" />
     <h3><asp:Label ID="posttitle" runat="server" /></h3>
-    <h4>
+    <div class="subtitle">
      <asp:UpdatePanel runat="server" ID="panelButtons" UpdateMode="Always" RenderMode="Inline">
       <ContentTemplate>
        <a href="ShowBlog.aspx">Back</a> |
-       <asp:Label ID="posttopics" runat="server" /> |
-       <asp:Label ID="postcreated" runat="server" /> |
-       <asp:Label ID="postcounter" runat="server" /> |
+       <asp:Label ID="posttopics" runat="server" CssClass="topics" /> |
+       <asp:Label ID="postcreated" runat="server" />
+       <!--<asp:Label ID="postcounter" runat="server" />-->
        <!--<asp:Hyperlink ID="linkComment" runat="server" Text="Post Comment" /> |-->
        <span id="spanAdmin" runat="server">
-        <asp:Hyperlink ID="linkEdit" runat="server" Text="Edit" /> |
+        | <asp:Hyperlink ID="linkEdit" runat="server" Text="Edit" />
        </span>
-       <asp:LinkButton ID="linkPreferred" OnClick="linkPreferred_Click" runat="server" Enabled="true" Text="Favorites" />
+       <!--<asp:LinkButton ID="linkPreferred" OnClick="linkPreferred_Click" runat="server" Enabled="true" Text="Favorites" />-->
        <Controls:TwitterShare id="twitterShare" runat="server" />
       </ContentTemplate>
      </asp:UpdatePanel>
-    </h3>
-    <asp:Label ID="postbody" runat="server" />
-    <asp:Panel ID="panelPicture" runat="server">
-     <a href='' runat="server" id="linkimage">
-      <asp:Image BorderWidth="0" runat="server" ID="postimage" />
-     </a>
-    </asp:Panel>
+    </div>
+    <div class="post">
+     <asp:Label ID="postbody" runat="server" />
+      <asp:Panel ID="panelPicture" runat="server">
+       <a href='' runat="server" id="linkimage">
+        <asp:Image BorderWidth="0" runat="server" ID="postimage" />
+       </a>
+      </asp:Panel>
+    </div>
 
  <asp:UpdatePanel runat="server" ID="panelImages" UpdateMode="Always" RenderMode="Inline">
   <ContentTemplate>
