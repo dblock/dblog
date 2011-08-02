@@ -3,10 +3,12 @@
 
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
+<%@ Register TagPrefix="Controls" TagName="TwitterScript" Src="TwitterScriptControl.ascx" %>
 
 <%@ OutputCache Duration="600" VaryByParam="*" VaryByCustom="Ticket" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+ <Controls:TwitterScript id="twitterScript" runat="server" />
  <asp:UpdatePanel ID="panelPicture" runat="server" UpdateMode="Conditional">
   <ContentTemplate>
    <div class="title">
@@ -22,9 +24,8 @@
  </asp:UpdatePanel>
  <asp:UpdatePanel runat="server" ID="panelEXIF" UpdateMode="Conditional">
   <ContentTemplate>
-   <Controls:PagedList Visible="false" runat="server" ID="exif" CssClass="table" AutoGenerateColumns="false"
-    AllowCustomPaging="false"  RepeatRows="100" CellPadding="2" ShowHeader="true" RepeatColumns="2">
-    <ItemStyle HorizontalAlign="Center" CssClass="table_tr_td" />
+   <Controls:PagedList Visible="false" runat="server" ID="exif" CssClass="exif" AutoGenerateColumns="false"
+    AllowCustomPaging="false" RepeatRows="0">
     <ItemTemplate>
       <%# Renderer.Render(Eval("Code")) %>:
       <b><%# Renderer.Render(Eval("Data")) %></b>   
@@ -37,7 +38,7 @@
    <Controls:PagedList runat="server" ID="images" CssClass="table" AllowCustomPaging="true"
     RepeatColumns="1" RepeatRows="1" CellPadding="2" ShowHeader="true" Font-Bold="true">
     <HeaderStyle CssClass="table_tr_th" HorizontalAlign="Center" />
-    <ItemStyle HorizontalAlign="Center" CssClass="table_tr_td" />
+    <ItemStyle HorizontalAlign="Center" CssClass="table_tr_td" Width="100%" />
     <pagerstyle cssclass="table_pager" position="TopAndBottom" nextpagetext="Next" prevpagetext="Prev"
      horizontalalign="Center" />
     <ItemTemplate>

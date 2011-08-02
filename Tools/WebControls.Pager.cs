@@ -188,7 +188,7 @@ namespace DBlog.Tools.WebControls
                         mNavigator.ColumnSpan = ColumnSpan;
                         mNavigator.Controls.Add(NavigatorTable);
 
-                        NavigatorTable.CssClass = "GridPager";
+                        NavigatorTable.CssClass = "pager";
                         NavigatorTable.Rows.Add(NavigatorRow);
 
                         NavigatorRow.Cells.Add(Numbers);

@@ -62,7 +62,7 @@ public class Global : DBlog.Tools.Web.HostedApplication
         DBlog.Data.Hibernate.Session.BeginRequest();
 
         string path = Request.Path.Substring(Request.ApplicationPath.Length).Trim("/".ToCharArray());
-        if (! string.IsNullOrEmpty(path))
+        if (! string.IsNullOrEmpty(path) && Request.HttpMethod != "POST")
         {
             // rewrite ShowPost.aspx link to a slug
             if (path == "ShowPost.aspx" && !string.IsNullOrEmpty(Request["id"]))

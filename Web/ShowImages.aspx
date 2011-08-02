@@ -20,19 +20,21 @@
     <pagerstyle cssclass="table_pager" position="TopAndBottom" nextpagetext="Next" prevpagetext="Prev"
      horizontalalign="Center" />
     <ItemTemplate>
-     <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>'>
-      <img border="0" alt='<%# Renderer.Render(Eval("Image.Description")) %>' src='ShowPicture.aspx?id=<%# Eval("Image.Id") %>' />
-     </a>
-     <div class="link_small">
-      <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>'>
-       <div>
-        <%# Renderer.Render(Eval("Image.Name")) %>
-        <%# GetCounter((TransitImage) Eval("Image")) %>
-       </div>
-       <div>
-        <%# GetComments((TransitImage) Eval("Image")) %>
-       </div>
-      </a>
+     <div class="image">
+         <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>'>
+          <img border="0" alt='<%# Renderer.Render(Eval("Image.Description")) %>' src='ShowPicture.aspx?id=<%# Eval("Image.Id") %>' />
+         </a>
+         <div class="link_small">
+          <a href='ShowImage.aspx?id=<%# Eval("Image.Id") %>'>
+           <div>
+            <%# Renderer.Render(Eval("Image.Name")) %>
+            <%# GetCounter((TransitImage) Eval("Image")) %>
+           </div>
+           <div>
+            <%# GetComments((TransitImage) Eval("Image")) %>
+           </div>
+          </a>
+         </div>
      </div>
     </ItemTemplate>
    </Controls:PagedList>

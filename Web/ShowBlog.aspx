@@ -21,7 +21,7 @@
     <div>
         <asp:Label ID="labelCriteria" CssClass="subtitle" runat="server" Visible="false" />
     </div>
-    <Controls:PagedList runat="server" ID="grid" OnItemCommand="list_ItemCommand">
+    <Controls:PagedList runat="server" ID="grid" OnItemCommand="list_ItemCommand" AllowCustomPaging="true">
      <ItemTemplate>
         <h3>
          <a href='<%# Eval("LinkUri") %>'>
