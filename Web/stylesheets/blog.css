@@ -157,6 +157,12 @@ div.post_separator
     margin: 1px;
     float: none;
     border-collapse: collapse;
+    font-style: normal;
+}
+
+blockquote, blockquote p 
+{
+    font-size: 100%;
 }
 
 .link_small
