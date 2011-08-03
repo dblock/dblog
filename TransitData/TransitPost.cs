@@ -157,6 +157,11 @@ namespace DBlog.TransitData
                 criteria.Add("Display = 1");
             }
 
+            if (string.IsNullOrEmpty(Query))
+            {
+                criteria.AddOrder("Sticky", WebServiceQuerySortDirection.Descending);
+            }
+
             base.Apply(criteria);
         }
 

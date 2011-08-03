@@ -182,9 +182,12 @@ public partial class ShowBlog : BlogPage
             ? WebServiceQuerySortDirection.Descending
             : (WebServiceQuerySortDirection)Enum.Parse(typeof(WebServiceQuerySortDirection), sortdirection);
 
-        options.SortExpression = string.IsNullOrEmpty(sortexpression)
-            ? "Created"
-            : sortexpression;
+        if (string.IsNullOrEmpty(options.Query))
+        {
+            options.SortExpression = string.IsNullOrEmpty(sortexpression)
+                ? "Created"
+                : sortexpression;
+        }
 
         return options;
     }
