@@ -1126,23 +1126,12 @@ namespace DBlog.WebServices
         {
             using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
             {
-                /*
-                ISession session = DBlog.Data.Hibernate.Session.Current;
-
-                StringCriteria criteria = new StringCriteria(session, "Post", typeof(Post));
-
-                if (options != null)
-                {
-                    options.Apply(criteria);
-                }
-
-                IQuery sqlquery = criteria.CreateQuery();
-
-                return (int)sqlquery.List().Count;
-                 */
-
                 ISession session = DBlog.Data.Hibernate.Session.Current;
                 CountQuery query = new CountQuery(session, typeof(DBlog.Data.Post), "Post");
+                if (options != null)
+                {
+                    options.Apply(query);
+                }
                 if (options != null) options.Apply(query);
                 return query.Execute<int>();
             }
@@ -1181,74 +1170,6 @@ namespace DBlog.WebServices
                 return result;
             }
         }
-
-        [WebMethod(Description = "Get posts count with joined tables.")]
-        public int GetPostsCountEx(string ticket, TransitPostQueryOptions options)
-        {
-            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
-            {
-                ISession session = DBlog.Data.Hibernate.Session.Current;
-
-                string[] tables = { "PostCounter", "Counter" };
-                StringCriteria criteria = new StringCriteria(session, "Post", typeof(Post), tables);
-                criteria.Add("{Post}.Post_Id = PostCounter.Post_Id");
-                criteria.Add("Counter.Counter_Id = PostCounter.Counter_Id");
-
-                if (options != null)
-                {
-                    options.Apply(criteria);
-                }
-
-                IQuery query = criteria.CreateQuery();
-
-                if (options != null)
-                {
-                    options.Apply(query);
-                }
-
-                return (int) query.List().Count;
-            }
-        }
-
-        [WebMethod(Description = "Get posts with joined tables.")]
-        public List<TransitPost> GetPostsEx(string ticket, TransitPostQueryOptions options)
-        {
-            using (DBlog.Data.Hibernate.Session.OpenConnection(GetNewConnection()))
-            {
-                ISession session = DBlog.Data.Hibernate.Session.Current;
-
-                string[] tables = { "PostCounter", "Counter" };
-                StringCriteria criteria = new StringCriteria(session, "Post", typeof(Post), tables);
-                criteria.Add("{Post}.Post_Id = PostCounter.Post_Id");
-                criteria.Add("Counter.Counter_Id = PostCounter.Counter_Id");
-
-                if (options != null)
-                {
-                    options.Apply(criteria);
-                }
-
-                criteria.AddOrder("Post.Sticky", WebServiceQuerySortDirection.Descending);
-
-                IQuery query = criteria.CreateQuery();
-
-                if (options != null)
-                {
-                    options.Apply(query);
-                }
-
-                IList list = query.List();
-
-                List<TransitPost> result = new List<TransitPost>(list.Count);
-
-                foreach (Post obj in list)
-                {
-                    result.Add(new TransitPost(session, obj, ticket));
-                }
-
-                return result;
-            }
-        }
-
 
         [WebMethod(Description = "Delete a post.")]
         public void DeletePost(string ticket, int id)

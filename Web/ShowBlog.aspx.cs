@@ -131,6 +131,7 @@ public partial class ShowBlog : BlogPage
         try
         {
             Query = e.Query;
+            grid.RepeatRows = 20;
             GetData(sender, e);
             panelPosts.Update();
         }
@@ -158,12 +159,8 @@ public partial class ShowBlog : BlogPage
     {
         TransitPostQueryOptions options = GetOptions();
 
-        string sortexpression = Request.Params["SortExpression"];
-        string sortdirection = Request.Params["SortDirection"];
-
         grid.DataSource = SessionManager.GetCachedCollection<TransitPost>(
-            (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPosts" : "GetPostsEx",
-            SessionManager.PostTicket, options);
+            "GetPosts", SessionManager.PostTicket, options);
 
         GetCriteria();
     }
@@ -194,13 +191,9 @@ public partial class ShowBlog : BlogPage
 
     public void GetData(object sender, EventArgs e)
     {
-        string sortexpression = Request.Params["SortExpression"];
-        string sortdirection = Request.Params["SortDirection"];
-
         grid.CurrentPageIndex = 0;
         grid.VirtualItemCount = SessionManager.GetCachedCollectionCount<TransitPost>(
-            (string.IsNullOrEmpty(sortexpression) || sortexpression.IndexOf('.') < 0) ? "GetPostsCount" : "GetPostsCountEx",
-            SessionManager.PostTicket, GetOptions());
+            "GetPostsCount", SessionManager.PostTicket, GetOptions());
 
         if (grid.VirtualItemCount == 0)
         {
@@ -221,10 +214,17 @@ public partial class ShowBlog : BlogPage
         StringBuilder queryText = new StringBuilder();
         if (!string.IsNullOrEmpty(Query))
         {
-            queryText.AppendFormat("Searching for \"{0}\"", Renderer.Render(Query));
-            if (TopicId != 0) queryText.AppendFormat(" in \"{0}\"", Renderer.Render(
-                SessionManager.GetCachedObject<TransitTopic>("GetTopicById", SessionManager.Ticket, TopicId).Name));
-            queryText.Append(" ...");
+            queryText.AppendFormat("Found {0} post{1} with \"{2}\"", 
+                grid.VirtualItemCount, grid.VirtualItemCount == 1 ? "" : "s",
+                Renderer.Render(Query));
+
+            if (TopicId != 0)
+            {
+                queryText.AppendFormat(" in \"{0}\"", Renderer.Render(
+                    SessionManager.GetCachedObject<TransitTopic>("GetTopicById", SessionManager.Ticket, TopicId).Name));
+            }
+
+            queryText.Append(".");
         }
         else if (TopicId > 0)
         {

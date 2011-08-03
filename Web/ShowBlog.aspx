@@ -43,7 +43,9 @@
         <div class="subtitle">
          Posted <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("dddd, dd MMMM yyyy") %>
          <%# GetImagesShortLink((int)Eval("ImagesCount"))%>
-         | <a href="<%# Eval("LinkUri") %>#disqus_thread" data-disqus-identifier="Post_<%# Eval("Id") %>">Post Comment</a>
+         <span id="disqusLink" runat="server" visible="<%# string.IsNullOrEmpty(Query) %>">
+          | <a href="<%# Eval("LinkUri") %>#disqus_thread" data-disqus-identifier="Post_<%# Eval("Id") %>">Post Comment</a>
+         </span>
          <!--| <%# GetCounter((long) Eval("Counter.Count")) %>-->
          <span id="SpanEditPost" runat="server" style='<%# (bool) SessionManager.IsAdministrator ? String.Empty : "display: none;" %>'>
           | <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
@@ -56,16 +58,17 @@
           | <asp:LinkButton ID="linkToggleDisplay" CommandName="Display" CommandArgument='<%# Eval("Id") %>'
            runat="server" Text='<%# (bool) Eval("Display") ? "Hide" : "Show" %>' />
          </span>
-         <Controls:TwitterShare id="twitterShare" runat="server" 
+         <Controls:TwitterShare id="twitterShare" runat="server" visible="<%# string.IsNullOrEmpty(Query) %>"
            Url='<%# String.Format("{0}{1}", SessionManager.WebsiteUrl, Eval("LinkUri")) %>'
            Text='<%# Eval("Title") %>'
            />
         </div>
-        <div class="post">
+
+        <div class="post" runat="server" visible="<%# string.IsNullOrEmpty(Query) %>">
          <%# RenderEx((string) Eval("Body"), (int) Eval("Id")) %>
         </div>
 
-        <asp:Panel CssClass="post_image" Width="100%" id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 %>'>
+        <asp:Panel CssClass="post_image" Width="100%" id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 && string.IsNullOrEmpty(Query) %>'>
          <a href='<%# GetPostLink((int) Eval("ImagesCount"), (int) Eval("Id"), (string) Eval("LinkUri"), (int) Eval("ImageId")) %>'>
           <img border="0" src='ShowPicture.aspx?Id=<%# Eval("ImageId") %>' />
          </a>

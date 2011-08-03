@@ -43,19 +43,10 @@
 
    <asp:UpdateProgress ID="menuProgress" runat="server">
       <ProgressTemplate>
-       <div style="text-align: center; vertical-align: top;">
-        <table border="0" cellpadding="0" cellspacing="0" id="busylight">
-         <tr valign="top">
-          <td style="background: white; width: 10px;">
-           <asp:Image ID="busyimage" runat="server" AlternateText="Busy" 
-            ImageAlign="AbsMiddle" ImageUrl="images/site/spinner.gif" />
-          </td>
-          <td valign="middle">
-           Working ...
-          </td>
-         </tr>
-        </table>
-       </div>
+        <div id="working">
+         <asp:Image ID="busyimage" runat="server" AlternateText="Busy" ImageUrl="images/site/spinner.gif" />
+         Working ...
+        </div>
       </ProgressTemplate>
      </asp:UpdateProgress>
      

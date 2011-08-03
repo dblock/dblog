@@ -215,10 +215,13 @@ ul.images li:nth-child(3)
     float: none;
 }
 
-#ctl00_menuProgress td
+#working
 {
     padding: 2px 5px 2px 5px;
+    left: 10px;
+    top: 10px;
     font-weight: bold;
+    position: absolute;
 }
 
 .hidden-code a

@@ -168,6 +168,12 @@ namespace DBlog.TransitData
                     TopicId)));
             }
 
+            if (! string.IsNullOrEmpty(Query))
+            {
+                criteria.Add(Expression.Sql(string.Format("( FREETEXT (Title, '{0}') OR FREETEXT (Body, '{0}') )",
+                    Renderer.SqlEncode(Query))));
+            }
+
             if (DateStart != DateTime.MinValue)
             {
                 criteria.Add(Expression.Ge("Created", DateStart));
@@ -197,6 +203,12 @@ namespace DBlog.TransitData
             {
                 query.Add(Expression.Sql(string.Format("EXISTS ( SELECT * FROM PostTopic t WHERE t.Post_Id = this_.Post_Id AND t.Topic_Id = {0})",
                     TopicId)));
+            }
+
+            if (! string.IsNullOrEmpty(Query))
+            {
+                query.Add(Expression.Sql(string.Format("( FREETEXT (Title, '{0}') OR FREETEXT (Body, '{0}') )",
+                    Renderer.SqlEncode(Query))));
             }
 
             if (DateStart != DateTime.MinValue)
