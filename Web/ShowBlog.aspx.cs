@@ -167,9 +167,6 @@ public partial class ShowBlog : BlogPage
 
     private TransitPostQueryOptions GetOptions()
     {
-        string sortexpression = Request.Params["SortExpression"];
-        string sortdirection = Request.Params["SortDirection"];
-
         TransitPostQueryOptions options = new TransitPostQueryOptions(TopicId, Query, grid.PageSize, grid.CurrentPageIndex);
         
         options.DateStart = DateStart;
@@ -178,16 +175,8 @@ public partial class ShowBlog : BlogPage
         options.PublishedOnly = ! SessionManager.IsAdministrator;
         options.DisplayedOnly = ! SessionManager.IsAdministrator;
 
-        options.SortDirection = string.IsNullOrEmpty(sortdirection)
-            ? WebServiceQuerySortDirection.Descending
-            : (WebServiceQuerySortDirection)Enum.Parse(typeof(WebServiceQuerySortDirection), sortdirection);
-
-        if (string.IsNullOrEmpty(options.Query))
-        {
-            options.SortExpression = string.IsNullOrEmpty(sortexpression)
-                ? "Created"
-                : sortexpression;
-        }
+        options.SortDirection = WebServiceQuerySortDirection.Descending;
+        options.SortExpression = string.IsNullOrEmpty(options.Query) ? "Created" : "Rank";
 
         return options;
     }

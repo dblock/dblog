@@ -4,6 +4,7 @@ using System.Text;
 using DBlog.Data;
 using NHibernate;
 using NHibernate.Criterion;
+using NHibernate.SqlCommand;
 using DBlog.Data.Hibernate;
 using DBlog.TransitData.References;
 using System.Configuration;
@@ -125,16 +126,16 @@ namespace DBlog.TransitData
 
         public override void Apply(StringCriteria criteria)
         {
+            if (!string.IsNullOrEmpty(Query))
+            {
+                criteria.AddJoin(string.Format("INNER JOIN FREETEXTTABLE(Post, (Title, Body), '{0}') AS KEY_TBL ON Post.Post_Id = KEY_TBL.[KEY]",
+                    Renderer.SqlEncode(Query)));
+            }
+
             if (TopicId != 0)
             {
                 criteria.Add(string.Format("EXISTS (SELECT * FROM PostTopic WHERE PostTopic.Post_Id = Post.Post_Id AND PostTopic.Topic_Id = {0})",
                     TopicId));
-            }
-
-            if (!string.IsNullOrEmpty(Query))
-            {
-                criteria.Add(string.Format("( FREETEXT (Post.Title, '{0}') OR FREETEXT (Post.Body, '{0}') )",
-                    Renderer.SqlEncode(Query)));
             }
 
             if (DateStart != DateTime.MinValue)
@@ -167,16 +168,16 @@ namespace DBlog.TransitData
 
         public override void Apply(ICriteria criteria)
         {
+            if (!string.IsNullOrEmpty(Query))
+            {
+                criteria.CreateAlias(string.Format("FREETEXTTABLE(Post, (Title, Body), '{0}')", Renderer.SqlEncode(Query)),
+                    "KEY_TBL", JoinType.InnerJoin).Add(Restrictions.Eq("Post.Post_Id", "KEY_TBL.[KEY]"));
+            }
+
             if (TopicId != 0)
             {
                 criteria.Add(Expression.Sql(string.Format("EXISTS ( SELECT * FROM PostTopic t WHERE t.Post_Id = this_.Post_Id AND t.Topic_Id = {0})",
                     TopicId)));
-            }
-
-            if (! string.IsNullOrEmpty(Query))
-            {
-                criteria.Add(Expression.Sql(string.Format("( FREETEXT (Title, '{0}') OR FREETEXT (Body, '{0}') )",
-                    Renderer.SqlEncode(Query))));
             }
 
             if (DateStart != DateTime.MinValue)

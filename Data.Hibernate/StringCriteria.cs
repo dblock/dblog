@@ -13,6 +13,7 @@ namespace DBlog.Data.Hibernate
         private ISession mSession = null;
         private string mTable = string.Empty;
         private StringBuilder mSubQuery = new StringBuilder();
+        private StringBuilder mJoin = new StringBuilder();
         private List<string> mOrderBy = new List<string>();
         private Type mType;
         private string[] mAdditionalTables = null;
@@ -35,6 +36,11 @@ namespace DBlog.Data.Hibernate
         {
             mSubQuery.Append(mSubQuery.Length > 0 ? " AND " : " WHERE ");
             mSubQuery.Append(sqlquery);
+        }
+
+        public void AddJoin(string sqlquery)
+        {
+            mJoin.Append(" " + sqlquery);
         }
 
         public void AddOrder(string orderby, WebServiceQuerySortDirection direction)
@@ -64,7 +70,8 @@ namespace DBlog.Data.Hibernate
                 }
             }
 
-            query.AppendLine(mSubQuery.ToString());
+            if (mJoin.Length > 0) query.AppendLine(mJoin.ToString());
+            if (mSubQuery.Length > 0) query.AppendLine(mSubQuery.ToString());
 
             if (mOrderBy.Count > 0)
             {
