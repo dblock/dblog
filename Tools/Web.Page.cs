@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Web;
 using System.Web.UI.WebControls;
 
 namespace DBlog.Tools.Web
@@ -38,6 +39,16 @@ namespace DBlog.Tools.Web
         public void SetDefaultButton(Button button)
         {
             PageManager.SetDefaultButton(button, this.Controls);
+        }
+
+        public string UrlPathAndQuery
+        {
+            get
+            {
+                string[] pathWithQuery = Request.Url.PathAndQuery.Split("?".ToCharArray());
+                pathWithQuery[0] = VirtualPathUtility.ToAppRelative(pathWithQuery[0]);
+                return string.Join("?", pathWithQuery);
+            }
         }
     }
 }

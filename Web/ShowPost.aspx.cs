@@ -122,7 +122,7 @@ public partial class ShowPost : BlogPage
                 if (!HasAccess)
                 {
                     Response.Redirect(string.Format("Login.aspx?r={0}&cookie={1}&access=denied",
-                        Renderer.UrlEncode(Request.Url.PathAndQuery), SessionManager.sDBlogPostCookieName));
+                        Renderer.UrlEncode(UrlPathAndQuery), SessionManager.sDBlogPostCookieName));
                 }
 
                 if (SessionManager.CountersEnabled)

@@ -103,7 +103,7 @@ public partial class NoticeControl : BlogControl
             string reportbugurl = string.Format("mailto:{0}?subject={1}&body={2}",
                        SessionManager.GetSetting(
                             "email", "admin@localhost.com"),
-                            Renderer.UrlEncode(Request.Url.PathAndQuery),
+                            Renderer.UrlEncode(UrlPathAndQuery),
                             Renderer.UrlEncode(message));
 
             Message = string.Format("{0}<br><small>This may be a bug. If you believe you should not be getting this error, " +

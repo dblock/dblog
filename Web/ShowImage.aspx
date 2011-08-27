@@ -74,7 +74,7 @@
             </a>
             @
             <%# SessionManager.Adjust((DateTime) Eval("CommentCreated")).ToString("dddd, dd MMMM yyyy") %>
-            <a href='EditImageComment.aspx?sid=<%# Eval("ImageId") %>&pid=<%# Eval("CommentId") %>&r=<%# Renderer.UrlEncode(Request.Url.PathAndQuery) %>'>
+            <a href='EditImageComment.aspx?sid=<%# Eval("ImageId") %>&pid=<%# Eval("CommentId") %>&r=<%# Renderer.UrlEncode(UrlPathAndQuery) %>'>
              Reply
             </a>
             <asp:LinkButton id="commentDelete" runat="server" Text="&#187; Delete" Visible='<%# SessionManager.IsAdministrator %>' 

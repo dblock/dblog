@@ -22,8 +22,8 @@ public class BlogAdminPage : BlogPage
         {
             if (!SessionManager.IsAdministrator)
             {
-                Response.Redirect(string.Format("Login.aspx?r={0}&access=admin", 
-                    Renderer.UrlEncode(Request.Url.PathAndQuery)));
+                Response.Redirect(string.Format("Login.aspx?r={0}&access=admin",
+                    Renderer.UrlEncode(UrlPathAndQuery)));
             }
         }
 

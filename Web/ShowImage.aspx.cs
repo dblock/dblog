@@ -92,7 +92,7 @@ public partial class ShowImage : BlogPage
             if (!HasAccess)
             {
                 Response.Redirect(string.Format("Login.aspx?r={0}&cookie={1}&access=denied",
-                    Renderer.UrlEncode(Request.Url.PathAndQuery), SessionManager.sDBlogPostCookieName));
+                    Renderer.UrlEncode(UrlPathAndQuery), SessionManager.sDBlogPostCookieName));
             }
 
             comments.OnGetDataSource += new EventHandler(comments_OnGetDataSource);
@@ -250,7 +250,7 @@ public partial class ShowImage : BlogPage
             PostImage = list[0];
             /*
             linkComment.NavigateUrl = string.Format("EditImageComment.aspx?sid={0}&r={1}",
-                PostImage.Image.Id, Renderer.UrlEncode(Request.Url.PathAndQuery));
+                PostImage.Image.Id, Renderer.UrlEncode(UrlPathAndQuery));
              */
         }
 

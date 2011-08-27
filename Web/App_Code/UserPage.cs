@@ -23,7 +23,7 @@ public class BlogUserPage : BlogPage
             if (!SessionManager.IsLoggedIn)
             {
                 Response.Redirect(string.Format("Login.aspx?r={0}&access=user",
-                    Renderer.UrlEncode(Request.Url.PathAndQuery)));
+                    Renderer.UrlEncode(UrlPathAndQuery)));
             }
         }
 

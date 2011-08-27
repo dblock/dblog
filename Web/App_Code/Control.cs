@@ -42,4 +42,14 @@ public class BlogControl : System.Web.UI.UserControl
         object notice = Page.Master.FindControl("noticeMenu");
         notice.GetType().GetProperty("Exception").SetValue(notice, ex, null);
     }
+
+    public string UrlPathAndQuery
+    {
+        get
+        {
+            string[] pathWithQuery = Request.Url.PathAndQuery.Split("?".ToCharArray());
+            pathWithQuery[0] = VirtualPathUtility.ToAppRelative(pathWithQuery[0]);
+            return string.Join("?", pathWithQuery);
+        }
+    }
 }
