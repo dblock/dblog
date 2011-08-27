@@ -172,8 +172,8 @@ public partial class ShowPost : BlogPage
         }
 
         panelPicture.Visible = (post.ImageId != 0 && post.ImagesCount <= 1);
-        postimage.ImageUrl = string.Format("ShowPicture.aspx?id={0}", post.ImageId);
-        linkimage.HRef = string.Format("ShowImage.aspx?id={0}&pid={1}", post.ImageId, post.Id);
+        postimage.ImageUrl = string.Format("./ShowPicture.aspx?id={0}", post.ImageId);
+        linkimage.HRef = string.Format("./ShowImage.aspx?id={0}&pid={1}", post.ImageId, post.Id);
 
         twitterShare.Url = string.Format("{0}{1}", SessionManager.WebsiteUrl, post.LinkUri);
         twitterShare.Text = post.Title;

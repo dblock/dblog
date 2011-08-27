@@ -38,7 +38,7 @@ public partial class BlogLogin : BlogPage
         {
             if (!IsPostBack)
             {
-                linkNewUser.NavigateUrl = string.Format("EditLogin.aspx?r={0}", Renderer.UrlEncode(ReturnUrl));
+                linkNewUser.NavigateUrl = string.Format("./EditLogin.aspx?r={0}", Renderer.UrlEncode(ReturnUrl));
                 inputUsername.Text = Request["username"];
 
                 switch (AccessDeniedType)

@@ -60,7 +60,7 @@ public partial class EditImageComment : BlogUserPage
             string result = Request.QueryString["r"];
             if (string.IsNullOrEmpty(result))
             {
-                return string.Format("ShowImage.aspx?id={0}", GetId("sid"));
+                return string.Format("./ShowImage.aspx?id={0}", GetId("sid"));
             }
             return result;
         }

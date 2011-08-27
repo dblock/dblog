@@ -643,7 +643,7 @@ namespace DBlog.TransitData
             content.Append("<div>");
 
             string link = string.IsNullOrEmpty(post.Slug)
-                ? string.Format("ShowPost.aspx?id={0}", post.Id)
+                ? string.Format("./ShowPost.aspx?id={0}", post.Id)
                 : string.Format("{0}", post.Slug);
             content.AppendFormat("<a href=\"{0}\">Read</a>",
                 link);

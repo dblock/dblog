@@ -70,7 +70,7 @@ public partial class EditPostComment : BlogUserPage
             string result = Request.QueryString["r"];
             if (string.IsNullOrEmpty(result))
             {
-                return string.Format("ShowPost.aspx?id={0}", GetId("sid"));
+                return string.Format("./ShowPost.aspx?id={0}", GetId("sid"));
             }
             return result;
         }

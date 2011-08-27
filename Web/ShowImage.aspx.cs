@@ -279,7 +279,7 @@ public partial class ShowImage : BlogPage
         {
             string result = Request.QueryString["r"];
             int pid = GetId("pid");
-            if (string.IsNullOrEmpty(result) && (pid > 0)) return string.Format("ShowPost.aspx?id={0}&PreferredOnly={1}", pid, PreferredOnly);
+            if (string.IsNullOrEmpty(result) && (pid > 0)) return string.Format("./ShowPost.aspx?id={0}&PreferredOnly={1}", pid, PreferredOnly);
             if (string.IsNullOrEmpty(result)) return ".";
             return result;
         }

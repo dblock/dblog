@@ -18,7 +18,7 @@ public partial class EditImage : BlogAdminPage
         get
         {
             string result = Request.QueryString["r"];
-            if (string.IsNullOrEmpty(result)) return "ManageImages.aspx";
+            if (string.IsNullOrEmpty(result)) return "./ManageImages.aspx";
             return result;
         }
     }
@@ -54,7 +54,7 @@ public partial class EditImage : BlogAdminPage
                     inputFileName.Text = Image.Name;
                     inputDescription.Text = Image.Description;
                     inputImage.PostedFile = new UploadControl.HttpPostedFile(Image.Name);
-                    image.ImageUrl = string.Format("ShowPicture.aspx?id={0}", RequestId);
+                    image.ImageUrl = string.Format("./ShowPicture.aspx?id={0}", RequestId);
                 }
                 else
                 {
