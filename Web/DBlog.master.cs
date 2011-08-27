@@ -74,10 +74,20 @@ public partial class DBlogMaster : MasterPage
                         c.Count, c.Count != 1 ? "s" : string.Empty, c.Created.ToString("d"));
                 }
 
+                linkAtomPost.Href = string.Format("{0}AtomSvc.aspx",
+                    SessionManager.WebsiteUrl);
+                linkAtomPost.Attributes["title"] = string.Format("{0} {1}",
+                    SessionManager.GetSetting("title", "Untitled"),
+                    linkAtom.Attributes["title"]);
+
+                linkAtom.Href = string.Format("{0}AtomBlog.aspx",
+                    SessionManager.WebsiteUrl);
                 linkAtom.Attributes["title"] = string.Format("{0} {1}",
                     SessionManager.GetSetting("title", "Untitled"),
                     linkAtom.Attributes["title"]);
 
+                linkRss.Href = string.Format("{0}RssBlog.aspx",
+                    SessionManager.WebsiteUrl);
                 linkRss.Attributes["title"] = string.Format("{0} {1}",
                     SessionManager.GetSetting("title", "Untitled"),
                     linkRss.Attributes["title"]);
@@ -99,12 +109,12 @@ public partial class DBlogMaster : MasterPage
             }
             else if (e.DateEnd != DateTime.MaxValue && e.DateStart != DateTime.MinValue)
             {
-                Response.Redirect(string.Format("ShowBlog.aspx?start={0}&end={1}", Renderer.UrlEncode(e.DateStart), Renderer.UrlEncode(e.DateEnd)));
+                Response.Redirect(string.Format("?start={0}&end={1}", Renderer.UrlEncode(e.DateStart), Renderer.UrlEncode(e.DateEnd)));
                 panelDates.Update();
             }
             else
             {
-                Response.Redirect("ShowBlog.aspx");
+                Response.Redirect(".");
                 panelDates.Update();
             }
         }
@@ -124,7 +134,7 @@ public partial class DBlogMaster : MasterPage
             }
             else
             {
-                Response.Redirect(string.Format("ShowBlog.aspx?q={0}", Renderer.UrlEncode(e.Query)));
+                Response.Redirect(string.Format("?q={0}", Renderer.UrlEncode(e.Query)));
                 panelSearch.Update();
             }
         }
@@ -144,7 +154,7 @@ public partial class DBlogMaster : MasterPage
             }
             else
             {
-                Response.Redirect(string.Format("ShowBlog.aspx?id={0}", e.TopicId));
+                Response.Redirect(string.Format("?id={0}", e.TopicId));
                 // panelTopics.Update();
             }
         }
@@ -159,7 +169,7 @@ public partial class DBlogMaster : MasterPage
         try
         {
             SessionManager.Logout();
-            Response.Redirect("ShowBlog.aspx");
+            Response.Redirect(".");
         }
         catch (Exception ex)
         {

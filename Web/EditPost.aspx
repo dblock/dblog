@@ -10,7 +10,7 @@
   Post
  </div>
  <div class="link">
-  <a href="ShowBlog.aspx">Back</a>
+  <a href=".">Back</a>
   | <asp:Hyperlink ID="linkView" runat="server" Text="View" />
  </div>
  <table class="table" cellpadding="2">

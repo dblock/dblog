@@ -43,7 +43,7 @@
                     </object>
                 </td>
                 <td align="center" width="200">
-                    <a href="ShowBlog.aspx">
+                    <a href=".">
                         <img src='<% Response.Write(Renderer.Render(SessionManager.GetSetting("image", "images/blog/blog.gif"))); %>'
                             width='<% Response.Write(Renderer.Render(SessionManager.GetSetting("imagewidth", "72"))); %>'
                             height='<% Response.Write(Renderer.Render(SessionManager.GetSetting("imageheight", "49"))); %>'
@@ -53,7 +53,7 @@
                         <% Response.Write(Renderer.Render(SessionManager.GetSetting("title", ""))); %>
                     </div>
                     <div style="font-weight: bold;">
-                        <a href="ShowBlog.aspx">Blog</a>
+                        <a href=".">Blog</a>
                     </div>
                     <div style="font-weight: bold;">
                         <asp:LinkButton OnClick="linkContact_Click" ID="linkContact" runat="server" Text="Contact" />

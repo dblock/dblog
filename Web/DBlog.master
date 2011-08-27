@@ -30,6 +30,7 @@
  <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png" />
  <link id="linkRss" runat="server" rel="alternate" type="application/rss+xml" title="(RSS)" href="RssBlog.aspx" /> 
  <link id="linkAtom" runat="server" rel="alternate" type="application/atom+xml" title="(Atom)" href="AtomBlog.aspx" /> 
+ <link id="linkAtomPost" runat="server" rel="service" type="application/atomsvc+xml" href="AtomSvc.aspx">
 </head>
 <body>
 
@@ -60,7 +61,7 @@
       <div class="three columns sidebar">
        <nav>
         <h3 id="logo">
-         <a href="ShowBlog.aspx">
+         <a href=".">
           <asp:Image runat="server" ID="imageMain" ImageUrl="images/blog/blog.gif" />
          </a>
         </h3>
@@ -103,7 +104,7 @@
             <a href="Login.aspx"><font face="Symbol">p</font></a>
             | <a href="StatsSummary.aspx">s</a>
             <!--
-            | <a href="ShowBlog.aspx?SortDirection=Descending&SortExpression=Counter.Count">pop</a>
+            | <a href="?SortDirection=Descending&SortExpression=Counter.Count">pop</a>
             -->
             | <a href="ShowImages.aspx">pics</a>
             <!--| <a href="ShowComments.aspx">c</a>-->

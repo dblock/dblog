@@ -86,6 +86,10 @@ public class Global : DBlog.Tools.Web.HostedApplication
             {
                 Response.RedirectPermanent(Request["slug"]);
             }
+            else if (path == "ShowBlog.aspx")
+            {
+                Response.RedirectPermanent(".");
+            }
             // rewrite a slug link to a ShowPost.aspx internal url
             else if (path.IndexOf('.') < 0)
             {

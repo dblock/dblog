@@ -1,68 +1,87 @@
-<%@ Page Language="C#" AutoEventWireup="true" CodeFile="Default.aspx.cs" Inherits="_Default" Title="" %>
+<%@ Page Language="C#" MasterPageFile="~/DBlog.master" AutoEventWireup="true" CodeFile="Default.aspx.cs"
+ Inherits="ShowBlog" Title="Blog" %>
 
+<%@ Register TagPrefix="Controls" TagName="Topics" Src="ViewTopicsControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="Search" Src="SearchControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="DateRange" Src="DateRangeControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="TwitterScript" Src="TwitterScriptControl.ascx" %>
+<%@ Register TagPrefix="Controls" TagName="TwitterShare" Src="TwitterShareControl.ascx" %>
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 
+<%@ Import Namespace="DBlog.TransitData" %>
+
 <%@ OutputCache Duration="600" VaryByParam="*" VaryByCustom="Ticket" %>
 
-<!--[if lt IE 7 ]><html class="ie ie6" lang="en"> <![endif]-->
-<!--[if IE 7 ]><html class="ie ie7" lang="en"> <![endif]-->
-<!--[if IE 8 ]><html class="ie ie8" lang="en"> <![endif]-->
-<!--[if (gte IE 9)|!(IE)]><!--><html lang="en"> <!--<![endif]-->
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
- <meta charset="utf-8" />
- <!--[if lt IE 9]>
-    <script src="javascripts/html5.js"></script>
- <![endif]-->
- <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" /> 
- <link rel="stylesheet" href="stylesheets/base.css" />
- <link rel="stylesheet" href="stylesheets/skeleton.css" />
- <link rel="stylesheet" href="stylesheets/layout.css" />
- <link rel="stylesheet" href="stylesheets/blog.css" />
- <link rel="shortcut icon" href="images/favicon.ico" />
- <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
- <link rel="apple-touch-icon" sizes="72x72" href="images/apple-touch-icon-72x72.png" />
- <link rel="apple-touch-icon" sizes="114x114" href="images/apple-touch-icon-114x114.png" />
- <meta http-equiv="refresh" content="1;url=ShowBlog.aspx">
- <link id="linkRss" runat="server" rel="alternate" type="application/rss+xml" title="(RSS)" href="RssBlog.aspx" /> 
- <link id="linkAtom" runat="server" rel="alternate" type="application/atom+xml" title="(Atom)" href="AtomPost.aspx" /> 
- <link id="linkAtomPost" runat="server" rel="service" type="application/atomsvc+xml" href="AtomSvc.aspx">
-</head>
-<body bgcolor="#FFFFFF">
- <center>
-  <table>
-   <tr>
-    <td align="left" height="100">
-     &nbsp;</td>
-   </tr>
-   <tr>
-    <td align="center" width="600" height="100">
-     <a href="ShowBlog.aspx">
-      <img src='<% Response.Write(Renderer.Render(SessionManager.GetSetting("image", "images/blog/blog.gif"))); %>'
-       width='<% Response.Write(Renderer.Render(SessionManager.GetSetting("imagewidth", "72"))); %>'
-       height='<% Response.Write(Renderer.Render(SessionManager.GetSetting("imageheight", "49"))); %>'
-       align="absmiddle" alt='<% Response.Write(Renderer.Render(SessionManager.GetSetting("description", ""))); %>'
-       border="0"></a>
-     <div style="margin: 10px;">
-      <% Response.Write(Renderer.Render(SessionManager.GetSetting("title", ""))); %>
-     </div>
-     <div style="margin: 10px; font-weight: bold;">
-      <a href="ShowBlog.aspx">click click click</a>
-     </div>
-    </td>
-   </tr>
-   <tr>
-    <td align="center">
-     <font size="0.75em">
-      <% Response.Write(Renderer.Render(SessionManager.GetSetting("description", ""))); %>
-      <br>
-      <% Response.Write(Renderer.Render(SessionManager.GetSetting("copyright", ""))); %>
-     </font>
-    </td>
-   </tr>
-  </table>
- </center>
-</body>
-</html>
+<asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
+  <Controls:TwitterScript id="twitterScript" runat="server" />
+  <asp:UpdatePanel UpdateMode="Conditional" runat="server" ID="panelPosts" RenderMode="Inline">
+   <ContentTemplate>
+    <asp:Label ID="labelPosts" CssClass="title" runat="server" Visible="false" />
+    <div>
+        <asp:Label ID="labelCriteria" CssClass="subtitle" runat="server" Visible="false" />
+    </div>
+    <Controls:PagedList runat="server" ID="grid" OnItemCommand="list_ItemCommand" AllowCustomPaging="true">
+     <ItemTemplate>
+        <h3>
+         <a href='<%# Eval("LinkUri") %>'>
+          <%# RenderEx((string) Eval("Title"), (int) Eval("Id")) %>
+         </a>
+         <span style="<%# (bool) Eval("Publish") ? "display: none;" : "" %>">
+          <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
+           <img src="images/site/draft.gif" alt="Draft" border="0" />
+          </a>
+         </span>
+         <span style="<%# (bool) Eval("Display") ? "display: none;" : "" %>">
+          <img src="images/site/hidden.gif" alt="Hidden" border="0" />
+         </span>
+         <span style="<%# (bool) Eval("Sticky") ? "" : "display: none;" %>">
+          <img src="images/site/sticky.gif" alt="Sticky" border="0" />
+         </span>
+        </h3>
+
+        <div class="subtitle">
+         Posted <%# SessionManager.Adjust((DateTime) Eval("Created")).ToString("dddd, dd MMMM yyyy") %>
+         <%# GetImagesShortLink((int)Eval("ImagesCount"))%>
+         <span id="disqusLink" runat="server" visible="<%# string.IsNullOrEmpty(Query) %>">
+          | <a href="<%# Eval("LinkUri") %>#disqus_thread" data-disqus-identifier="Post_<%# Eval("Id") %>">Post Comment</a>
+         </span>
+         <!--| <%# GetCounter((long) Eval("Counter.Count")) %>-->
+         <span id="SpanEditPost" runat="server" style='<%# (bool) SessionManager.IsAdministrator ? String.Empty : "display: none;" %>'>
+          | <a href='EditPost.aspx?id=<%# Eval("Id") %>'>
+           Edit
+          </a>
+          | <asp:LinkButton ID="linkDelete" CommandName="Delete" CommandArgument='<%# Eval("Id") %>' 
+           runat="server" Text="Delete" OnClientClick="return confirm('Are you sure you want to do this?');" />
+          | <asp:LinkButton ID="linkToggleSticky" CommandName="Sticky" CommandArgument='<%# Eval("Id") %>'
+           runat="server" Text='<%# (bool) Eval("Sticky") ? "Unstick" : "Stick" %>' />
+          | <asp:LinkButton ID="linkToggleDisplay" CommandName="Display" CommandArgument='<%# Eval("Id") %>'
+           runat="server" Text='<%# (bool) Eval("Display") ? "Hide" : "Show" %>' />
+         </span>
+         <Controls:TwitterShare id="twitterShare" runat="server" visible="<%# string.IsNullOrEmpty(Query) %>"
+           Url='<%# String.Format("{0}{1}", SessionManager.WebsiteUrl, Eval("LinkUri")) %>'
+           Text='<%# Eval("Title") %>'
+           />
+        </div>
+
+        <div class="post" runat="server" visible="<%# string.IsNullOrEmpty(Query) %>">
+         <%# RenderEx((string) Eval("Body"), (int) Eval("Id")) %>
+        </div>
+
+        <asp:Panel CssClass="post_image" Width="100%" id="panelPicture" runat="server" visible='<%# (int) Eval("ImageId") > 0 && string.IsNullOrEmpty(Query) %>'>
+         <a href='<%# GetPostLink((int) Eval("ImagesCount"), (int) Eval("Id"), (string) Eval("LinkUri"), (int) Eval("ImageId")) %>'>
+          <img border="0" src='ShowPicture.aspx?Id=<%# Eval("ImageId") %>' />
+         </a>
+         <div class="link">
+          <a href='<%# Eval("LinkUri") %>'>
+           <%# GetImagesLink((int) Eval("ImagesCount")) %>
+          </a>
+         </div>
+        </asp:Panel>
+
+        <div class="post_separator">&nbsp;</div>
+       </itemtemplate>
+    </Controls:PagedList>
+   </ContentTemplate>
+  </asp:UpdatePanel>
+</asp:Content>

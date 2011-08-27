@@ -18,7 +18,7 @@
   <div class="subtitle">
    <asp:UpdatePanel runat="server" ID="panelButtons" UpdateMode="Always" RenderMode="Inline">
     <ContentTemplate>
-     <a href="ShowBlog.aspx">Back</a> |
+     <a href=".">Back</a> |
      <asp:Label ID="posttopics" runat="server" CssClass="topics" /> |
      <asp:Label ID="postcreated" runat="server" />
      <!--<asp:Label ID="postcounter" runat="server" />-->

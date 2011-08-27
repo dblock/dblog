@@ -71,7 +71,7 @@ public partial class BlogLogin : BlogPage
         get
         {
             string result = Request.QueryString["r"];
-            if (string.IsNullOrEmpty(result)) return "ShowBlog.aspx";
+            if (string.IsNullOrEmpty(result)) return ".";
             return result;
         }
     }

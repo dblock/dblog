@@ -32,6 +32,6 @@
    </ItemTemplate>
   </asp:Repeater>
  </ul>
- <asp:HyperLink ID="linkPrev" runat="server" Text="&#171; Prev" NavigateUrl="ShowBlog.aspx" />
- | <asp:HyperLink ID="linkNext" runat="server" Text="Next &#187;" NavigateUrl="ShowBlog.aspx" />
+ <asp:HyperLink ID="linkPrev" runat="server" Text="&#171; Prev" NavigateUrl="." />
+ | <asp:HyperLink ID="linkNext" runat="server" Text="Next &#187;" NavigateUrl="." />
 </asp:Content>

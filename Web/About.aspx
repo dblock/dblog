@@ -28,7 +28,7 @@
   Software
  </div>
  <div class="subtitle">
-  DBlog.NET, written in C#, ASP.NET by dB.
+  <a href="https://github.com/dblock/dblog" target="_blank">DBlog.NET</a>, written in C#, ASP.NET by dB.
   <br />
   <a href="http://www.dblock.org/" target="_blank">www.dblock.org</a>
  </div>
