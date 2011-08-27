@@ -60,7 +60,7 @@ public partial class EditReference : BlogAdminPage
             Reference.Result = CheckInput("Result", inputResult.Text);
             SessionManager.BlogService.CreateOrUpdateReference(SessionManager.Ticket, Reference);
             SessionManager.Invalidate<TransitReference>();
-            Response.Redirect("ManageReferences.aspx");
+            Response.Redirect("./ManageReferences.aspx");
         }
         catch (Exception ex)
         {

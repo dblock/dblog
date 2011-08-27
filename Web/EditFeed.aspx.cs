@@ -107,7 +107,7 @@ public partial class EditFeed : BlogAdminPage
 
             SessionManager.BlogService.CreateOrUpdateFeed(SessionManager.Ticket, Feed);
             SessionManager.Invalidate<TransitFeed>();
-            Response.Redirect("ManageFeeds.aspx");
+            Response.Redirect("./ManageFeeds.aspx");
         }
         catch (Exception ex)
         {

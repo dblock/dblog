@@ -56,7 +56,7 @@ public partial class EditTopic : BlogAdminPage
             Topic.Name = CheckInput("Name", inputName.Text);
             SessionManager.BlogService.CreateOrUpdateTopic(SessionManager.Ticket, Topic);
             SessionManager.Invalidate<TransitTopic>();
-            Response.Redirect("ManageTopics.aspx");
+            Response.Redirect("./ManageTopics.aspx");
         }
         catch (Exception ex)
         {

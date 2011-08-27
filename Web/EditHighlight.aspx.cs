@@ -91,7 +91,7 @@ public partial class EditHighlight : BlogAdminPage
             Highlight.Description = inputDescription.Text;
             SessionManager.BlogService.CreateOrUpdateHighlight(SessionManager.Ticket, Highlight);
             SessionManager.Invalidate<TransitHighlight>();
-            Response.Redirect("ManageHighlights.aspx");
+            Response.Redirect("./ManageHighlights.aspx");
         }
         catch (Exception ex)
         {

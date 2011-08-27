@@ -89,7 +89,7 @@ public partial class EditPostComment : BlogUserPage
                 SessionManager.Ticket, GetId("sid"), t_comment);
             SessionManager.Invalidate<TransitPost>();
             SessionManager.Invalidate<TransitPostComment>();
-            Response.Redirect(string.Format("ShowPost.aspx?id={0}", GetId("sid")));
+            Response.Redirect(string.Format("./ShowPost.aspx?id={0}", GetId("sid")));
         }
         catch (Exception ex)
         {

@@ -48,7 +48,7 @@ public class BlogControl : System.Web.UI.UserControl
         get
         {
             string[] pathWithQuery = Request.Url.PathAndQuery.Split("?".ToCharArray());
-            pathWithQuery[0] = VirtualPathUtility.ToAppRelative(pathWithQuery[0]);
+            pathWithQuery[0] = VirtualPathUtility.ToAppRelative(pathWithQuery[0]).Replace("~/", "");
             return string.Join("?", pathWithQuery);
         }
     }

@@ -110,7 +110,7 @@ public partial class BlogLogin : BlogPage
 
     protected void linkResetPassword_Click(object sender, EventArgs e)
     {
-        Response.Redirect(string.Format("ResetPasswordEmail.aspx?username={0}", 
+        Response.Redirect(string.Format("./ResetPasswordEmail.aspx?username={0}", 
             Renderer.UrlEncode(inputUsername.Text)));
     }
 }

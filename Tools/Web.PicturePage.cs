@@ -124,7 +124,7 @@ namespace DBlog.Tools.Web
 
                 if (p.Bitmap == null)
                 {
-                    Response.Redirect("images/site/access.gif", true);
+                    Response.Redirect("./images/site/access.gif", true);
                     return;
                 }
 

@@ -59,7 +59,7 @@ public partial class EditReferrerHostRollup : BlogAdminPage
             SessionManager.BlogService.CreateOrUpdateReferrerHostRollup(SessionManager.Ticket, ReferrerHostRollup);
             SessionManager.Invalidate<TransitReferrerHost>();
             SessionManager.Invalidate<TransitReferrerHostRollup>();
-            Response.Redirect("ManageReferrerHostRollups.aspx");
+            Response.Redirect("./ManageReferrerHostRollups.aspx");
         }
         catch (Exception ex)
         {
