@@ -152,6 +152,16 @@ div.post_separator
     height: 20px;
 }
 
+blockquote, blockquote p
+{
+    font-size: 100%;
+}
+
+blockquote div
+{
+    background: red;
+}
+
 .wlWriterEditableSmartContent ol li
 {
     margin: 1px;
@@ -160,9 +170,25 @@ div.post_separator
     font-style: normal;
 }
 
-blockquote, blockquote p 
+.le-pavsc-container
 {
-    font-size: 100%;
+    border: #000080 1px solid;
+    color: #000; 
+    font-family: 'Courier New', Courier, Monospace; 
+    font-size: 10pt;
+    margin-bottom: 10px;
+    overflow: auto;
+    white-space: nowrap;
+}
+
+.le-pavsc-container ol li
+{
+    background: #fff;
+}
+
+.le-pavsc-container ol li.even
+{
+    background: #f3f3f3;
 }
 
 .link_small
