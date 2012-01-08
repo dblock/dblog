@@ -6,36 +6,25 @@
 <%@ Register TagPrefix="Controls" Namespace="DBlog.Tools.WebControls" Assembly="DBlog.Tools" %>
 <%@ Register TagPrefix="Tools" Namespace="DBlog.Tools.Web" Assembly="DBlog.Tools" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="Server">
- <div class="title">
+ <p class="title">
   <asp:Label ID="labelTitle" runat="Server" />
- </div>
- <div class="subtitle">
-  <asp:Label ID="labelDescription" runat="Server" />
- </div>
- <div class="subtitle">
+  <font size="-2">
+    <div><asp:Label ID="labelDescription" runat="Server" /> | 
+    <asp:Label ID="labelCopyright" runat="Server" /> | 
+    up for <asp:Label ID="labelUptime" runat="Server" /></div>
+  </font>
+ </p>
+ <p>
+    <img src="images/site/about.jpg" />
+ </p>
+ <p>
   <asp:Label ID="labelDetails" runat="Server" />
- </div>
- <div class="subtitle">
-  <asp:Label ID="labelCopyright" runat="Server" />
- </div>
+ </p>
  <div class="title">
   Contact
  </div>
- <div class="subtitle">
-  <asp:LinkButton ID="linkEmail" runat="Server" Text="E-Mail" />
- </div>
- <div class="title">
-  Software
- </div>
- <div class="subtitle">
-  <a href="https://github.com/dblock/dblog" target="_blank">DBlog.NET</a>, written in C#, ASP.NET by dB.
-  <br />
-  <a href="http://www.dblock.org/" target="_blank">www.dblock.org</a>
- </div>
- <div class="title">
-  Uptime
- </div>
- <div class="subtitle">
-  <asp:Label ID="labelUptime" runat="server" />
+ <div>
+  Please don't heistate to <asp:LinkButton ID="linkEmail" runat="Server" Text="email" /> or find me on 
+  <asp:Hyperlink ID="linkTwitter" runat="Server" Text="twitter" />.
  </div>
 </asp:Content>
