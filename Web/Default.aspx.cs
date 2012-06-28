@@ -39,7 +39,20 @@ public partial class ShowBlog : BlogPage
 
             if (!IsPostBack)
             {
-                TopicId = RequestId;
+                String topicName = Request.Params["t"];
+                if (! string.IsNullOrEmpty(topicName))
+                {
+                    TransitTopic topic = SessionManager.GetCachedObject<TransitTopic>("GetTopicByName", SessionManager.Ticket, topicName);
+                    if (topic == null)
+                    {
+                        throw new Exception("Invalid topic: " + topicName);
+                    }
+                    TopicId = topic.Id;
+                }
+                else
+                {
+                    TopicId = RequestId;
+                }
                 Query = Request.Params["q"];
                 GetData(sender, e);
             }

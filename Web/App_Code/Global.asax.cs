@@ -90,6 +90,16 @@ public class Global : DBlog.Tools.Web.HostedApplication
             {
                 Response.RedirectPermanent(".");
             }
+            // rewrite topic
+            else if (path.StartsWith("@"))
+            {
+                string[] parts = path.Split("@".ToCharArray(), 2);
+                if (parts.Length != 2)
+                {
+                    throw new Exception("Invalid topic in '" + path + "'.");
+                }
+                HttpContext.Current.RewritePath(string.Format("Default.aspx?t={0}", parts[1]));
+            }
             // rewrite a slug link to a ShowPost.aspx internal url
             else if (path.IndexOf('.') < 0)
             {
